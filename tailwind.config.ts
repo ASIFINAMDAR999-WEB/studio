@@ -130,7 +130,15 @@ export default {
         },
         'pulse-glow': {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.7', transform: 'scale(1.1)' },
+          '50%': { opacity: '0.7', transform: 'scale(1.05)' },
+        },
+        'spin-fast': {
+            '0%': { transform: 'rotate(0deg)' },
+            '100%': { transform: 'rotate(360deg)' },
+        },
+        'spin-slow': {
+            '0%': { transform: 'rotate(0deg)' },
+            '100%': { transform: 'rotate(-360deg)' },
         }
       },
       animation: {
@@ -144,7 +152,9 @@ export default {
         'text-gradient': 'text-gradient 3s linear infinite',
         'float': 'float 4s ease-in-out infinite',
         'press': 'press 0.2s ease-in-out',
-        'pulse-glow': 'pulse-glow 2s infinite ease-in-out',
+        'pulse-glow': 'pulse-glow 2.5s infinite ease-in-out',
+        'spin-fast': 'spin-fast 1s linear infinite',
+        'spin-slow': 'spin-slow 3s linear infinite',
       },
     },
   },
