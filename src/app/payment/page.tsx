@@ -16,15 +16,17 @@ function PaymentPageComponent() {
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const plan = plans.find((p) => p.name === planName) || plans[0];
 
-  const bitcoinAddress = process.env.NEXT_PUBLIC_BITCOIN_ADDRESS || 'bc1q5c1kxvk8u9';
+  const bitcoinAddress = process.env.NEXT_PUBLIC_BITCOIN_ADDRESS || 'YOUR_BITCOIN_ADDRESS_HERE';
   const { toast } = useToast()
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(bitcoinAddress);
-    toast({
-      title: "Copied to clipboard",
-      description: "Bitcoin address has been copied to your clipboard.",
-    })
+    if (bitcoinAddress) {
+      navigator.clipboard.writeText(bitcoinAddress);
+      toast({
+        title: "Copied to clipboard",
+        description: "Bitcoin address has been copied to your clipboard.",
+      })
+    }
   };
 
   return (
@@ -34,15 +36,15 @@ function PaymentPageComponent() {
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-8 md:py-16">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground animate-fade-in-up">
               Complete Your Purchase
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-4 text-lg text-muted-foreground animate-fade-in-up [animation-delay:200ms]">
               Follow the steps below to securely complete your payment.
             </p>
           </div>
 
-          <Card className="bg-muted/30 border-l-4 border-primary mb-8">
+          <Card className="bg-muted/30 border-l-4 border-primary mb-8 animate-fade-in-up [animation-delay:400ms]">
             <CardContent className="pt-6">
               <div className="flex gap-4 items-start">
                 <Terminal className="h-5 w-5 text-primary mt-1" />
@@ -54,7 +56,7 @@ function PaymentPageComponent() {
             </CardContent>
           </Card>
           
-          <div className="space-y-8">
+          <div className="space-y-8 animate-fade-in-up [animation-delay:600ms]">
             <div>
               <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
               <Card className="shadow-lg">
@@ -108,7 +110,7 @@ function PaymentPageComponent() {
                       </ol>
                     </div>
 
-                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6" asChild>
+                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 animate-press" asChild>
                       <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
                     </Button>
                 </CardContent>
