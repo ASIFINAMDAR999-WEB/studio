@@ -42,9 +42,9 @@ const prompt = ai.definePrompt({
   👑 𝐆𝐎𝐋𝐃 𝐏𝐋𝐀𝐍 — $𝟗𝟎  👑
   1 Month Unlimited Calling — no per-minute charges
   Includes:
-  • Full Call Spoofing Access 
+  • Full Call Spoofing
   • Standard Voice Changer
-  • Website & Application Access 
+  • Website & Application Access
 
   👑 𝐃𝐈𝐀𝐌𝐎𝐍𝐃 𝐏𝐋𝐀𝐍 — $𝟐𝟎𝟎 👑
   2Months Unlimited Calling — no per-minute charges
@@ -52,12 +52,12 @@ const prompt = ai.definePrompt({
   • Advanced Call Spoofing
   • Premium Voice Changer
   • Enhanced Call Routing
-  • Advance Otp bot Access 
-  • Website & Application Access 
-  • Email & SMS Spoofing Access 
-  • IVR System 
+  • Advance Otp bot Access
+  • Website & Application Access
+  • Email & SMS Spoofing Access
+  • IVR System
   • Toll-Free Number Spoofing
-  • SIP Trunk Access (inbound & outbound)
+  • SIP Trunk Access
 
   👑 𝐏𝐋𝐀𝐓𝐈𝐍𝐔𝐌 𝐏𝐋𝐀𝐍 —  $𝟑𝟎𝟎  👑
   3Months Unlimited Calling — no per-minute charges
@@ -66,28 +66,28 @@ const prompt = ai.definePrompt({
   • Premium Voice Changer
   • Enhanced Routing
   • Priority Support
-  • Advance Otp bot Access 
+  • Advance Otp bot Access
   • Full API & Custom Integration
-  • Website & Application Access 
+  • Website & Application Access
   • Email & SMS Spoofing Access
   • IVR System
   • Premium Toll-Free Number Spoofing
-  • Premium SIP Trunk Access (inbound & outbound, with dedicated routing and enhanced quality)
+  • Premium SIP Trunk Access
 
   👑 𝐏𝐋𝐀𝐓𝐈𝐍𝐔𝐌 𝟏-𝐌𝐎𝐍𝐓𝐇
-   𝐏𝐋𝐀𝐍 — $𝟏𝟎𝟎 👑 
+   𝐏𝐋𝐀𝐍 — $𝟏𝟎𝟎 👑
   1 Months Unlimited Calling — no per-minute charges
   Includes all premium features:
-  • Advanced Call Spoofing
+  • Full Call Spoofing
   • Premium Voice Changer
   • Enhanced Routing
   • Priority Support
-  • Advance Otp bot Access 
-  • Website & Application Access 
-  • Email & SMS Spoofing Access 
+  • Advance Otp bot Access
+  • Website & Application Access
+  • Email & SMS Spoofing Access
   • IVR System
-  • Premium Toll-Free Number Spoofing
-  • Premium SIP Trunk Access (inbound & outbound, with dedicated routing and enhanced quality)
+  • Premium Toll-Free Number Spoofing
+  • Premium SIP Trunk Access
 
   Here is the user's input:
   Desired Features: {{{desiredFeatures}}}

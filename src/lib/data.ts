@@ -38,7 +38,7 @@ export const plans: Plan[] = [
     duration: '/month',
     description: '1 Month Unlimited Calling — no per-minute charges',
     features: [
-      'Full Call Spoofing Access',
+      'Full Call Spoofing',
       'Standard Voice Changer',
       'Website & Application Access',
     ],
