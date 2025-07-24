@@ -61,11 +61,11 @@ const posts: { [key: string]: any } = {
     }
   };
 
-type Props = {
-  params: { slug: string }
+interface PageProps {
+  params: { slug: string };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = posts[params.slug] || {};
   const { title, summary } = post;
   const pageTitle = title ? `${title} | REDArmor v0.2 Blog` : 'REDArmor v0.2 Blog';
@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function BlogPostPage({ params }: Props) {
+export default function BlogPostPage({ params }: PageProps) {
   const post = posts[params.slug] || posts['understanding-call-spoofing-technology'];
 
   return (
