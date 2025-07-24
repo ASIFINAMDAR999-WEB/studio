@@ -4,6 +4,7 @@ import { Footer } from '@/components/layout/footer';
 import Image from 'next/image';
 import { Calendar, User } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { CtaSection } from '@/components/sections/cta-section';
 
 // This component will display a single blog post.
 // In the next step, we'll fetch real content from Markdown files based on the 'slug' parameter.
@@ -53,45 +54,48 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-      <main className="flex-1 py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6">
-          <article className="max-w-4xl mx-auto">
-            <header className="mb-8 text-center animate-fade-in-up">
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground mb-4">{post.title}</h1>
-              <div className="flex justify-center items-center gap-6 text-muted-foreground text-sm">
-                <div className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span>{post.author}</span>
+      <main className="flex-1">
+        <div className="py-16 md:py-24">
+            <div className="container mx-auto px-4 sm:px-6">
+            <article className="max-w-4xl mx-auto">
+                <header className="mb-8 text-center animate-fade-in-up">
+                <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground mb-4">{post.title}</h1>
+                <div className="flex justify-center items-center gap-6 text-muted-foreground text-sm">
+                    <div className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    <span>{post.author}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <time>{post.date}</time>
+                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  <time>{post.date}</time>
-                </div>
-              </div>
-            </header>
+                </header>
 
-            <Card className="overflow-hidden shadow-xl mb-12 animate-fade-in-up [animation-delay:200ms]">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  width={1200}
-                  height={600}
-                  className="w-full object-cover"
-                  priority
-                  data-ai-hint={post.dataAiHint}
-                />
-            </Card>
-
-            <Card className="shadow-lg animate-fade-in-up [animation-delay:400ms]">
-                <CardContent className="py-8">
-                    <div
-                    className="prose prose-lg dark:prose-invert max-w-none mx-auto text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
+                <Card className="overflow-hidden shadow-xl mb-12 animate-fade-in-up [animation-delay:200ms]">
+                    <Image
+                    src={post.image}
+                    alt={post.title}
+                    width={1200}
+                    height={600}
+                    className="w-full object-cover"
+                    priority
+                    data-ai-hint={post.dataAiHint}
                     />
-                </CardContent>
-            </Card>
-          </article>
+                </Card>
+
+                <Card className="shadow-lg animate-fade-in-up [animation-delay:400ms]">
+                    <CardContent className="py-8">
+                        <div
+                        className="prose prose-lg dark:prose-invert max-w-none mx-auto text-muted-foreground"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        />
+                    </CardContent>
+                </Card>
+            </article>
+            </div>
         </div>
+        <CtaSection />
       </main>
       <Footer />
     </div>
