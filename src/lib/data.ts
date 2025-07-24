@@ -122,3 +122,36 @@ export const faqItems = [
     answer: "We do not offer free trials due to the nature of the service. However, we have various plans to suit different budgets and needs."
   }
 ];
+
+export const testimonials = [
+    {
+      quote: "The best service for spoofing calls. The voice changer is amazing and the connection is always stable. Highly recommended for anyone looking for privacy and features!",
+      name: "John Doe",
+      role: "Freelancer"
+    },
+    {
+      quote: "I've tried other services, but this one is by far the most reliable and feature-rich. The customer support is also top-notch, always ready to help.",
+      name: "Jane Smith",
+      role: "Security Consultant"
+    },
+    {
+        quote: "The setup was incredibly easy, and I was making calls in minutes. The premium voice changer is a game-changer for my business.",
+        name: "Alex Johnson",
+        role: "Small Business Owner"
+    },
+    {
+        quote: "I was skeptical at first, but the quality of the calls is crystal clear. The Platinum Plan is worth every penny for the advanced features.",
+        name: "Samantha Lee",
+        role: "Private Investigator"
+    },
+    {
+        quote: "The crypto payment option is a huge plus for me. It's fast, secure, and private. The service itself is flawless.",
+        name: "Michael Chen",
+        role: "Tech Enthusiast"
+    },
+    {
+        quote: "Their support team is fantastic. I had a question about the SIP trunk access, and they were incredibly knowledgeable and helpful.",
+        name: "Emily Rodriguez",
+        role: "IT Manager"
+    }
+];

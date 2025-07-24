@@ -1,6 +1,13 @@
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import { testimonials } from '@/lib/data';
 
 export function TestimonialSection() {
   return (
@@ -9,23 +16,37 @@ export function TestimonialSection() {
           <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
              <h2 className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
           </div>
-          <Card className="max-w-2xl mx-auto shadow-lg bg-background animate-fade-in-up [animation-delay:200ms]">
-             <CardContent className="pt-6">
-                <blockquote className="text-lg italic text-center text-muted-foreground border-l-4 border-primary pl-6">
-                   "The best service for spoofing calls. The voice changer is amazing and the connection is always stable. Highly recommended for anyone looking for privacy and features!"
-                </blockquote>
-                <div className="flex items-center justify-center mt-6">
-                    <Avatar>
-                       <AvatarImage src="https://placehold.co/40x40.png" alt="@johndoe" data-ai-hint="man" />
-                       <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                    <div className="ml-4 text-left">
-                       <p className="font-semibold">John Doe</p>
-                       <p className="text-sm text-muted-foreground">Freelancer</p>
+          <div className="max-w-4xl mx-auto animate-fade-in-up [animation-delay:200ms]">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-4 h-full">
+                       <Card className="shadow-lg bg-background h-full flex flex-col justify-between">
+                         <CardContent className="pt-6">
+                            <blockquote className="text-lg italic text-muted-foreground border-l-4 border-primary pl-6">
+                               {testimonial.quote}
+                            </blockquote>
+                            <div className="mt-6 text-right">
+                               <p className="font-semibold">{testimonial.name}</p>
+                               <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                            </div>
+                         </CardContent>
+                       </Card>
                     </div>
-                </div>
-             </CardContent>
-          </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:inline-flex" />
+              <CarouselNext className="hidden md:inline-flex" />
+            </Carousel>
+          </div>
        </div>
     </section>
   );
