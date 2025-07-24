@@ -88,10 +88,6 @@ export default {
             height: '0',
           },
         },
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
         'fade-out': {
           '0%': { opacity: '1' },
           '100%': { opacity: '0', visibility: 'hidden' },
@@ -136,7 +132,6 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in': 'fade-in 0.5s ease-in-out',
         'fade-out': 'fade-out 0.5s ease-in-out',
         'fade-in-up': 'fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'stagger-item': 'stagger-item 0.5s ease-out calc(var(--stagger-index) * 100ms) both',

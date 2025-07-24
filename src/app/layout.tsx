@@ -52,7 +52,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="animate-fade-in">
+            <div>
               {children}
             </div>
             <Toaster />
