@@ -6,15 +6,27 @@ export function Loader() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-12 w-12 text-primary animate-pulse-glow"
+          className="h-14 w-14 text-primary"
         >
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          <path d="M12 2L12 22" />
+          <defs>
+            <clipPath id="shield-clip">
+              <rect className="animate-fill-up" x="0" y="0" width="24" height="24" />
+            </clipPath>
+          </defs>
+          {/* Background Outline */}
+          <path
+            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            fill="none"
+            className="text-primary/30"
+          />
+          {/* Animated Fill */}
+          <path
+            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+            fill="currentColor"
+            clipPath="url(#shield-clip)"
+          />
         </svg>
       </div>
     </div>
