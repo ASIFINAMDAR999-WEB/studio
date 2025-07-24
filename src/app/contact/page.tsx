@@ -76,13 +76,6 @@ export default function ContactPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <a href="mailto:support@redarmor.com" className="flex items-center gap-4 group">
-                           <Mail className="h-6 w-6 text-primary" />
-                           <div className='text-muted-foreground group-hover:text-primary transition-colors'>
-                                <p className='font-semibold'>Email</p>
-                                <p>support@redarmor.com</p>
-                           </div>
-                        </a>
                          <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
                             <Send className="h-6 w-6 text-primary" />
                             <div className='text-muted-foreground group-hover:text-primary transition-colors'>
@@ -90,20 +83,6 @@ export default function ContactPage() {
                                 <p>@AF3092</p>
                             </div>
                         </a>
-                        <div className="flex items-center gap-4">
-                           <Phone className="h-6 w-6 text-primary" />
-                           <div className='text-muted-foreground'>
-                                <p className='font-semibold'>Phone</p>
-                                <p>+1 (555) 123-4567</p>
-                           </div>
-                        </div>
-                        <div className="flex items-center gap-4">
-                           <MapPin className="h-6 w-6 text-primary" />
-                           <div className='text-muted-foreground'>
-                                <p className='font-semibold'>Office</p>
-                                <p>123 Privacy Lane, Secure City, USA</p>
-                           </div>
-                        </div>
                     </CardContent>
                  </Card>
             </div>
