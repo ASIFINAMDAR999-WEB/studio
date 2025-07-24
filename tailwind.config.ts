@@ -100,7 +100,7 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'stagger-item': {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'slide-in-bottom': {

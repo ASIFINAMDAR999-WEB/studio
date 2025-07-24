@@ -18,12 +18,14 @@ export function FaqSection() {
               </p>
           </div>
           <div className="max-w-3xl mx-auto animate-fade-in-up [animation-delay:200ms]">
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full space-y-3">
               {faqItems.map((item, index) => (
-                <AccordionItem value={`item-${index+1}`} key={index} className="rounded-lg mb-2 px-4 transition-all duration-300 hover:shadow-lg">
-                  <AccordionTrigger className="text-lg font-semibold text-left hover:no-underline">{item.question}</AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {item.answer}
+                <AccordionItem value={`item-${index+1}`} key={index} className="bg-card border rounded-lg transition-all duration-300 hover:shadow-lg hover:bg-muted/30">
+                  <AccordionTrigger className="text-lg font-semibold text-left hover:no-underline px-6 py-4">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground px-6 pb-4">
+                    <p className="border-t pt-4">{item.answer}</p>
                   </AccordionContent>
                 </AccordionItem>
               ))}
