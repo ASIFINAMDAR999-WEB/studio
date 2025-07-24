@@ -22,10 +22,12 @@ export type Plan = {
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
-      "flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border animate-fade-in", 
+      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border relative overflow-hidden", 
       plan.highlight ? "border-primary ring-2 ring-primary" : "border-border"
     )}>
-      <CardHeader className="p-6 text-center">
+      <div className={cn("absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100", plan.highlight ? "bg-primary/20" : "")} />
+      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/10 to-transparent opacity-50 -translate-x-full transition-transform duration-700 group-hover:translate-x-0" />
+      <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
             <CardTitle className="text-2xl font-semibold">{plan.name}</CardTitle>
             {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white">HOT</Badge>}
@@ -37,7 +39,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
         </div>
         <CardDescription className="mt-2">{plan.description}</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 p-6 pt-0">
+      <CardContent className="flex-1 p-6 pt-0 z-10">
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
         <ul className="space-y-3 text-sm">
           {plan.features.map((feature, index) => (
@@ -48,8 +50,8 @@ export function PlanCard({ plan }: { plan: Plan }) {
           ))}
         </ul>
       </CardContent>
-      <CardFooter className="p-6 pt-0 mt-4">
-        <Button asChild className="w-full text-lg py-6" variant={plan.highlight ? 'default' : 'outline'}>
+      <CardFooter className="p-6 pt-0 mt-4 z-10">
+        <Button asChild className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 animate-press" variant={plan.highlight ? 'default' : 'outline'}>
           <Link href={`/payment?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
         </Button>
       </CardFooter>
