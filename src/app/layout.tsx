@@ -33,6 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>REDArmor v0.2 - Your Ultimate Calling Solution</title>
         <meta name="description" content="Your Ultimate Calling Solution" />
         <meta name="theme-color" content="#673AB7" />
