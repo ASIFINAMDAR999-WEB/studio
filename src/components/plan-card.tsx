@@ -8,7 +8,7 @@ import { Check } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
-type Plan = {
+export type Plan = {
   name: string;
   priceString: string;
   duration: string;
@@ -55,3 +55,5 @@ export function PlanCard({ plan }: { plan: Plan }) {
     </Card>
   )
 }
+
+    

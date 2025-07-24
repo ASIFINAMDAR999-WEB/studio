@@ -1,7 +1,7 @@
 
 import { PlanCard } from '@/components/plan-card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield, ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { NavLinks } from '@/components/nav-links';
 
 export const plans = [
   {
@@ -120,16 +121,6 @@ const faqItems = [
     answer: "We do not offer free trials due to the nature of the service. However, we have various plans to suit different budgets and needs."
   }
 ]
-
-const NavLinks = () => (
-  <>
-    <Link href="#features" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Features</Link>
-    <Link href="#pricing" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Pricing</Link>
-    <Link href="#faq" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">FAQ</Link>
-    <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
-  </>
-);
-
 
 export default function Home() {
   return (
@@ -321,3 +312,6 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+    

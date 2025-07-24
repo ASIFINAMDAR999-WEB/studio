@@ -5,28 +5,22 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Clipboard, Menu, Phone, Terminal, Shield } from 'lucide-react';
+import { Check, Clipboard, Menu, Terminal, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { plans } from '@/app/page';
-
-const NavLinks = () => (
-  <>
-    <Link href="/#features" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Features</Link>
-    <Link href="/#pricing" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Pricing</Link>
-    <Link href="/#faq" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">FAQ</Link>
-    <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
-  </>
-);
+import { NavLinks } from '@/components/nav-links';
 
 function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const plan = plans.find((p) => p.name === planName) || plans[0];
 
+  const bitcoinAddress = process.env.NEXT_PUBLIC_BITCOIN_ADDRESS || 'bc1q5c1kxvk8u9';
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText('bc1q5c1kxvk8u9');
+    navigator.clipboard.writeText(bitcoinAddress);
   };
 
   return (
@@ -49,7 +43,7 @@ function PaymentPageComponent() {
             </Button>
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className="md:hidden">
                   <Menu />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
@@ -122,7 +116,7 @@ function PaymentPageComponent() {
                       <div className="bg-muted/50 rounded-lg p-4">
                         <p className="text-sm text-muted-foreground mb-1">Bitcoin Address (Bitcoin)</p>
                         <div className="flex justify-between items-center">
-                          <p className="font-mono text-lg break-all">bc1q5c1kxvk8u9</p>
+                          <p className="font-mono text-lg break-all">{bitcoinAddress}</p>
                           <Button variant="ghost" size="icon" onClick={copyToClipboard}>
                             <Clipboard className="h-5 w-5" />
                           </Button>
@@ -175,3 +169,4 @@ export default function PaymentPage() {
     )
 }
 
+    
