@@ -1,9 +1,10 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Tele-Spoof v.2',
+  title: 'REDArmor v0.2',
   description: 'Your Ultimate Spoofing Solution',
 };
 

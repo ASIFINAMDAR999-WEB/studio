@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -14,7 +15,6 @@ type Plan = {
   features: string[];
   highlight: boolean;
   cta: string;
-  ctaLink: string;
   isHot?: boolean;
 };
 
@@ -49,7 +49,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
       </CardContent>
       <CardFooter className="p-6 pt-0 mt-4">
         <Button asChild className="w-full text-lg py-6" variant={plan.highlight ? 'default' : 'outline'}>
-          <Link href={plan.ctaLink}>{plan.cta}</Link>
+          <Link href={`/payment?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
         </Button>
       </CardFooter>
     </Card>

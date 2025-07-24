@@ -1,7 +1,8 @@
+
 import { PlanCard } from '@/components/plan-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu } from 'lucide-react';
+import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield } from 'lucide-react';
 import Link from 'next/link';
 import {
   Accordion,
@@ -12,9 +13,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
-const plans = [
+export const plans = [
   {
-    name: 'Platinum 1 Month',
+    name: 'Platinum 1-Month',
     priceString: '$100',
     duration: '/month',
     features: [
@@ -32,7 +33,6 @@ const plans = [
     highlight: false,
     isHot: true,
     cta: 'Choose Plan',
-    ctaLink: '#',
   },
   {
     name: 'Gold Plan',
@@ -46,7 +46,6 @@ const plans = [
     highlight: false,
     isHot: false,
     cta: 'Choose Plan',
-    ctaLink: '#',
   },
   {
     name: 'Diamond Plan',
@@ -66,7 +65,6 @@ const plans = [
     highlight: true,
     isHot: false,
     cta: 'Choose Plan',
-    ctaLink: '#',
   },
   {
     name: 'Platinum Plan',
@@ -88,7 +86,6 @@ const plans = [
     highlight: false,
     isHot: false,
     cta: 'Choose Plan',
-    ctaLink: '#',
   },
   {
     name: 'Silver Plan Top-up',
@@ -98,7 +95,6 @@ const plans = [
     highlight: false,
     isHot: false,
     cta: 'Choose Plan',
-    ctaLink: '#',
   },
 ];
 
@@ -141,19 +137,22 @@ export default function Home() {
       <header className="py-4 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto flex justify-between items-center px-4">
           <Link href="/" className="flex items-center gap-2">
-            <Phone className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-foreground">TELE-Spoof v.2</span>
+            <Shield className="h-6 w-6 text-primary" />
+            <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <NavLinks />
           </nav>
           <div className="flex items-center gap-2">
-            <Button variant="outline" asChild>
-              <Link href="#">Login</Link>
+             <Button variant="outline" size="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75-.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
+                <path fillRule="evenodd" d="M10 5a5 5 0 100 10 5 5 0 000-10zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
+                </svg>
             </Button>
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
+                <Button variant="outline" size="icon" className="md:hidden">
                   <Menu />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
@@ -309,10 +308,18 @@ export default function Home() {
       </main>
 
       <footer className="py-8 border-t bg-card">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Tele-Spoof v.2. All rights reserved.</p>
+         <div className="container mx-auto px-4 text-center text-muted-foreground">
+          <div className="flex justify-center items-center gap-4 mb-4">
+            <Avatar className="h-8 w-8">
+               <AvatarFallback className="bg-foreground text-background font-bold text-sm">N</AvatarFallback>
+            </Avatar>
+            <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
+            <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
+          </div>
+          <p className="text-sm">&copy; {new Date().getFullYear()} REDArmor v0.2. All Rights Reserved.</p>
         </div>
       </footer>
     </div>
   );
 }
+
