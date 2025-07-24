@@ -16,11 +16,6 @@ export const metadata: Metadata = {
 // Placeholder data - this will be replaced with real data from Markdown files in the next step.
 const placeholderPosts = [
   {
-    slug: 'decoding-premium-features',
-    title: 'A Deep Dive into Our Premium Spoofing Features',
-    summary: 'Understand the advanced technology behind our premium plans. This guide explains terms like SIP Trunking, IVR Systems, OTP Bots, and more.',
-  },
-  {
     slug: 'understanding-call-spoofing-technology',
     title: 'Understanding Call Spoofing Technology',
     summary: 'A deep dive into the technology behind call spoofing, its legitimate use cases in professional fields, and how it works.',
