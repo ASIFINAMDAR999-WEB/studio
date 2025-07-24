@@ -33,46 +33,17 @@ export default function ContactPage() {
               Get In Touch
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              We're here to help with any questions you may have. Fill out the form below, and we'll get back to you as soon as possible.
+              We're here to help with any questions you may have. You can reach our admin on Telegram.
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-            <div className="animate-fade-in-up [animation-delay:200ms]">
-                <Card className="h-full shadow-lg transition-all duration-300 hover:shadow-xl">
-                <CardHeader>
-                    <CardTitle className="text-2xl">Contact Form</CardTitle>
-                    <CardDescription>
-                        Send us a message directly.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Full Name</Label>
-                            <Input id="name" placeholder="John Doe" required />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="email">Email Address</Label>
-                            <Input id="email" type="email" placeholder="john.doe@example.com" required />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="message">Your Message</Label>
-                            <Textarea id="message" placeholder="How can we help you today?" required rows={5} />
-                        </div>
-                        <Button type="submit" size="lg" className="w-full text-lg py-6 animate-press">
-                            Send Message <Send className="ml-2 h-5 w-5" />
-                        </Button>
-                    </form>
-                </CardContent>
-                </Card>
-            </div>
+          <div className="max-w-md mx-auto">
             <div className="space-y-8 animate-fade-in-up [animation-delay:400ms]">
                  <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
                     <CardHeader>
                         <CardTitle className="text-2xl">Contact Information</CardTitle>
                         <CardDescription>
-                            Other ways to reach us.
+                            The primary way to reach us.
                         </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
