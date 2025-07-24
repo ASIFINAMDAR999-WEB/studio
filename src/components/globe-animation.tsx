@@ -9,9 +9,14 @@ declare const ThreeGlobe: any;
 export function GlobeAnimation() {
     const globeEl = useRef<HTMLDivElement>(null);
     const [globe, setGlobe] = useState<any>(null);
+    const [scriptsLoaded, setScriptsLoaded] = useState(false);
+
+    const areScriptsLoaded = () => {
+        return typeof THREE !== 'undefined' && typeof ThreeGlobe !== 'undefined' && typeof THREE.TrackballControls !== 'undefined';
+    };
 
     const initGlobe = useCallback(() => {
-        if (typeof THREE === 'undefined' || typeof ThreeGlobe === 'undefined' || !globeEl.current) {
+        if (!globeEl.current || !areScriptsLoaded()) {
             return;
         }
 
@@ -80,12 +85,14 @@ export function GlobeAnimation() {
         tbControls.rotateSpeed = 5;
         tbControls.zoomSpeed = 0.8;
 
-        (function animate() {
+        const animate = () => {
+            if (!globeEl.current) return;
             camera.lookAt(newGlobe.position);
             tbControls.update();
             renderer.render(scene, camera);
             requestAnimationFrame(animate);
-        })();
+        }
+        animate();
 
         newGlobe.controls().autoRotate = true;
         newGlobe.controls().autoRotateSpeed = 1.8;
@@ -94,30 +101,37 @@ export function GlobeAnimation() {
     }, []);
 
     useEffect(() => {
-        let attempts = 0;
-        const interval = setInterval(() => {
-            if (typeof THREE !== 'undefined' && typeof ThreeGlobe !== 'undefined') {
-                clearInterval(interval);
-                initGlobe();
-            } else if (attempts > 20) { 
-                clearInterval(interval);
-                if (globeEl.current) {
-                    globeEl.current.innerText = "Failed to load 3D assets. Please refresh."
+        if (scriptsLoaded) {
+            initGlobe();
+        } else {
+            let attempts = 0;
+            const interval = setInterval(() => {
+                if (areScriptsLoaded()) {
+                    clearInterval(interval);
+                    setScriptsLoaded(true);
+                } else if (attempts > 30) { // ~6 seconds timeout
+                    clearInterval(interval);
+                    if (globeEl.current) {
+                        globeEl.current.innerText = "Failed to load 3D assets. Please refresh.";
+                    }
                 }
-            }
-            attempts++;
-        }, 200);
+                attempts++;
+            }, 200);
+            return () => clearInterval(interval);
+        }
+    }, [scriptsLoaded, initGlobe]);
 
+    useEffect(() => {
+        const currentGlobe = globe;
         return () => {
-            clearInterval(interval);
-            if (globe) {
-                globe.controls().dispose();
+            if (currentGlobe) {
+                if(currentGlobe.controls()) currentGlobe.controls().dispose();
             }
         };
-    }, [initGlobe, globe]);
+    }, [globe]);
 
     const handleResize = useCallback(() => {
-        if (globe && globeEl.current && globe.scene) {
+        if (globe && globeEl.current && globe.renderer && globe.camera) {
             const renderer = globe.renderer();
             const camera = globe.camera();
             if (renderer && camera) {
