@@ -19,6 +19,7 @@ export const plans = [
     name: 'Platinum 1-Month',
     priceString: '$100',
     duration: '/month',
+    description: '1 Month Unlimited Calling — no per-minute charges',
     features: [
       'Full Call Spoofing',
       'Premium Voice Changer',
@@ -39,6 +40,7 @@ export const plans = [
     name: 'Gold Plan',
     priceString: '$90',
     duration: '/month',
+    description: '1 Month Unlimited Calling — no per-minute charges',
     features: [
       'Full Call Spoofing Access',
       'Standard Voice Changer',
@@ -52,6 +54,7 @@ export const plans = [
     name: 'Diamond Plan',
     priceString: '$200',
     duration: '/2 months',
+    description: '2Months Unlimited Calling — no per-minute charges',
     features: [
       'Advanced Call Spoofing',
       'Premium Voice Changer',
@@ -71,6 +74,7 @@ export const plans = [
     name: 'Platinum Plan',
     priceString: '$300',
     duration: '/3 months',
+    description: '3Months Unlimited Calling — no per-minute charges',
     features: [
       'Advanced Call Spoofing',
       'Premium Voice Changer',
@@ -92,6 +96,7 @@ export const plans = [
     name: 'Silver Plan Top-up',
     priceString: '$50-$500',
     duration: '',
+    description: '',
     features: ["Manual top-up", "Only for virtual number's and esim"],
     highlight: false,
     isHot: false,
@@ -149,8 +154,8 @@ export default function Home() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
-                <SheetHeader className="sr-only">
-                  <SheetTitle>Menu</SheetTitle>
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Menu</SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-6 mt-8">
                   <NavLinks />
@@ -286,12 +291,12 @@ export default function Home() {
         <section id="cta" className="py-20 md:py-28 animate-slide-in-bottom">
           <div className="container">
             <Card className="bg-primary text-primary-foreground shadow-xl">
-              <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
                 <div>
                   <h2 className="text-3xl font-bold">Ready to Start?</h2>
                   <p className="text-primary-foreground/80 mt-2">Get the best spoofing service on the market today!</p>
                 </div>
-                <Button variant="secondary" size="lg" asChild className="bg-white text-primary hover:bg-white/90">
+                <Button variant="destructive" size="lg" asChild className="text-lg py-6 px-10">
                   <Link href="#pricing">Get Started Now</Link>
                 </Button>
               </div>
@@ -304,9 +309,6 @@ export default function Home() {
       <footer className="py-8 border-t bg-card">
          <div className="container mx-auto px-4 text-center text-muted-foreground">
           <div className="flex justify-center items-center gap-4 mb-4">
-            <Avatar className="h-8 w-8">
-               <AvatarFallback className="bg-foreground text-background font-bold text-sm">N</AvatarFallback>
-            </Avatar>
             <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
             <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
           </div>
