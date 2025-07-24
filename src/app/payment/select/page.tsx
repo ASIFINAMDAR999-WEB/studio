@@ -9,7 +9,6 @@ import { ChevronRight, Bitcoin, Gem, Waves, BadgeDollarSign } from 'lucide-react
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
-import { plans } from '@/lib/data';
 
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: <BadgeDollarSign className="h-8 w-8 text-primary" /> },
@@ -22,7 +21,6 @@ const cryptoOptions = [
 function SelectCryptoComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
-  const plan = plans.find((p) => p.name === planName) || plans[0];
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -36,7 +34,7 @@ function SelectCryptoComponent() {
                   Select Your Payment Method
                 </CardTitle>
                 <CardDescription className="mt-2 text-lg">
-                  You are purchasing the <span className="font-bold text-primary">{plan.name}</span> plan.
+                  You are purchasing the <span className="font-bold text-primary">{planName}</span> plan.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 p-6 md:p-8">
@@ -73,4 +71,3 @@ export default function SelectCryptoPage() {
         </Suspense>
     )
 }
-

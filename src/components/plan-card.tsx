@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -13,7 +14,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
 
   return (
     <Card className={cn(
-      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden", 
+      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden",
       plan.highlight ? "border-primary ring-2 ring-primary" : "border-border",
       plan.isHot ? "hover:-translate-y-3" : "hover:-translate-y-2"
     )}>
@@ -24,15 +25,10 @@ export function PlanCard({ plan }: { plan: Plan }) {
             <CardTitle className="text-2xl font-semibold">{plan.name}</CardTitle>
             {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white">HOT</Badge>}
         </div>
-        
+
         {plan.priceOptions ? (
           <div className="mt-2">
-            <p className="text-sm text-muted-foreground mb-3">Choose an amount:</p>
-            <div className="flex justify-center items-center flex-wrap gap-2">
-              {plan.priceOptions.map((price, index) => (
-                <Badge key={index} variant="secondary" className="text-lg font-bold px-4 py-1">{price}</Badge>
-              ))}
-            </div>
+             <CardDescription className="mt-2 min-h-[40px]">{plan.description}</CardDescription>
           </div>
         ) : (
           <div className="flex items-baseline justify-center gap-1">
@@ -41,7 +37,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
           </div>
         )}
 
-        <CardDescription className="mt-2 min-h-[40px]">{plan.description}</CardDescription>
+        {!plan.priceOptions && <CardDescription className="mt-2 min-h-[40px]">{plan.description}</CardDescription>}
       </CardHeader>
       <CardContent className="flex-1 p-6 pt-0 z-10">
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
@@ -55,17 +51,30 @@ export function PlanCard({ plan }: { plan: Plan }) {
         </ul>
       </CardContent>
       <CardFooter className="p-6 pt-0 mt-4 z-10">
-        <Button 
-          asChild={!isContactAdmin}
-          className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 animate-press" 
-          variant={plan.highlight ? 'default' : 'outline'}
-        >
-          {isContactAdmin ? (
-            <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>
-          ) : (
-            <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
-          )}
-        </Button>
+        {plan.priceOptions ? (
+           <div className="w-full flex flex-col gap-3">
+                <p className="text-sm font-semibold text-center text-muted-foreground">Select an amount to top-up:</p>
+                {plan.priceOptions.map((price) => (
+                    <Button asChild key={price} className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 animate-press" variant={'outline'}>
+                        <Link href={`/payment/select?plan=${encodeURIComponent(`${plan.name} - ${price}`)}`}>
+                            {price}
+                        </Link>
+                    </Button>
+                ))}
+           </div>
+        ) : (
+            <Button
+              asChild={!isContactAdmin}
+              className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 animate-press"
+              variant={plan.highlight ? 'default' : 'outline'}
+            >
+              {isContactAdmin ? (
+                <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>
+              ) : (
+                <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
+              )}
+            </Button>
+        )}
       </CardFooter>
     </Card>
   )

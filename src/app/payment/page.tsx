@@ -34,8 +34,12 @@ function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const cryptoName = searchParams.get('crypto');
+  
+  const isTopUp = planName.includes('Silver Plan');
+  const topUpAmount = isTopUp ? planName.split(' - ')[1] : null;
 
-  const plan = plans.find((p) => p.name === planName) || plans[0];
+  const basePlanName = isTopUp ? planName.split(' - ')[0] : planName;
+  const plan = plans.find((p) => p.name === basePlanName) || plans[0];
   const { toast } = useToast();
 
   const copyToClipboard = (text: string) => {
@@ -88,7 +92,7 @@ function PaymentPageComponent() {
               <div className="flex gap-4 items-start">
                 <Terminal className="h-5 w-5 text-primary mt-1 shrink-0" />
                 <div>
-                  <p className="font-semibold">You are purchasing: {plan.name}</p>
+                  <p className="font-semibold">You are purchasing: {planName}</p>
                   <p className="text-sm text-muted-foreground">Please double-check all details before sending your payment.</p>
                 </div>
               </div>
@@ -107,8 +111,8 @@ function PaymentPageComponent() {
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-baseline gap-2 mb-6">
-                      <span className="text-5xl font-bold">{plan.priceString}</span>
-                      <span className="text-xl text-muted-foreground">{plan.duration}</span>
+                      <span className="text-5xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</span>
+                      {!isTopUp && <span className="text-xl text-muted-foreground">{plan.duration}</span>}
                     </div>
                     <ul className="space-y-3">
                       {plan.features.map((feature, index) => (
@@ -137,7 +141,7 @@ function PaymentPageComponent() {
                             <div className='flex justify-between items-center'>
                                 <h3 className="font-bold text-lg">Pay with {selectedCrypto.name}</h3>
                                 <Button variant="outline" size="sm" asChild>
-                                    <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`}>
+                                    <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
                                         Change Crypto
                                     </Link>
                                 </Button>

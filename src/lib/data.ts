@@ -90,7 +90,7 @@ export const plans: Plan[] = [
     cta: 'Choose Plan',
   },
   {
-    name: 'Silver Plan Top-up',
+    name: 'Silver Plan',
     priceString: '',
     priceOptions: ['$50', '$100', '$250', '$500'],
     duration: '',
@@ -101,7 +101,7 @@ export const plans: Plan[] = [
     ],
     highlight: false,
     isHot: false,
-    cta: 'Contact Admin',
+    cta: '', // CTA is handled by the price options now
   },
 ];
 
