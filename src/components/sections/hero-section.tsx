@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <section id="hero" className="relative text-center py-20 md:py-32 overflow-hidden flex items-center justify-center min-h-[60vh] md:min-h-[80vh]">
        <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-primary">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-text-gradient bg-[200%_auto]">
           Find Your Perfect Spoofing Plan
         </h1>
         <p className="max-w-2xl mx-auto mt-6 text-lg text-muted-foreground">
