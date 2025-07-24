@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Poppins } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Loader } from '@/components/loader';
-import Script from 'next/script';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -36,9 +35,6 @@ export default function RootLayout({
         <title>CallCraft - Your Ultimate Calling Solution</title>
         <meta name="description" content="Your Ultimate Calling Solution" />
         <meta name="theme-color" content="#673AB7" />
-        <Script src="https://unpkg.com/three" strategy="beforeInteractive" />
-        <Script src="https://unpkg.com/three-globe" strategy="beforeInteractive" />
-        <Script src="https://unpkg.com/three/examples/js/controls/TrackballControls.js" strategy="beforeInteractive" />
       </head>
       <body className="font-body antialiased">
         {loading ? (

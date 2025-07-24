@@ -7,7 +7,7 @@ import { PricingSection } from '@/components/sections/pricing-section';
 import { TestimonialSection } from '@/components/sections/testimonial-section';
 import { FaqSection } from '@/components/sections/faq-section';
 import { CtaSection } from '@/components/sections/cta-section';
-import { GlobeSection } from '@/components/sections/globe-section';
+import { WorldMapSection } from '@/components/sections/world-map-section';
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
         <TestimonialSection />
         <FaqSection />
         <CtaSection />
-        <GlobeSection />
+        <WorldMapSection />
       </main>
       <Footer />
     </div>
