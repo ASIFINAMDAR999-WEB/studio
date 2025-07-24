@@ -28,27 +28,27 @@ export default function PrivacyPolicyPage() {
               
               <h2 className="text-xl font-semibold text-foreground">1. Introduction</h2>
               <p>
-                Welcome to REDArmor v0.2. We are committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our call spoofing, voice changing, and other related services ("Services"). Please read this policy carefully.
+                Welcome to REDArmor v0.2. We are committed to protecting your privacy and ensuring your anonymity. This Privacy Policy explains our stance on data. By using our call spoofing, voice changing, and other related services ("Services"), you agree to this policy.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">2. Information We Collect</h2>
               <p>
-                We prioritize your privacy and aim to collect as little information as possible. We may collect information necessary to provide the Services, such as account registration details and payment transaction data for cryptocurrency payments. We do not monitor or record the content of your calls.
+                We do not collect any personally identifiable information. Our service is designed from the ground up to ensure client anonymity. We do not require registration, and we do not store any user data, IP addresses, or call logs. We do not monitor or record the content of your calls.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">3. Use of Your Information</h2>
               <p>
-                Having accurate information permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you to create and manage your account, process your transactions, and deliver the Services you have requested.
+                Since we do not collect any personal information, there is no information to use. Your activities are your own. The only data we interact with are anonymous cryptocurrency transaction hashes for payment verification, which are not linked to any personal identity.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">4. Disclosure of Your Information</h2>
               <p>
-                We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties. We may disclose information if we believe the release is necessary to comply with the law, enforce our site policies, or protect ours or others' rights, property, or safety.
+                We hold no user information, so there is nothing to disclose. We cannot sell, trade, or otherwise transfer information that we do not have. We may only cooperate with law enforcement if legally compelled and if there is any data to provide, which is generally limited to transaction data on the public blockchain.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">5. Security of Your Information</h2>
               <p>
-                We use administrative, technical, and physical security measures to help protect your information. While we have taken reasonable steps to secure the information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable.
+                Our security model is based on not collecting your information in the first place. Your anonymity is your best security. While we secure our systems, we remind you that the most effective security measure is our commitment to not storing any of your personal data.
               </p>
               
               <h2 className="text-xl font-semibold text-foreground">6. Contact Us</h2>
