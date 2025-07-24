@@ -6,40 +6,19 @@ export function Loader() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className="h-14 w-14 text-primary"
+          className="h-16 w-16 text-primary"
         >
-          <defs>
-            <clipPath id="shield-clip">
-              <rect className="animate-fill-up" x="0" y="0" width="24" height="24" />
-            </clipPath>
-          </defs>
-          {/* Background Outline */}
-          <path
-            d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            fill="none"
-            className="text-primary/30"
-          />
-           <path 
-            d="M12 2L12 22"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            fill="none"
-            className="text-primary/30"
-           />
-          {/* Animated Fill */}
-          <g clipPath="url(#shield-clip)">
+          <g className="animate-glow-pulse [animation-delay:1s]">
             <path
               d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-              fill="currentColor"
+              className="stroke-primary fill-none stroke-[1.5] animate-trace [animation-fill-mode:forwards]"
+              style={{ strokeDasharray: 60, strokeDashoffset: 60 }}
             />
-            <path 
+            <path
               d="M12 2L12 22"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              fill="currentColor"
-             />
+              className="stroke-primary fill-none stroke-[1.5] animate-trace [animation-fill-mode:forwards] [animation-delay:0.5s]"
+              style={{ strokeDasharray: 21, strokeDashoffset: 21 }}
+            />
           </g>
         </svg>
       </div>

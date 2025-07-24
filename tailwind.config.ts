@@ -128,13 +128,14 @@ export default {
             '50%': { transform: 'scale(0.95)' },
             '100%': { transform: 'scale(1)' },
         },
-        'pulse-glow': {
-          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-          '50%': { opacity: '0.7', transform: 'scale(1.05)' },
+        trace: {
+          to: {
+            strokeDashoffset: '0',
+          },
         },
-        'fill-up': {
-          '0%': { transform: 'translateY(100%)' },
-          '100%': { transform: 'translateY(0%)' },
+        'glow-pulse': {
+          '0%, 100%': { filter: 'drop-shadow(0 0 0px hsl(var(--primary)))' },
+          '50%': { filter: 'drop-shadow(0 0 5px hsl(var(--primary)))' },
         }
       },
       animation: {
@@ -148,8 +149,8 @@ export default {
         'text-gradient': 'text-gradient 3s linear infinite',
         'float': 'float 4s ease-in-out infinite',
         'press': 'press 0.2s ease-in-out',
-        'pulse-glow': 'pulse-glow 2.5s infinite ease-in-out',
-        'fill-up': 'fill-up 1.5s ease-in-out forwards',
+        trace: 'trace 1s ease-out',
+        'glow-pulse': 'glow-pulse 0.5s ease-in-out forwards',
       },
     },
   },
