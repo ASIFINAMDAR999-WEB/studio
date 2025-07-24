@@ -7,17 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Check } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-
-export type Plan = {
-  name: string;
-  priceString: string;
-  duration: string;
-  description: string;
-  features: string[];
-  highlight: boolean;
-  cta: string;
-  isHot?: boolean;
-};
+import type { Plan } from "@/lib/data"
 
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
