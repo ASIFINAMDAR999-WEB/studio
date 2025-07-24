@@ -5,14 +5,14 @@ import { useState, useEffect } from 'react';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Poppins } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Loader } from '@/components/loader';
 
-const poppins = Poppins({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  variable: '--font-poppins',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-montserrat',
 });
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${montserrat.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <title>𝐑𝐄𝐃𝐀rm𝐨𝐫 𝐯𝟎.𝟐™ - Your Ultimate Calling Solution</title>
         <meta name="description" content="Your Ultimate Calling Solution" />
