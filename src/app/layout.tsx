@@ -13,7 +13,6 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'REDArmor v0.2',
   description: 'Your Ultimate Spoofing Solution',
-  themeColor: '#673AB7',
 };
 
 export default function RootLayout({
@@ -23,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} scroll-smooth`}>
+      <head>
+        <meta name="theme-color" content="#673AB7" />
+      </head>
       <body className="font-body antialiased">
         {children}
         <Toaster />
