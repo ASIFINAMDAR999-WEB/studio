@@ -50,7 +50,6 @@ const GlobeAnimation: React.FC = () => {
 
       const primaryColorHsl = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
       const primaryColor = `hsl(${primaryColorHsl})`;
-      const globeColor = new THREE.Color(primaryColor);
 
       globe = new ThreeGlobe({
         waitForGlobeReady: true,
@@ -81,7 +80,7 @@ const GlobeAnimation: React.FC = () => {
           .arcStroke(0.5);
 
       const globeMaterial = globe.globeMaterial();
-      globeMaterial.color = globeColor;
+      globeMaterial.color = new THREE.Color(primaryColor);
       globeMaterial.emissive = new THREE.Color(primaryColor).multiplyScalar(0.2);
       globeMaterial.emissiveIntensity = 0.1;
       globeMaterial.shininess = 0.9;
