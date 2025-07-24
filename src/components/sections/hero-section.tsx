@@ -38,7 +38,7 @@ export function HeroSection() {
           </h1>
         </div>
         <p className="max-w-2xl mx-auto mt-6 text-lg text-muted-foreground">
-          Unlock top-tier features with our world-class plans. Browse our plans to find the best fit for you.
+          Unlock top-tier features with our world-class spoof call plans. Browse our plans to find the best fit for you.
         </p>
         <div className="mt-10 flex flex-wrap justify-center items-center gap-4">
             <Button asChild size="lg" className="text-lg py-6 px-8">
