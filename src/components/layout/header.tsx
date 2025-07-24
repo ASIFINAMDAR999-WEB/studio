@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X, PhoneOutgoing } from 'lucide-react';
+import { Menu, X, Shield } from 'lucide-react';
 import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useState } from 'react';
@@ -16,8 +16,8 @@ export function Header() {
     <header className="py-4 px-4 sm:px-6 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3">
-           <PhoneOutgoing className="h-7 w-7 text-primary" />
-          <span className="text-xl font-bold text-foreground">CallCraft</span>
+           <Shield className="h-7 w-7 text-primary" />
+          <span className="text-xl font-bold text-foreground">𝐑𝐄𝐃𝐀rm𝐨𝐫 𝐯𝟎.𝟐™</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           <NavLinks />
@@ -34,8 +34,8 @@ export function Header() {
             <SheetContent side="right" className="w-full max-w-xs bg-background/95 backdrop-blur-sm">
               <SheetHeader>
                  <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
-                    <PhoneOutgoing className="h-7 w-7 text-primary" />
-                    <span className="text-xl font-bold text-foreground">CallCraft</span>
+                    <Shield className="h-7 w-7 text-primary" />
+                    <span className="text-xl font-bold text-foreground">𝐑𝐄𝐃𝐀rm𝐨𝐫 𝐯𝟎.𝟐™</span>
                  </Link>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
               </SheetHeader>

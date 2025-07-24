@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
-        <title>CallCraft - Your Ultimate Calling Solution</title>
+        <title>𝐑𝐄𝐃𝐀rm𝐨𝐫 𝐯𝟎.𝟐™ - Your Ultimate Calling Solution</title>
         <meta name="description" content="Your Ultimate Calling Solution" />
         <meta name="theme-color" content="#673AB7" />
       </head>
