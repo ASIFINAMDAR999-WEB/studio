@@ -1,23 +1,16 @@
 
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import Image from 'next/image';
 import { Calendar, User } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { CtaSection } from '@/components/sections/cta-section';
 
-// This component will display a single blog post.
-// In the next step, we'll fetch real content from Markdown files based on the 'slug' parameter.
-
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  // Placeholder content based on slug
   const posts: { [key: string]: any } = {
     'understanding-call-spoofing-technology': {
       title: 'Understanding Call Spoofing Technology',
       author: 'REDArmor Team',
       date: 'October 26, 2023',
-      image: 'https://placehold.co/1200x600.png',
-      dataAiHint: 'network abstract',
       content: `
         <p>Call spoofing is a technology that allows a caller to change the Caller ID to any number they choose. This practice, while sometimes associated with misuse, has numerous legitimate and legal applications in various professional fields.</p>
         <h3 class="text-2xl font-bold mt-8 mb-4">How Does It Work?</h3>
@@ -35,17 +28,32 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       title: 'Top 5 Spoof Call Apps in 2025',
       author: 'REDArmor Team',
       date: 'October 20, 2023',
-      image: 'https://placehold.co/1200x600.png',
-      dataAiHint: 'technology security',
       content: `<p>As technology evolves, so do the tools available for privacy and professional communication. Here, we review the top 5 spoof call applications making waves in 2025, evaluating them on features, ease of use, and reliability for users in the USA and Europe.</p>`
     },
     'is-call-spoofing-legal-usa-uk': {
         title: 'Is Call Spoofing Legal in USA/UK?',
         author: 'Legal Team',
         date: 'October 15, 2023',
-        image: 'https://placehold.co/1200x600.png',
-        dataAiHint: 'legal gavel',
         content: `<p>The legality of call spoofing is a common question. This article breaks down the legal frameworks in the United States and the United Kingdom, such as the Truth in Caller ID Act, to help you understand the boundaries of lawful use.</p>`
+    },
+    'how-our-call-spoofing-service-works': {
+      title: 'How Our Call Spoofing Service Works',
+      author: 'REDArmor Team',
+      date: 'November 2, 2023',
+      content: `
+        <p>We believe in transparency and empowering our clients. Understanding how our service operates is key to using it effectively and legally. Here’s a step-by-step breakdown of the process from purchase to making your first call.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">Step 1: Choose Your Plan</h3>
+        <p>We offer a range of plans tailored to different needs, from monthly subscriptions to top-up options. Select the one that best fits your usage requirements on our pricing page.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">Step 2: Secure Payment with Cryptocurrency</h3>
+        <p>To protect your privacy, we exclusively accept cryptocurrency payments. Follow the instructions on the payment page to send the correct amount to the specified wallet address.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">Step 3: Contact Admin for Activation</h3>
+        <p>Once your payment is complete, send a screenshot of the transaction to our admin on Telegram (@AF3092). This allows us to verify the payment and prepare your account.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">Step 4: Receive Your Credentials</h3>
+        <p>Our admin will provide you with the necessary credentials and instructions to access our service, either through our web application or mobile app. Your account will be activated and ready to use.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">Step 5: Make Your First Spoofed Call</h3>
+        <p>Log in to the platform, enter the number you wish to call, specify the Caller ID you want to display, and initiate the call. Our powerful infrastructure handles the rest, ensuring a clear and stable connection.</p>
+        <p class="mt-4">Our process is designed to be secure, private, and straightforward. If you have any questions at any step, our 24/7 support team is available on Telegram to assist you.</p>
+      `
     }
   };
 
@@ -71,18 +79,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                     </div>
                 </div>
                 </header>
-
-                <Card className="overflow-hidden shadow-xl mb-12 animate-fade-in-up [animation-delay:200ms]">
-                    <Image
-                    src={post.image}
-                    alt={post.title}
-                    width={1200}
-                    height={600}
-                    className="w-full object-cover"
-                    priority
-                    data-ai-hint={post.dataAiHint}
-                    />
-                </Card>
 
                 <Card className="shadow-lg animate-fade-in-up [animation-delay:400ms]">
                     <CardContent className="py-8">

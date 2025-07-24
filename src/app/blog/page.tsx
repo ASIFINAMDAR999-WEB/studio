@@ -30,6 +30,13 @@ const placeholderPosts = [
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'legal gavel'
   },
+  {
+    slug: 'how-our-call-spoofing-service-works',
+    title: 'How Our Call Spoofing Service Works',
+    summary: 'A transparent, step-by-step guide to how our service operates, from choosing a plan and making a payment to getting activated and making your first call.',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'process diagram'
+  },
 ];
 
 export default function BlogPage() {
