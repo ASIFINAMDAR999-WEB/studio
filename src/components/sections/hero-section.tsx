@@ -9,7 +9,7 @@ export function HeroSection() {
        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] opacity-60"></div>
        <div className="absolute inset-0 bg-dot-pattern opacity-10"></div>
        
-       <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
+       <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10 animate-float">
         <div className="relative inline-block">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-text-gradient bg-[200%_auto] relative">
             Find Your Perfect Spoofing Plan
