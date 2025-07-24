@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { plans } from '@/app/page';
 import { NavLinks } from '@/components/nav-links';
+import { useToast } from '@/hooks/use-toast';
 
 function PaymentPageComponent() {
   const searchParams = useSearchParams();
@@ -18,9 +19,14 @@ function PaymentPageComponent() {
   const plan = plans.find((p) => p.name === planName) || plans[0];
 
   const bitcoinAddress = process.env.NEXT_PUBLIC_BITCOIN_ADDRESS || 'bc1q5c1kxvk8u9';
+  const { toast } = useToast()
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(bitcoinAddress);
+    toast({
+      title: "Copied to clipboard",
+      description: "Bitcoin address has been copied to your clipboard.",
+    })
   };
 
   return (
@@ -32,12 +38,12 @@ function PaymentPageComponent() {
             <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
-            {/* Minimal nav for payment page */}
+            <NavLinks />
           </nav>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
+                <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75-.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
                 <path fillRule="evenodd" d="M10 5a5 5 0 100 10 5 5 0 000-10zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
                 </svg>
             </Button>
@@ -49,8 +55,8 @@ function PaymentPageComponent() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
-                <SheetHeader className="sr-only">
-                  <SheetTitle>Menu</SheetTitle>
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Menu</SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-6 mt-8">
                   <NavLinks />
@@ -90,7 +96,7 @@ function PaymentPageComponent() {
               <Card className="shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <p className="text-muted-foreground">Introductory offer for new clients. Includes all premium features.</p>
+                  <p className="text-muted-foreground">{plan.description}</p>
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-baseline gap-2 mb-6">
@@ -138,8 +144,8 @@ function PaymentPageComponent() {
                       </ol>
                     </div>
 
-                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6">
-                      Contact Admin on Telegram
+                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6" asChild>
+                      <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
                     </Button>
                 </CardContent>
               </Card>
@@ -151,9 +157,6 @@ function PaymentPageComponent() {
       <footer className="py-8 border-t bg-card">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
           <div className="flex justify-center items-center gap-4 mb-4">
-            <Avatar className="h-8 w-8">
-               <AvatarFallback className="bg-foreground text-background font-bold text-sm">N</AvatarFallback>
-            </Avatar>
             <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
             <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
           </div>

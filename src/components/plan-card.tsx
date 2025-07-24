@@ -35,7 +35,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
             <span className="text-5xl font-bold tracking-tighter">{plan.priceString}</span>
             <span className="text-muted-foreground">{plan.duration}</span>
         </div>
-        <CardDescription className="mt-2">{plan.description || 'Per account'}</CardDescription>
+        <CardDescription className="mt-2">{plan.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 p-6 pt-0">
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
