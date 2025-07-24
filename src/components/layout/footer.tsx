@@ -9,7 +9,7 @@ export function Footer() {
           <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
           <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
         </div>
-        <p className="text-sm">&copy; {new Date().getFullYear()} 𝐑𝐄𝐃𝐀rm𝐨𝐫 𝐯𝟎.𝟐™. All Rights Reserved.</p>
+        <p className="text-sm">&copy; {new Date().getFullYear()} REDArmor v0.2. All Rights Reserved.</p>
       </div>
     </footer>
   );
