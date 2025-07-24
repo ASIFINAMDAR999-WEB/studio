@@ -66,5 +66,3 @@ export function WorldMapSection() {
     </section>
   );
 }
-
-// Add framer-motion to package.json
