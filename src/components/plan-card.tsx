@@ -21,7 +21,7 @@ type Plan = {
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
-      "flex flex-col rounded-xl shadow-md transition-all hover:shadow-xl hover:-translate-y-1 border", 
+      "flex flex-col rounded-xl shadow-md transition-all hover:shadow-xl hover:-translate-y-1 border animate-fade-in", 
       plan.highlight ? "border-primary ring-2 ring-primary" : "border-border"
     )}>
       <CardHeader className="p-6 text-center">
