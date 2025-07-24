@@ -1,11 +1,36 @@
 
-import Link from "next/link";
+'use client';
 
-export const NavLinks = () => (
-  <>
-    <Link href="/#features" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Features</Link>
-    <Link href="/#pricing" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Pricing</Link>
-    <Link href="/#faq" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">FAQ</Link>
-    <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
-  </>
-);
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+type NavLinksProps = {
+  onLinkClick?: () => void;
+};
+
+export const NavLinks = ({ onLinkClick }: NavLinksProps) => {
+  const pathname = usePathname();
+
+  const links = [
+    { href: "/#features", label: "Features" },
+    { href: "/#pricing", label: "Pricing" },
+    { href: "/#faq", label: "FAQ" },
+    { href: "/#cta", label: "Contact" },
+  ];
+
+  return (
+    <>
+      {links.map((link, index) => (
+        <Link 
+          key={link.href}
+          href={link.href} 
+          onClick={onLinkClick}
+          className="text-muted-foreground transition-colors hover:text-primary animate-fade-in-up md:animate-none p-2 md:p-0 rounded-md md:rounded-none"
+          style={{ animationDelay: `${index * 100 + 300}ms` }}
+        >
+          {link.label}
+        </Link>
+      ))}
+    </>
+  );
+};
