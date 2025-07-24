@@ -11,16 +11,16 @@ import type { Plan } from "@/lib/data"
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
-      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border relative overflow-hidden", 
+      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden", 
       plan.highlight ? "border-primary ring-2 ring-primary" : "border-border",
-      plan.isHot ? "animate-pulse-glow" : ""
+      plan.isHot ? "hover:-translate-y-3" : "hover:-translate-y-2"
     )}>
       <div className={cn("absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100", plan.highlight ? "bg-primary/20" : "")} />
       <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/10 to-transparent opacity-50 -translate-x-full transition-transform duration-700 group-hover:translate-x-0" />
       <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
             <CardTitle className="text-2xl font-semibold">{plan.name}</CardTitle>
-            {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white animate-pulse">HOT</Badge>}
+            {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white">HOT</Badge>}
         </div>
         
         <div className="flex items-baseline justify-center gap-1">
