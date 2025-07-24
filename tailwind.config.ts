@@ -97,7 +97,7 @@ export default {
           '100%': { opacity: '0', visibility: 'hidden' },
         },
         'fade-in-up': {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         'stagger-item': {
@@ -128,29 +128,18 @@ export default {
             '50%': { transform: 'scale(0.95)' },
             '100%': { transform: 'scale(1)' },
         },
-        trace: {
-          to: {
-            strokeDashoffset: '0',
-          },
-        },
-        'glow-pulse': {
-          '0%, 100%': { filter: 'drop-shadow(0 0 0px hsl(var(--primary)))' },
-          '50%': { filter: 'drop-shadow(0 0 5px hsl(var(--primary)))' },
-        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.5s ease-in-out',
         'fade-out': 'fade-out 0.5s ease-in-out',
-        'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
+        'fade-in-up': 'fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'stagger-item': 'stagger-item 0.5s ease-out calc(var(--stagger-index) * 100ms) both',
         'slide-in-bottom': 'slide-in-bottom 0.5s ease-out',
         'text-gradient': 'text-gradient 3s linear infinite',
         'float': 'float 4s ease-in-out infinite',
         'press': 'press 0.2s ease-in-out',
-        trace: 'trace 1s ease-out',
-        'glow-pulse': 'glow-pulse 0.5s ease-in-out forwards',
       },
     },
   },
