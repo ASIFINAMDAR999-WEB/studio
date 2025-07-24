@@ -2,23 +2,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { PT_Sans } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Loader } from '@/components/loader';
 
-const ptSans = PT_Sans({
+const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-pt-sans',
+  weight: ['400', '600', '700'],
+  variable: '--font-poppins',
 });
-
-// export const metadata: Metadata = {
-//   title: 'CallCraft',
-//   description: 'Your Ultimate Calling Solution',
-// };
 
 export default function RootLayout({
   children,
@@ -36,7 +30,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className={`${ptSans.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <title>CallCraft - Your Ultimate Calling Solution</title>
         <meta name="description" content="Your Ultimate Calling Solution" />
