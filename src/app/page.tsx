@@ -2,7 +2,7 @@
 import { PlanCard } from '@/components/plan-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield, ArrowDown, Home } from 'lucide-react';
+import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield, ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 import {
   Accordion,
