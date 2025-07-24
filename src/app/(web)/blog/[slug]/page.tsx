@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 const posts: { [key: string]: any } = {
     'understanding-call-spoofing-technology': {
       title: 'Understanding Call Spoofing Technology',
-      author: 'CallCraft Team',
+      author: 'REDArmor v0.2 Team',
       date: 'October 26, 2023',
       summary: 'A deep dive into the technology behind call spoofing, its legitimate use cases in professional fields, and how it works.',
       content: `
@@ -27,7 +27,7 @@ const posts: { [key: string]: any } = {
     },
     'top-5-spoof-call-apps-2025': {
       title: 'Top 5 Spoof Call Apps in 2025',
-      author: 'CallCraft Team',
+      author: 'REDArmor v0.2 Team',
       date: 'October 20, 2023',
       summary: 'Discover the leading applications for call spoofing and how they stack up against each other in terms of features, reliability, and user experience.',
       content: `<p>As technology evolves, so do the tools available for privacy and professional communication. Here, we review the top 5 spoof call applications making waves in 2025, evaluating them on features, ease of use, and reliability for users in the USA and Europe.</p>`
@@ -41,7 +41,7 @@ const posts: { [key: string]: any } = {
     },
     'how-our-call-spoofing-service-works': {
       title: 'How Our Call Spoofing Service Works',
-      author: 'CallCraft Team',
+      author: 'REDArmor v0.2 Team',
       date: 'November 2, 2023',
       summary: 'A transparent, step-by-step guide to how our service operates, from choosing a plan and making a payment to getting activated and making your first call.',
       content: `
@@ -68,7 +68,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = posts[params.slug] || {};
   const { title, summary } = post;
-  const pageTitle = title ? `${title} | CallCraft Blog` : 'CallCraft Blog';
+  const pageTitle = title ? `${title} | REDArmor v0.2 Blog` : 'REDArmor v0.2 Blog';
 
   return {
     title: pageTitle,

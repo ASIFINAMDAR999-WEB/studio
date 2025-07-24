@@ -17,7 +17,7 @@ export function Header() {
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3">
            <Shield className="h-7 w-7 text-primary" />
-          <span className="text-xl font-bold text-foreground">CallCraft</span>
+          <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           <NavLinks />
@@ -35,7 +35,7 @@ export function Header() {
               <SheetHeader>
                  <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
                     <Shield className="h-7 w-7 text-primary" />
-                    <span className="text-xl font-bold text-foreground">CallCraft</span>
+                    <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
                  </Link>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
               </SheetHeader>

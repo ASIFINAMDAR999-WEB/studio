@@ -9,8 +9,8 @@ import { Footer } from '@/components/layout/footer';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog | CallCraft',
-  description: 'Insights on privacy, security, and communication technology. Learn about call spoofing, online privacy, and more from the CallCraft team.',
+  title: 'Blog | REDArmor v0.2',
+  description: 'Insights on privacy, security, and communication technology. Learn about call spoofing, online privacy, and more from the REDArmor v0.2 team.',
 };
 
 // Placeholder data - this will be replaced with real data from Markdown files in the next step.
@@ -45,7 +45,7 @@ export default function BlogPage() {
         <div className="container mx-auto px-4 sm:px-6 py-16 md:py-24">
           <div className="text-center mb-12 animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-              The CallCraft Blog
+              The REDArmor v0.2 Blog
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
               Insights on privacy, security, and communication technology.
