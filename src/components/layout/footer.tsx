@@ -6,8 +6,8 @@ export function Footer() {
     <footer className="py-8 border-t bg-card">
       <div className="container mx-auto px-4 sm:px-6 text-center text-muted-foreground">
         <div className="flex justify-center items-center gap-4 mb-4">
-          <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
-          <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
+          <Link href="/terms-of-service" className="text-sm hover:underline">Terms of Service</Link>
+          <Link href="/privacy-policy" className="text-sm hover:underline">Privacy Policy</Link>
         </div>
         <p className="text-sm">&copy; {new Date().getFullYear()} REDArmor v0.2. All Rights Reserved.</p>
       </div>
