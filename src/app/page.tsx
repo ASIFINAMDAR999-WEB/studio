@@ -2,7 +2,7 @@
 import { PlanCard } from '@/components/plan-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield, ArrowDown } from 'lucide-react';
+import { Menu, ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 import {
   Accordion,
@@ -130,8 +130,8 @@ const faqItems = [
 export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
-      <header className="py-4 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container mx-auto flex justify-between items-center px-4">
+      <header className="py-4 px-4 sm:px-6 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
+        <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
@@ -155,7 +155,7 @@ export default function Home() {
               </SheetTrigger>
               <SheetContent side="right">
                 <SheetHeader>
-                  <SheetTitle className='sr-only'>Menu</SheetTitle>
+                  <SheetTitle className="sr-only">Menu</SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-6 mt-8">
                   <NavLinks />
@@ -168,8 +168,8 @@ export default function Home() {
 
       <main className="flex-1">
         <section id="hero" className="text-center py-20 md:py-32 overflow-hidden">
-          <div className="container animate-fade-in-up">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500 animate-text-gradient bg-[200%_auto] [animation-play-state:running] hover:[animation-play-state:paused] animate-float">
+          <div className="container px-4 sm:px-6 animate-fade-in-up">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500 animate-text-gradient bg-[200%_auto] [animation-play-state:running] hover:[animation-play-state:paused] animate-float">
               Find Your Perfect Spoofing Plan
             </h1>
             <p className="max-w-xl mx-auto mt-4 text-lg text-muted-foreground animate-fade-in-up [animation-delay:200ms]">
@@ -184,14 +184,14 @@ export default function Home() {
         </section>
 
         <section id="features" className="py-20 md:py-28 bg-card">
-          <div className="container px-4">
-            <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in-up">
+          <div className="container px-4 sm:px-6">
+            <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
               <h2 className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
               <p className="mt-4 text-muted-foreground">
                 We provide a robust set of features to ensure you have the best experience.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
               <div className="text-center p-4 animate-stagger-item" style={{'--stagger-index': 1} as React.CSSProperties}>
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -225,8 +225,8 @@ export default function Home() {
         </section>
 
         <section id="pricing" className="py-20 md:py-28">
-          <div className="container px-4">
-            <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in-up">
+          <div className="container px-4 sm:px-6">
+            <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
                <h2 className="text-3xl md:text-4xl font-bold">Our Plans</h2>
                <p className="mt-4 text-muted-foreground">
                   Choose the plan that's right for you. All plans come with our top-notch features and support.
@@ -243,8 +243,8 @@ export default function Home() {
         </section>
         
         <section id="testimonial" className="py-20 md:py-28 bg-card">
-           <div className="container px-4">
-              <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in-up">
+           <div className="container px-4 sm:px-6">
+              <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
                  <h2 className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
               </div>
               <Card className="max-w-2xl mx-auto shadow-lg bg-background animate-fade-in-up [animation-delay:200ms]">
@@ -268,14 +268,14 @@ export default function Home() {
         </section>
 
         <section id="faq" className="py-20 md:py-28">
-           <div className="container px-4">
-              <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in-up">
+           <div className="container px-4 sm:px-6">
+              <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
                   <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
                   <p className="mt-4 text-muted-foreground">
                      Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.
                   </p>
               </div>
-              <div className="max-w-2xl mx-auto animate-fade-in-up [animation-delay:200ms]">
+              <div className="max-w-3xl mx-auto animate-fade-in-up [animation-delay:200ms]">
                 <Accordion type="single" collapsible className="w-full">
                   {faqItems.map((item, index) => (
                     <AccordionItem value={`item-${index+1}`} key={index}>
@@ -291,7 +291,7 @@ export default function Home() {
         </section>
 
         <section id="cta" className="py-20 md:py-28">
-          <div className="container">
+          <div className="container px-4 sm:px-6">
             <Card className="bg-primary text-primary-foreground shadow-xl animate-fade-in-up">
               <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
                 <div>
@@ -309,7 +309,7 @@ export default function Home() {
       </main>
 
       <footer className="py-8 border-t bg-card">
-         <div className="container mx-auto px-4 text-center text-muted-foreground">
+         <div className="container mx-auto px-4 sm:px-6 text-center text-muted-foreground">
           <div className="flex justify-center items-center gap-4 mb-4">
             <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
             <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>

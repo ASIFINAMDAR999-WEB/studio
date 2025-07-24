@@ -30,8 +30,8 @@ function PaymentPageComponent() {
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
-      <header className="py-4 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
-        <div className="container mx-auto flex justify-between items-center px-4">
+      <header className="py-4 px-4 sm:px-6 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
+        <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
@@ -66,7 +66,7 @@ function PaymentPageComponent() {
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto px-4 py-8 md:py-16">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 py-8 md:py-16">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -123,8 +123,8 @@ function PaymentPageComponent() {
                       <p className="text-muted-foreground mb-4">Send the exact amount to the address below.</p>
                       <div className="bg-muted/50 rounded-lg p-4">
                         <p className="text-sm text-muted-foreground mb-1">Bitcoin Address (Bitcoin)</p>
-                        <div className="flex justify-between items-center">
-                          <p className="font-mono text-lg break-all">{bitcoinAddress}</p>
+                        <div className="flex justify-between items-center gap-4">
+                          <p className="font-mono text-sm sm:text-lg break-all">{bitcoinAddress}</p>
                           <Button variant="ghost" size="icon" onClick={copyToClipboard}>
                             <Clipboard className="h-5 w-5" />
                           </Button>
@@ -154,7 +154,7 @@ function PaymentPageComponent() {
       </main>
 
       <footer className="py-8 border-t bg-card">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
+        <div className="container mx-auto px-4 sm:px-6 text-center text-muted-foreground">
           <div className="flex justify-center items-center gap-4 mb-4">
             <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
             <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
