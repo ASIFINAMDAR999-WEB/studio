@@ -10,14 +10,19 @@ import { Footer } from '@/components/layout/footer';
 // Placeholder data - this will be replaced with real data from Markdown files in the next step.
 const placeholderPosts = [
   {
+    slug: 'decoding-premium-features',
+    title: 'A Deep Dive into Our Premium Spoofing Features',
+    summary: 'Understand the advanced technology behind our premium plans. This guide explains terms like SIP Trunking, IVR Systems, OTP Bots, and more.',
+  },
+  {
     slug: 'understanding-call-spoofing-technology',
     title: 'Understanding Call Spoofing Technology',
     summary: 'A deep dive into the technology behind call spoofing, its legitimate use cases in professional fields, and how it works.',
   },
   {
-    slug: 'top-5-spoof-call-apps-2025',
-    title: 'Top 5 Spoof Call Apps in 2025',
-    summary: 'Discover the leading applications for call spoofing and how they stack up against each other in terms of features, reliability, and user experience.',
+    slug: 'how-our-call-spoofing-service-works',
+    title: 'How Our Call Spoofing Service Works',
+    summary: 'A transparent, step-by-step guide to how our service operates, from choosing a plan and making a payment to getting activated and making your first call.',
   },
   {
     slug: 'is-call-spoofing-legal-usa-uk',
@@ -25,9 +30,9 @@ const placeholderPosts = [
     summary: 'A deep dive into the legal landscape of call spoofing in the United States and the United Kingdom. Understand the regulations to use the service responsibly.',
   },
   {
-    slug: 'how-our-call-spoofing-service-works',
-    title: 'How Our Call Spoofing Service Works',
-    summary: 'A transparent, step-by-step guide to how our service operates, from choosing a plan and making a payment to getting activated and making your first call.',
+    slug: 'top-5-spoof-call-apps-2025',
+    title: 'Top 5 Spoof Call Apps in 2025',
+    summary: 'Discover the leading applications for call spoofing and how they stack up against each other in terms of features, reliability, and user experience.',
   },
 ];
 
