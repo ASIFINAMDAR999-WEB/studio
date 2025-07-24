@@ -51,7 +51,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
           {isContactAdmin ? (
             <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>
           ) : (
-            <Link href={`/payment?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
+            <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
           )}
         </Button>
       </CardFooter>

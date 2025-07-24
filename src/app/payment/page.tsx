@@ -5,29 +5,38 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Clipboard, Terminal } from 'lucide-react';
+import { Check, Clipboard, Terminal, Wallet } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from 'next/link';
+
+const addresses: Record<string, { network: string; address: string }> = {
+  usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
+  usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
+  usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
+  btc: { network: 'Bitcoin (BTC) Network', address: 'bc1q5clkxvk8u9lgfdkq2njutcd0pmxpe08um4mdyw' },
+  eth: { network: 'Ethereum (ETH) Network', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
+  ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1qwumrvhys9nmp7my4pjnzdcepx9zwcwnhnuwxxs' },
+  xrp: { network: 'Ripple (XRP) Network', address: 'rf8nfQ2AZhHiJKkQTeaVqtX3NzckCSbSqV' },
+};
+
+const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
+    usdt: { name: 'USDT (Tether)', networks: ['usdt_trc20', 'usdt_erc20', 'usdt_bep20']},
+    btc: { name: 'Bitcoin (BTC)', networks: ['btc']},
+    eth: { name: 'Ethereum (ETH)', networks: ['eth']},
+    ltc: { name: 'Litecoin (LTC)', networks: ['ltc']},
+    xrp: { name: 'Ripple (XRP)', networks: ['xrp']},
+}
 
 function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
+  const cryptoName = searchParams.get('crypto');
+
   const plan = plans.find((p) => p.name === planName) || plans[0];
-
-  const { toast } = useToast()
-
-  const addresses = {
-    usdt_trc20: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc',
-    usdt_erc20: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC',
-    usdt_bep20: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC',
-    btc: 'bc1q5clkxvk8u9lgfdkq2njutcd0pmxpe08um4mdyw',
-    eth: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC',
-    ltc: 'ltc1qwumrvhys9nmp7my4pjnzdcepx9zwcwnhnuwxxs',
-    xrp: 'rf8nfQ2AZhHiJKkQTeaVqtX3NzckCSbSqV',
-  }
+  const { toast } = useToast();
 
   const copyToClipboard = (text: string) => {
     if (text && text !== 'Address not available') {
@@ -35,13 +44,13 @@ function PaymentPageComponent() {
       toast({
         title: "Copied to clipboard",
         description: "Address has been copied to your clipboard.",
-      })
+      });
     } else {
       toast({
         title: "Error",
         description: "Address is not available to copy.",
-        variant: "destructive"
-      })
+        variant: "destructive",
+      });
     }
   };
 
@@ -56,6 +65,8 @@ function PaymentPageComponent() {
       </div>
     </div>
   );
+  
+  const selectedCrypto = cryptoName ? cryptoOptions[cryptoName] : null;
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -83,7 +94,7 @@ function PaymentPageComponent() {
               </div>
             </CardContent>
           </Card>
-          
+
           <div className="grid md:grid-cols-2 md:gap-12 space-y-8 md:space-y-0 animate-fade-in-up [animation-delay:600ms]">
             {/* Left Column */}
             <div className="space-y-8">
@@ -95,10 +106,10 @@ function PaymentPageComponent() {
                     <p className="text-muted-foreground">{plan.description}</p>
                   </CardHeader>
                   <CardContent>
-                      <div className="flex items-baseline gap-2 mb-6">
-                          <span className="text-5xl font-bold">{plan.priceString}</span>
-                          <span className="text-xl text-muted-foreground">{plan.duration}</span>
-                      </div>
+                    <div className="flex items-baseline gap-2 mb-6">
+                      <span className="text-5xl font-bold">{plan.priceString}</span>
+                      <span className="text-xl text-muted-foreground">{plan.duration}</span>
+                    </div>
                     <ul className="space-y-3">
                       {plan.features.map((feature, index) => (
                         <li key={index} className="flex items-center gap-3">
@@ -115,55 +126,51 @@ function PaymentPageComponent() {
             {/* Right Column */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-2xl font-bold mb-4">2. Payment Instructions</h2>
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <Wallet className="h-6 w-6"/>
+                    <span>2. Payment Instructions</span>
+                </h2>
                 <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
                   <CardContent className="pt-6 space-y-6">
-                      <Tabs defaultValue="usdt" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 mb-4">
-                          <TabsTrigger value="usdt">USDT</TabsTrigger>
-                          <TabsTrigger value="btc">BTC</TabsTrigger>
-                          <TabsTrigger value="eth">ETH</TabsTrigger>
-                          <TabsTrigger value="ltc">LTC</TabsTrigger>
-                          <TabsTrigger value="xrp">XRP</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="usdt" className="space-y-4">
-                          <h3 className="font-bold text-lg">Pay with USDT (Tether)</h3>
-                          <AddressDisplay network="TRC-20 (Tron Network)" address={addresses.usdt_trc20} />
-                          <AddressDisplay network="ERC-20 (Ethereum Network)" address={addresses.usdt_erc20} />
-                          <AddressDisplay network="BEP-20 (Binance Smart Chain)" address={addresses.usdt_bep20} />
-                        </TabsContent>
-                        <TabsContent value="btc">
-                          <h3 className="font-bold text-lg mb-2">Pay with Bitcoin (BTC)</h3>
-                          <AddressDisplay network="Bitcoin Network" address={addresses.btc} />
-                        </TabsContent>
-                        <TabsContent value="eth">
-                          <h3 className="font-bold text-lg mb-2">Pay with Ethereum (ETH)</h3>
-                          <AddressDisplay network="Ethereum Network" address={addresses.eth} />
-                        </TabsContent>
-                        <TabsContent value="ltc">
-                           <h3 className="font-bold text-lg mb-2">Pay with Litecoin (LTC)</h3>
-                          <AddressDisplay network="Litecoin Network" address={addresses.ltc} />
-                        </TabsContent>
-                        <TabsContent value="xrp">
-                           <h3 className="font-bold text-lg mb-2">Pay with Ripple (XRP)</h3>
-                          <AddressDisplay network="XRP Network" address={addresses.xrp} />
-                        </TabsContent>
-                      </Tabs>
+                    {selectedCrypto ? (
+                        <>
+                            <div className='flex justify-between items-center'>
+                                <h3 className="font-bold text-lg">Pay with {selectedCrypto.name}</h3>
+                                <Button variant="outline" size="sm" asChild>
+                                    <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`}>
+                                        Change Crypto
+                                    </Link>
+                                </Button>
+                            </div>
 
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                        <h4 className="font-bold mb-2 text-primary">Important Instructions:</h4>
-                        <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
-                          <li>Send the <span className="font-bold text-foreground">exact amount</span> to the correct address and network.</li>
-                          <li>For XRP, a destination tag is not required.</li>
-                          <li>After payment, send a screenshot of the transaction to our admin on Telegram.</li>
-                          <li>Admin: <span className="font-bold text-foreground">@AF3092</span></li>
-                          <li>Your plan will be activated once the transaction is confirmed.</li>
-                        </ol>
-                      </div>
+                            <div className='space-y-4'>
+                                {selectedCrypto.networks.map(networkKey => (
+                                    <AddressDisplay
+                                        key={networkKey}
+                                        network={addresses[networkKey].network}
+                                        address={addresses[networkKey].address}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        <p>No cryptocurrency selected. Please go back and choose a payment method.</p>
+                    )}
 
-                      <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 animate-press" asChild>
-                        <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
-                      </Button>
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                      <h4 className="font-bold mb-2 text-primary">Important Instructions:</h4>
+                      <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
+                        <li>Send the <span className="font-bold text-foreground">exact amount</span> to the correct address and network.</li>
+                        <li>For XRP, a destination tag is not required.</li>
+                        <li>After payment, send a screenshot of the transaction to our admin on Telegram.</li>
+                        <li>Admin: <span className="font-bold text-foreground">@AF3092</span></li>
+                        <li>Your plan will be activated once the transaction is confirmed.</li>
+                      </ol>
+                    </div>
+
+                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 animate-press" asChild>
+                      <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
+                    </Button>
                   </CardContent>
                 </Card>
               </div>
@@ -171,16 +178,15 @@ function PaymentPageComponent() {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
 }
 
 export default function PaymentPage() {
-    return (
-        <Suspense fallback={<div className="flex h-screen w-full items-center justify-center">Loading...</div>}>
-            <PaymentPageComponent />
-        </Suspense>
-    )
+  return (
+    <Suspense fallback={<div className="flex h-screen w-full items-center justify-center">Loading...</div>}>
+      <PaymentPageComponent />
+    </Suspense>
+  );
 }
