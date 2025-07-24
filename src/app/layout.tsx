@@ -2,18 +2,18 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { Poppins } from 'next/font/google';
+import { PT_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 
-const poppins = Poppins({
+const ptSans = PT_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-poppins',
+  weight: ['400', '700'],
+  variable: '--font-pt-sans',
 });
 
 export const metadata: Metadata = {
-  title: 'REDArmor v0.2',
-  description: 'Your Ultimate Spoofing Solution',
+  title: 'CallCraft',
+  description: 'Your Ultimate Calling Solution',
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${ptSans.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#673AB7" />
       </head>

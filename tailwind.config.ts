@@ -11,9 +11,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['var(--font-poppins)', 'sans-serif'],
-        headline: ['var(--font-poppins)', 'sans-serif'],
-        code: ['monospace'],
+        body: ['var(--font-pt-sans)', 'sans-serif'],
+        headline: ['var(--font-pt-sans)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
