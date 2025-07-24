@@ -27,7 +27,6 @@ export function Header() {
             className="h-6 w-6 text-primary"
           >
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            <path d="M12 2L12 22" />
           </svg>
           <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
         </Link>
@@ -57,7 +56,6 @@ export function Header() {
                       className="h-6 w-6 text-primary"
                     >
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path d="M12 2L12 22" />
                     </svg>
                     <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
                  </Link>
