@@ -20,31 +20,37 @@ function PaymentPageComponent() {
   const { toast } = useToast()
 
   const addresses = {
-    usdt_trc20: process.env.NEXT_PUBLIC_USDT_TRC20_ADDRESS || '',
-    usdt_erc20: process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS || '',
-    usdt_bep20: process.env.NEXT_PUBLIC_USDT_BEP20_ADDRESS || '',
-    btc: process.env.NEXT_PUBLIC_BTC_ADDRESS || '',
-    eth: process.env.NEXT_PUBLIC_ETH_ADDRESS || '',
-    ltc: process.env.NEXT_PUBLIC_LTC_ADDRESS || '',
-    xrp: process.env.NEXT_PUBLIC_XRP_ADDRESS || '',
+    usdt_trc20: process.env.NEXT_PUBLIC_USDT_TRC20_ADDRESS || 'Address not available',
+    usdt_erc20: process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS || 'Address not available',
+    usdt_bep20: process.env.NEXT_PUBLIC_USDT_BEP20_ADDRESS || 'Address not available',
+    btc: process.env.NEXT_PUBLIC_BTC_ADDRESS || 'Address not available',
+    eth: process.env.NEXT_PUBLIC_ETH_ADDRESS || 'Address not available',
+    ltc: process.env.NEXT_PUBLIC_LTC_ADDRESS || 'Address not available',
+    xrp: process.env.NEXT_PUBLIC_XRP_ADDRESS || 'Address not available',
   }
 
   const copyToClipboard = (text: string) => {
-    if (text) {
+    if (text && text !== 'Address not available') {
       navigator.clipboard.writeText(text);
       toast({
         title: "Copied to clipboard",
         description: "Address has been copied to your clipboard.",
       })
+    } else {
+      toast({
+        title: "Error",
+        description: "Address is not available to copy.",
+        variant: "destructive"
+      })
     }
   };
 
   const AddressDisplay = ({ network, address }: { network: string, address: string }) => (
-    <div className="bg-muted/50 rounded-lg p-4">
+    <div className="bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80">
       <p className="text-sm text-muted-foreground mb-1">{network}</p>
       <div className="flex justify-between items-center gap-4">
         <p className="font-mono text-sm sm:text-base break-all">{address}</p>
-        <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)}>
+        <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'}>
           <Clipboard className="h-5 w-5" />
         </Button>
       </div>
@@ -69,7 +75,7 @@ function PaymentPageComponent() {
           <Card className="bg-muted/30 border-l-4 border-primary mb-8 animate-fade-in-up [animation-delay:400ms]">
             <CardContent className="pt-6">
               <div className="flex gap-4 items-start">
-                <Terminal className="h-5 w-5 text-primary mt-1" />
+                <Terminal className="h-5 w-5 text-primary mt-1 shrink-0" />
                 <div>
                   <p className="font-semibold">You are paying for: {plan.name}</p>
                   <p className="text-sm text-muted-foreground">Please double-check all details before sending your payment.</p>
@@ -81,7 +87,7 @@ function PaymentPageComponent() {
           <div className="space-y-8 animate-fade-in-up [animation-delay:600ms]">
             <div>
               <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-              <Card className="shadow-lg">
+              <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
                 <CardHeader>
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
                   <p className="text-muted-foreground">{plan.description}</p>
@@ -94,7 +100,7 @@ function PaymentPageComponent() {
                   <ul className="space-y-3">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-3">
-                        <Check className="h-5 w-5 text-primary" />
+                        <Check className="h-5 w-5 text-primary shrink-0" />
                         <span className="text-muted-foreground">{feature}</span>
                       </li>
                     ))}
@@ -105,7 +111,7 @@ function PaymentPageComponent() {
 
             <div>
               <h2 className="text-2xl font-bold mb-4">Payment Instructions</h2>
-              <Card className="shadow-lg">
+              <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
                 <CardContent className="pt-6 space-y-6">
                     <Tabs defaultValue="usdt" className="w-full">
                       <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 mb-4">
@@ -167,7 +173,7 @@ function PaymentPageComponent() {
 
 export default function PaymentPage() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="flex h-screen w-full items-center justify-center">Loading...</div>}>
             <PaymentPageComponent />
         </Suspense>
     )
