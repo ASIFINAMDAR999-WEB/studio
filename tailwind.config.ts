@@ -131,6 +131,11 @@ export default {
           '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
           '50%': { transform: 'scale(1.05)', opacity: '1' },
         },
+        'beam-pulse': {
+          '0%': { opacity: 0.1 },
+          '50%': { opacity: 0.2 },
+          '100%': { opacity: 0.1 },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -143,6 +148,7 @@ export default {
         'float': 'float 4s ease-in-out infinite',
         'press': 'press 0.2s ease-in-out',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+        'beam-pulse': 'beam-pulse 4s infinite linear',
       },
     },
   },
