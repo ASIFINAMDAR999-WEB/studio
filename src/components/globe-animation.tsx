@@ -48,8 +48,9 @@ const GlobeAnimation: React.FC = () => {
       camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
       camera.position.z = 240;
 
-      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
-      const globeColor = `hsl(${primaryColor})`;
+      const primaryColorHsl = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+      const primaryColor = `hsl(${primaryColorHsl})`;
+      const globeColor = new THREE.Color(primaryColor);
 
       globe = new ThreeGlobe({
         waitForGlobeReady: true,
@@ -58,9 +59,9 @@ const GlobeAnimation: React.FC = () => {
       .hexPolygonsData([])
       .hexPolygonResolution(3)
       .hexPolygonMargin(0.7)
-      .hexPolygonColor(() => `hsl(${primaryColor.split(' ')[0]}, 83.3%, ${Math.random() * 30 + 40}%)`)
+      .hexPolygonColor(() => `hsl(${primaryColorHsl.split(' ')[0]}, 83.3%, ${Math.random() * 30 + 40}%)`)
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-      .atmosphereColor(globeColor)
+      .atmosphereColor(primaryColor)
       .atmosphereAltitude(0.25);
 
 
@@ -69,7 +70,7 @@ const GlobeAnimation: React.FC = () => {
           startLng: (Math.random() - 0.5) * 360,
           endLat: (Math.random() - 0.5) * 180,
           endLng: (Math.random() - 0.5) * 360,
-          color: globeColor,
+          color: primaryColor,
       }));
 
       globe.arcsData(arcsData)
@@ -80,20 +81,20 @@ const GlobeAnimation: React.FC = () => {
           .arcStroke(0.5);
 
       const globeMaterial = globe.globeMaterial();
-      globeMaterial.color = new THREE.Color(0x3a228a);
-      globeMaterial.emissive = new THREE.Color(0x220038);
+      globeMaterial.color = globeColor;
+      globeMaterial.emissive = new THREE.Color(primaryColor).multiplyScalar(0.2);
       globeMaterial.emissiveIntensity = 0.1;
-      globeMaterial.shininess = 0.7;
+      globeMaterial.shininess = 0.9;
 
       scene.add(globe);
 
       const tb = new (THREE as any).TrackballControls(camera, renderer.domElement);
-      tb.minDistance = 101;
+      tb.minDistance = 150;
+      tb.maxDistance = 400;
       tb.rotateSpeed = 5;
       tb.zoomSpeed = 0.8;
       tb.noPan = true;
-      tb.noZoom = true;
-
+      
 
       const animate = () => {
         camera.lookAt(scene.position);
