@@ -20,13 +20,12 @@ export const NavLinks = ({ onLinkClick }: NavLinksProps) => {
 
   return (
     <>
-      {links.map((link, index) => (
+      {links.map((link) => (
         <Link 
           key={link.href}
           href={link.href} 
           onClick={onLinkClick}
-          className="text-muted-foreground transition-colors hover:text-primary animate-fade-in-up md:animate-none p-2 md:p-0 rounded-md md:rounded-none"
-          style={{ animationDelay: `${index * 100 + 300}ms` }}
+          className="text-muted-foreground transition-colors hover:text-primary p-2 md:p-0 rounded-md md:rounded-none"
         >
           {link.label}
         </Link>
