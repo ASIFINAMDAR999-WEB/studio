@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Clipboard, Menu, Terminal, Shield } from 'lucide-react';
 import Link from 'next/link';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { plans } from '@/app/page';
 import { NavLinks } from '@/components/nav-links';
@@ -49,6 +49,9 @@ function PaymentPageComponent() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
                 <nav className="flex flex-col gap-6 mt-8">
                   <NavLinks />
                 </nav>
@@ -168,5 +171,3 @@ export default function PaymentPage() {
         </Suspense>
     )
 }
-
-    

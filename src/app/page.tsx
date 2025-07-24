@@ -11,7 +11,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { NavLinks } from '@/components/nav-links';
 
 export const plans = [
@@ -149,6 +149,9 @@ export default function Home() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
                 <nav className="flex flex-col gap-6 mt-8">
                   <NavLinks />
                 </nav>
@@ -313,5 +316,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
