@@ -26,10 +26,10 @@ function SelectCryptoComponent() {
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 sm:px-6 py-8 md:py-16 flex items-center justify-center">
+      <main className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 sm:px-6 py-8 md:py-16">
         <div className="max-w-2xl w-full">
             <Card className="shadow-2xl animate-fade-in-up">
-              <CardHeader className="text-center">
+              <CardHeader className="text-center p-6 md:p-8">
                 <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
                   Select Your Payment Method
                 </CardTitle>
@@ -37,7 +37,7 @@ function SelectCryptoComponent() {
                   You are purchasing the <span className="font-bold text-primary">{planName}</span> plan.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4 p-6 md:p-8">
+              <CardContent className="space-y-4 p-6 md:p-8 pt-0">
                 {cryptoOptions.map((crypto) => (
                   <Button
                     key={crypto.id}

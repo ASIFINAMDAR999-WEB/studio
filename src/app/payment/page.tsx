@@ -96,9 +96,9 @@ function PaymentPageComponent() {
 
           <Card className="bg-muted/30 border-l-4 border-primary mb-8 animate-fade-in-up [animation-delay:400ms]">
             <CardContent className="pt-6">
-              <div className="flex gap-4 items-start">
+              <div className="flex flex-col sm:flex-row gap-4 items-start">
                 <Terminal className="h-5 w-5 text-primary mt-1 shrink-0" />
-                <div>
+                <div className='w-full'>
                   <p className="font-semibold">You are purchasing: {planName}</p>
                   <p className="text-sm text-muted-foreground">Please double-check all details before sending your payment.</p>
                 </div>
@@ -106,8 +106,7 @@ function PaymentPageComponent() {
             </CardContent>
           </Card>
 
-          <div className="grid md:grid-cols-2 md:gap-12 space-y-8 md:space-y-0 animate-fade-in-up [animation-delay:600ms]">
-            {/* Left Column */}
+          <div className="grid md:grid-cols-2 md:gap-12 animate-fade-in-up [animation-delay:600ms]">
             <div className="space-y-8">
               <div>
                 <h2 className="text-2xl font-bold mb-4">1. Order Summary</h2>
@@ -134,8 +133,7 @@ function PaymentPageComponent() {
               </div>
             </div>
 
-            {/* Right Column */}
-            <div className="space-y-8">
+            <div className="space-y-8 mt-8 md:mt-0">
               <div>
                 <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
                     <Wallet className="h-6 w-6"/>
@@ -183,8 +181,7 @@ function PaymentPageComponent() {
                       )}
                     </div>
 
-
-                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 animate-press" asChild>
+                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6" asChild>
                       <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
                     </Button>
                   </CardContent>
