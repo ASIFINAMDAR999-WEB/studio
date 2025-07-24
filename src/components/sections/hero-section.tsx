@@ -12,7 +12,7 @@ export function HeroSection() {
        <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
         <div className="relative inline-block">
           <div className="absolute -inset-2 bg-gradient-to-r from-primary to-accent rounded-full blur-xl opacity-20 animate-pulse"></div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary-foreground bg-clip-text text-transparent animate-text-gradient bg-[400%_auto] relative">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary-foreground bg-clip-text text-transparent animate-text-gradient bg-[200%_auto] relative">
             Find Your Perfect Spoofing Plan
           </h1>
         </div>
@@ -31,3 +31,4 @@ export function HeroSection() {
     </section>
   );
 }
+

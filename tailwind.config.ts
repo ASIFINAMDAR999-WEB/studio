@@ -139,7 +139,7 @@ export default {
         'fade-in-up': 'fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'stagger-item': 'stagger-item 0.5s ease-out calc(var(--stagger-index) * 100ms) both',
         'slide-in-bottom': 'slide-in-bottom 0.5s ease-out',
-        'text-gradient': 'text-gradient 2s linear infinite',
+        'text-gradient': 'text-gradient 10s linear infinite',
         'float': 'float 4s ease-in-out infinite',
         'press': 'press 0.2s ease-in-out',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
