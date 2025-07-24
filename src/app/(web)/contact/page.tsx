@@ -3,26 +3,16 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Mail, Phone, Send, MapPin } from 'lucide-react';
+import { Send } from 'lucide-react';
+import type { Metadata } from 'next';
+
+// Although this is a client component, we can't export metadata from it.
+// We'll set it in a parent layout or a server component if needed,
+// but for now, the root layout's metadata will apply.
 
 export default function ContactPage() {
-  const { toast } = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. We'll get back to you shortly.",
-    });
-    (e.target as HTMLFormElement).reset();
-  };
-
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />

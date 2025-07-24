@@ -5,11 +5,18 @@ import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Metadata } from 'next';
+
+// export const metadata: Metadata = {
+//   title: 'Terms of Service | REDArmor v0.2',
+//   description: 'Read the Terms of Service for using REDArmor v0.2. Understand your responsibilities and our policies.',
+// };
 
 export default function TermsOfServicePage() {
     const [lastUpdated, setLastUpdated] = useState('');
 
     useEffect(() => {
+        // This effect runs only on the client, after hydration
         setLastUpdated(new Date().toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',

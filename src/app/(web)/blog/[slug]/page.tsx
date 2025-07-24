@@ -4,13 +4,14 @@ import { Footer } from '@/components/layout/footer';
 import { Calendar, User } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { CtaSection } from '@/components/sections/cta-section';
+import type { Metadata } from 'next';
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const posts: { [key: string]: any } = {
+const posts: { [key: string]: any } = {
     'understanding-call-spoofing-technology': {
       title: 'Understanding Call Spoofing Technology',
       author: 'REDArmor Team',
       date: 'October 26, 2023',
+      summary: 'A deep dive into the technology behind call spoofing, its legitimate use cases in professional fields, and how it works.',
       content: `
         <p>Call spoofing is a technology that allows a caller to change the Caller ID to any number they choose. This practice, while sometimes associated with misuse, has numerous legitimate and legal applications in various professional fields.</p>
         <h3 class="text-2xl font-bold mt-8 mb-4">How Does It Work?</h3>
@@ -28,18 +29,21 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       title: 'Top 5 Spoof Call Apps in 2025',
       author: 'REDArmor Team',
       date: 'October 20, 2023',
+      summary: 'Discover the leading applications for call spoofing and how they stack up against each other in terms of features, reliability, and user experience.',
       content: `<p>As technology evolves, so do the tools available for privacy and professional communication. Here, we review the top 5 spoof call applications making waves in 2025, evaluating them on features, ease of use, and reliability for users in the USA and Europe.</p>`
     },
     'is-call-spoofing-legal-usa-uk': {
         title: 'Is Call Spoofing Legal in USA/UK?',
         author: 'Legal Team',
         date: 'October 15, 2023',
+        summary: 'A deep dive into the legal landscape of call spoofing in the United States and the United Kingdom. Understand the regulations to use the service responsibly.',
         content: `<p>The legality of call spoofing is a common question. This article breaks down the legal frameworks in the United States and the United Kingdom, such as the Truth in Caller ID Act, to help you understand the boundaries of lawful use.</p>`
     },
     'how-our-call-spoofing-service-works': {
       title: 'How Our Call Spoofing Service Works',
       author: 'REDArmor Team',
       date: 'November 2, 2023',
+      summary: 'A transparent, step-by-step guide to how our service operates, from choosing a plan and making a payment to getting activated and making your first call.',
       content: `
         <p>We believe in transparency and empowering our clients. Understanding how our service operates is key to using it effectively and legally. Here’s a step-by-step breakdown of the process from purchase to making your first call.</p>
         <h3 class="text-2xl font-bold mt-8 mb-4">Step 1: Choose Your Plan</h3>
@@ -59,6 +63,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       title: 'A Deep Dive into Our Premium Spoofing Features',
       author: 'REDArmor Team',
       date: 'November 5, 2023',
+      summary: 'Understand the advanced technology behind our premium plans. This guide explains terms like SIP Trunking, IVR Systems, OTP Bots, and more.',
       content: `
         <p>When you browse our premium plans, you'll notice a list of advanced features. But what do they actually mean, and how can they benefit you? This guide breaks down the powerful technology that makes our service a top-tier choice for professionals.</p>
         
@@ -85,6 +90,33 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     }
   };
 
+type Props = {
+  params: { slug: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const post = posts[params.slug] || {};
+  const { title, summary } = post;
+  const pageTitle = title ? `${title} | REDArmor Blog` : 'REDArmor Blog';
+
+  return {
+    title: pageTitle,
+    description: summary,
+    openGraph: {
+      title: pageTitle,
+      description: summary,
+      type: 'article',
+      url: `https://callspoofing.shop/blog/${params.slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: summary,
+    },
+  };
+}
+
+export default function BlogPostPage({ params }: Props) {
   const post = posts[params.slug] || posts['understanding-call-spoofing-technology'];
 
   return (

@@ -6,6 +6,12 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Blog | REDArmor v0.2',
+  description: 'Insights on privacy, security, and communication technology. Learn about call spoofing, online privacy, and more from the REDArmor team.',
+};
 
 // Placeholder data - this will be replaced with real data from Markdown files in the next step.
 const placeholderPosts = [

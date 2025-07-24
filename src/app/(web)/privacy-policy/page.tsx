@@ -5,11 +5,18 @@ import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Metadata } from 'next';
+
+// export const metadata: Metadata = {
+//   title: 'Privacy Policy | REDArmor v0.2',
+//   description: 'Learn about our commitment to your privacy and anonymity. We do not collect or store any personally identifiable information.',
+// };
 
 export default function PrivacyPolicyPage() {
   const [lastUpdated, setLastUpdated] = useState('');
 
   useEffect(() => {
+    // This effect runs only on the client, after hydration
     setLastUpdated(new Date().toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
