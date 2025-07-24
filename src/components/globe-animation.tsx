@@ -56,7 +56,6 @@ const GlobeAnimation: React.FC = () => {
         animateIn: true,
       })
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-      .atmosphereColor(primaryColor)
       .atmosphereAltitude(0.25);
 
 
