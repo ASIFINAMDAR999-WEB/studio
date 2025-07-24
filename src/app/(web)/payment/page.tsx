@@ -4,8 +4,8 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Clipboard, Terminal, Wallet, AlertTriangle, Send, Camera, ShieldCheck } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, Camera, ShieldCheck, ArrowLeft, Terminal } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -57,18 +57,6 @@ function PaymentPageComponent() {
       });
     }
   };
-
-  const AddressDisplay = ({ network, address }: { network: string, address: string }) => (
-    <div className="bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80">
-      <p className="text-sm text-muted-foreground mb-1">{network}</p>
-      <div className="flex justify-between items-center gap-4">
-        <p className="font-mono text-sm sm:text-base break-all">{address}</p>
-        <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'}>
-          <Clipboard className="h-5 w-5" />
-        </Button>
-      </div>
-    </div>
-  );
   
   const selectedCrypto = cryptoName ? cryptoOptions[cryptoName] : null;
 
@@ -84,89 +72,92 @@ function PaymentPageComponent() {
       <Header />
 
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-8 md:py-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground animate-fade-in-up">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-10 animate-fade-in-up">
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Complete Your Purchase
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground animate-fade-in-up [animation-delay:200ms]">
+            <p className="mt-4 text-lg text-muted-foreground">
               You're almost there! Follow the steps below to securely complete your payment.
             </p>
           </div>
-
-          <Card className="bg-muted/30 border-l-4 border-primary mb-8 animate-fade-in-up [animation-delay:400ms]">
-            <CardContent className="pt-6">
-              <div className="flex flex-col sm:flex-row gap-4 items-start">
-                <Terminal className="h-5 w-5 text-primary mt-1 shrink-0" />
-                <div className='w-full'>
-                  <p className="font-semibold">You are purchasing: {planName}</p>
-                  <p className="text-sm text-muted-foreground">Please double-check all details before sending your payment.</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 animate-fade-in-up [animation-delay:600ms]">
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-bold mb-4">1. Order Summary</h2>
-                <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                    <p className="text-muted-foreground">{plan.description}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-baseline gap-2 mb-6">
-                      <span className="text-5xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</span>
-                      {!isTopUp && <span className="text-xl text-muted-foreground">{plan.duration}</span>}
+          
+          <div className="space-y-8 animate-fade-in-up [animation-delay:200ms]">
+            <Card className="shadow-lg border-l-4 border-primary">
+              <CardHeader>
+                <CardTitle className="text-xl">Order Summary</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between items-center">
+                    <p className="text-lg font-semibold">{planName}</p>
+                    <div className="text-right">
+                        <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
+                        {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
                     </div>
-                    <ul className="space-y-3">
-                      {plan.features.map((feature, index) => (
-                        <li key={index} className="flex items-center gap-3">
-                          <Check className="h-5 w-5 text-primary shrink-0" />
-                          <span className="text-muted-foreground">{feature}</span>
+                </div>
+                <div className="text-sm text-muted-foreground pt-2 border-t">
+                    <p className="font-semibold mb-2">Features Included:</p>
+                    <ul className="space-y-1">
+                      {plan.features.slice(0, 3).map((feature, index) => (
+                        <li key={index} className="flex items-center gap-2">
+                          <Check className="h-4 w-4 text-green-500 shrink-0" />
+                          <span>{feature}</span>
                         </li>
                       ))}
+                      {plan.features.length > 3 && (
+                        <li className='text-xs'>+ {plan.features.length - 3} more features</li>
+                      )}
                     </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
 
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Wallet className="h-6 w-6"/>
-                    <span>2. Payment Instructions</span>
-                </h2>
-                <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
-                  <CardContent className="pt-6 space-y-6">
+            <Card className="shadow-lg">
+                <CardHeader>
+                    <div className='flex justify-between items-center'>
+                        <CardTitle className="text-xl flex items-center gap-2">
+                            <Wallet className="h-6 w-6 text-primary"/>
+                            <span>Payment Instructions</span>
+                        </CardTitle>
+                        <Button variant="outline" size="sm" asChild>
+                            <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                                <ArrowLeft className="mr-2 h-4 w-4" />
+                                Change Crypto
+                            </Link>
+                        </Button>
+                    </div>
+                    {selectedCrypto && <CardDescription>Pay with {selectedCrypto.name}</CardDescription>}
+                </CardHeader>
+                <CardContent className="space-y-6">
                     {selectedCrypto ? (
-                        <>
-                            <div className='flex justify-between items-center'>
-                                <h3 className="font-bold text-lg">Pay with {selectedCrypto.name}</h3>
-                                <Button variant="outline" size="sm" asChild>
-                                    <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
-                                        Change Crypto
-                                    </Link>
-                                </Button>
-                            </div>
-
-                            <div className='space-y-4'>
-                                {selectedCrypto.networks.map(networkKey => (
-                                    <AddressDisplay
-                                        key={networkKey}
-                                        network={addresses[networkKey].network}
-                                        address={addresses[networkKey].address}
-                                    />
-                                ))}
-                            </div>
-                        </>
+                        <div className='space-y-4'>
+                            {selectedCrypto.networks.map(networkKey => {
+                                const { network, address } = addresses[networkKey] || {};
+                                return (
+                                    <div key={networkKey} className="bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80">
+                                        <p className="text-sm text-muted-foreground mb-1">{network}</p>
+                                        <div className="flex justify-between items-center gap-4">
+                                            <p className="font-mono text-sm sm:text-base break-all">{address || 'Address not available'}</p>
+                                            <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'}>
+                                            <Clipboard className="h-5 w-5" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     ) : (
-                        <p>No cryptocurrency selected. Please go back and choose a payment method.</p>
+                        <div className="text-center py-8">
+                            <p className="text-muted-foreground mb-4">No cryptocurrency selected.</p>
+                            <Button asChild>
+                                 <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                                    Choose Payment Method
+                                 </Link>
+                            </Button>
+                        </div>
                     )}
 
-                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4">
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4 mt-4">
                       <h4 className="font-bold text-primary">Important Instructions:</h4>
                       <ul className="space-y-3">
                         {instructions.map((item, index) => (
@@ -176,18 +167,16 @@ function PaymentPageComponent() {
                           </li>
                         ))}
                       </ul>
-                      {planName.includes('XRP') && (
-                        <p className="text-sm text-muted-foreground pl-8">Note: For XRP, a destination tag is not required.</p>
+                       {cryptoName === 'xrp' && (
+                        <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For XRP, a destination tag is not required.</p>
                       )}
                     </div>
 
                     <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6" asChild>
                       <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
                     </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+                </CardContent>
+            </Card>
           </div>
         </div>
       </main>
