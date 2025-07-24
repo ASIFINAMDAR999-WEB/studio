@@ -97,7 +97,7 @@ export const plans = [
     priceString: '$50-$500',
     duration: '',
     description: 'Manual top-up',
-    features: ["Manual top-up", "Only for virtual number's and esim"],
+    features: ["Manual top-up via @AF3092", "Only for virtual number's and esim"],
     highlight: false,
     isHot: false,
     cta: 'Choose Plan',
@@ -133,7 +133,7 @@ export default function Home() {
       <header className="py-4 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto flex justify-between items-center px-4">
           <Link href="/" className="flex items-center gap-2">
-            <Shield className="h-6 w-6 text-primary" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
@@ -142,8 +142,8 @@ export default function Home() {
           <div className="flex items-center gap-2">
              <Button variant="outline" size="icon" className="group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90">
-                <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75-.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
-                <path fillRule="evenodd" d="M10 5a5 5 0 100 10 5 5 0 000-10zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
+                  <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75-.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
+                  <path fillRule="evenodd" d="M10 5a5 5 0 100 10 5 5 0 000-10zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
                 </svg>
             </Button>
             <Sheet>
@@ -194,28 +194,28 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center p-4 animate-stagger-item" style={{'--stagger-index': 1} as React.CSSProperties}>
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
-                  <ShieldCheck className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Encrypted & Secure</h3>
                 <p className="text-muted-foreground">Your privacy is our priority. All communications are fully encrypted.</p>
               </div>
               <div className="text-center p-4 animate-stagger-item" style={{'--stagger-index': 2} as React.CSSProperties}>
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
-                   <Zap className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110"><path d="m13 2-3 14 9 4-9-11Z"></path><path d="m13 2-3 14 9 4-9-11Z"></path></svg>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Fast and Effective</h3>
                 <p className="text-muted-foreground">Our powerful infrastructure ensures your calls connect instantly.</p>
               </div>
               <div className="text-center p-4 animate-stagger-item" style={{'--stagger-index': 3} as React.CSSProperties}>
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
-                   <KeyRound className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110"><path d="M15.5 8.5 12 12l-3.5 3.5"></path><path d="M8.5 8.5 12 12l3.5 3.5"></path><circle cx="12" cy="12" r="10"></circle></svg>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Crypto Payments</h3>
                 <p className="text-muted-foreground">We accept various cryptocurrencies for anonymous and secure payments.</p>
               </div>
               <div className="text-center p-4 animate-stagger-item" style={{'--stagger-index': 4} as React.CSSProperties}>
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
-                   <Headphones className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line></svg>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">24/7 Live Support</h3>
                 <p className="text-muted-foreground">Our dedicated support team is always here to help you out.</p>

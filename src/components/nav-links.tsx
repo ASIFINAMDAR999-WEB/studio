@@ -9,5 +9,3 @@ export const NavLinks = () => (
     <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
   </>
 );
-
-    

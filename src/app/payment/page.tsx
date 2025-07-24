@@ -5,10 +5,9 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Clipboard, Menu, Terminal, Shield } from 'lucide-react';
+import { Check, Clipboard, Menu, Terminal } from 'lucide-react';
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { plans } from '@/app/page';
 import { NavLinks } from '@/components/nav-links';
 import { useToast } from '@/hooks/use-toast';
@@ -34,7 +33,7 @@ function PaymentPageComponent() {
       <header className="py-4 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto flex justify-between items-center px-4">
           <Link href="/" className="flex items-center gap-2">
-            <Shield className="h-6 w-6 text-primary" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
