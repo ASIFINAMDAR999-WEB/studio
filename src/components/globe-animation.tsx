@@ -55,11 +55,7 @@ const GlobeAnimation: React.FC = () => {
         waitForGlobeReady: true,
         animateIn: true,
       })
-      .hexPolygonsData([])
-      .hexPolygonResolution(3)
-      .hexPolygonMargin(0.7)
-      .hexPolygonColor(() => `hsl(${primaryColorHsl.split(' ')[0]}, 83.3%, ${Math.random() * 30 + 40}%)`)
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
       .atmosphereColor(primaryColor)
       .atmosphereAltitude(0.25);
 
@@ -80,7 +76,7 @@ const GlobeAnimation: React.FC = () => {
           .arcStroke(0.5);
 
       const globeMaterial = globe.globeMaterial();
-      globeMaterial.color = new THREE.Color(primaryColor);
+      globeMaterial.color = new THREE.Color(0x3a228a);
       globeMaterial.emissive = new THREE.Color(primaryColor).multiplyScalar(0.2);
       globeMaterial.emissiveIntensity = 0.1;
       globeMaterial.shininess = 0.9;
