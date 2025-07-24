@@ -8,6 +8,7 @@ export type Plan = {
     highlight: boolean;
     cta: string;
     isHot?: boolean;
+    priceOptions?: string[];
 };
 
 export const plans: Plan[] = [
@@ -90,7 +91,8 @@ export const plans: Plan[] = [
   },
   {
     name: 'Silver Plan Top-up',
-    priceString: '$50-$500',
+    priceString: '',
+    priceOptions: ['$50', '$100', '$250', '$500'],
     duration: '',
     description: 'For virtual numbers and eSIMs',
     features: [

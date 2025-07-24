@@ -25,11 +25,23 @@ export function PlanCard({ plan }: { plan: Plan }) {
             {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white">HOT</Badge>}
         </div>
         
-        <div className="flex items-baseline justify-center gap-1">
-            <span className="text-5xl font-bold tracking-tighter">{plan.priceString}</span>
-            <span className="text-muted-foreground">{plan.duration}</span>
-        </div>
-        <CardDescription className="mt-2">{plan.description}</CardDescription>
+        {plan.priceOptions ? (
+          <div className="mt-2">
+            <p className="text-sm text-muted-foreground mb-3">Choose an amount:</p>
+            <div className="flex justify-center items-center flex-wrap gap-2">
+              {plan.priceOptions.map((price, index) => (
+                <Badge key={index} variant="secondary" className="text-lg font-bold px-4 py-1">{price}</Badge>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-baseline justify-center gap-1">
+              <span className="text-5xl font-bold tracking-tighter">{plan.priceString}</span>
+              <span className="text-muted-foreground">{plan.duration}</span>
+          </div>
+        )}
+
+        <CardDescription className="mt-2 min-h-[40px]">{plan.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 p-6 pt-0 z-10">
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
