@@ -146,7 +146,7 @@ export default function Home() {
           <div className="flex items-center gap-2">
              <Button variant="outline" size="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-                <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75-.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
+                <path d="M10 3a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 3zM15.5 6.25a.75.75 0 00-1.06-1.06L13.38 6.25a.75.75 0 001.06 1.06l1.06-1.06zM3.75 6.25a.75.75 0 001.06 1.06L5.87 6.25a.75.75 0 00-1.06-1.06L3.75 6.25zM17 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 00-.75-.75h-1.5a.75.75 0 000 1.5h1.5a.75.75 0 00.75-.75zM10 17a.75.75 0 01-.75-.75v-1.5a.75.75 0 011.5 0v1.5a.75.75 0 01-.75.75zM13.38 13.75a.75.75 0 00-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM6.62 13.75a.75.75 0 00-1.06 1.06l1.06 1.06a.75.75 0 101.06-1.06l-1.06-1.06z" />
                 <path fillRule="evenodd" d="M10 5a5 5 0 100 10 5 5 0 000-10zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
                 </svg>
             </Button>
@@ -170,7 +170,7 @@ export default function Home() {
       <main className="flex-1">
         <section id="hero" className="text-center py-20 md:py-32 animate-fade-in">
           <div className="container">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500 animate-text-gradient bg-[200%_auto]">
               Find Your Perfect Spoofing Plan
             </h1>
             <p className="max-w-xl mx-auto mt-4 text-lg text-muted-foreground">

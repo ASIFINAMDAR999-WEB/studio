@@ -102,13 +102,19 @@ export default {
             transform: 'translateY(0)',
             opacity: '1',
           },
-        }
+        },
+        'text-gradient': {
+          to: {
+            backgroundPosition: '200% center',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.5s ease-in-out',
         'slide-in-bottom': 'slide-in-bottom 0.5s ease-out',
+        'text-gradient': 'text-gradient 2s linear infinite',
       },
     },
   },
