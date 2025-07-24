@@ -168,7 +168,7 @@ export default function Home() {
       </header>
 
       <main className="flex-1">
-        <section id="hero" className="text-center py-20 md:py-32">
+        <section id="hero" className="text-center py-20 md:py-32 animate-fade-in">
           <div className="container">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
               Find Your Perfect Spoofing Plan
@@ -184,7 +184,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="features" className="py-20 md:py-28 bg-card">
+        <section id="features" className="py-20 md:py-28 bg-card animate-slide-in-bottom">
           <div className="container px-4">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <h2 className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
@@ -225,7 +225,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="pricing" className="py-20 md:py-28">
+        <section id="pricing" className="py-20 md:py-28 animate-slide-in-bottom">
           <div className="container px-4">
             <div className="text-center max-w-2xl mx-auto mb-12">
                <h2 className="text-3xl md:text-4xl font-bold">Our Plans</h2>
@@ -241,7 +241,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section id="testimonial" className="py-20 md:py-28 bg-card">
+        <section id="testimonial" className="py-20 md:py-28 bg-card animate-slide-in-bottom">
            <div className="container px-4">
               <div className="text-center max-w-2xl mx-auto mb-12">
                  <h2 className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
@@ -266,7 +266,7 @@ export default function Home() {
            </div>
         </section>
 
-        <section id="faq" className="py-20 md:py-28">
+        <section id="faq" className="py-20 md:py-28 animate-slide-in-bottom">
            <div className="container px-4">
               <div className="text-center max-w-2xl mx-auto mb-12">
                   <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
@@ -289,7 +289,7 @@ export default function Home() {
            </div>
         </section>
 
-        <section id="cta" className="py-20 md:py-28">
+        <section id="cta" className="py-20 md:py-28 animate-slide-in-bottom">
           <div className="container">
             <Card className="bg-primary text-primary-foreground shadow-xl">
               <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
