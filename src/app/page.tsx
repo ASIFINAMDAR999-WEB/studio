@@ -1,40 +1,57 @@
-import { PlanRecommender } from '@/components/plan-recommender';
 import { PlanCard } from '@/components/plan-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Crown, Send, Coins, ShieldAlert, Video } from 'lucide-react';
+import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu } from 'lucide-react';
 import Link from 'next/link';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const plans = [
   {
-    name: 'Silver Plans',
-    priceString: '$50 - $500',
-    duration: 'Manual top-up',
-    description: 'Pay as you go. Prices: $50, $100, $250, $500.',
-    features: ["Manual top-up via @AF3092", "Only for virtual number's and esim"],
+    name: 'Platinum 1 Month',
+    priceString: '$100',
+    duration: '/month',
+    features: [
+      'Full Call Spoofing',
+      'Premium Voice Changer',
+      'Enhanced Routing',
+      'Priority Support',
+      'Advance Otp bot Access',
+      'Website & Application Access',
+      'Email & SMS Spoofing Access',
+      'IVR System',
+      'Premium Toll-Free Number Spoofing',
+      'Premium SIP Trunk Access',
+    ],
     highlight: false,
-    cta: 'Contact Admin',
-    ctaLink: 'https://t.me/AF3092',
+    isHot: true,
+    cta: 'Choose Plan',
+    ctaLink: '#',
   },
   {
     name: 'Gold Plan',
     priceString: '$90',
-    duration: '1 Month',
-    description: 'Unlimited Calling — no per-minute charges',
+    duration: '/month',
     features: [
       'Full Call Spoofing Access',
       'Standard Voice Changer',
       'Website & Application Access',
     ],
     highlight: false,
-    cta: 'Get Gold',
-    ctaLink: 'https://t.me/AF3092',
+    isHot: false,
+    cta: 'Choose Plan',
+    ctaLink: '#',
   },
   {
     name: 'Diamond Plan',
     priceString: '$200',
-    duration: '2 Months',
-    description: 'Unlimited Calling — no per-minute charges',
+    duration: '/2 months',
     features: [
       'Advanced Call Spoofing',
       'Premium Voice Changer',
@@ -44,39 +61,17 @@ const plans = [
       'Email & SMS Spoofing Access',
       'IVR System',
       'Toll-Free Number Spoofing',
-      'SIP Trunk Access (inbound & outbound)',
+      'SIP Trunk Access',
     ],
     highlight: true,
-    cta: 'Get Diamond',
-    ctaLink: 'https://t.me/AF3092',
-  },
-  {
-    name: 'Platinum 1-Month Plan',
-    priceString: '$100',
-    duration: '1 Month',
-    description: 'Unlimited Calling — For New Clients Only',
-    features: [
-        'Advanced Call Spoofing',
-        'Premium Voice Changer',
-        'Enhanced Routing',
-        'Priority Support',
-        'Advance Otp bot Access',
-        'Website & Application Access',
-        'Email & SMS Spoofing Access',
-        'IVR System',
-        'Premium Toll-Free Number Spoofing',
-        'Premium SIP Trunk Access (inbound & outbound)',
-    ],
-    highlight: false,
-    isSpecialOffer: true,
-    cta: 'Get Offer',
-    ctaLink: 'https://t.me/AF3092',
+    isHot: false,
+    cta: 'Choose Plan',
+    ctaLink: '#',
   },
   {
     name: 'Platinum Plan',
     priceString: '$300',
-    duration: '3 Months',
-    description: 'Unlimited Calling — Includes all premium features',
+    duration: '/3 months',
     features: [
       'Advanced Call Spoofing',
       'Premium Voice Changer',
@@ -88,124 +83,234 @@ const plans = [
       'Email & SMS Spoofing Access',
       'IVR System',
       'Premium Toll-Free Number Spoofing',
-      'Premium SIP Trunk Access (inbound & outbound)',
+      'Premium SIP Trunk Access',
     ],
     highlight: false,
-    cta: 'Get Platinum',
-    ctaLink: 'https://t.me/AF3092',
+    isHot: false,
+    cta: 'Choose Plan',
+    ctaLink: '#',
+  },
+  {
+    name: 'Silver Plan Top-up',
+    priceString: '$50-$500',
+    duration: '',
+    features: ["Manual top-up", "Only for virtual number's and esim"],
+    highlight: false,
+    isHot: false,
+    cta: 'Choose Plan',
+    ctaLink: '#',
   },
 ];
+
+const faqItems = [
+  {
+    question: "What is call spoofing?",
+    answer: "Call spoofing is a service that allows you to change the Caller ID to any number you want. It's useful for privacy, business, and pranking."
+  },
+  {
+    question: "Is this service legal to use?",
+    answer: "The legality depends on your location and how you use the service. It is your responsibility to use our services in compliance with all applicable laws. We do not condone any illegal activities."
+  },
+  {
+    question: "How do I make a payment?",
+    answer: "We accept various cryptocurrencies for payment. Once you select a plan, you will be guided through the secure payment process."
+  },
+  {
+    question: "Can I change my plan later?",
+    answer: "Yes, you can upgrade or downgrade your plan at any time. Please contact our support team to assist you with the process."
+  },
+  {
+    question: "Do you offer a free trial?",
+    answer: "We do not offer free trials due to the nature of the service. However, we have various plans to suit different budgets and needs."
+  }
+]
+
+const NavLinks = () => (
+  <>
+    <Link href="#features" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Features</Link>
+    <Link href="#pricing" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Pricing</Link>
+    <Link href="#faq" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">FAQ</Link>
+    <Link href="#" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Contact</Link>
+  </>
+);
 
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
-      <header className="py-4 border-b bg-card/80 backdrop-blur-sm sticky top-0 z-40">
+      <header className="py-4 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto flex justify-between items-center px-4">
           <Link href="/" className="flex items-center gap-2">
-            <Crown className="h-7 w-7 text-primary" />
-            <span className="text-2xl font-bold font-headline text-primary">CallCraft</span>
+            <Phone className="h-6 w-6 text-primary" />
+            <span className="text-xl font-bold text-foreground">TELE-Spoof v.2</span>
           </Link>
-          <Button asChild>
-            <Link href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">
-              <Send className="mr-2 h-4 w-4" /> Contact Admin
-            </Link>
-          </Button>
+          <nav className="hidden md:flex items-center gap-6">
+            <NavLinks />
+          </nav>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" asChild>
+              <Link href="#">Login</Link>
+            </Button>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu />
+                  <span className="sr-only">Toggle Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <nav className="flex flex-col gap-6 mt-8">
+                  <NavLinks />
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </header>
 
       <main className="flex-1">
-        <section className="text-center py-16 md:py-24 bg-card">
+        <section id="hero" className="text-center py-20 md:py-32">
           <div className="container">
-            <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tighter bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              👑 TOP-UP PLANS 👑
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
+              Find Your Perfect<br/>Spoofing Plan
             </h1>
-            <p className="max-w-2xl mx-auto mt-4 text-lg text-muted-foreground">
-              Choose from our range of powerful top-up plans designed for ultimate flexibility and performance.
+            <p className="max-w-xl mx-auto mt-4 text-lg text-muted-foreground">
+              We provide the best call spoofing services with a variety of plans to fit your needs. Secure, fast, and reliable.
             </p>
             <div className="mt-8">
               <Button size="lg" asChild>
-                <Link href="#plans">View Plans</Link>
+                <Link href="#pricing">See Plans</Link>
               </Button>
             </div>
           </div>
         </section>
 
-        <section id="recommender" className="py-16 md:py-24">
+        <section id="features" className="py-20 md:py-28 bg-card">
           <div className="container px-4">
-            <PlanRecommender />
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
+              <p className="mt-4 text-muted-foreground">
+                We are trusted by thousands of users for our reliable and feature-rich spoofing services.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="text-center p-4">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4">
+                  <ShieldCheck className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Encrypted & Secure</h3>
+                <p className="text-muted-foreground">Your privacy is our priority. All communications are fully encrypted.</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4">
+                   <Zap className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Fast and Effective</h3>
+                <p className="text-muted-foreground">Our powerful infrastructure ensures your calls connect instantly.</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4">
+                   <KeyRound className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Crypto Payments</h3>
+                <p className="text-muted-foreground">We accept various cryptocurrencies for anonymous and secure payments.</p>
+              </div>
+              <div className="text-center p-4">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4">
+                   <Headphones className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">24/7 Live Support</h3>
+                <p className="text-muted-foreground">Our dedicated support team is always here to help you out.</p>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section id="plans" className="py-16 md:py-24 bg-card">
+        <section id="pricing" className="py-20 md:py-28">
           <div className="container px-4">
-            <h2 className="text-3xl md:text-4xl font-bold font-headline text-center mb-12">Choose Your Perfect Plan</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch justify-center">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+               <h2 className="text-3xl md:text-4xl font-bold">Our Plans</h2>
+               <p className="mt-4 text-muted-foreground">
+                  Choose the plan that's right for you. All plans come with our top-notch features and support.
+               </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start justify-center">
               {plans.map((plan) => (
                 <PlanCard key={plan.name} plan={plan} />
               ))}
             </div>
           </div>
         </section>
+        
+        <section id="testimonial" className="py-20 md:py-28 bg-card">
+           <div className="container px-4">
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                 <h2 className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
+              </div>
+              <Card className="max-w-2xl mx-auto shadow-lg bg-background">
+                 <CardContent className="pt-6">
+                    <p className="text-lg italic text-center text-muted-foreground">
+                       "The best service for spoofing calls. The voice changer is amazing and the connection is always stable. Highly recommended for anyone looking for privacy and features!"
+                    </p>
+                    <div className="flex items-center justify-center mt-6">
+                        <Avatar>
+                           <AvatarImage src="https://placehold.co/40x40.png" alt="@johndoe" data-ai-hint="man" />
+                           <AvatarFallback>JD</AvatarFallback>
+                        </Avatar>
+                        <div className="ml-4 text-left">
+                           <p className="font-semibold">John Doe</p>
+                           <p className="text-sm text-muted-foreground">Freelancer</p>
+                        </div>
+                    </div>
+                 </CardContent>
+              </Card>
+           </div>
+        </section>
 
-        <section id="notes" className="py-16 md:py-24">
-          <div className="container px-4">
-            <Card className="max-w-3xl mx-auto shadow-lg rounded-xl">
-              <CardHeader>
-                <CardTitle className="font-headline text-2xl flex items-center gap-2">
-                  <ShieldAlert className="h-6 w-6 text-primary" />
-                  Important Notes
-                </CardTitle>
-                <CardDescription>
-                  Please read these points carefully before making a purchase.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-4 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <Coins className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <span><strong>We only accept Crypto payment.</strong> All transactions are secure and private.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Send className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <span><strong>Manual top-up required.</strong> Please contact our admin for all top-ups.
-                      <Button variant="link" asChild className="p-1 h-auto -ml-1">
-                        <Link href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Admin: @AF3092</Link>
-                      </Button>
-                    </span>
-                  </li>
-                   <li className="flex items-start gap-3">
-                    <Video className="h-5 w-5 text-primary mt-1 shrink-0" />
-                    <span>
-                      <strong>Demo videos available.</strong> Watch demos on our official channel.
-                      <Button variant="link" asChild className="p-1 h-auto -ml-1">
-                        <Link href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
-                          Watch Demos
-                        </Link>
-                      </Button>
-                    </span>
-                  </li>
-                   <li className="flex items-start gap-3">
-                    <ShieldAlert className="h-5 w-5 text-destructive mt-1 shrink-0" />
-                    <span><strong>No free trials available.</strong> We encourage you to watch the demo videos to see the service in action.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <ShieldAlert className="h-5 w-5 text-destructive mt-1 shrink-0" />
-                    <span className="font-semibold text-destructive-foreground/80">
-                      Please do not use the top-up section inside our spoofing bot, as that service has been discontinued. We are not responsible for any losses resulting from attempts to use the old top-up method.
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
+        <section id="faq" className="py-20 md:py-28">
+           <div className="container px-4">
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+                  <p className="mt-4 text-muted-foreground">
+                     Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.
+                  </p>
+              </div>
+              <div className="max-w-2xl mx-auto">
+                <Accordion type="single" collapsible className="w-full">
+                  {faqItems.map((item, index) => (
+                    <AccordionItem value={`item-${index+1}`} key={index}>
+                      <AccordionTrigger className="text-lg font-semibold text-left">{item.question}</AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        {item.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+           </div>
+        </section>
+
+        <section id="cta" className="py-20 md:py-28">
+          <div className="container">
+            <Card className="bg-primary text-primary-foreground shadow-xl">
+              <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                  <h2 className="text-3xl font-bold">Ready to Start?</h2>
+                  <p className="text-primary-foreground/80 mt-2">Get the best spoofing service on the market today!</p>
+                </div>
+                <Button variant="secondary" size="lg" asChild className="bg-white text-primary hover:bg-white/90">
+                  <Link href="#pricing">Get Started Now</Link>
+                </Button>
+              </div>
             </Card>
           </div>
         </section>
+
       </main>
 
-      <footer className="py-6 border-t bg-card/80">
-        <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
-          <p>&copy; {new Date().getFullYear()} CallCraft. All rights reserved.</p>
-          <p className="mt-2">For instant and secure top-ups, contact admin <Link href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@AF3092</Link></p>
+      <footer className="py-8 border-t bg-card">
+        <div className="container mx-auto px-4 text-center text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} Tele-Spoof v.2. All rights reserved.</p>
         </div>
       </footer>
     </div>

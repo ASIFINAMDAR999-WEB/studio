@@ -11,44 +11,45 @@ type Plan = {
   name: string;
   priceString: string;
   duration: string;
-  description: string;
   features: string[];
   highlight: boolean;
   cta: string;
   ctaLink: string;
-  isSpecialOffer?: boolean;
+  isHot?: boolean;
 };
 
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
-      "flex flex-col rounded-xl shadow-lg transition-all hover:shadow-2xl hover:-translate-y-2", 
-      plan.highlight && "border-primary ring-2 ring-primary shadow-primary/20"
+      "flex flex-col rounded-xl shadow-md transition-all hover:shadow-xl hover:-translate-y-1 border", 
+      plan.highlight ? "border-primary ring-2 ring-primary" : "border-border"
     )}>
-      <CardHeader className="p-6">
-        <div className="flex justify-between items-start mb-4">
-          <CardTitle className="text-2xl font-headline">{plan.name}</CardTitle>
-          {plan.isSpecialOffer && <Badge variant="default" className="bg-accent text-accent-foreground">Offer</Badge>}
+      <CardHeader className="p-6 text-center">
+        <div className="flex justify-center items-center gap-4 mb-2">
+            <CardTitle className="text-2xl font-semibold">{plan.name}</CardTitle>
+            {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white">HOT</Badge>}
         </div>
-        <div className="flex items-baseline gap-2">
-            <span className="text-4xl font-bold font-headline tracking-tighter">{plan.priceString}</span>
-            <span className="text-muted-foreground">/ {plan.duration}</span>
+        
+        <div className="flex items-baseline justify-center gap-1">
+            <span className="text-5xl font-bold tracking-tighter">{plan.priceString}</span>
+            <span className="text-muted-foreground">{plan.duration}</span>
         </div>
-        <CardDescription>{plan.description}</CardDescription>
+        <CardDescription className="mt-2">Per account</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 p-6 pt-0">
+        <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
         <ul className="space-y-3 text-sm">
           {plan.features.map((feature, index) => (
-            <li key={index} className="flex items-start">
-              <Check className="h-4 w-4 text-primary mr-3 shrink-0 mt-1" />
-              <span className="text-card-foreground/90">{feature}</span>
+            <li key={index} className="flex items-start gap-3">
+              <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+              <span className="text-muted-foreground">{feature}</span>
             </li>
           ))}
         </ul>
       </CardContent>
       <CardFooter className="p-6 pt-0 mt-4">
-        <Button asChild className="w-full text-lg py-6" variant={plan.highlight ? 'default' : 'secondary'}>
-          <Link href={plan.ctaLink} target="_blank" rel="noopener noreferrer">{plan.cta}</Link>
+        <Button asChild className="w-full text-lg py-6" variant={plan.highlight ? 'default' : 'outline'}>
+          <Link href={plan.ctaLink}>{plan.cta}</Link>
         </Button>
       </CardFooter>
     </Card>
