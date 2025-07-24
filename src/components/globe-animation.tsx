@@ -117,13 +117,16 @@ export function GlobeAnimation() {
     }, [initGlobe, globe]);
 
     const handleResize = useCallback(() => {
-        if (globe && globeEl.current) {
-            const { camera, renderer } = globe.scene().children[0];
-            const width = globeEl.current.offsetWidth;
-            const height = globeEl.current.offsetHeight;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
+        if (globe && globeEl.current && globe.scene) {
+            const renderer = globe.renderer();
+            const camera = globe.camera();
+            if (renderer && camera) {
+                const width = globeEl.current.offsetWidth;
+                const height = globeEl.current.offsetHeight;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            }
         }
     }, [globe]);
 
