@@ -15,19 +15,23 @@ export function Header() {
   return (
     <header className="py-4 px-4 sm:px-6 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-6 w-6 text-primary"
-          >
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-          </svg>
+        <Link href="/" className="flex items-center gap-3">
+           <svg
+              role="img"
+              aria-label="REDArmor Logo"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-7 w-7 text-primary"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
           <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
@@ -44,16 +48,20 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs bg-background/95 backdrop-blur-sm">
               <SheetHeader>
-                 <Link href="/" className="flex items-center gap-2 mb-4" onClick={() => setIsMenuOpen(false)}>
+                 <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
                     <svg
+                      role="img"
+                      aria-label="REDArmor Logo"
                       xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="2"
+                      strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="h-6 w-6 text-primary"
+                      className="h-7 w-7 text-primary"
                     >
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     </svg>
