@@ -1,29 +1,15 @@
 
-'use client';
-
-import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
-// export const metadata: Metadata = {
-//   title: 'Terms of Service | REDArmor v0.2',
-//   description: 'Read the Terms of Service for using REDArmor v0.2. Understand your responsibilities and our policies.',
-// };
+export const metadata: Metadata = {
+  title: 'Terms of Service | CallCraft',
+  description: 'Read the Terms of Service for using CallCraft. Understand your responsibilities and our policies.',
+};
 
 export default function TermsOfServicePage() {
-    const [lastUpdated, setLastUpdated] = useState('');
-
-    useEffect(() => {
-        // This effect runs only on the client, after hydration
-        setLastUpdated(new Date().toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        }));
-    }, []);
-
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
@@ -35,7 +21,7 @@ export default function TermsOfServicePage() {
             </CardHeader>
             <CardContent className="prose prose-lg dark:prose-invert max-w-none mx-auto text-muted-foreground space-y-6 px-6 md:px-8 pb-8">
               <p className="text-center text-sm">
-                <strong>Last Updated: {lastUpdated}</strong>
+                <strong>Last Updated: October 26, 2023</strong>
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">1. Agreement to Terms</h2>
@@ -50,7 +36,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-semibold text-foreground">3. Intellectual Property</h2>
               <p>
-                The Service and its original content, features, and functionality are and will remain the exclusive property of REDArmor v0.2 and its licensors.
+                The Service and its original content, features, and functionality are and will remain the exclusive property of CallCraft and its licensors.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">4. Termination</h2>
@@ -60,7 +46,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-semibold text-foreground">5. Limitation of Liability</h2>
               <p>
-                In no event shall REDArmor v0.2, nor its directors or employees, be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the service, particularly any use that violates applicable laws. You agree to indemnify and hold harmless REDArmor v0.2 from any claims arising out of your unlawful use of the Services.
+                In no event shall CallCraft, nor its directors or employees, be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the service, particularly any use that violates applicable laws. You agree to indemnify and hold harmless CallCraft from any claims arising out of your unlawful use of the Services.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">6. Governing Law</h2>

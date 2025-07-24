@@ -1,29 +1,15 @@
 
-'use client';
-
-import { useState, useEffect } from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
-// export const metadata: Metadata = {
-//   title: 'Privacy Policy | REDArmor v0.2',
-//   description: 'Learn about our commitment to your privacy and anonymity. We do not collect or store any personally identifiable information.',
-// };
+export const metadata: Metadata = {
+  title: 'Privacy Policy | CallCraft',
+  description: 'Learn about our commitment to your privacy and anonymity. We do not collect or store any personally identifiable information.',
+};
 
 export default function PrivacyPolicyPage() {
-  const [lastUpdated, setLastUpdated] = useState('');
-
-  useEffect(() => {
-    // This effect runs only on the client, after hydration
-    setLastUpdated(new Date().toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    }));
-  }, []);
-    
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
@@ -35,12 +21,12 @@ export default function PrivacyPolicyPage() {
             </CardHeader>
             <CardContent className="prose prose-lg dark:prose-invert max-w-none mx-auto text-muted-foreground space-y-6 px-6 md:px-8 pb-8">
               <p className="text-center text-sm">
-                <strong>Last Updated: {lastUpdated}</strong>
+                <strong>Last Updated: October 26, 2023</strong>
               </p>
               
               <h2 className="text-xl font-semibold text-foreground">1. Introduction</h2>
               <p>
-                Welcome to REDArmor v0.2. We are committed to protecting your privacy and ensuring your anonymity. This Privacy Policy explains our stance on data. By using our call spoofing, voice changing, and other related services ("Services"), you agree to this policy.
+                Welcome to CallCraft. We are committed to protecting your privacy and ensuring your anonymity. This Privacy Policy explains our stance on data. By using our call spoofing, voice changing, and other related services ("Services"), you agree to this policy.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">2. Information We Collect</h2>
