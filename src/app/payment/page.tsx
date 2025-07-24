@@ -10,24 +10,46 @@ import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const plan = plans.find((p) => p.name === planName) || plans[0];
 
-  const bitcoinAddress = process.env.NEXT_PUBLIC_BITCOIN_ADDRESS || 'YOUR_BITCOIN_ADDRESS_HERE';
   const { toast } = useToast()
 
-  const copyToClipboard = () => {
-    if (bitcoinAddress) {
-      navigator.clipboard.writeText(bitcoinAddress);
+  const addresses = {
+    usdt_trc20: process.env.NEXT_PUBLIC_USDT_TRC20_ADDRESS || '',
+    usdt_erc20: process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS || '',
+    usdt_bep20: process.env.NEXT_PUBLIC_USDT_BEP20_ADDRESS || '',
+    btc: process.env.NEXT_PUBLIC_BTC_ADDRESS || '',
+    eth: process.env.NEXT_PUBLIC_ETH_ADDRESS || '',
+    ltc: process.env.NEXT_PUBLIC_LTC_ADDRESS || '',
+    xrp: process.env.NEXT_PUBLIC_XRP_ADDRESS || '',
+  }
+
+  const copyToClipboard = (text: string) => {
+    if (text) {
+      navigator.clipboard.writeText(text);
       toast({
         title: "Copied to clipboard",
-        description: "Bitcoin address has been copied to your clipboard.",
+        description: "Address has been copied to your clipboard.",
       })
     }
   };
+
+  const AddressDisplay = ({ network, address }: { network: string, address: string }) => (
+    <div className="bg-muted/50 rounded-lg p-4">
+      <p className="text-sm text-muted-foreground mb-1">{network}</p>
+      <div className="flex justify-between items-center gap-4">
+        <p className="font-mono text-sm sm:text-base break-all">{address}</p>
+        <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)}>
+          <Clipboard className="h-5 w-5" />
+        </Button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -85,24 +107,42 @@ function PaymentPageComponent() {
               <h2 className="text-2xl font-bold mb-4">Payment Instructions</h2>
               <Card className="shadow-lg">
                 <CardContent className="pt-6 space-y-6">
-                    <div>
-                      <h3 className="font-bold text-lg mb-2">Pay with Bitcoin</h3>
-                      <p className="text-muted-foreground mb-4">Send the exact amount to the address below.</p>
-                      <div className="bg-muted/50 rounded-lg p-4">
-                        <p className="text-sm text-muted-foreground mb-1">Bitcoin Address (Bitcoin)</p>
-                        <div className="flex justify-between items-center gap-4">
-                          <p className="font-mono text-sm sm:text-lg break-all">{bitcoinAddress}</p>
-                          <Button variant="ghost" size="icon" onClick={copyToClipboard}>
-                            <Clipboard className="h-5 w-5" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <Tabs defaultValue="usdt" className="w-full">
+                      <TabsList className="grid w-full grid-cols-3 md:grid-cols-5 mb-4">
+                        <TabsTrigger value="usdt">USDT</TabsTrigger>
+                        <TabsTrigger value="btc">BTC</TabsTrigger>
+                        <TabsTrigger value="eth">ETH</TabsTrigger>
+                        <TabsTrigger value="ltc">LTC</TabsTrigger>
+                        <TabsTrigger value="xrp">XRP</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="usdt" className="space-y-4">
+                        <h3 className="font-bold text-lg">Pay with USDT (Tether)</h3>
+                        <AddressDisplay network="TRC-20 (Tron Network)" address={addresses.usdt_trc20} />
+                        <AddressDisplay network="ERC-20 (Ethereum Network)" address={addresses.usdt_erc20} />
+                        <AddressDisplay network="BEP-20 (Binance Smart Chain)" address={addresses.usdt_bep20} />
+                      </TabsContent>
+                      <TabsContent value="btc">
+                        <h3 className="font-bold text-lg mb-2">Pay with Bitcoin (BTC)</h3>
+                        <AddressDisplay network="Bitcoin Network" address={addresses.btc} />
+                      </TabsContent>
+                      <TabsContent value="eth">
+                        <h3 className="font-bold text-lg mb-2">Pay with Ethereum (ETH)</h3>
+                        <AddressDisplay network="Ethereum Network" address={addresses.eth} />
+                      </TabsContent>
+                      <TabsContent value="ltc">
+                         <h3 className="font-bold text-lg mb-2">Pay with Litecoin (LTC)</h3>
+                        <AddressDisplay network="Litecoin Network" address={addresses.ltc} />
+                      </TabsContent>
+                      <TabsContent value="xrp">
+                         <h3 className="font-bold text-lg mb-2">Pay with Ripple (XRP)</h3>
+                        <AddressDisplay network="XRP Network" address={addresses.xrp} />
+                      </TabsContent>
+                    </Tabs>
 
                     <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
                       <h4 className="font-bold mb-2 text-primary">Important Instructions:</h4>
                       <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
-                        <li>Send the <span className="font-bold text-foreground">exact amount</span> to the address shown.</li>
+                        <li>Send the <span className="font-bold text-foreground">exact amount</span> to the correct address and network.</li>
                         <li>For XRP, a destination tag is not required.</li>
                         <li>After payment, send a screenshot of the transaction to our admin on Telegram.</li>
                         <li>Admin: <span className="font-bold text-foreground">@AF3092</span></li>
