@@ -12,7 +12,7 @@ const GlobeAnimation: React.FC = () => {
 
   useEffect(() => {
     const checkScripts = () => {
-      if (typeof THREE !== 'undefined' && typeof ThreeGlobe !== 'undefined') {
+      if (typeof THREE !== 'undefined' && typeof ThreeGlobe !== 'undefined' && (THREE as any).TrackballControls) {
         setScriptsLoaded(true);
       } else {
         setTimeout(checkScripts, 100);
@@ -42,11 +42,14 @@ const GlobeAnimation: React.FC = () => {
       globeRef.current.appendChild(renderer.domElement);
       
       scene = new THREE.Scene();
-      scene.add(new THREE.AmbientLight(0xbbbbbb));
-      scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
+      scene.add(new THREE.AmbientLight(0xbbbbbb, 0.3));
+      scene.add(new THREE.DirectionalLight(0xffffff, 0.8));
 
       camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
       camera.position.z = 240;
+
+      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
+      const globeColor = `hsl(${primaryColor})`;
 
       globe = new ThreeGlobe({
         waitForGlobeReady: true,
@@ -55,9 +58,9 @@ const GlobeAnimation: React.FC = () => {
       .hexPolygonsData([])
       .hexPolygonResolution(3)
       .hexPolygonMargin(0.7)
-      .hexPolygonColor(() => `#${'0123456789abcdef'.split('').map(() => '0123456789abcdef'[Math.floor(Math.random() * 16)]).join('')}`)
+      .hexPolygonColor(() => `hsl(${primaryColor.split(' ')[0]}, 83.3%, ${Math.random() * 30 + 40}%)`)
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-      .atmosphereColor('#9cff00')
+      .atmosphereColor(globeColor)
       .atmosphereAltitude(0.25);
 
 
@@ -66,7 +69,7 @@ const GlobeAnimation: React.FC = () => {
           startLng: (Math.random() - 0.5) * 360,
           endLat: (Math.random() - 0.5) * 180,
           endLng: (Math.random() - 0.5) * 360,
-          color: '#9cff00'
+          color: globeColor,
       }));
 
       globe.arcsData(arcsData)
@@ -88,6 +91,9 @@ const GlobeAnimation: React.FC = () => {
       tb.minDistance = 101;
       tb.rotateSpeed = 5;
       tb.zoomSpeed = 0.8;
+      tb.noPan = true;
+      tb.noZoom = true;
+
 
       const animate = () => {
         camera.lookAt(scene.position);
