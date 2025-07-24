@@ -34,22 +34,22 @@ export default function RootLayout({
     <html lang="en" className={`${montserrat.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Call Spoofing Shop | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK</title>
-        <meta name="description" content="Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. CallSpoofing.shop – #1 spoof call top-up store." />
+        <title>REDArmor v0.2 | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK</title>
+        <meta name="description" content="Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. REDArmor v0.2 – #1 spoof call top-up store." />
         <meta name="theme-color" content="#673AB7" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://callspoofing.shop/" />
-        <meta property="og:title" content="Call Spoofing Shop | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK" />
-        <meta property="og:description" content="Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. CallSpoofing.shop – #1 spoof call top-up store." />
+        <meta property="og:title" content="REDArmor v0.2 | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK" />
+        <meta property="og:description" content="Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. REDArmor v0.2 – #1 spoof call top-up store." />
         <meta property="og:image" content="https://callspoofing.shop/og-image.jpg" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://callspoofing.shop/" />
-        <meta property="twitter:title" content="Call Spoofing Shop | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK" />
-        <meta property="twitter:description" content="Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. CallSpoofing.shop – #1 spoof call top-up store." />
+        <meta property="twitter:title" content="REDArmor v0.2 | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK" />
+        <meta property="twitter:description" content="Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. REDArmor v0.2 – #1 spoof call top-up store." />
         <meta property="twitter:image" content="https://callspoofing.shop/twitter-image.jpg" />
 
       </head>
