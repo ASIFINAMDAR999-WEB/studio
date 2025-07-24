@@ -36,9 +36,6 @@ export default function RootLayout({
         <title>CallCraft - Your Ultimate Calling Solution</title>
         <meta name="description" content="Your Ultimate Calling Solution" />
         <meta name="theme-color" content="#673AB7" />
-        <Script src="https://unpkg.com/three@0.128.0/build/three.min.js" strategy="beforeInteractive" />
-        <Script src="https://unpkg.com/three-globe@2.24.4/dist/three-globe.min.js" strategy="beforeInteractive" />
-        <Script src="https://unpkg.com/three@0.128.0/examples/js/controls/TrackballControls.js" strategy="beforeInteractive" />
       </head>
       <body className="font-body antialiased">
         {loading ? (
