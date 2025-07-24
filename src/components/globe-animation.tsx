@@ -93,9 +93,11 @@ export function GlobeAnimation() {
       // Handle resize
       const onResize = () => {
           if(globeContainerRef.current) {
-              camera.aspect = globeContainerRef.current.offsetWidth / globeContainerRef.current.offsetHeight;
+              const width = globeContainerRef.current.offsetWidth;
+              const height = globeContainerRef.current.offsetHeight
+              camera.aspect = width / height;
               camera.updateProjectionMatrix();
-              renderer.setSize(globeContainerRef.current.offsetWidth, globeContainerRef.current.offsetHeight);
+              renderer.setSize(width, height);
           }
       };
       
@@ -115,5 +117,5 @@ export function GlobeAnimation() {
     };
   }, []);
 
-  return <div ref={globeContainerRef} id="globe-container" className="absolute top-0 left-0 w-full h-full z-0" />;
+  return <div ref={globeContainerRef} id="globe-container" className="w-full h-full" />;
 }
