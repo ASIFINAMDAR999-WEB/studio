@@ -1,25 +1,25 @@
 
-import { Bitcoin, Gauge, LifeBuoy, Lock } from 'lucide-react';
+import { ShieldCheck, Zap, Coins, Headset } from 'lucide-react';
 
 export function FeaturesSection() {
   const features = [
     {
-      icon: <Lock className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
+      icon: <ShieldCheck className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
       title: 'Encrypted & Secure',
       description: 'Your privacy is our priority. All communications are fully encrypted.',
     },
     {
-      icon: <Gauge className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
+      icon: <Zap className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
       title: 'Fast and Effective',
       description: 'Our powerful infrastructure ensures your calls connect instantly.',
     },
     {
-      icon: <Bitcoin className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
+      icon: <Coins className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
       title: 'Crypto Payments',
       description: 'We accept various cryptocurrencies for anonymous and secure payments.',
     },
     {
-      icon: <LifeBuoy className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
+      icon: <Headset className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
       title: '24/7 Live Support',
       description: 'Our dedicated support team is always here to help you out.',
     },
