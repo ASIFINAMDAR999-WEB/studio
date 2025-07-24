@@ -2,7 +2,7 @@
 import { PlanCard } from '@/components/plan-card';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield } from 'lucide-react';
+import { Phone, ShieldCheck, Zap, KeyRound, Headphones, Menu, Shield, ArrowDown, Home } from 'lucide-react';
 import Link from 'next/link';
 import {
   Accordion,
@@ -171,14 +171,14 @@ export default function Home() {
         <section id="hero" className="text-center py-20 md:py-32">
           <div className="container">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground">
-              Find Your Perfect<br/>Spoofing Plan
+              Find Your Perfect Spoofing Plan
             </h1>
             <p className="max-w-xl mx-auto mt-4 text-lg text-muted-foreground">
-              We provide the best call spoofing services with a variety of plans to fit your needs. Secure, fast, and reliable.
+              Unlock top-tier features with our world-class plans. Browse our plans to find the best fit for you.
             </p>
             <div className="mt-8">
               <Button size="lg" asChild>
-                <Link href="#pricing">See Plans</Link>
+                <Link href="#pricing">View Plans <ArrowDown className="h-4 w-4 ml-2" /></Link>
               </Button>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function Home() {
             <div className="text-center max-w-2xl mx-auto mb-12">
               <h2 className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
               <p className="mt-4 text-muted-foreground">
-                We are trusted by thousands of users for our reliable and feature-rich spoofing services.
+                We provide a robust set of features to ensure you have the best experience.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -322,4 +322,3 @@ export default function Home() {
     </div>
   );
 }
-
