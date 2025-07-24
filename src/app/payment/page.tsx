@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Clipboard, Terminal, Wallet } from 'lucide-react';
+import { Check, Clipboard, Terminal, Wallet, AlertTriangle, Send, Camera, ShieldCheck } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -71,6 +71,13 @@ function PaymentPageComponent() {
   );
   
   const selectedCrypto = cryptoName ? cryptoOptions[cryptoName] : null;
+
+  const instructions = [
+    { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">exact amount.</span> Double-check the address and network before sending.</> },
+    { icon: <Camera className="h-5 w-5 text-primary" />, text: "After payment, send a screenshot of the transaction to our admin on Telegram." },
+    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Admin Telegram: <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@AF3092</a></> },
+    { icon: <ShieldCheck className="h-5 w-5 text-primary" />, text: "Your plan will be activated once the transaction is confirmed by our team." },
+  ];
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -161,16 +168,21 @@ function PaymentPageComponent() {
                         <p>No cryptocurrency selected. Please go back and choose a payment method.</p>
                     )}
 
-                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                      <h4 className="font-bold mb-2 text-primary">Important Instructions:</h4>
-                      <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
-                        <li>Send the <span className="font-bold text-foreground">exact amount</span> to the correct address and network.</li>
-                        <li>For XRP, a destination tag is not required.</li>
-                        <li>After payment, send a screenshot of the transaction to our admin on Telegram.</li>
-                        <li>Admin: <span className="font-bold text-foreground">@AF3092</span></li>
-                        <li>Your plan will be activated once the transaction is confirmed.</li>
-                      </ol>
+                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4">
+                      <h4 className="font-bold text-primary">Important Instructions:</h4>
+                      <ul className="space-y-3">
+                        {instructions.map((item, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <div className="flex-shrink-0 mt-0.5">{item.icon}</div>
+                            <span className="text-sm text-muted-foreground">{item.text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {planName.includes('XRP') && (
+                        <p className="text-sm text-muted-foreground pl-8">Note: For XRP, a destination tag is not required.</p>
+                      )}
                     </div>
+
 
                     <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 animate-press" asChild>
                       <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
