@@ -15,18 +15,18 @@ export const plans: Plan[] = [
     name: 'Platinum 1-Month',
     priceString: '$100',
     duration: '/month',
-    description: '1 Month Unlimited Calling — no per-minute charges',
+    description: '1 Month Unlimited Calling — For New Clients Only',
     features: [
-      'Comprehensive Call Spoofing Capabilities',
-      'Access to Premium Voice Changer Library',
-      'Optimized Call Routing for Peak Performance',
-      '24/7 Priority Customer Support',
-      'Advanced OTP Bot Integration',
-      'Full Access to Web and Mobile Platforms',
-      'Integrated Email & SMS Spoofing Tools',
-      'Interactive Voice Response (IVR) System',
+      'Advanced Call Spoofing',
+      'Premium Voice Changer',
+      'Enhanced Routing',
+      'Priority Support',
+      'Advance Otp bot Access',
+      'Website & Application Access',
+      'Email & SMS Spoofing Access',
+      'IVR System',
       'Premium Toll-Free Number Spoofing',
-      'Dedicated Premium SIP Trunk Access',
+      'Premium SIP Trunk Access',
     ],
     highlight: true,
     isHot: true,
@@ -38,9 +38,9 @@ export const plans: Plan[] = [
     duration: '/month',
     description: '1 Month Unlimited Calling — no per-minute charges',
     features: [
-      'Complete Call Spoofing Functionality',
-      'Standard Voice Changer Options',
-      'Full Access to Web and Mobile Platforms',
+      'Full Call Spoofing Access',
+      'Standard Voice Changer',
+      'Website & Application Access',
     ],
     highlight: false,
     isHot: false,
@@ -50,17 +50,17 @@ export const plans: Plan[] = [
     name: 'Diamond Plan',
     priceString: '$200',
     duration: '/2 months',
-    description: '2Months Unlimited Calling — no per-minute charges',
+    description: '2 Months Unlimited Calling — no per-minute charges',
     features: [
-      'Advanced Call Spoofing Suite',
-      'Access to Premium Voice Changer Library',
-      'Enhanced Call Routing Infrastructure',
-      'Advanced OTP Bot Integration',
-      'Full Access to Web and Mobile Platforms',
-      'Integrated Email & SMS Spoofing Tools',
-      'Interactive Voice Response (IVR) System',
-      'Standard Toll-Free Number Spoofing',
-      'Reliable SIP Trunk Access',
+      'Advanced Call Spoofing',
+      'Premium Voice Changer',
+      'Enhanced Call Routing',
+      'Advance Otp bot Access',
+      'Website & Application Access',
+      'Email & SMS Spoofing Access',
+      'IVR System',
+      'Toll-Free Number Spoofing',
+      'SIP Trunk Access (inbound & outbound)',
     ],
     highlight: false,
     isHot: false,
@@ -70,19 +70,19 @@ export const plans: Plan[] = [
     name: 'Platinum Plan',
     priceString: '$300',
     duration: '/3 months',
-    description: '3Months Unlimited Calling — no per-minute charges',
+    description: '3 Months Unlimited Calling — no per-minute charges',
     features: [
-      'Advanced Call Spoofing Suite',
-      'Access to Premium Voice Changer Library',
-      'Optimized Call Routing for Peak Performance',
-      '24/7 Priority Customer Support',
-      'Advanced OTP Bot Integration',
-      'Full API Access for Custom Integrations',
-      'Full Access to Web and Mobile Platforms',
-      'Integrated Email & SMS Spoofing Tools',
-      'Interactive Voice Response (IVR) System',
+      'Advanced Call Spoofing',
+      'Premium Voice Changer',
+      'Enhanced Routing',
+      'Priority Support',
+      'Advance Otp bot Access',
+      'Full API & Custom Integration',
+      'Website & Application Access',
+      'Email & SMS Spoofing Access',
+      'IVR System',
       'Premium Toll-Free Number Spoofing',
-      'Dedicated Premium SIP Trunk Access',
+      'Premium SIP Trunk Access',
     ],
     highlight: false,
     isHot: false,
@@ -92,35 +92,38 @@ export const plans: Plan[] = [
     name: 'Silver Plan Top-up',
     priceString: '$50-$500',
     duration: '',
-    description: 'Manual top-up',
-    features: ["On-demand credit for virtual numbers & eSIMs", "Personalized top-up service via Telegram"],
+    description: 'For virtual numbers and eSIMs',
+    features: [
+        'Manual top-up via Admin: @AF3092',
+        'Service for virtual numbers and eSIMs only'
+    ],
     highlight: false,
     isHot: false,
-    cta: 'Choose Plan',
+    cta: 'Contact Admin',
   },
 ];
 
 export const faqItems = [
   {
+    question: "How do I make a payment?",
+    answer: "We only accept cryptocurrency payments. Manual top-up is required via our admin on Telegram."
+  },
+  {
+    question: "How do I top-up or purchase a plan?",
+    answer: "Please contact our admin on Telegram: @AF3092 for all purchases and top-ups. Please do not use the top-up section inside the spoofing bot, as that service is discontinued."
+  },
+  {
+    question: "Do you offer a free trial or demo?",
+    answer: "We do not offer free trials. However, you can view demo videos of our service on our official Telegram channel: https://t.me/+Eg-SFpyzbpM0YzM1"
+  },
+  {
     question: "What is call spoofing?",
-    answer: "Call spoofing is a service that allows you to change the Caller ID to any number you want. It's useful for privacy, business, and pranking."
+    answer: "Call spoofing is a service that allows you to change the Caller ID to any number you want. It's useful for privacy, business, and other professional use cases."
   },
   {
     question: "Is this service legal to use?",
     answer: "The legality depends on your location and how you use the service. It is your responsibility to use our services in compliance with all applicable laws. We do not condone any illegal activities."
   },
-  {
-    question: "How do I make a payment?",
-    answer: "We accept various cryptocurrencies for payment. Once you select a plan, you will be guided through the secure payment process."
-  },
-  {
-    question: "Can I change my plan later?",
-    answer: "Yes, you can upgrade or downgrade your plan at any time. Please contact our support team to assist you with the process."
-  },
-  {
-    question: "Do you offer a free trial?",
-    answer: "We do not offer free trials due to the nature of the service. However, we have various plans to suit different budgets and needs."
-  }
 ];
 
 export const testimonials = [

@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils"
 import type { Plan } from "@/lib/data"
 
 export function PlanCard({ plan }: { plan: Plan }) {
+  const isContactAdmin = plan.cta === 'Contact Admin';
+
   return (
     <Card className={cn(
       "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden", 
@@ -41,8 +43,16 @@ export function PlanCard({ plan }: { plan: Plan }) {
         </ul>
       </CardContent>
       <CardFooter className="p-6 pt-0 mt-4 z-10">
-        <Button asChild className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 animate-press" variant={plan.highlight ? 'default' : 'outline'}>
-          <Link href={`/payment?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
+        <Button 
+          asChild={!isContactAdmin}
+          className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 animate-press" 
+          variant={plan.highlight ? 'default' : 'outline'}
+        >
+          {isContactAdmin ? (
+            <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>
+          ) : (
+            <Link href={`/payment?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
+          )}
         </Button>
       </CardFooter>
     </Card>
