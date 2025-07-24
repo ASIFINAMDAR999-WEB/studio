@@ -1,6 +1,3 @@
-
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
@@ -8,9 +5,10 @@ import { Footer } from '@/components/layout/footer';
 import { Send } from 'lucide-react';
 import type { Metadata } from 'next';
 
-// Although this is a client component, we can't export metadata from it.
-// We'll set it in a parent layout or a server component if needed,
-// but for now, the root layout's metadata will apply.
+export const metadata: Metadata = {
+  title: 'Contact Us | REDArmor v0.2',
+  description: 'Get in touch with the REDArmor team. Contact our admin on Telegram for support, sales, and any inquiries you may have.',
+};
 
 export default function ContactPage() {
   return (
