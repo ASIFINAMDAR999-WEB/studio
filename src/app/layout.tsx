@@ -13,6 +13,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'REDArmor v0.2',
   description: 'Your Ultimate Spoofing Solution',
+  themeColor: '#673AB7',
 };
 
 export default function RootLayout({
