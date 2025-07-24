@@ -14,7 +14,7 @@ const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: <BadgeDollarSign className="h-8 w-8 text-primary" /> },
     { id: 'btc', name: 'Bitcoin (BTC)', icon: <Bitcoin className="h-8 w-8 text-primary" /> },
     { id: 'eth', name: 'Ethereum (ETH)', icon: <Gem className="h-8 w-8 text-primary" /> },
-    { id: 'ltc', name: 'Litecoin (LTC)', icon: <Gem className="h-8 w-8 text-primary" /> },
+    { id: 'ltc', name: 'Litecoin (LTC)', icon: <BadgeDollarSign className="h-8 w-8 text-primary" /> },
     { id: 'xrp', name: 'Ripple (XRP)', icon: <Waves className="h-8 w-8 text-primary" /> },
 ];
 
