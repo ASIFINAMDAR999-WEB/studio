@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, PhoneOutgoing } from 'lucide-react';
 import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useState } from 'react';
@@ -16,23 +16,8 @@ export function Header() {
     <header className="py-4 px-4 sm:px-6 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3">
-           <svg
-              role="img"
-              aria-label="REDArmor Logo"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-7 w-7 text-primary"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
+           <PhoneOutgoing className="h-7 w-7 text-primary" />
+          <span className="text-xl font-bold text-foreground">CallCraft</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           <NavLinks />
@@ -49,23 +34,8 @@ export function Header() {
             <SheetContent side="right" className="w-full max-w-xs bg-background/95 backdrop-blur-sm">
               <SheetHeader>
                  <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
-                    <svg
-                      role="img"
-                      aria-label="REDArmor Logo"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-7 w-7 text-primary"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    <span className="text-xl font-bold text-foreground">REDArmor v0.2</span>
+                    <PhoneOutgoing className="h-7 w-7 text-primary" />
+                    <span className="text-xl font-bold text-foreground">CallCraft</span>
                  </Link>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
               </SheetHeader>
