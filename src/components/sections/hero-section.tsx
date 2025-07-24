@@ -25,18 +25,6 @@ export function HeroSection() {
                     <ArrowDown className="ml-2 h-5 w-5" />
                 </Link>
             </Button>
-            <Button asChild size="lg" className="text-lg py-6 px-8 animate-press" variant="outline">
-                <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
-                    Join Telegram
-                    <Send className="ml-2 h-5 w-5" />
-                </a>
-            </Button>
-             <Button asChild size="lg" className="text-lg py-6 px-8 animate-press" variant="outline">
-                <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
-                    Watch Demos
-                    <Video className="ml-2 h-5 w-5" />
-                </a>
-            </Button>
         </div>
       </div>
     </section>
