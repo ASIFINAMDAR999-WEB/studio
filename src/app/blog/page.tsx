@@ -10,6 +10,13 @@ import { Footer } from '@/components/layout/footer';
 // Placeholder data - this will be replaced with real data from Markdown files in the next step.
 const placeholderPosts = [
   {
+    slug: 'understanding-call-spoofing-technology',
+    title: 'Understanding Call Spoofing Technology',
+    summary: 'A deep dive into the technology behind call spoofing, its legitimate use cases in professional fields, and how it works.',
+    image: 'https://placehold.co/600x400.png',
+    dataAiHint: 'network abstract'
+  },
+  {
     slug: 'top-5-spoof-call-apps-2025',
     title: 'Top 5 Spoof Call Apps in 2025',
     summary: 'Discover the leading applications for call spoofing and how they stack up against each other in terms of features, reliability, and user experience.',
@@ -23,13 +30,6 @@ const placeholderPosts = [
     image: 'https://placehold.co/600x400.png',
     dataAiHint: 'legal gavel'
   },
-  {
-    slug: 'how-to-change-caller-id-no-app',
-    title: 'How to Change Caller ID Without an App',
-    summary: 'Explore advanced techniques and services that allow you to modify your caller ID without installing any application on your smartphone.',
-    image: 'https://placehold.co/600x400.png',
-    dataAiHint: 'anonymous mask'
-  }
 ];
 
 export default function BlogPage() {

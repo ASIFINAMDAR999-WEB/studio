@@ -3,33 +3,52 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Image from 'next/image';
 import { Calendar, User } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
 // This component will display a single blog post.
 // In the next step, we'll fetch real content from Markdown files based on the 'slug' parameter.
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  // Placeholder content
-  const post = {
-    title: 'Understanding Call Spoofing Technology',
-    author: 'REDArmor Team',
-    date: 'October 26, 2023',
-    image: 'https://placehold.co/1200x600.png',
-    dataAiHint: 'network abstract',
-    content: `
-      <p>Call spoofing is a technology that allows a caller to change the Caller ID to any number they choose. This practice, while sometimes associated with misuse, has numerous legitimate and legal applications in various professional fields.</p>
-      <h3 class="text-2xl font-bold mt-8 mb-4">How Does It Work?</h3>
-      <p>The technology works by leveraging Voice over IP (VoIP), which allows for greater control over the data sent during a call. When a call is placed through a VoIP service, the user can specify the phone number they want to be displayed as the Caller ID. This information is then sent through the telephone network to the recipient's phone.</p>
-      <h3 class="text-2xl font-bold mt-8 mb-4">Legitimate Use Cases</h3>
-      <ul class="list-disc list-inside space-y-2 mb-4">
-        <li><strong>Protecting Personal Privacy:</strong> Doctors, lawyers, and other professionals can call clients from their personal phones without revealing their private numbers.</li>
-        <li><strong>Business Branding:</strong> A business can display its main customer service number, regardless of which extension or department is making the call.</li>
-        <li><strong>Enhancing Answer Rates:</strong> Sales and marketing teams can display a local number when calling potential clients, which can significantly increase the likelihood of the call being answered.</li>
-      </ul>
-      <p>It's crucial to understand the legalities surrounding call spoofing in your jurisdiction. In many countries, spoofing is legal as long as it's not done with the intent to defraud, cause harm, or wrongly obtain anything of value.</p>
-    `
+  // Placeholder content based on slug
+  const posts: { [key: string]: any } = {
+    'understanding-call-spoofing-technology': {
+      title: 'Understanding Call Spoofing Technology',
+      author: 'REDArmor Team',
+      date: 'October 26, 2023',
+      image: 'https://placehold.co/1200x600.png',
+      dataAiHint: 'network abstract',
+      content: `
+        <p>Call spoofing is a technology that allows a caller to change the Caller ID to any number they choose. This practice, while sometimes associated with misuse, has numerous legitimate and legal applications in various professional fields.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">How Does It Work?</h3>
+        <p>The technology works by leveraging Voice over IP (VoIP), which allows for greater control over the data sent during a call. When a call is placed through a VoIP service, the user can specify the phone number they want to be displayed as the Caller ID. This information is then sent through the telephone network to the recipient's phone.</p>
+        <h3 class="text-2xl font-bold mt-8 mb-4">Legitimate Use Cases</h3>
+        <ul class="list-disc list-inside space-y-2 mb-4">
+          <li><strong>Protecting Personal Privacy:</strong> Doctors, lawyers, and other professionals can call clients from their personal phones without revealing their private numbers.</li>
+          <li><strong>Business Branding:</strong> A business can display its main customer service number, regardless of which extension or department is making the call.</li>
+          <li><strong>Enhancing Answer Rates:</strong> Sales and marketing teams can display a local number when calling potential clients, which can significantly increase the likelihood of the call being answered.</li>
+        </ul>
+        <p>It's crucial to understand the legalities surrounding call spoofing in your jurisdiction. In many countries, spoofing is legal as long as it's not done with the intent to defraud, cause harm, or wrongly obtain anything of value.</p>
+      `
+    },
+    'top-5-spoof-call-apps-2025': {
+      title: 'Top 5 Spoof Call Apps in 2025',
+      author: 'REDArmor Team',
+      date: 'October 20, 2023',
+      image: 'https://placehold.co/1200x600.png',
+      dataAiHint: 'technology security',
+      content: `<p>As technology evolves, so do the tools available for privacy and professional communication. Here, we review the top 5 spoof call applications making waves in 2025, evaluating them on features, ease of use, and reliability for users in the USA and Europe.</p>`
+    },
+    'is-call-spoofing-legal-usa-uk': {
+        title: 'Is Call Spoofing Legal in USA/UK?',
+        author: 'Legal Team',
+        date: 'October 15, 2023',
+        image: 'https://placehold.co/1200x600.png',
+        dataAiHint: 'legal gavel',
+        content: `<p>The legality of call spoofing is a common question. This article breaks down the legal frameworks in the United States and the United Kingdom, such as the Truth in Caller ID Act, to help you understand the boundaries of lawful use.</p>`
+    }
   };
+
+  const post = posts[params.slug] || posts['understanding-call-spoofing-technology'];
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
