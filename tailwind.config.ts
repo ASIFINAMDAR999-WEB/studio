@@ -123,6 +123,10 @@ export default {
             '0%': { transform: 'scale(1)' },
             '50%': { transform: 'scale(0.95)' },
             '100%': { transform: 'scale(1)' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { 'box-shadow': '0 0 0 0 hsl(var(--primary) / 0.7)' },
+          '50%': { 'box-shadow': '0 0 0 5px hsl(var(--primary) / 0)' },
         }
       },
       animation: {
@@ -135,6 +139,7 @@ export default {
         'text-gradient': 'text-gradient 3s linear infinite',
         'float': 'float 4s ease-in-out infinite',
         'press': 'press 0.2s ease-in-out',
+        'pulse-glow': 'pulse-glow 2s infinite',
       },
     },
   },
