@@ -106,7 +106,7 @@ function PaymentPageComponent() {
             </CardContent>
           </Card>
 
-          <div className="grid md:grid-cols-2 md:gap-12 animate-fade-in-up [animation-delay:600ms]">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 animate-fade-in-up [animation-delay:600ms]">
             <div className="space-y-8">
               <div>
                 <h2 className="text-2xl font-bold mb-4">1. Order Summary</h2>
@@ -133,7 +133,7 @@ function PaymentPageComponent() {
               </div>
             </div>
 
-            <div className="space-y-8 mt-8 md:mt-0">
+            <div className="space-y-8">
               <div>
                 <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
                     <Wallet className="h-6 w-6"/>
