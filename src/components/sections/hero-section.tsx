@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Send, Video } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export function HeroSection() {
