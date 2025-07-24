@@ -131,32 +131,47 @@ export const faqItems = [
 export const testimonials = [
     {
       quote: "The best service for spoofing calls. The voice changer is amazing and the connection is always stable. Highly recommended for anyone looking for privacy and features!",
-      name: "John Doe",
-      role: "Verified Customer"
+      name: "John D.",
+      role: "USA Customer"
     },
     {
       quote: "I've tried other services, but this one is by far the most reliable and feature-rich. The customer support is also top-notch, always ready to help.",
-      name: "Jane Smith",
-      role: "Verified Customer"
+      name: "Jane S.",
+      role: "UK Customer"
     },
     {
         quote: "The setup was incredibly easy, and I was making calls in minutes. The premium voice changer is a game-changer for my business.",
-        name: "Alex Johnson",
-        role: "Verified Customer"
+        name: "Alex J.",
+        role: "EU Customer"
     },
     {
         quote: "I was skeptical at first, but the quality of the calls is crystal clear. The Platinum Plan is worth every penny for the advanced features.",
-        name: "Samantha Lee",
-        role: "Verified Customer"
+        name: "Samantha L.",
+        role: "USA Customer"
     },
     {
         quote: "The crypto payment option is a huge plus for me. It's fast, secure, and private. The service itself is flawless.",
-        name: "Michael Chen",
+        name: "Michael C.",
         role: "Verified Customer"
     },
     {
         quote: "Their support team is fantastic. I had a question about the SIP trunk access, and they were incredibly knowledgeable and helpful.",
-        name: "Emily Rodriguez",
+        name: "Emily R.",
         role: "Verified Customer"
+    },
+    {
+      quote: "The IVR system is a professional touch that sets this service apart. It has streamlined my client communications significantly. A+ service.",
+      name: "David P.",
+      role: "USA Customer"
+    },
+    {
+      quote: "Unmatched reliability and privacy. I have full confidence in their infrastructure and their commitment to client anonymity. Worth every cent.",
+      name: "Olivia B.",
+      role: "UK Customer"
+    },
+    {
+      quote: "As a security consultant, I need tools that are both powerful and discreet. REDArmor delivers on all fronts. The OTP bot is particularly impressive.",
+      name: "Ben G.",
+      role: "EU Customer"
     }
 ];
