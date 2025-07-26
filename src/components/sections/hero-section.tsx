@@ -16,8 +16,8 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-[url(/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       
-       <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10 animate-float">
-        <div className="relative inline-block">
+       <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
+        <div className="relative inline-block animate-float">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-purple-500 to-accent bg-clip-text text-transparent dark:from-primary dark:via-purple-400 dark:to-accent animate-text-gradient bg-[200%_auto] relative">
             Find Your Perfect Spoofing Plan
           </h1>

@@ -92,11 +92,11 @@ export default {
             height: '0',
           },
         },
-        'fade-in-up': {
-          '0%': { opacity: '0', transform: 'translateY(10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        'stagger-in': {
+        'fade-in-up': {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
@@ -118,8 +118,8 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-in-up': 'fade-in-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-        'stagger-in': 'stagger-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards var(--stagger-delay, 0s) both',
+        'fade-in': 'fade-in 0.5s ease-out forwards',
+        'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
         'text-gradient': 'text-gradient 10s linear infinite',
         'float': 'float 5s ease-in-out infinite',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
@@ -128,5 +128,3 @@ export default {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
-
-    

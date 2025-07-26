@@ -14,7 +14,7 @@ export function PricingSection() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start justify-center">
           {plans.map((plan, i) => (
-            <div key={plan.name} className="animate-stagger-in" style={{'--stagger-index': i} as React.CSSProperties}>
+            <div key={plan.name} className="animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
                 <PlanCard plan={plan} />
             </div>
           ))}

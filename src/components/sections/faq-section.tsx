@@ -17,7 +17,7 @@ export function FaqSection() {
                  Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.
               </p>
           </div>
-          <div className="max-w-3xl mx-auto animate-fade-in-up [animation-delay:200ms]">
+          <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <Accordion type="single" collapsible className="w-full space-y-3">
               {faqItems.map((item, index) => (
                 <AccordionItem value={`item-${index+1}`} key={index} className="bg-card border rounded-lg transition-all duration-300 hover:shadow-lg hover:bg-muted/30">

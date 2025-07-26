@@ -26,7 +26,7 @@ export default function ContactPage() {
           </div>
 
           <div className="max-w-md mx-auto">
-            <div className="space-y-8 animate-fade-in-up [animation-delay:400ms]">
+            <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                  <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
                     <CardHeader>
                         <CardTitle className="text-2xl">Contact Information</CardTitle>

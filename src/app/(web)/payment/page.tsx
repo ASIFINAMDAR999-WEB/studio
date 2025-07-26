@@ -82,7 +82,7 @@ function PaymentPageComponent() {
             </p>
           </div>
           
-          <div className="space-y-8 animate-fade-in-up [animation-delay:200ms]">
+          <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <Card className="shadow-lg border-l-4 border-primary">
               <CardHeader>
                 <CardTitle className="text-xl">Order Summary</CardTitle>
