@@ -7,11 +7,11 @@ import { useState, useEffect } from 'react';
 import { Loader } from '@/components/loader';
 
 export function Providers({ children }: ThemeProviderProps) {
-  const [loading, setLoading] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
+      setShowLoader(false);
     }, 1800); 
 
     return () => clearTimeout(timer);
@@ -24,7 +24,8 @@ export function Providers({ children }: ThemeProviderProps) {
       enableSystem
       disableTransitionOnChange
     >
-      {loading ? <Loader /> : children}
+      {showLoader && <Loader />}
+      {children}
       <Toaster />
     </NextThemesProvider>
   );
