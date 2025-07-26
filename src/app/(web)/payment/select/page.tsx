@@ -12,36 +12,30 @@ import Link from 'next/link';
 const BtcIcon = () => (
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="20" fill="#F7931A"/>
-        <path d="M25.2,19.9H23.5V17.3c0-0.4-0.3-0.7-0.7-0.7h-2.1c-0.4,0-0.7,0.3-0.7,0.7v2.6h-2.2V17.3c0-0.4-0.3-0.7-0.7-0.7h-2.1c-0.4,0-0.7,0.3-0.7,0.7v11.4c0,0.4,0.3,0.7,0.7,0.7h2.1c0.4,0,0.7-0.3,0.7-0.7v-2.6h2.2v2.6c0,0.4,0.3,0.7,0.7,0.7h2.1c0.4,0,0.7-0.3,0.7-0.7v-2.6h1.7c1.7,0,3.1-1.4,3.1-3.1v-0.3C28.3,21.3,26.9,19.9,25.2,19.9z M20.5,25.7h-2.2v-4.8h2.2V25.7z M24,25.7h-2.2v-4.8h2.2V25.7z" fill="white"/>
     </svg>
 );
 
 const EthIcon = () => (
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" fill="#627EEA"/>
-        <path d="M20,10.4l6,5.8l-6,3.6l-6-3.6L20,10.4z" fill="white" fillOpacity="0.602"/>
-        <path d="M20,21.6l6-3.6l-6,9.8l-6-9.8L20,21.6z" fill="white"/>
+        <circle cx="20" cy="20" r="20" fill="#3C3C3D"/>
     </svg>
 );
 
 const UsdtIcon = () => (
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="20" fill="#26A17B"/>
-        <path d="M20.98,15H15.86c-0.55,0-1,0.45-1,1v4h-2.14v-4c0-0.55-0.45-1-1-1h-2.29c-0.55,0-1,0.45-1,1v10c0,0.55,0.45,1,1,1h2.29c0.55,0,1-0.45,1-1v-4h2.14v4c0,0.55,0.45,1,1,1h5.12c2.21,0,4-1.79,4-4v-3C24.98,16.79,23.19,15,20.98,15z" fill="white"/>
     </svg>
 );
 
 const LtcIcon = () => (
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" fill="#BFBBBB"/>
-        <path d="M17.4,14.6h3.4l-1.3,4.9h-2.9L17.4,14.6z M22.8,14.6h3.4l-1.3,4.9h-2.9L22.8,14.6z M16.7,20.7l1.3-4.9h-3.4l-1.3,4.9H16.7z M22,20.7l1.3-4.9h-3.4l-1.3,4.9H22z M17.4,25.4h2.9l1.3-4.9h-3.4L17.4,25.4z" fill="white" transform="translate(1.5, 2.5) rotate(-15, 20, 20)"/>
+        <circle cx="20" cy="20" r="20" fill="#B4B4B4"/>
     </svg>
 );
 
 const XrpIcon = () => (
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="20" fill="#000000"/>
-        <path d="M23.9,16.1l-2.8,2.8l2.8,2.8l-1.2,1.2l-2.8-2.8l-2.8,2.8l-1.2-1.2l2.8-2.8l-2.8-2.8l1.2-1.2l2.8,2.8l2.8-2.8L23.9,16.1z M16.1,23.9l2.8-2.8l-2.8-2.8l1.2-1.2l2.8,2.8l2.8-2.8l1.2,1.2l-2.8,2.8l2.8,2.8l-1.2,1.2l-2.8-2.8l-2.8,2.8L16.1,23.9z" fill="white"/>
     </svg>
 );
 
