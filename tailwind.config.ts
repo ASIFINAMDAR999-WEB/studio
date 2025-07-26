@@ -12,6 +12,7 @@ export default {
     extend: {
       backgroundImage: {
         'dot-pattern': "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E\")",
+        'grid-pattern-small': 'url("data:image/svg+xml,%3Csvg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M16 0.5H0.5V16\' stroke=\'hsl(var(--border))\'/%3E%3C/svg%3E")',
       },
       fontFamily: {
         body: ['var(--font-pt-sans)', 'sans-serif'],
@@ -118,7 +119,7 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in-up': 'fade-in-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-        'stagger-in': 'stagger-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'stagger-in': 'stagger-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards var(--stagger-delay, 0s) both',
         'text-gradient': 'text-gradient 10s linear infinite',
         'float': 'float 5s ease-in-out infinite',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
@@ -127,3 +128,5 @@ export default {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
+
+    
