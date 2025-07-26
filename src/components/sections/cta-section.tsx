@@ -9,10 +9,10 @@ export function CtaSection() {
     <section id="cta" className="py-20 md:py-28">
       <div className="container px-4 sm:px-6">
         <Card className="bg-primary text-primary-foreground shadow-xl animate-fade-in-up">
-          <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div>
+          <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+            <div className="flex-1">
               <h2 className="text-3xl font-bold">Ready to Get Started?</h2>
-              <p className="text-primary-foreground/80 mt-2">Join our community, watch demos, or contact support directly.</p>
+              <p className="text-primary-foreground/80 mt-2 max-w-lg mx-auto md:mx-0">Join our community, watch demos, or contact support directly.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
                 <Button asChild size="lg" className="text-lg py-7 px-10" variant="secondary">

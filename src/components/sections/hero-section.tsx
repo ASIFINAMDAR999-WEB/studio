@@ -7,7 +7,7 @@ import { ArrowDown } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative text-center py-28 md:py-32 overflow-hidden flex items-center justify-center min-h-[60vh] md:min-h-[80vh] bg-background">
+    <section id="hero" className="relative text-center py-28 md:py-40 overflow-hidden flex items-center justify-center min-h-[60vh] md:min-h-[80vh] bg-background">
       <div 
         className="absolute inset-0 z-0 opacity-40 dark:opacity-50"
         style={{
