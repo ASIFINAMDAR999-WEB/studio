@@ -1,42 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Toaster } from "@/components/ui/toaster";
-import { Loader } from '@/components/loader';
+import { type ThemeProviderProps } from 'next-themes/dist/types';
 
-export function Providers({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1800); 
-
-    return () => clearTimeout(timer);
-  }, []);
-
+export function Providers({ children }: ThemeProviderProps) {
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <NextThemesProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div>
-            {children}
-          </div>
-          <Toaster />
-        </NextThemesProvider>
-      )}
-    </>
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+      <Toaster />
+    </NextThemesProvider>
   );
 }

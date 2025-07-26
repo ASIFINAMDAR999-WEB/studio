@@ -3,30 +3,15 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Send, Video } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowDown } from 'lucide-react';
 
 export function HeroSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({ x: event.clientX, y: event.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
   return (
     <section id="hero" className="relative text-center py-28 md:py-32 overflow-hidden flex items-center justify-center min-h-[60vh] md:min-h-[80vh] bg-background">
       <div 
         className="absolute inset-0 z-0 opacity-40 dark:opacity-50"
         style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.15), transparent 80%)`,
+          background: `radial-gradient(600px circle at center, hsl(var(--primary) / 0.15), transparent 80%)`,
         }}
       />
       <div className="absolute inset-0 bg-[url(/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
