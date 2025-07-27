@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Bot, AlertTriangle } from 'lucide-react';
+import { Terminal, AlertTriangle } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -64,7 +64,7 @@ export default function BotsPage() {
                             rel="noopener noreferrer" 
                             className="flex items-center gap-4 group/link p-4 rounded-lg transition-colors hover:bg-muted"
                           >
-                            <Bot className="h-6 w-6 text-primary transition-transform duration-300 group-hover/link:scale-110" />
+                            <Terminal className="h-6 w-6 text-primary transition-transform duration-300 group-hover/link:scale-110" />
                             <p className="font-mono text-base text-muted-foreground group-hover/link:text-primary transition-colors">
                                 {bot.name}
                             </p>
