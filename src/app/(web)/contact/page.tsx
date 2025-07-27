@@ -1,5 +1,6 @@
+
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Send } from 'lucide-react';
@@ -15,8 +16,14 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
       <main className="flex-1">
-        <div className="container mx-auto px-4 sm:px-6 py-16 md:py-24">
-          <div className="text-center mb-12 animate-fade-in-up">
+        <div className="relative container mx-auto px-4 sm:px-6 py-16 md:py-24">
+           <div 
+            className="absolute inset-0 z-0 opacity-40 dark:opacity-50"
+            style={{
+              background: `radial-gradient(600px circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 80%)`,
+            }}
+          />
+          <div className="text-center mb-12 animate-fade-in-up relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Get In Touch
             </h1>
@@ -25,25 +32,28 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="max-w-md mx-auto">
-            <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                 <Card className="shadow-lg transition-all duration-300 hover:shadow-xl">
-                    <CardHeader>
-                        <CardTitle className="text-2xl">Contact Information</CardTitle>
-                        <CardDescription>
-                            The primary way to reach us.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                         <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
-                            <Send className="h-6 w-6 text-primary" />
-                            <div className='text-muted-foreground group-hover:text-primary transition-colors'>
-                                <p className='font-semibold'>Telegram</p>
-                                <p>@AF3092</p>
-                            </div>
-                        </a>
-                    </CardContent>
-                 </Card>
+          <div className="max-w-lg mx-auto relative z-10">
+            <div 
+              className="animate-fade-in-up rounded-xl p-px group transition-all duration-300 hover:bg-primary/20"
+              style={{ animationDelay: '200ms' }}
+            >
+              <Card className="shadow-lg transition-all duration-300 group-hover:shadow-2xl h-full w-full bg-card">
+                  <CardHeader>
+                      <CardTitle className="text-2xl">Contact Information</CardTitle>
+                      <CardDescription>
+                          The primary and most reliable way to reach us.
+                      </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                       <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group/link p-4 rounded-lg transition-colors hover:bg-muted">
+                          <Send className="h-7 w-7 text-primary transition-transform duration-300 group-hover/link:scale-110" />
+                          <div className='text-muted-foreground group-hover/link:text-primary transition-colors'>
+                              <p className='font-semibold text-lg'>Telegram</p>
+                              <p className="text-base">@AF3092</p>
+                          </div>
+                      </a>
+                  </CardContent>
+               </Card>
             </div>
           </div>
         </div>
