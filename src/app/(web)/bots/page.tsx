@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Terminal, AlertTriangle } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -55,24 +55,23 @@ export default function BotsPage() {
                           Click a link to start a chat with one of our bots.
                       </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-3">
+                  <CardContent className="space-y-2">
                       {bots.map((bot, index) => (
                          <a 
                             key={index} 
                             href={bot.url} 
                             target="_blank" 
                             rel="noopener noreferrer" 
-                            className="flex items-center gap-4 group/link p-4 rounded-lg transition-colors hover:bg-muted"
+                            className="group block p-4 rounded-lg transition-colors hover:bg-muted"
                           >
-                            <Terminal className="h-6 w-6 text-primary transition-transform duration-300 group-hover/link:scale-110" />
-                            <p className="font-mono text-base text-muted-foreground group-hover/link:text-primary transition-colors">
+                            <p className="font-mono text-base text-muted-foreground transition-colors group-hover:text-primary">
                                 {bot.name}
                             </p>
                         </a>
                       ))}
                       <div className="!mt-6 bg-amber-500/10 border-l-4 border-amber-500 text-amber-700 dark:text-amber-400 p-4 rounded-md" role="alert">
                         <div className="flex">
-                            <AlertTriangle className="h-5 w-5 mr-3" />
+                            <AlertTriangle className="h-5 w-5 mr-3 flex-shrink-0" />
                             <div>
                                 <p className="font-bold">Important Notice</p>
                                 <p className="text-sm">If one bot is banned or unavailable, please try another from the list.</p>
