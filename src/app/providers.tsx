@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Toaster } from "@/components/ui/toaster";
@@ -6,16 +6,20 @@ import { type ThemeProviderProps } from 'next-themes/dist/types';
 import { useState, useEffect } from 'react';
 import { Loader } from '@/components/loader';
 
-export function Providers({ children }: ThemeProviderProps) {
-  const [showLoader, setShowLoader] = useState(true);
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowLoader(false);
+      setLoading(false);
     }, 1800); 
 
     return () => clearTimeout(timer);
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <NextThemesProvider
@@ -24,7 +28,6 @@ export function Providers({ children }: ThemeProviderProps) {
       enableSystem
       disableTransitionOnChange
     >
-      {showLoader && <Loader />}
       {children}
       <Toaster />
     </NextThemesProvider>
