@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { PT_Sans } from 'next/font/google';
 import { Providers } from './providers';
@@ -10,19 +11,19 @@ const ptSans = PT_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'REDArmor v0.2 | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK',
-  description: 'Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. REDArmor v0.2 – #1 spoof call top-up store.',
+  title: 'REDArmor v0.2 | #1 Spoof Call Top-Up Plans & Global Service',
+  description: 'Buy high-quality spoof call plans with fake caller ID. Trusted service for global clients. REDArmor v0.2 – the #1 spoof call top-up store.',
   openGraph: {
     type: 'website',
     url: 'https://callspoofing.shop/',
-    title: 'REDArmor v0.2 | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK',
-    description: 'Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. REDArmor v0.2 – #1 spoof call top-up store.',
+    title: 'REDArmor v0.2 | #1 Spoof Call Top-Up Plans & Global Service',
+    description: 'Buy high-quality spoof call plans with fake caller ID. Trusted service for global clients. REDArmor v0.2 – the #1 spoof call top-up store.',
     images: [{ url: 'https://callspoofing.shop/og-image.jpg' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'REDArmor v0.2 | #1 Spoof Call Top-Up Plans | Buy Spoof Call Service USA/UK',
-    description: 'Buy high-quality spoof call plans with fake caller ID. Trusted service for USA, UK & global clients. REDArmor v0.2 – #1 spoof call top-up store.',
+    title: 'REDArmor v0.2 | #1 Spoof Call Top-Up Plans & Global Service',
+    description: 'Buy high-quality spoof call plans with fake caller ID. Trusted service for global clients. REDArmor v0.2 – the #1 spoof call top-up store.',
     images: ['https://callspoofing.shop/twitter-image.jpg'],
   },
 };
