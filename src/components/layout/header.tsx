@@ -26,7 +26,7 @@ export function Header() {
            <ThemeToggle />
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden h-9 w-9">
+              <Button variant="outline" size="icon" className="md:hidden">
                 <span className="sr-only">Toggle Menu</span>
                 {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </Button>

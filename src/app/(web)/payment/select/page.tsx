@@ -76,13 +76,13 @@ function SelectCryptoComponent() {
               <Card className="shadow-2xl bg-card/80 backdrop-blur-sm">
                 <CardHeader className="text-center p-6 md:p-8">
                   <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-                    Select Your Payment Method
+                    Select Payment Method
                   </CardTitle>
                   <CardDescription className="mt-2 text-lg text-muted-foreground">
                     You are purchasing the <span className="font-bold text-primary">{planName}</span> plan.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="p-6 md:p-8 pt-0">
+                <CardContent className="p-4 md:p-8 pt-0">
                   <div className="grid grid-cols-1 gap-4">
                     {cryptoOptions.map((crypto) => (
                       <Link key={crypto.id} href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${crypto.id}`} passHref>
