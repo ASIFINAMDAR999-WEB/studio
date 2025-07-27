@@ -107,24 +107,24 @@ export const plans: Plan[] = [
 
 export const faqItems = [
   {
-    question: "How do I make a payment?",
-    answer: "We only accept cryptocurrency payments. Manual top-up is required via our admin on Telegram."
+    question: "How do I purchase a plan?",
+    answer: "To purchase or top-up a plan, please contact our admin directly on Telegram at @AF3092. We accept payments through various cryptocurrencies, including USDT, BTC, ETH, LTC, and XRP."
   },
   {
-    question: "How do I top-up or purchase a plan?",
-    answer: "Please contact our admin on Telegram: @AF3092 for all purchases and top-ups. Please do not use the top-up section inside the spoofing bot, as that service is discontinued."
+    question: "What does 'top-up' mean?",
+    answer: "A 'top-up' refers to adding credit or funds to your account. For our service, this is done by purchasing one of the available plans (e.g., Silver, Gold, Platinum) through our Telegram admin."
   },
   {
-    question: "Do you offer a free trial or demo?",
-    answer: "We do not offer free trials. However, you can view demo videos of our service on our official Telegram channel: https://t.me/+Eg-SFpyzbpM0YzM1"
+    question: "Can I see a demo of the service?",
+    answer: "Yes, we have demo videos available. You can view them on our official Telegram channel here: https://t.me/+Eg-SFpyzbpM0YzM1. We do not offer free trials at this time."
   },
   {
-    question: "What is call spoofing?",
-    answer: "Call spoofing is a service that allows you to change the Caller ID to any number you want. It's useful for privacy, business, and other professional use cases."
+    question: "What features are included in the plans?",
+    answer: "Our plans offer a range of features, including advanced call spoofing, premium voice changers, OTP bots, SMS spoofing, and more. Please check the 'Our Plans' section for a detailed list of features for each specific plan."
   },
   {
-    question: "Is this service legal to use?",
-    answer: "The legality depends on your location and how you use the service. It is your responsibility to use our services in compliance with all applicable laws. We do not condone any illegal activities."
+    question: "Is it legal to use these services?",
+    answer: "The legality of services like call spoofing depends on your jurisdiction and how you use the service. It is your responsibility to comply with all local, state, and national laws. Use for fraudulent or harassing purposes is strictly forbidden, as stated in our Terms of Service."
   },
 ];
 
@@ -170,7 +170,7 @@ export const testimonials = [
       role: "UK Customer"
     },
     {
-      quote: "As a security consultant, I need tools that are both powerful and discreet. REDArmor delivers on all fronts. The OTP bot is particularly impressive.",
+      quote: "As a security consultant, I need tools that are both powerful and discreet. CallCraft delivers on all fronts. The OTP bot is particularly impressive.",
       name: "Ben G.",
       role: "EU Customer"
     }
