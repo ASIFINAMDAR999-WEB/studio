@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Send, Video, User } from 'lucide-react';
+import { Bot, Video, User } from 'lucide-react';
 
 export function CtaSection() {
   return (
@@ -12,14 +12,14 @@ export function CtaSection() {
           <div className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
             <div className="flex-1">
               <h2 className="text-3xl font-bold">Ready to Get Started?</h2>
-              <p className="text-primary-foreground/80 mt-2 max-w-lg mx-auto md:mx-0">Join our community, watch demos, or contact support directly.</p>
+              <p className="text-primary-foreground/80 mt-2 max-w-lg mx-auto md:mx-0">Explore our bots, watch demos, or contact support directly.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
                 <Button asChild size="lg" className="text-lg py-7 px-10" variant="secondary">
-                    <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
-                        Join Telegram
-                        <Send className="ml-2 h-5 w-5" />
-                    </a>
+                    <Link href="/bots">
+                        View Our Bots
+                        <Bot className="ml-2 h-5 w-5" />
+                    </Link>
                 </Button>
                  <Button asChild size="lg" className="text-lg py-7 px-10" variant="secondary">
                     <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
