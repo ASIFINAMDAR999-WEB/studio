@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { PT_Sans } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
 
 const ptSans = PT_Sans({
   subsets: ['latin'],
@@ -41,6 +42,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
