@@ -12,7 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1800); 
+    }, 1200); 
 
     return () => clearTimeout(timer);
   }, []);
