@@ -108,7 +108,7 @@ export const plans: Plan[] = [
 export const faqItems = [
   {
     question: "How do I purchase a plan?",
-    answer: "To purchase or top-up a plan, please contact our admin directly on Telegram at @AF3092. We accept payments through various cryptocurrencies, including USDT, BTC, ETH, LTC, and XRP."
+    answer: "Purchasing a plan is easy. First, select your desired plan and choose a cryptocurrency for payment. After sending the payment, please send a screenshot of the transaction to our admin on Telegram at @AF3092. Your plan will be activated within 5 minutes of confirmation."
   },
   {
     question: "What does 'top-up' mean?",
