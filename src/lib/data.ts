@@ -107,25 +107,29 @@ export const plans: Plan[] = [
 
 export const faqItems = [
   {
-    question: "How do I purchase a plan?",
-    answer: "Purchasing a plan is easy. First, select your desired plan and choose a cryptocurrency for payment. After sending the payment, please send a screenshot of the transaction to our admin on Telegram at @AF3092. Your plan will be activated within 5 minutes of confirmation."
+    question: "What is the process to purchase a plan?",
+    answer: "Purchasing a plan is simple. Just follow these steps: 1. Select the plan that best fits your needs from our pricing section. 2. Choose your preferred cryptocurrency for payment. 3. Send the exact amount to the provided wallet address. 4. Send a screenshot of the transaction to our admin on Telegram (@AF3092). Your plan will be activated within 5 minutes of confirmation."
   },
   {
-    question: "What does 'top-up' mean?",
-    answer: "A 'top-up' refers to adding credit or funds to your account. For our service, this is done by purchasing one of the available plans (e.g., Silver, Gold, Platinum) through our Telegram admin."
+    question: "What payment methods do you accept?",
+    answer: "We exclusively accept cryptocurrency to ensure privacy and security. You can pay with USDT (TRC-20, ERC-20, BEP-20), Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), and Ripple (XRP). This allows for fast, anonymous, and secure transactions."
   },
   {
-    question: "Can I see a demo of the service?",
-    answer: "Yes, we have demo videos available. You can view them on our official Telegram channel here: https://t.me/+Eg-SFpyzbpM0YzM1. We do not offer free trials at this time."
+    question: "How do I get support if I have an issue?",
+    answer: "Our primary support channel is Telegram. You can contact our admin directly at @AF3092 for any questions, payment confirmations, or technical issues. We also have a list of official bots on our 'Bots' page for automated services."
   },
   {
-    question: "What features are included in the plans?",
-    answer: "Our plans offer a range of features, including advanced call spoofing, premium voice changers, OTP bots, SMS spoofing, and more. Please check the 'Our Plans' section for a detailed list of features for each specific plan."
+    question: "Are there any contracts or hidden fees?",
+    answer: "No. Our pricing is transparent and straightforward. The price you see is the price you pay. Our plans are based on a one-time payment for the specified duration (e.g., 1, 2, or 3 months) with no recurring charges or hidden fees."
   },
   {
-    question: "Is it legal to use these services?",
-    answer: "The legality of services like call spoofing depends on your jurisdiction and how you use the service. It is your responsibility to comply with all local, state, and national laws. Use for fraudulent or harassing purposes is strictly forbidden, as stated in our Terms of Service."
+    question: "Can I try the service before I buy?",
+    answer: "We do not offer free trials to maintain the quality and integrity of our service. However, you can view demo videos on our official Telegram channel (https://t.me/+Eg-SFpyzbpM0YzM1) to see our features in action before making a purchase."
   },
+  {
+    question: "Is using a call spoofing service legal?",
+    answer: "The legality of call spoofing varies by location and intended use. It is your responsibility to understand and comply with all applicable local, state, and national laws. Our services are intended for lawful purposes only. Using them for any fraudulent, harassing, or illegal activity is strictly prohibited and will result in immediate termination of service, as outlined in our Terms of Service."
+  }
 ];
 
 export const testimonials = [
