@@ -1,5 +1,5 @@
 
-import { ShieldCheck, Zap, Coins, Headset, Mic, Globe, PhoneForwarded, Bot } from 'lucide-react';
+import { ShieldCheck, Zap, Coins, Headset, Globe } from 'lucide-react';
 
 export function FeaturesSection() {
   const features = [
@@ -24,24 +24,9 @@ export function FeaturesSection() {
       description: 'Our dedicated support team is always here to help you out.',
     },
     {
-      icon: <Mic className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
-      title: 'Advanced Voice Changer',
-      description: 'Modify your voice in real-time with our premium voice changing technology.',
-    },
-    {
       icon: <Globe className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
       title: 'Global Service Reach',
       description: 'Our services are available to clients worldwide, with no geographical restrictions.',
-    },
-    {
-      icon: <PhoneForwarded className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
-      title: 'Custom Caller ID',
-      description: 'Set any phone number as your caller ID to maintain your privacy and identity.',
-    },
-    {
-      icon: <Bot className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />,
-      title: 'IVR & OTP Bots',
-      description: 'Utilize our advanced IVR systems and OTP bots for professional interactions.',
     },
   ];
 
@@ -54,7 +39,7 @@ export function FeaturesSection() {
             We provide a robust set of features to ensure you have the best experience.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12">
           {features.map((feature, index) => (
             <div key={index} className="text-center p-4 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
               <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
