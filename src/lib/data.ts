@@ -146,12 +146,12 @@ export const testimonials = [
     {
         quote: "The setup was incredibly easy, and I was making calls in minutes. The premium voice changer is a game-changer for my business.",
         name: "Alex J.",
-        role: "European Client"
+        role: "Verified Customer"
     },
     {
         quote: "I was skeptical at first, but the quality of the calls is crystal clear. The Platinum Plan is worth every penny for the advanced features.",
         name: "Samantha L.",
-        role: "USA Customer"
+        role: "Verified Customer"
     },
     {
         quote: "The crypto payment option is a huge plus for me. It's fast, secure, and private. The service itself is flawless.",
@@ -161,12 +161,12 @@ export const testimonials = [
     {
         quote: "Their support team is fantastic. I had a question about the SIP trunk access, and they were incredibly knowledgeable and helpful.",
         name: "Emily R.",
-        role: "UK Business"
+        role: "Verified Customer"
     },
     {
       quote: "The IVR system is a professional touch that sets this service apart. It has streamlined my client communications significantly. A+ service.",
       name: "David P.",
-      role: "USA Customer"
+      role: "Verified Customer"
     },
     {
       quote: "Unmatched reliability and privacy. I have full confidence in their infrastructure and their commitment to client anonymity. Worth every cent.",
