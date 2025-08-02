@@ -18,7 +18,7 @@ export function HeroSection() {
       
        <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
         <div className="relative inline-block animate-float">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent dark:from-primary dark:to-accent animate-text-gradient bg-[200%_auto] relative">
+          <h1 id="hero-heading" className="text-4xl font-heading tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary/60 animated-gradient">
             Find Your Perfect Spoofing Plan
           </h1>
         </div>
