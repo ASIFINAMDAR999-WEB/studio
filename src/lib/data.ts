@@ -128,7 +128,7 @@ export const faqItems = [
   },
   {
     question: "Is using a call spoofing service legal?",
-    answer: "The legality of call spoofing varies by location and intended use. It is your sole responsibility to ensure that your use of our Services complies with all applicable laws in your jurisdiction, including those in the United States, United Kingdom, and European Union. Our services are intended for lawful purposes only. Using them for any fraudulent, harassing, or illegal activity is strictly prohibited and will result in immediate termination of service."
+    answer: "The legality of call spoofing varies significantly by jurisdiction. It is your sole responsibility to ensure that your use of our Services complies with all applicable local, state, national, and international laws, including but not limited to those in the United States, United Kingdom, and all European countries. You shall not use the Service for any fraudulent, harassing, or illegal activity."
   }
 ];
 
@@ -136,7 +136,7 @@ export const testimonials = [
     {
       quote: "The best service for spoofing calls. The voice changer is amazing and the connection is always stable. Highly recommended for anyone looking for privacy and features!",
       name: "John D.",
-      role: "Global Business"
+      role: "Verified Customer"
     },
     {
       quote: "I've tried other services, but this one is by far the most reliable and feature-rich. The customer support is also top-notch, always ready to help.",
