@@ -1,3 +1,4 @@
+
 "use client";
 
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
@@ -12,7 +13,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1200); 
+    }, 800); 
 
     return () => clearTimeout(timer);
   }, []);
