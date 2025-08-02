@@ -51,7 +51,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-semibold text-foreground">6. Governing Law</h2>
               <p>
-                These Terms shall be governed and construed in accordance with the laws of the jurisdiction in which the company is based, without regard to its conflict of law provisions.
+                These Terms shall be governed and construed in accordance with the laws of the applicable jurisdiction, without regard to its conflict of law provisions.
               </p>
             </CardContent>
           </Card>

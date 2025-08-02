@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Send } from 'lucide-react';
+import { Send, Clock } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -52,6 +52,13 @@ export default function ContactPage() {
                               <p className="text-base">@AF3092</p>
                           </div>
                       </a>
+                      <div className="flex items-start gap-4 p-4 rounded-lg bg-muted/50">
+                          <Clock className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                          <div>
+                              <p className='font-semibold text-foreground'>Support Availability</p>
+                              <p className="text-sm text-muted-foreground">Our support team is available across different time zones to assist you. While we aim for quick responses, please allow for some time for us to get back to you.</p>
+                          </div>
+                      </div>
                   </CardContent>
                </Card>
             </div>
