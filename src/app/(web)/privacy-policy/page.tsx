@@ -38,18 +38,23 @@ export default function PrivacyPolicyPage() {
               <p>
                 Since we do not collect any personal information, there is no information to use. Your activities are your own. The only data we interact with are anonymous cryptocurrency transaction hashes for payment verification, which are not linked to any personal identity.
               </p>
+              
+              <h2 className="text-xl font-semibold text-foreground">4. GDPR and UK Data Protection</h2>
+              <p>
+                For users in the European Economic Area (EEA) and the United Kingdom, we are compliant with the General Data Protection Regulation (GDPR) and relevant UK data protection laws. As our service is built on the principle of not collecting personal data, we inherently meet the highest standards of data minimization. You retain all your rights under these regulations, though no personal data is held by us that would necessitate data access, rectification, or erasure requests.
+              </p>
 
-              <h2 className="text-xl font-semibold text-foreground">4. Disclosure of Your Information</h2>
+              <h2 className="text-xl font-semibold text-foreground">5. Disclosure of Your Information</h2>
               <p>
                 We hold no user information, so there is nothing to disclose. We cannot sell, trade, or otherwise transfer information that we do not have. We may only cooperate with law enforcement if legally compelled and if there is any data to provide, which is generally limited to transaction data on the public blockchain.
               </p>
 
-              <h2 className="text-xl font-semibold text-foreground">5. Security of Your Information</h2>
+              <h2 className="text-xl font-semibold text-foreground">6. Security of Your Information</h2>
               <p>
                 Our security model is based on not collecting your information in the first place. Your anonymity is your best security. While we secure our systems, we remind you that the most effective security measure is our commitment to not storing any of your personal data.
               </p>
               
-              <h2 className="text-xl font-semibold text-foreground">6. Contact Us</h2>
+              <h2 className="text-xl font-semibold text-foreground">7. Contact Us</h2>
               <p>
                 If you have questions or comments about this Privacy Policy, please contact us through our official Telegram channel or by contacting our admin.
               </p>

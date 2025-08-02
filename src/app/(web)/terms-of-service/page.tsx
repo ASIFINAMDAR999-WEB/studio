@@ -31,7 +31,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-semibold text-foreground">2. Use of Services</h2>
               <p>
-                You agree to use our Services, including call spoofing and voice changing, only for lawful purposes. The legality of call spoofing varies by jurisdiction. It is your sole responsibility to ensure that your use of our Services complies with all applicable local, state, national, and international laws. You shall not use the Service for any fraudulent, harassing, or illegal activity.
+                You agree to use our Services, including call spoofing and voice changing, only for lawful purposes. The legality of call spoofing varies significantly by jurisdiction. It is your sole responsibility to ensure that your use of our Services complies with all applicable local, state, national, and international laws, including but not limited to those in the United States, United Kingdom, and all European countries. You shall not use the Service for any fraudulent, harassing, or illegal activity.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">3. Intellectual Property</h2>

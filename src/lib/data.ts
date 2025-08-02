@@ -127,8 +127,8 @@ export const faqItems = [
     answer: "We do not offer free trials to maintain the quality and integrity of our service. However, you can view demo videos on our official Telegram channel (https://t.me/+Eg-SFpyzbpM0YzM1) to see our features in action before making a purchase."
   },
   {
-    question: "Is using a call spoofing service legal in the US?",
-    answer: "The legality of call spoofing varies by location and intended use. In the United States, it is your sole responsibility to ensure that your use of our Services complies with all applicable federal, state, and local laws, including the Truth in Caller ID Act. Our services are intended for lawful purposes only. Using them for any fraudulent, harassing, or illegal activity is strictly prohibited and will result in immediate termination of service, as outlined in our Terms of Service."
+    question: "Is using a call spoofing service legal?",
+    answer: "The legality of call spoofing varies by location and intended use. It is your sole responsibility to ensure that your use of our Services complies with all applicable laws in your jurisdiction, including those in the United States, United Kingdom, and European Union. Our services are intended for lawful purposes only. Using them for any fraudulent, harassing, or illegal activity is strictly prohibited and will result in immediate termination of service."
   }
 ];
 
@@ -136,7 +136,7 @@ export const testimonials = [
     {
       quote: "The best service for spoofing calls. The voice changer is amazing and the connection is always stable. Highly recommended for anyone looking for privacy and features!",
       name: "John D.",
-      role: "USA Customer"
+      role: "Global Business"
     },
     {
       quote: "I've tried other services, but this one is by far the most reliable and feature-rich. The customer support is also top-notch, always ready to help.",
@@ -146,7 +146,7 @@ export const testimonials = [
     {
         quote: "The setup was incredibly easy, and I was making calls in minutes. The premium voice changer is a game-changer for my business.",
         name: "Alex J.",
-        role: "Verified Customer"
+        role: "European Client"
     },
     {
         quote: "I was skeptical at first, but the quality of the calls is crystal clear. The Platinum Plan is worth every penny for the advanced features.",
@@ -161,7 +161,7 @@ export const testimonials = [
     {
         quote: "Their support team is fantastic. I had a question about the SIP trunk access, and they were incredibly knowledgeable and helpful.",
         name: "Emily R.",
-        role: "Verified Customer"
+        role: "UK Business"
     },
     {
       quote: "The IVR system is a professional touch that sets this service apart. It has streamlined my client communications significantly. A+ service.",
