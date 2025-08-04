@@ -1,4 +1,3 @@
-
 "use client"
 
 import Link from 'next/link';
@@ -18,7 +17,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-3">
            <Shield className="h-7 w-7 text-primary" />
           <span className="text-xl font-bold font-headline text-foreground">
-            REDArmor <span className="text-sm font-light text-muted-foreground">v0.2</span>
+            REDArmor v0.2
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
@@ -38,7 +37,7 @@ export function Header() {
                  <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
                     <Shield className="h-7 w-7 text-primary" />
                      <span className="text-xl font-bold font-headline text-foreground">
-                        REDArmor <span className="text-sm font-light text-muted-foreground">v0.2</span>
+                        REDArmor v0.2
                      </span>
                  </Link>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
