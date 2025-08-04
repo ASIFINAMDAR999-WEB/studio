@@ -31,10 +31,10 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="py-20 md:py-28 bg-card">
+    <section id="features" className="py-20 md:py-28 bg-card" aria-labelledby="features-heading">
       <div className="container px-4 sm:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
-          <h2 className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
+          <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
           <p className="mt-4 text-muted-foreground">
             We provide a robust set of features to ensure you have the best experience.
           </p>

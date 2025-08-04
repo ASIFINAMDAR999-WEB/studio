@@ -6,13 +6,31 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { faqItems } from '@/lib/data';
+import type { FAQPage, WithContext } from 'schema-dts';
 
 export function FaqSection() {
+  const faqSchema: WithContext<FAQPage> = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
-    <section id="faq" className="py-20 md:py-28">
+    <section id="faq" className="py-20 md:py-28" aria-labelledby="faq-heading">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
        <div className="container px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
-              <h2 className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
               <p className="mt-4 text-muted-foreground">
                  Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.
               </p>
