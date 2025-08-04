@@ -81,6 +81,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -88,6 +89,7 @@
   .animated-gradient {
     animation: animated-gradient 6s ease infinite;
     background-size: 200% 200%;
+    transform: translateZ(0);
   }
 
   @keyframes animated-gradient {
