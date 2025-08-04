@@ -23,7 +23,7 @@ export default {
       },
       fontFamily: {
         body: ['var(--font-pt-sans)', 'sans-serif'],
-        headline: ['var(--font-pt-sans)', 'sans-serif'],
+        headline: ['var(--font-poppins)', 'var(--font-pt-sans)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

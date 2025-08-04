@@ -1,6 +1,6 @@
 
 import type { Metadata } from 'next';
-import { PT_Sans } from 'next/font/google';
+import { PT_Sans, Poppins } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
@@ -10,6 +10,12 @@ const ptSans = PT_Sans({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-pt-sans',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -36,10 +42,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ptSans.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${ptSans.variable} ${poppins.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#855CF8" />
+        <meta name="theme-color" content="#673AB7" />
       </head>
       <body className="font-body antialiased">
         <Providers>{children}</Providers>
