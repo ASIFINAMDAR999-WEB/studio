@@ -27,7 +27,7 @@ export default function BotsPage() {
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
       <main className="flex-1">
-        <div className="relative container mx-auto px-4 sm:px-6 py-16 md:py-24">
+        <div className="relative container mx-auto px-4 sm:px-6 py-20 md:py-28">
            <div 
             className="absolute inset-0 z-0 opacity-40 dark:opacity-50"
             style={{

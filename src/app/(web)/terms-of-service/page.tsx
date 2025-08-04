@@ -13,7 +13,7 @@ export default function TermsOfServicePage() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-      <main className="flex-1 py-16 md:py-24">
+      <main className="flex-1 py-20 md:py-28">
         <div className="container mx-auto px-4 sm:px-6">
           <Card className="max-w-4xl mx-auto shadow-lg animate-fade-in-up">
             <CardHeader className="text-center pb-4">

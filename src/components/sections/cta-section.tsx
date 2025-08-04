@@ -15,19 +15,19 @@ export function CtaSection() {
               <p className="text-primary-foreground/80 mt-2 max-w-lg mx-auto md:mx-0">Explore our bots, watch demos, or contact support directly.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-                <Button asChild size="lg" className="text-lg py-7 px-10" variant="secondary">
+                <Button asChild size="lg" className="text-lg py-7 px-8" variant="secondary">
                     <Link href="/bots">
                         View Our Bots
                         <Bot className="ml-2 h-5 w-5" />
                     </Link>
                 </Button>
-                 <Button asChild size="lg" className="text-lg py-7 px-10" variant="secondary">
+                 <Button asChild size="lg" className="text-lg py-7 px-8" variant="secondary">
                     <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
                         Watch Demos
                         <Video className="ml-2 h-5 w-5" />
                     </a>
                 </Button>
-                 <Button asChild size="lg" className="text-lg py-7 px-10" variant="secondary">
+                 <Button asChild size="lg" className="text-lg py-7 px-8" variant="secondary">
                     <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">
                         Contact Admin
                         <User className="ml-2 h-5 w-5" />

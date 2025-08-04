@@ -71,7 +71,7 @@ function PaymentPageComponent() {
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
 
-      <main className="flex-1 container mx-auto px-4 sm:px-6 py-8 md:py-16">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10 animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -136,10 +136,10 @@ function PaymentPageComponent() {
                                 return (
                                     <div key={networkKey} className="bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80">
                                         <p className="text-sm text-muted-foreground mb-1">{network}</p>
-                                        <div className="flex justify-between items-center gap-4">
+                                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
                                             <p className="font-mono text-sm sm:text-base break-all">{address || 'Address not available'}</p>
-                                            <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'}>
-                                            <Clipboard className="h-5 w-5" />
+                                            <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'} className="self-end sm:self-center">
+                                                <Clipboard className="h-5 w-5" />
                                             </Button>
                                         </div>
                                     </div>
