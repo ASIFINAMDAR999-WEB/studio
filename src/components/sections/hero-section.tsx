@@ -4,7 +4,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { Logo } from '@/components/layout/logo';
 
 export function HeroSection() {
   return (
@@ -19,7 +18,7 @@ export function HeroSection() {
       
        <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
         <div className="relative inline-block animate-float">
-          <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl font-headline tracking-tighter font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary/60 animated-gradient">
+          <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl font-headline tracking-tighter font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-primary/60">
             Find Your Perfect Spoofing Plan
           </h1>
         </div>
