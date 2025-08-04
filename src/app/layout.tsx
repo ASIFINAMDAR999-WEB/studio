@@ -39,7 +39,7 @@ export default function RootLayout({
     <html lang="en" className={`${ptSans.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#673AB7" />
+        <meta name="theme-color" content="#855CF8" />
       </head>
       <body className="font-body antialiased">
         <Providers>{children}</Providers>

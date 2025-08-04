@@ -174,7 +174,7 @@ export const testimonials = [
       role: "Verified Customer"
     },
     {
-      quote: "As a security consultant, I need tools that are both powerful and discreet. CallCraft delivers on all fronts. The OTP bot is particularly impressive.",
+      quote: "As a security consultant, I need tools that are both powerful and discreet. REDArmor delivers on all fronts. The OTP bot is particularly impressive.",
       name: "Ben G.",
       role: "Verified Customer"
     }
