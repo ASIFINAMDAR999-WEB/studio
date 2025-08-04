@@ -107,10 +107,10 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(10px) translateZ(0)' },
           '100%': { opacity: '1', transform: 'translateY(0) translateZ(0)' },
         },
-        'text-gradient': {
-          to: {
-            backgroundPosition: '200% center',
-          },
+        'animated-gradient': {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
         },
         'float': {
           '0%': { transform: 'translateY(0px) translateZ(0)' },
@@ -127,10 +127,13 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.5s ease-out forwards',
         'fade-in-up': 'fade-in-up 0.5s ease-out forwards',
-        'text-gradient': 'text-gradient 10s linear infinite',
+        'animated-gradient': 'animated-gradient 6s ease infinite',
         'float': 'float 5s ease-in-out infinite',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
       },
+      backgroundSize: {
+        '200%': '200% 200%',
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],
