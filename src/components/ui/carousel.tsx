@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -148,7 +149,6 @@ const Carousel = React.forwardRef<
     )
   }
 )
-Carousel.displayName = "Carousel"
 
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
@@ -170,7 +170,6 @@ const CarouselContent = React.forwardRef<
     </div>
   )
 })
-CarouselContent.displayName = "CarouselContent"
 
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
@@ -192,7 +191,6 @@ const CarouselItem = React.forwardRef<
     />
   )
 })
-CarouselItem.displayName = "CarouselItem"
 
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
@@ -221,7 +219,6 @@ const CarouselPrevious = React.forwardRef<
     </Button>
   )
 })
-CarouselPrevious.displayName = "CarouselPrevious"
 
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
@@ -250,7 +247,6 @@ const CarouselNext = React.forwardRef<
     </Button>
   )
 })
-CarouselNext.displayName = "CarouselNext"
 
 export {
   type CarouselApi,

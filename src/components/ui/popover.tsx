@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -26,6 +27,5 @@ const PopoverContent = React.forwardRef<
     />
   </PopoverPrimitive.Portal>
 ))
-PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
 export { Popover, PopoverTrigger, PopoverContent }

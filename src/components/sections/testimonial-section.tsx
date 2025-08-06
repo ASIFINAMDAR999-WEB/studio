@@ -1,4 +1,5 @@
 
+'use client';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
@@ -8,6 +9,37 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { testimonials } from '@/lib/data';
+import dynamic from 'next/dynamic';
+
+const DynamicCarousel = dynamic(() =>
+  import('@/components/ui/carousel').then((mod) => ({
+    default: mod.Carousel,
+  }))
+);
+
+const DynamicCarouselContent = dynamic(() =>
+  import('@/components/ui/carousel').then((mod) => ({
+    default: mod.CarouselContent,
+  }))
+);
+
+const DynamicCarouselItem = dynamic(() =>
+  import('@/components/ui/carousel').then((mod) => ({
+    default: mod.CarouselItem,
+  }))
+);
+
+const DynamicCarouselNext = dynamic(() =>
+  import('@/components/ui/carousel').then((mod) => ({
+    default: mod.CarouselNext,
+  }))
+);
+
+const DynamicCarouselPrevious = dynamic(() =>
+  import('@/components/ui/carousel').then((mod) => ({
+    default: mod.CarouselPrevious,
+  }))
+);
 
 export function TestimonialSection() {
   return (
@@ -17,16 +49,16 @@ export function TestimonialSection() {
              <h2 id="testimonial-heading" className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
           </div>
           <div className="max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <Carousel
+            <DynamicCarousel
               opts={{
                 align: "start",
                 loop: true,
               }}
               className="w-full"
             >
-              <CarouselContent>
+              <DynamicCarouselContent>
                 {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <DynamicCarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                     <div className="p-4 h-full">
                        <Card className="shadow-lg bg-background h-full flex flex-col justify-between">
                          <CardContent className="pt-6">
@@ -40,12 +72,12 @@ export function TestimonialSection() {
                          </CardContent>
                        </Card>
                     </div>
-                  </CarouselItem>
+                  </DynamicCarouselItem>
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden md:inline-flex" />
-              <CarouselNext className="hidden md:inline-flex" />
-            </Carousel>
+              </DynamicCarouselContent>
+              <DynamicCarouselPrevious className="hidden md:inline-flex" />
+              <DynamicCarouselNext className="hidden md:inline-flex" />
+            </DynamicCarousel>
           </div>
        </div>
     </section>
