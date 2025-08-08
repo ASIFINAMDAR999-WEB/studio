@@ -17,6 +17,7 @@ export const NavLinks = ({ onLinkClick }: NavLinksProps) => {
     { href: "/#faq", label: "FAQ" },
     { href: "/bots", label: "Bots" },
     { href: "/contact", label: "Contact" },
+    { href: "/access", label: "Dialer" },
   ];
 
   return (
