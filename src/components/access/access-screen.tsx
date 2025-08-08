@@ -32,11 +32,10 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
     exit: { opacity: 0, scale: 0.95, transition: { duration: 0.3, ease: 'easeIn' } },
-  };
-
-  const shakeAnimation = {
-    x: [-10, 10, -10, 10, 0],
-    transition: { duration: 0.5 },
+    shaking: {
+      x: [-10, 10, -10, 10, 0],
+      transition: { duration: 0.5 },
+    }
   };
 
   /**
@@ -72,14 +71,8 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
       className="w-full max-w-md"
       variants={cardVariants}
       initial="hidden"
-      animate={["visible", isShaking ? "shaking" : ""]}
+      animate={isShaking ? "shaking" : "visible"}
       exit="exit"
-      custom={{ shake: shakeAnimation }}
-      // Apply shake animation if isShaking is true
-      variants={{
-        ...cardVariants,
-        shaking: shakeAnimation,
-      }}
     >
       <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10">
         <div className="p-8 md:p-12">

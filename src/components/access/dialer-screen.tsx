@@ -79,7 +79,12 @@ export function DialerScreen() {
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     // Ensure value always starts with '+' and contains only valid characters
-    value = `+${value.replace(/[^\d]/g, '')}`;
+    if (!value.startsWith('+')) {
+      value = `+${value.replace(/[^\d]/g, '')}`;
+    } else {
+      value = `+${value.substring(1).replace(/[^\d]/g, '')}`;
+    }
+    
     if (value.length <= 16) {
       setNumber(value);
     }
@@ -251,11 +256,11 @@ export function DialerScreen() {
               <div className='flex flex-col flex-grow'>
                 <motion.div variants={itemVariants} className="relative mb-4">
                   <Input
-                    type="text"
+                    type="tel"
                     value={number}
                     onChange={handleNumberChange}
-                    className="bg-card rounded-xl h-14 w-full text-center p-4 text-lg font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
-                    placeholder="Enter phone number"
+                    className="bg-card rounded-xl h-14 w-full text-center p-4 text-2xl font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
+                    placeholder="+1234567890"
                   />
                 </motion.div>
 
@@ -383,9 +388,11 @@ export function DialerScreen() {
                             <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute">
                               {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
                             </InCallButton>
-                            <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad} text="Keypad">
-                              <Grid2x2 className="w-6 h-6"/>
-                            </InCallButton>
+                            <div className="group">
+                              <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad} text="Keypad">
+                                <Grid2x2 className="w-6 h-6"/>
+                              </InCallButton>
+                            </div>
                             <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker">
                               <Volume2 className="w-6 h-6"/>
                             </InCallButton>
@@ -420,7 +427,7 @@ export function DialerScreen() {
               </label>
               <Input
                   id="callerIdInput"
-                  type="text"
+                  type="tel"
                   value={callerId}
                   onChange={handleCallerIdChange}
                   placeholder="+18001234567"
