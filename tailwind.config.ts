@@ -82,6 +82,8 @@ export default {
         },
       },
       borderRadius: {
+        '2xl': 'calc(var(--radius) * 1.5)',
+        xl: 'calc(var(--radius) + 4px)',
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
@@ -125,6 +127,25 @@ export default {
           '0%, 100%': { transform: 'scale(1) translateZ(0)', opacity: '0.8' },
           '50%': { transform: 'scale(1.05) translateZ(0)', opacity: '1' },
         },
+        'shake': {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '20%, 60%': { transform: 'translateX(-5px)' },
+          '40%, 80%': { transform: 'translateX(5px)' },
+        },
+        'ripple': {
+          'to': {
+            transform: 'scale(4)',
+            opacity: '0',
+          },
+        },
+        'pulse-ring': {
+          '0%': { transform: 'scale(0.33)' },
+          '80%, 100%': { opacity: '0' },
+        },
+        'ringing': {
+          '0%, 100%': { transform: 'scale(1)', 'box-shadow': '0 0 0.5rem 0.25rem hsl(var(--primary) / 0.2)' },
+          '50%': { transform: 'scale(1.05)', 'box-shadow': '0 0 1rem 0.5rem hsl(var(--primary) / 0.4)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -134,6 +155,9 @@ export default {
         'animated-gradient': 'animated-gradient 6s ease infinite',
         'float': 'float 5s ease-in-out infinite',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+        'shake': 'shake 0.3s ease-in-out',
+        'pulse-ring': 'pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
+        'ringing': 'ringing 1.5s ease-in-out infinite',
       },
       backgroundSize: {
         '200%': '200% 200%',
