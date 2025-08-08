@@ -101,8 +101,8 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
                 }}
                 disabled={isLoading}
                 className={cn(
-                  'block w-full px-4 py-3 text-lg bg-background/50 rounded-lg border-2 peer transition-colors duration-300',
-                  'focus:outline-none focus:ring-0',
+                  'block w-full px-4 py-3 text-lg bg-background/50 rounded-lg border-2 peer transition-all duration-300',
+                  'focus:outline-none focus:ring-4 focus:ring-primary/20',
                   error
                     ? 'border-destructive focus:border-destructive'
                     : 'border-muted-foreground/30 focus:border-primary',
@@ -113,16 +113,11 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
               <label
                 htmlFor="access-code"
                 className={cn(
-                  'absolute left-4 transition-all duration-300 pointer-events-none',
-                  'text-muted-foreground',
+                  'absolute left-4 transition-all duration-300 pointer-events-none text-muted-foreground',
                   'peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-lg',
-                  'peer-focus:top-[-10px] peer-focus:text-sm peer-focus:px-1 peer-focus:bg-card/60 dark:peer-focus:bg-card/40',
-                  code
-                    ? 'top-[-10px] text-sm px-1 bg-card/60 dark:bg-card/40'
-                    : '',
-                  error
-                    ? 'text-destructive'
-                    : 'peer-focus:text-primary'
+                  'peer-focus:-top-2.5 peer-focus:text-sm peer-focus:px-1 peer-focus:bg-card/60 dark:peer-focus:bg-card/40',
+                  (code) ? '-top-2.5 text-sm px-1 bg-card/60 dark:bg-card/40' : '',
+                  error ? 'text-destructive' : 'peer-focus:text-primary'
                 )}
               >
                 Enter your access code
@@ -130,7 +125,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
             </div>
 
             {/* --- Submit Button --- */}
-            <button
+            <motion.button
               type="submit"
               disabled={code.length < 5 || isLoading}
               className={cn(
@@ -140,6 +135,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
                 'hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1',
                 'focus:outline-none focus:ring-4 focus:ring-primary/50'
               )}
+              whileTap={{ scale: 0.98 }}
             >
               <span className="absolute inset-0 bg-black/10 opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></span>
               <span className="relative">
@@ -152,7 +148,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
                     'Continue'
                 )}
               </span>
-            </button>
+            </motion.button>
           </form>
 
           {/* --- Error Message --- */}
