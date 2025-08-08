@@ -164,7 +164,6 @@ export function DialerScreen() {
           </motion.button>
           <motion.button
             onClick={handleDelete}
-            onLongPress={() => setNumber('')}
             className="flex items-center justify-center text-muted-foreground"
             whileTap={{ scale: 0.9 }}
           >
