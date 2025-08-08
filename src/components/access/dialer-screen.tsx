@@ -3,7 +3,7 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Delete, Settings, ChevronDown, PhoneIncoming } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -103,94 +103,90 @@ export function DialerScreen() {
   return (
     <>
       <motion.div
-        className="w-full max-w-sm mx-auto p-4 flex flex-col h-full"
+        className="w-full max-w-sm mx-auto p-4 flex flex-col h-full bg-background"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* --- Header Panels --- */}
-        <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4 mb-4">
-          {/* Caller ID Panel */}
-          <div className="bg-card/60 dark:bg-card/40 backdrop-blur-sm rounded-lg p-3 flex justify-between items-center shadow-md">
-            <div className="text-sm">
-              <p className="text-muted-foreground">Caller ID</p>
-              <p className="font-bold text-foreground">"random"</p>
+        <motion.div variants={itemVariants} className="text-center">
+            <h1 className="text-2xl font-bold text-foreground">Make a call</h1>
+            <div className="flex justify-center gap-2 mt-4 mb-6">
+                <button className="bg-muted text-foreground py-2 px-4 rounded-lg text-sm font-semibold">Dialpad</button>
+                <button className="text-muted-foreground py-2 px-4 rounded-lg text-sm font-semibold">Call history</button>
             </div>
+        </motion.div>
+
+        {/* --- Settings Area --- */}
+        <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4">
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">random</span></span>
             <Settings className="h-5 w-5 text-muted-foreground" />
           </div>
-          {/* Voice Panel */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div className="bg-card/60 dark:bg-card/40 backdrop-blur-sm rounded-lg p-3 flex justify-between items-center shadow-md cursor-pointer">
-                <div className="text-sm">
-                  <p className="text-muted-foreground">Voice</p>
-                  <p className="font-bold text-foreground">Disabled</p>
-                </div>
-                <ChevronDown className="h-5 w-5 text-muted-foreground" />
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Male</DropdownMenuItem>
-              <DropdownMenuItem>Female</DropdownMenuItem>
-              <DropdownMenuItem>Robot</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex justify-between items-center">
+            <span className="text-muted-foreground">Voice:</span>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 text-foreground font-semibold bg-muted px-3 py-1 rounded-md">
+                        Disabled
+                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                    </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                <DropdownMenuItem>Male</DropdownMenuItem>
+                <DropdownMenuItem>Female</DropdownMenuItem>
+                <DropdownMenuItem>Robot</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </motion.div>
 
         {/* --- Number Display --- */}
         <motion.div variants={itemVariants} className="relative mb-4">
-          <div className="absolute inset-0 bg-primary/10 rounded-xl blur-lg opacity-50"></div>
-          <div className="relative bg-black/20 dark:bg-white/5 backdrop-blur-lg rounded-xl h-20 flex items-center justify-end p-4 text-4xl font-light tracking-wider text-foreground">
-            {number || <span className="text-muted-foreground/50">Enter number</span>}
+          <div className="bg-card rounded-xl h-14 flex items-center justify-center p-4 text-lg font-light tracking-wider text-foreground">
+            {number || <span className="text-muted-foreground/80">Enter phone number</span>}
           </div>
         </motion.div>
 
         {/* --- Keypad --- */}
-        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4 flex-grow">
+        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 flex-grow">
           {keypad.map((key, i) => (
             <motion.button
               key={i}
               onClick={() => handleKeyPress(key.digit)}
-              className="relative aspect-square rounded-full bg-card/60 dark:bg-card/40 backdrop-blur-sm shadow-inner-lg text-foreground transition-transform duration-100 ease-out active:scale-90"
-              style={{ boxShadow: 'inset 0 2px 4px 0 rgba(0,0,0,0.1)' }}
-              whileTap={{ scale: 0.9, transition: { duration: 0.1 } }}
+              className="relative aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted"
+              whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
             >
-              <span className="text-3xl font-light">{key.digit}</span>
-              <p className="text-xs text-muted-foreground tracking-widest">{key.letters}</p>
+              <span className="text-2xl font-semibold">{key.digit}</span>
+              <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
             </motion.button>
           ))}
-        </motion.div>
 
-        {/* --- Action Buttons (Call & Delete) --- */}
-        <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4 mt-4">
+          {/* --- Action Buttons (Spacer, Call & Delete) --- */}
           <div /> {/* Spacer */}
           <motion.button
             onClick={handleCall}
             disabled={!number || isCalling}
             className={cn(
-                'relative aspect-square rounded-full transition-all duration-300 flex items-center justify-center',
-                isCalling ? 'bg-blue-500 animate-ringing' : 'bg-green-500 hover:bg-green-600',
-                'disabled:bg-gray-500 disabled:cursor-not-allowed'
+                'relative aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center',
+                isCalling ? 'bg-blue-500' : 'bg-card',
+                'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
             whileTap={{ scale: isCalling ? 1 : 0.95 }}
           >
-            {isCalling ? (
-                <PhoneIncoming className="h-8 w-8 text-white"/>
-            ) : (
-                <Phone className="h-8 w-8 text-white"/>
-            )}
+            <Phone className="h-6 w-6 text-green-500"/>
           </motion.button>
           <motion.button
             onClick={handleDelete}
             onMouseDown={handlePressStart}
             onMouseUp={handlePressEnd}
-            onMouseLeave={handlePressEnd} // In case the cursor leaves the button while pressed
+            onMouseLeave={handlePressEnd}
             onTouchStart={handlePressStart}
             onTouchEnd={handlePressEnd}
-            className="flex items-center justify-center text-muted-foreground"
-            whileTap={{ scale: 0.9 }}
+            className="flex items-center justify-center text-muted-foreground bg-card rounded-xl"
+            whileTap={{ scale: 0.95 }}
+            disabled={!number}
           >
-            <Delete className="h-7 w-7" />
+            <X className="h-6 w-6" />
           </motion.button>
         </motion.div>
       </motion.div>

@@ -37,7 +37,7 @@ export default function AccessPage() {
           )}
         </AnimatePresence>
       </main>
-      <Footer />
+      {/* Footer is removed for a cleaner dialer view */}
     </div>
   );
 }
