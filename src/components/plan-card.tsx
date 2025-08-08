@@ -22,7 +22,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
       <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/10 to-transparent opacity-50 -translate-x-full transition-transform duration-700 group-hover:translate-x-0" />
       <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
-            <CardTitle className="text-2xl font-semibold">{plan.name}</CardTitle>
+            <CardTitle>{plan.name}</CardTitle>
             {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white dark:bg-red-600">HOT</Badge>}
         </div>
 

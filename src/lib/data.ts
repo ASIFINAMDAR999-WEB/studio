@@ -92,7 +92,6 @@ export const plans: Plan[] = [
   {
     name: 'Silver Plan',
     priceString: '',
-    priceOptions: ['$50', '$100', '$250', '$500'],
     duration: '',
     description: 'For virtual numbers and eSIMs',
     features: [
@@ -102,6 +101,7 @@ export const plans: Plan[] = [
     highlight: false,
     isHot: false,
     cta: '', // CTA is handled by the price options now
+    priceOptions: ['$50', '$100', '$250', '$500'],
   },
 ];
 
