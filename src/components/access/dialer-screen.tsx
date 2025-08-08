@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 
 type CallLog = {
   number: string;
@@ -476,3 +476,5 @@ export function DialerScreen() {
     </>
   );
 }
+
+    
