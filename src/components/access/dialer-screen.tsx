@@ -278,8 +278,7 @@ export function DialerScreen() {
                     disabled={number.length <= 1}
                     className={cn(
                         'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-card active:bg-muted',
-                        'disabled:opacity-50 disabled:cursor-not-allowed',
-                        number.length > 1 && 'animate-ringing'
+                        'disabled:opacity-50 disabled:cursor-not-allowed'
                     )}
                     whileTap={{ scale: 0.95 }}
                   >
