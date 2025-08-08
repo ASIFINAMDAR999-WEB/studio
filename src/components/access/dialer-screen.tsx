@@ -1,9 +1,9 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +11,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Modal } from '@/components/ui/modal';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
+
+type CallLog = {
+  number: string;
+  time: string;
+};
 
 /**
  * DialerScreen Component
@@ -26,6 +33,8 @@ export function DialerScreen() {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialpad');
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
+  const [callerId, setCallerId] = useState('random');
+  const [callHistory, setCallHistory] = useState<CallLog[]>([]);
   
   // Ref to manage the long-press timer for the delete button.
   const longPressTimer = useRef<NodeJS.Timeout>();
@@ -76,6 +85,12 @@ export function DialerScreen() {
   const handleCall = () => {
     if (!number) return;
     setIsCalling(true);
+
+    const newCall: CallLog = {
+      number: number,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    setCallHistory([newCall, ...callHistory]);
 
     setTimeout(() => {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -133,7 +148,7 @@ export function DialerScreen() {
 
         <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4">
           <div className="flex justify-between items-center">
-            <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">random</span></span>
+            <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId}</span></span>
             <button onClick={() => setShowSettingsModal(true)}>
               <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
             </button>
@@ -215,10 +230,27 @@ export function DialerScreen() {
             </motion.div>
           </>
         ) : (
-          <motion.div variants={itemVariants} className="flex-grow flex flex-col items-center justify-center text-center bg-card rounded-xl p-8">
-              <Clock className="h-12 w-12 text-muted-foreground mb-4" />
-              <h3 className="text-xl font-semibold text-foreground">Coming Soon</h3>
-              <p className="text-muted-foreground mt-2">Call history will be available here.</p>
+          <motion.div variants={itemVariants} className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
+              {callHistory.length > 0 ? (
+                callHistory.map((log, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted">
+                    <div className="flex items-center gap-3">
+                      <History className="h-5 w-5 text-muted-foreground" />
+                      <div>
+                        <p className="font-semibold text-foreground">{log.number}</p>
+                        <p className="text-sm text-muted-foreground">Outgoing call</p>
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{log.time}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="flex-grow flex flex-col items-center justify-center text-center">
+                  <Clock className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground">No Call History</h3>
+                  <p className="text-muted-foreground mt-2">Your recent calls will appear here.</p>
+                </div>
+              )}
           </motion.div>
         )}
       </motion.div>
@@ -229,12 +261,31 @@ export function DialerScreen() {
         title="Desktop Calling Unavailable"
         description="To make calls, please visit this page on a mobile device. This feature uses your phone's native calling functionality."
       />
+
       <Modal
-        isOpen={showSettingsModal}
-        onClose={() => setShowSettingsModal(false)}
-        title="Settings"
-        description="Settings are not available yet, but they will be soon!"
-      />
+          isOpen={showSettingsModal}
+          onClose={() => setShowSettingsModal(false)}
+          title="Settings"
+      >
+          <div className="space-y-4">
+              <label htmlFor="callerIdInput" className="block text-sm font-medium text-muted-foreground">
+                  Caller ID
+              </label>
+              <Input
+                  id="callerIdInput"
+                  type="text"
+                  defaultValue={callerId}
+                  placeholder="Enter new Caller ID"
+                  onBlur={(e) => setCallerId(e.target.value || 'random')}
+                  className="w-full"
+              />
+              <Button onClick={() => setShowSettingsModal(false)} className="w-full">
+                  Save Settings
+              </Button>
+          </div>
+      </Modal>
     </>
   );
 }
+
+    
