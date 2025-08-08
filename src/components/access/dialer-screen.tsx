@@ -202,7 +202,7 @@ export function DialerScreen() {
         onClick={onClick}
         className={cn(
           "h-14 w-14 rounded-full flex items-center justify-center transition-colors duration-200",
-          active ? 'bg-white/20 text-white' : 'bg-white/10 hover:bg-white/20 text-white/80'
+          active ? 'bg-white text-gray-800' : 'bg-white/10 hover:bg-white/20 text-white/80'
         )}
         whileTap={{ scale: 0.9 }}
       >
@@ -363,7 +363,7 @@ export function DialerScreen() {
         ) : (
           <motion.div
               key="in-call"
-              className="flex flex-col h-full items-center justify-center"
+              className="flex flex-col h-full items-center justify-between flex-grow"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -402,13 +402,22 @@ export function DialerScreen() {
                             {keypad.map((key, i) => (
                               <motion.button
                                 key={i}
-                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20"
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white"
                                 whileTap={{ scale: 0.95 }}
                               >
-                                <span className="text-xl font-semibold">{key.digit}</span>
+                                <span className="text-2xl font-semibold">{key.digit}</span>
                                 {key.letters && <p className="text-xs tracking-widest uppercase">{key.letters}</p>}
                               </motion.button>
                             ))}
+                              <div />
+                              <motion.button
+                                onClick={() => setShowInCallKeypad(false)}
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center"
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ChevronDown className="w-6 h-6"/>
+                              </motion.button>
+                              <div />
                           </motion.div>
                       ) : (
                         <motion.div 
@@ -419,7 +428,7 @@ export function DialerScreen() {
                             <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute">
                               {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
                             </InCallButton>
-                            <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad} text="Keypad">
+                            <InCallButton onClick={() => setShowInCallKeypad(true)} text="Keypad">
                               <Grid2x2 className="w-6 h-6"/>
                             </InCallButton>
                             <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker">
