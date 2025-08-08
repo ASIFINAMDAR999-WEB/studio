@@ -115,8 +115,8 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
                 className={cn(
                   'absolute left-4 transition-all duration-300 pointer-events-none text-muted-foreground',
                   'peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base',
-                  'peer-focus:-top-2 peer-focus:text-sm peer-focus:px-1 peer-focus:bg-card/60 dark:peer-focus:bg-card/40',
-                  code ? '-top-2 text-sm px-1 bg-card/60 dark:bg-card/40' : '',
+                  'peer-focus:-top-2.5 peer-focus:text-sm peer-focus:px-1 peer-focus:bg-card/60 dark:peer-focus:bg-card/40',
+                  code ? '-top-2.5 text-sm px-1 bg-card/60 dark:bg-card/40' : '',
                   error ? 'text-destructive' : 'peer-focus:text-primary'
                 )}
               >
