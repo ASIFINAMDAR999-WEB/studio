@@ -50,18 +50,40 @@ export function DialerScreen() {
 
   // Load state from localStorage on initial render
   useEffect(() => {
-    const savedCallerId = localStorage.getItem('callerId');
-    if (savedCallerId) {
-      setCallerId(savedCallerId.startsWith('+') ? savedCallerId : `+${savedCallerId}`);
-    } else {
-      setCallerId('+');
+    try {
+      const savedCallerId = localStorage.getItem('callerId');
+      if (savedCallerId) {
+        setCallerId(savedCallerId);
+      } else {
+        setCallerId('+');
+      }
+
+      const savedHistory = localStorage.getItem('callHistory');
+      if (savedHistory) {
+        setCallHistory(JSON.parse(savedHistory));
+      }
+    } catch (error) {
+      console.error("Failed to access localStorage", error);
     }
   }, []);
 
   // Save state to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('callerId', callerId);
+    try {
+      localStorage.setItem('callerId', callerId);
+    } catch (error) {
+       console.error("Failed to save callerId to localStorage", error);
+    }
   }, [callerId]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('callHistory', JSON.stringify(callHistory));
+    } catch (error) {
+      console.error("Failed to save call history to localStorage", error);
+    }
+  }, [callHistory]);
+
 
   // Effect for the call timer
   useEffect(() => {
@@ -71,24 +93,25 @@ export function DialerScreen() {
       }, 1000);
     } else {
       clearInterval(callIntervalRef.current);
-      setCallTimer(0);
     }
     return () => clearInterval(callIntervalRef.current);
   }, [callStatus]);
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-    // Ensure value always starts with '+' and contains only valid characters
+    // Sanitize and format the number
+    const digits = value.replace(/[^\d]/g, '');
     if (!value.startsWith('+')) {
-      value = `+${value.replace(/[^\d]/g, '')}`;
+      value = `+${digits}`;
     } else {
-      value = `+${value.substring(1).replace(/[^\d]/g, '')}`;
+      value = `+${digits}`;
     }
     
     if (value.length <= 16) {
       setNumber(value);
     }
   };
+
 
   const handleKeyPress = (digit: string) => {
     if (number.length < 16) {
@@ -118,6 +141,7 @@ export function DialerScreen() {
     if (number.length <= 1) return;
     setCallStatus('calling');
     setShowInCallKeypad(false);
+    setCallTimer(0);
     
     // Simulate connection time
     setTimeout(() => {
@@ -126,16 +150,17 @@ export function DialerScreen() {
   };
 
   const handleEndCall = () => {
-    setCallStatus('ended');
     const newCall: CallLog = {
       number: number,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
-    setCallHistory([newCall, ...callHistory]);
+    setCallHistory(prev => [newCall, ...prev]);
+    setCallStatus('ended');
+    
     setTimeout(() => {
         setNumber('+');
         setCallStatus('idle');
-    }, 1000);
+    }, 1500);
   };
 
   const formatTime = (seconds: number) => {
@@ -146,10 +171,16 @@ export function DialerScreen() {
 
   const handleCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
       let value = e.target.value;
+      if (value.toLowerCase() === 'random') {
+        setCallerId('random');
+        return;
+      }
+      // Sanitize and format the number
+      const digits = value.replace(/[^\d]/g, '');
       if (!value.startsWith('+')) {
-          value = `+${value.replace(/[^\d]/g, '')}`;
+        value = `+${digits}`;
       } else {
-          value = `+${value.substring(1).replace(/[^\d]/g, '')}`;
+        value = `+${digits}`;
       }
       setCallerId(value);
   };
@@ -171,13 +202,13 @@ export function DialerScreen() {
         onClick={onClick}
         className={cn(
           "h-14 w-14 rounded-full flex items-center justify-center transition-colors duration-200",
-          active ? 'bg-primary/20 text-primary' : 'bg-muted hover:bg-muted/80 text-foreground'
+          active ? 'bg-white/20 text-white' : 'bg-white/10 hover:bg-white/20 text-white/80'
         )}
         whileTap={{ scale: 0.9 }}
       >
         {children}
       </motion.button>
-      <span className='text-xs text-muted-foreground'>{text}</span>
+      <span className='text-xs text-white/70'>{text}</span>
     </div>
   );
 
@@ -220,7 +251,7 @@ export function DialerScreen() {
 
             <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4">
               <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId === '+' ? 'random' : callerId}</span></span>
+                <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId}</span></span>
                 <button onClick={() => setShowSettingsModal(true)}>
                   <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
                 </button>
@@ -282,12 +313,12 @@ export function DialerScreen() {
                     onClick={handleCall}
                     disabled={number.length <= 1}
                     className={cn(
-                        'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-card active:bg-muted',
-                        'disabled:opacity-50 disabled:cursor-not-allowed'
+                        'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white',
+                        'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground'
                     )}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Phone className="h-6 w-6 text-green-500"/>
+                    <Phone className="h-6 w-6"/>
                   </motion.button>
                   <motion.button
                     onClick={handleDelete}
@@ -296,7 +327,7 @@ export function DialerScreen() {
                     onMouseLeave={handlePressEnd}
                     onTouchStart={handlePressStart}
                     onTouchEnd={handlePressEnd}
-                    className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted"
+                    className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                     whileTap={{ scale: 0.95 }}
                     disabled={number.length <= 1}
                   >
@@ -332,23 +363,23 @@ export function DialerScreen() {
         ) : (
           <motion.div
               key="in-call"
-              className="flex flex-col h-full"
+              className="flex flex-col h-full items-center justify-center"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
           >
-              <Card className="w-full flex-grow flex flex-col justify-between items-center p-6">
+              <Card className="w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white shadow-2xl">
                 <div className="text-center pt-8">
                     <motion.h2 
-                      className="text-3xl font-bold text-foreground"
+                      className="text-3xl font-bold"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}
                     >
                       {number}
                     </motion.h2>
                     <motion.p 
-                      className="text-lg text-muted-foreground mt-2"
+                      className="text-lg text-white/70 mt-2"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
                     >
@@ -371,11 +402,11 @@ export function DialerScreen() {
                             {keypad.map((key, i) => (
                               <motion.button
                                 key={i}
-                                className="relative aspect-square rounded-full bg-muted text-foreground"
-                                whileTap={{ scale: 0.95, backgroundColor: 'hsl(var(--muted) / 0.8)' }}
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20"
+                                whileTap={{ scale: 0.95 }}
                               >
                                 <span className="text-xl font-semibold">{key.digit}</span>
-                                <p className="text-xs tracking-widest uppercase">{key.letters}</p>
+                                {key.letters && <p className="text-xs tracking-widest uppercase">{key.letters}</p>}
                               </motion.button>
                             ))}
                           </motion.div>
@@ -388,11 +419,9 @@ export function DialerScreen() {
                             <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute">
                               {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
                             </InCallButton>
-                            <div className="group">
-                              <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad} text="Keypad">
-                                <Grid2x2 className="w-6 h-6"/>
-                              </InCallButton>
-                            </div>
+                            <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad} text="Keypad">
+                              <Grid2x2 className="w-6 h-6"/>
+                            </InCallButton>
                             <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker">
                               <Volume2 className="w-6 h-6"/>
                             </InCallButton>
@@ -404,7 +433,7 @@ export function DialerScreen() {
                 <div className="flex justify-center w-full pb-8">
                   <motion.button
                       onClick={handleEndCall}
-                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg text-white"
+                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg"
                       whileTap={{ scale: 0.9 }}
                   >
                       <PhoneOff className="w-8 h-8" />
