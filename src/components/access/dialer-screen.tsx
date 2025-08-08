@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
+import { Card, CardContent } from '@/components/ui/card';
 
 type CallLog = {
   number: string;
@@ -136,17 +137,20 @@ export function DialerScreen() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
-  const InCallButton = ({ children, onClick, active }: { children: React.ReactNode, onClick?: () => void, active?: boolean }) => (
-    <motion.button
-      onClick={onClick}
-      className={cn(
-        "h-16 w-16 rounded-full flex items-center justify-center transition-colors duration-200",
-        active ? 'bg-white/90 text-background' : 'bg-white/20 hover:bg-white/30 text-white'
-      )}
-      whileTap={{ scale: 0.9 }}
-    >
-      {children}
-    </motion.button>
+  const InCallButton = ({ children, onClick, text, active }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean }) => (
+    <div className="flex flex-col items-center gap-2">
+      <motion.button
+        onClick={onClick}
+        className={cn(
+          "h-14 w-14 rounded-full flex items-center justify-center transition-colors duration-200",
+          active ? 'bg-primary/20 text-primary' : 'bg-muted hover:bg-muted/80 text-foreground'
+        )}
+        whileTap={{ scale: 0.9 }}
+      >
+        {children}
+      </motion.button>
+      <span className='text-xs text-muted-foreground'>{text}</span>
+    </div>
   );
 
   return (
@@ -297,105 +301,83 @@ export function DialerScreen() {
         ) : (
           <motion.div
               key="in-call"
-              className="flex flex-col h-full w-full justify-between items-center relative text-white"
+              className="flex flex-col h-full"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
           >
-              <motion.div 
-                className="absolute inset-0 -z-10 bg-gradient-to-br from-primary to-accent"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { duration: 0.5 } }}
-              />
-              <motion.div 
-                className="absolute inset-0 -z-10 opacity-50 dark:opacity-60"
-                style={{ background: `radial-gradient(circle at top, hsl(var(--primary) / 0.8), transparent 70%)` }}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1, transition: { duration: 1.5, ease: "easeOut" } }}
-              />
-
-              <div className="pt-20 text-center">
-                  <motion.div 
-                    className="relative w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1, transition: { delay: 0.2, duration: 0.5 } }}
-                  >
-                     <Phone className="h-10 w-10 text-white" />
-                      {callStatus === 'calling' && <div className="absolute inset-0 rounded-full border-2 border-white animate-pulse-ring"></div>}
-                  </motion.div>
-                  <motion.h2 
-                    className="text-4xl font-bold mt-6"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1, transition: { delay: 0.4 } }}
-                  >
-                    {number}
-                  </motion.h2>
-                  <motion.p 
-                    className="text-xl text-white/80 mt-2"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1, transition: { delay: 0.5 } }}
-                  >
-                      {callStatus === 'calling' && "Calling..."}
-                      {callStatus === 'connected' && formatTime(callTimer)}
-                      {callStatus === 'ended' && "Call Ended"}
-                  </motion.p>
-              </div>
-
-              <AnimatePresence>
-                {showInCallKeypad && (
-                    <motion.div
-                      key="in-call-keypad"
-                      className="w-full max-w-xs grid grid-cols-3 gap-3"
-                      initial={{ opacity: 0, y: 100 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 100 }}
+              <Card className="w-full flex-grow flex flex-col justify-between items-center p-6">
+                <div className="text-center pt-8">
+                    <motion.h2 
+                      className="text-3xl font-bold text-foreground"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}
                     >
-                      {keypad.map((key, i) => (
-                        <motion.button
-                          key={i}
-                          className="relative aspect-square rounded-full bg-white/20 text-white"
-                          whileTap={{ scale: 0.95, backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
-                        >
-                          <span className="text-2xl font-semibold">{key.digit}</span>
-                          <p className="text-xs tracking-widest uppercase">{key.letters}</p>
-                        </motion.button>
-                      ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              
-              <div className="w-full pb-16">
-                <motion.div
-                  className="grid grid-cols-3 gap-x-8 w-full max-w-xs mx-auto mb-10"
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1, transition: { delay: 0.6, duration: 0.5 } }}
-                >
-                    <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted}>
-                      {isMuted ? <MicOff className="w-7 h-7"/> : <Mic className="w-7 h-7"/>}
-                    </InCallButton>
-                    <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad}>
-                      <Grid2x2 className="w-7 h-7"/>
-                    </InCallButton>
-                    <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker}>
-                      <Volume2 className="w-7 h-7"/>
-                    </InCallButton>
-                </motion.div>
+                      {number}
+                    </motion.h2>
+                    <motion.p 
+                      className="text-lg text-muted-foreground mt-2"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+                    >
+                        {callStatus === 'calling' && "Calling..."}
+                        {callStatus === 'connected' && formatTime(callTimer)}
+                        {callStatus === 'ended' && "Call Ended"}
+                    </motion.p>
+                </div>
 
-                <motion.div 
-                  className="flex justify-center"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1, transition: { delay: 0.8, type: 'spring', stiffness: 200, damping: 15 } }}
-                >
+                <div className="w-full max-w-xs">
+                    <AnimatePresence>
+                      {showInCallKeypad ? (
+                          <motion.div
+                            key="in-call-keypad"
+                            className="w-full grid grid-cols-3 gap-3 mb-6"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 50 }}
+                          >
+                            {keypad.map((key, i) => (
+                              <motion.button
+                                key={i}
+                                className="relative aspect-square rounded-full bg-muted text-foreground"
+                                whileTap={{ scale: 0.95, backgroundColor: 'hsl(var(--muted) / 0.8)' }}
+                              >
+                                <span className="text-xl font-semibold">{key.digit}</span>
+                                <p className="text-xs tracking-widest uppercase">{key.letters}</p>
+                              </motion.button>
+                            ))}
+                          </motion.div>
+                      ) : (
+                        <motion.div 
+                          className="grid grid-cols-3 gap-x-6 w-full max-w-xs mx-auto mb-8"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                        >
+                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute">
+                              {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
+                            </InCallButton>
+                            <InCallButton onClick={() => setShowInCallKeypad(p => !p)} active={showInCallKeypad} text="Keypad">
+                              <Grid2x2 className="w-6 h-6"/>
+                            </InCallButton>
+                            <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker">
+                              <Volume2 className="w-6 h-6"/>
+                            </InCallButton>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                </div>
+                
+                <div className="flex justify-center w-full pb-8">
                   <motion.button
                       onClick={handleEndCall}
-                      className="w-20 h-20 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg"
+                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg text-white"
                       whileTap={{ scale: 0.9 }}
                   >
-                      <PhoneOff className="w-10 h-10 text-white" />
+                      <PhoneOff className="w-8 h-8" />
                   </motion.button>
-                </motion.div>
-              </div>
+                </div>
+              </Card>
           </motion.div>
         )}
         </AnimatePresence>
@@ -423,5 +405,3 @@ export function DialerScreen() {
     </>
   );
 }
-
-    
