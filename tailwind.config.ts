@@ -139,8 +139,8 @@ export default {
           },
         },
         'pulse-ring': {
-          '0%': { transform: 'scale(0.33)' },
-          '80%, 100%': { opacity: '0' },
+          '0%': { transform: 'scale(0.8)', opacity: '1' },
+          '100%': { transform: 'scale(1.4)', opacity: '0' },
         },
         'ringing': {
           '0%, 100%': { transform: 'scale(1)', 'box-shadow': '0 0 0.5rem 0.25rem hsl(var(--primary) / 0.2)' },

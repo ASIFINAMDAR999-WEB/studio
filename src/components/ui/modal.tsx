@@ -33,35 +33,28 @@ export function Modal({ isOpen, onClose, title, description, children }: ModalPr
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative w-full max-w-md m-4 p-8 bg-card rounded-2xl shadow-2xl border border-border"
+            className="relative w-full max-w-md m-4 p-6 bg-card rounded-2xl shadow-2xl border border-border"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
-            <h2 className="text-2xl font-bold text-foreground mb-4">{title}</h2>
-             {description && <p className="text-muted-foreground mb-6">{description}</p>}
+            <div className='flex justify-between items-start'>
+                <div className='space-y-1.5'>
+                    <h2 className="text-xl font-bold text-foreground">{title}</h2>
+                    {description && <p className="text-sm text-muted-foreground">{description}</p>}
+                </div>
+                <button
+                    onClick={onClose}
+                    className="text-muted-foreground hover:text-foreground transition-colors -mt-1 -mr-1"
+                    aria-label="Close modal"
+                >
+                    <X className="h-5 w-5" />
+                </button>
+            </div>
             
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Close modal"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            
-            {children ? (
-              <div className="mt-4">{children}</div>
-            ) : (
-              <button
-                onClick={onClose}
-                className="w-full mt-6 text-lg font-bold py-3 px-6 rounded-lg text-primary-foreground transition-all duration-300 bg-primary hover:bg-primary/90 focus:outline-none focus:ring-4 focus:ring-primary/50"
-              >
-                Got it
-              </button>
-            )}
+            <div className="mt-4">{children}</div>
+
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
 }
-
-    
