@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Keypad as KeypadIcon, PhoneOff } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -307,7 +307,7 @@ export function DialerScreen() {
                         <span>{isMuted ? 'Unmute' : 'Mute'}</span>
                     </button>
                      <button className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground">
-                        <KeypadIcon className="w-8 h-8"/>
+                        <Grid2x2 className="w-8 h-8"/>
                         <span>Keypad</span>
                     </button>
                     <button className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground">
