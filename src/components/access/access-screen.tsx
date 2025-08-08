@@ -76,8 +76,8 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
     <motion.div
       className="w-full max-w-md"
       variants={cardVariants}
-      initial="hidden"
       animate={isShaking ? "shaking" : "visible"}
+      initial="hidden"
       exit="exit"
     >
       <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10">
@@ -88,6 +88,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
+               <label htmlFor="access-code" className="sr-only">Access Code</label>
               <input
                 ref={inputRef}
                 type="text"
