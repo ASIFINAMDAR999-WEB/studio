@@ -11,15 +11,7 @@ To get started, take a look at src/app/page.tsx.
     npm install
     ```
 
-2.  **Set up environment variables**:
-    -   Rename the `.env.example` file to `.env`.
-    -   Get a Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
-    -   Add your API key to the `.env` file:
-        ```
-        GEMINI_API_KEY="YOUR_API_KEY_HERE"
-        ```
-
-3.  **Run the development server**:
+2.  **Run the development server**:
     ```bash
     npm run dev
     ```
@@ -34,5 +26,4 @@ Follow these steps:
 
 1.  **Push to GitHub**: Push your code to a new GitHub repository.
 2.  **Import Project on Vercel**: Go to your [Vercel dashboard](https://vercel.com/new) and import the project from your GitHub repository. Vercel will automatically detect that you are using Next.js and configure the build settings.
-3.  **Add Environment Variables**: In your Vercel project settings, navigate to the "Environment Variables" section. Add your `GEMINI_API_KEY` with the value you obtained from Google AI Studio.
-4.  **Deploy**: Vercel will automatically trigger a deployment when you push new commits to your repository.
+3.  **Deploy**: Vercel will automatically trigger a deployment when you push new commits to your repository.
