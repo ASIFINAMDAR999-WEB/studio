@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { AnimatePresence } from 'framer-motion';
 import { AccessScreen } from '@/components/access/access-screen';
 import { DialerScreen } from '@/components/access/dialer-screen';
@@ -17,8 +18,18 @@ export default function AccessPage() {
   // State to track if the user has been granted access.
   const [isAccessGranted, setIsAccessGranted] = useState(false);
 
+  // Check for access cookie on initial render
+  useEffect(() => {
+    const accessCookie = Cookies.get('accessGranted');
+    if (accessCookie === 'true') {
+      setIsAccessGranted(true);
+    }
+  }, []);
+
   // Callback function passed to AccessScreen to update the state upon successful login.
   const handleSuccess = () => {
+    // Set a cookie that expires in 1 day
+    Cookies.set('accessGranted', 'true', { expires: 1 });
     setIsAccessGranted(true);
   };
 
