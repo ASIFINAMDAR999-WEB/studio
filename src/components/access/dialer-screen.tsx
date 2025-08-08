@@ -280,12 +280,10 @@ export function DialerScreen() {
                   className="w-full"
               />
               <Button onClick={() => setShowSettingsModal(false)} className="w-full">
-                  Save Settings
+                  Close
               </Button>
           </div>
       </Modal>
     </>
   );
 }
-
-    
