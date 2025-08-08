@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 type NavLinksProps = {
   onLinkClick?: () => void;
@@ -22,16 +23,22 @@ export const NavLinks = ({ onLinkClick }: NavLinksProps) => {
 
   return (
     <>
-      {links.map((link) => (
-        <Link 
-          key={link.href}
-          href={link.href} 
-          onClick={onLinkClick}
-          className="text-muted-foreground transition-colors hover:text-primary p-2 md:p-0 rounded-md md:rounded-none"
-        >
-          {link.label}
-        </Link>
-      ))}
+      {links.map((link) => {
+        const isActive = pathname === link.href;
+        return (
+            <Link 
+              key={link.href}
+              href={link.href} 
+              onClick={onLinkClick}
+              className={cn(
+                "transition-colors hover:text-primary p-2 md:p-0 rounded-md md:rounded-none",
+                isActive ? "text-primary font-semibold" : "text-muted-foreground"
+              )}
+            >
+              {link.label}
+            </Link>
+        )
+      })}
     </>
   );
 };

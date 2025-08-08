@@ -7,6 +7,7 @@ import { Menu, X, Shield } from 'lucide-react';
 import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useState, useEffect } from 'react';
+import { Separator } from '@/components/ui/separator';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,14 +28,15 @@ export function Header() {
             </span>
           </div>
         </Link>
-        <nav className="hidden md:flex items-center gap-6">
-          <NavLinks />
-        </nav>
+
         <div className="flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-6 mr-4">
+                <NavLinks />
+            </nav>
            <ThemeToggle />
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
+              <Button variant="outline" size="icon" className="md:hidden ml-2">
                 <span className="sr-only">Toggle Menu</span>
                 {mounted && (isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />)}
               </Button>
@@ -49,7 +51,8 @@ export function Header() {
                  </Link>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
               </SheetHeader>
-              <nav className="flex flex-col gap-2 mt-4 text-lg">
+              <Separator className="my-4" />
+              <nav className="flex flex-col gap-2 text-lg">
                 <NavLinks onLinkClick={() => setIsMenuOpen(false)} />
               </nav>
             </SheetContent>
