@@ -5,29 +5,35 @@ import { useState, useRef, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import ReCAPTCHA from 'react-google-recaptcha';
 
-// The valid access code. In a real app, this would be validated on a server.
 const VALID_CODE = 'loginaccess:9383';
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-/**
- * AccessScreen Component
- * This component handles the UI and logic for access code validation.
- * It includes an input field, a submit button, loading and error states, and animations.
- */
 export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
-  // State for the input code, loading status, and error messages.
   const [code, setCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isShaking, setIsShaking] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  // Focus the input field on component mount.
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
-  // --- Animation Variants for Framer Motion ---
+  if (!RECAPTCHA_SITE_KEY) {
+    return (
+        <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold text-destructive">reCAPTCHA Not Configured</h2>
+            <p className="mt-2 text-muted-foreground">
+                Please add your reCAPTCHA v2 Site Key to your environment variables as <code>NEXT_PUBLIC_RECAPTCHA_SITE_KEY</code>.
+            </p>
+        </div>
+    );
+  }
+
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -38,29 +44,29 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
     }
   };
 
-  /**
-   * Handles form submission.
-   * Validates the code and manages loading/error states.
-   */
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (code.length < 5 || isLoading) return;
+    if (code.length < 5 || isLoading || !recaptchaToken) return;
 
     setIsLoading(true);
     setError(null);
 
-    // Simulate a 1-second network delay for validation.
+    // **IMPORTANT**: In a real application, you would send the `recaptchaToken`
+    // and the `code` to your backend (e.g., a Firebase Function) for verification.
+    // The backend would verify the reCAPTCHA token with Google using your SECRET KEY
+    // and then validate the access code.
+
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Validate the code.
     if (code === VALID_CODE) {
-      onSuccess(); // Trigger the success callback to switch screens.
+      onSuccess();
     } else {
-      // On failure, set an error message and trigger the shake animation.
       setError('Invalid code. Please try again.');
       setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 500); // Reset shake animation
-      setCode(''); // Clear input on error
+      setTimeout(() => setIsShaking(false), 500);
+      setCode('');
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
     }
 
     setIsLoading(false);
@@ -103,10 +109,19 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
               />
             </div>
 
-            {/* --- Submit Button --- */}
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setRecaptchaToken(token)}
+                onExpired={() => setRecaptchaToken(null)}
+                theme="dark"
+              />
+            </div>
+
             <motion.button
               type="submit"
-              disabled={code.length < 5 || isLoading}
+              disabled={code.length < 5 || isLoading || !recaptchaToken}
               className={cn(
                 'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative group/button',
                 'bg-gradient-to-r from-primary to-accent',
@@ -130,7 +145,6 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
             </motion.button>
           </form>
 
-          {/* --- Error Message --- */}
           <AnimatePresence>
             {error && (
               <motion.p
