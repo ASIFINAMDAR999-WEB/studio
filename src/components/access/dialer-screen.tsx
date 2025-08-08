@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Delete, Settings, ChevronDown, PhoneIncoming } from 'lucide-react';
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Modal } from '@/components/ui/modal';
 import { cn } from '@/lib/utils';
+import { keypad } from '@/lib/data';
 
 /**
  * DialerScreen Component
@@ -22,14 +23,11 @@ export function DialerScreen() {
   const [number, setNumber] = useState('');
   const [isCalling, setIsCalling] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  
+  // Ref to manage the long-press timer for the delete button.
+  const longPressTimer = useRef<NodeJS.Timeout>();
 
-  // Keypad button definitions
-  const keypad = [
-    { digit: '1', letters: '' }, { digit: '2', letters: 'ABC' }, { digit: '3', letters: 'DEF' },
-    { digit: '4', letters: 'GHI' }, { digit: '5', letters: 'JKL' }, { digit: '6', letters: 'MNO' },
-    { digit: '7', letters: 'PQRS' }, { digit: '8', letters: 'TUV' }, { digit: '9', letters: 'WXYZ' },
-    { digit: '*', letters: '' }, { digit: '0', letters: '+' }, { digit: '#', letters: '' },
-  ];
+  // Keypad button definitions are now imported from lib/data.ts
 
   /**
    * Handles button presses on the keypad.
@@ -43,10 +41,30 @@ export function DialerScreen() {
 
   /**
    * Handles the delete button action.
-   * Removes the last digit from the number.
+   * A single click removes the last digit.
    */
   const handleDelete = () => {
     setNumber(number.slice(0, -1));
+  };
+
+  /**
+   * Handles the start of a press on the delete button (for long-press).
+   * Sets a timer to clear the entire number after 700ms.
+   */
+  const handlePressStart = () => {
+    longPressTimer.current = setTimeout(() => {
+      setNumber('');
+    }, 700);
+  };
+  
+  /**
+   * Handles the end of a press on the delete button.
+   * Clears the long-press timer to prevent it from firing on a short click.
+   */
+  const handlePressEnd = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+    }
   };
 
   /**
@@ -59,7 +77,7 @@ export function DialerScreen() {
     setIsCalling(true);
 
     setTimeout(() => {
-        // Check if running on a mobile device
+      // Check if running on a mobile device
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       if (isMobile) {
         window.location.href = `tel:${number}`;
@@ -164,6 +182,11 @@ export function DialerScreen() {
           </motion.button>
           <motion.button
             onClick={handleDelete}
+            onMouseDown={handlePressStart}
+            onMouseUp={handlePressEnd}
+            onMouseLeave={handlePressEnd} // In case the cursor leaves the button while pressed
+            onTouchStart={handlePressStart}
+            onTouchEnd={handlePressEnd}
             className="flex items-center justify-center text-muted-foreground"
             whileTap={{ scale: 0.9 }}
           >

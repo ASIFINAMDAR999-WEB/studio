@@ -67,26 +67,6 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
     setIsLoading(false);
   };
 
-  // --- Ripple Effect for Button ---
-  const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const button = event.currentTarget;
-    const circle = document.createElement('span');
-    const diameter = Math.max(button.clientWidth, button.clientHeight);
-    const radius = diameter / 2;
-
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-    circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
-    circle.classList.add('ripple');
-
-    const ripple = button.getElementsByClassName('ripple')[0];
-    if (ripple) {
-      ripple.remove();
-    }
-
-    button.appendChild(circle);
-  };
-
   return (
     <motion.div
       className="w-full max-w-md"
@@ -153,23 +133,25 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
             <button
               type="submit"
               disabled={code.length < 5 || isLoading}
-              onClick={createRipple}
               className={cn(
-                'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative',
+                'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative group/button',
                 'bg-gradient-to-r from-primary to-accent',
                 'disabled:opacity-50 disabled:cursor-not-allowed',
                 'hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1',
                 'focus:outline-none focus:ring-4 focus:ring-primary/50'
               )}
             >
-              {isLoading ? (
-                <div className="flex items-center justify-center">
-                  <Loader2 className="mr-2 h-6 w-6 animate-spin" />
-                  <span>Validating...</span>
-                </div>
-              ) : (
-                'Continue'
-              )}
+              <span className="absolute inset-0 bg-black/10 opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative">
+                 {isLoading ? (
+                    <div className="flex items-center justify-center">
+                    <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                    <span>Validating...</span>
+                    </div>
+                ) : (
+                    'Continue'
+                )}
+              </span>
             </button>
           </form>
 
@@ -191,24 +173,3 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
     </motion.div>
   );
 }
-
-// Add CSS for ripple effect to globals or a style tag
-// For isolation, I will add a style tag here.
-const style = document.createElement('style');
-style.innerHTML = `
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  animation: ripple 600ms linear;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-`;
-document.head.appendChild(style);
