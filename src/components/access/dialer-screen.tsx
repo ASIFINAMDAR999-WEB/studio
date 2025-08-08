@@ -39,6 +39,19 @@ export function DialerScreen() {
   // Ref to manage the long-press timer for the delete button.
   const longPressTimer = useRef<NodeJS.Timeout>();
 
+  // Load callerId from localStorage on initial render
+  useEffect(() => {
+    const savedCallerId = localStorage.getItem('callerId');
+    if (savedCallerId) {
+      setCallerId(savedCallerId);
+    }
+  }, []);
+
+  // Save callerId to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('callerId', callerId);
+  }, [callerId]);
+
   /**
    * Handles button presses on the keypad.
    * Appends the pressed digit to the current number.
@@ -208,7 +221,8 @@ export function DialerScreen() {
                 className={cn(
                     'relative aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center',
                     isCalling ? 'bg-blue-500' : 'bg-card',
-                    'disabled:opacity-50 disabled:cursor-not-allowed'
+                    'disabled:opacity-50 disabled:cursor-not-allowed',
+                    'active:bg-muted'
                 )}
                 whileTap={{ scale: isCalling ? 1 : 0.95 }}
               >
@@ -221,7 +235,7 @@ export function DialerScreen() {
                 onMouseLeave={handlePressEnd}
                 onTouchStart={handlePressStart}
                 onTouchEnd={handlePressEnd}
-                className="flex items-center justify-center text-muted-foreground bg-card rounded-xl"
+                className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted"
                 whileTap={{ scale: 0.95 }}
                 disabled={!number}
               >
@@ -265,23 +279,20 @@ export function DialerScreen() {
       <Modal
           isOpen={showSettingsModal}
           onClose={() => setShowSettingsModal(false)}
-          title="Settings"
+          title="Change Caller ID"
       >
           <div className="space-y-4">
               <label htmlFor="callerIdInput" className="block text-sm font-medium text-muted-foreground">
-                  Caller ID
+                  Enter the new Caller ID you want to display.
               </label>
               <Input
                   id="callerIdInput"
                   type="text"
                   defaultValue={callerId}
-                  placeholder="Enter new Caller ID"
+                  placeholder="e.g., +18001234567"
                   onBlur={(e) => setCallerId(e.target.value || 'random')}
                   className="w-full"
               />
-              <Button onClick={() => setShowSettingsModal(false)} className="w-full">
-                  Close
-              </Button>
           </div>
       </Modal>
     </>
