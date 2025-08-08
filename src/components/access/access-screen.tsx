@@ -88,8 +88,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* --- Floating Label Input --- */}
-            <div className="relative group">
+            <div className="relative">
               <input
                 ref={inputRef}
                 type="text"
@@ -101,27 +100,14 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
                 }}
                 disabled={isLoading}
                 className={cn(
-                  'block w-full px-4 py-3 text-lg bg-background/50 rounded-lg border-2 peer transition-all duration-300',
+                  'block w-full px-4 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all duration-300',
                   'focus:outline-none focus:ring-4 focus:ring-primary/20',
                   error
                     ? 'border-destructive focus:border-destructive'
-                    : 'border-muted-foreground/30 focus:border-primary',
-                  'placeholder-transparent'
+                    : 'border-muted-foreground/30 focus:border-primary'
                 )}
                 placeholder="Enter your access code"
               />
-              <label
-                htmlFor="access-code"
-                className={cn(
-                  'absolute left-4 transition-all duration-300 pointer-events-none text-muted-foreground',
-                  'peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base',
-                  'peer-focus:-top-2.5 peer-focus:text-sm peer-focus:px-1 peer-focus:bg-card/60 dark:peer-focus:bg-card/40',
-                  code ? '-top-2.5 text-sm px-1 bg-card/60 dark:bg-card/40' : '',
-                  error ? 'text-destructive' : 'peer-focus:text-primary'
-                )}
-              >
-                Enter your access code
-              </label>
             </div>
 
             {/* --- Submit Button --- */}
