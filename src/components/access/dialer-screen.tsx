@@ -155,7 +155,7 @@ export function DialerScreen() {
 
   return (
     <>
-      <div className="w-full max-w-sm mx-auto p-4 flex flex-col h-full bg-background overflow-hidden">
+      <div className="w-full max-w-sm mx-auto p-2 sm:p-4 flex flex-col bg-background overflow-hidden flex-grow">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
           <motion.div
@@ -237,7 +237,7 @@ export function DialerScreen() {
                     <motion.button
                       key={i}
                       onClick={() => handleKeyPress(key.digit)}
-                      className="relative aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted"
+                      className="relative aspect-[4/3] sm:aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted"
                       whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
                     >
                       <span className="text-2xl font-semibold">{key.digit}</span>
@@ -250,7 +250,7 @@ export function DialerScreen() {
                     onClick={handleCall}
                     disabled={!number}
                     className={cn(
-                        'relative aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-card active:bg-muted',
+                        'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-card active:bg-muted',
                         'disabled:opacity-50 disabled:cursor-not-allowed',
                         number && 'animate-ringing'
                     )}

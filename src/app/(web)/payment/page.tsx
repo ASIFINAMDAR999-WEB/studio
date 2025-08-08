@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, Camera, ShieldCheck, ArrowLeft } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -88,7 +88,7 @@ function PaymentPageComponent() {
                 <CardTitle className="text-xl">Order Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-2">
                     <p className="text-lg font-semibold">{planName}</p>
                     <div className="text-right">
                         <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
@@ -114,7 +114,7 @@ function PaymentPageComponent() {
 
             <Card className="shadow-lg">
                 <CardHeader>
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between items-center flex-wrap gap-2'>
                         <CardTitle className="text-xl flex items-center gap-2">
                             <Wallet className="h-6 w-6 text-primary"/>
                             <span>Payment Instructions</span>
@@ -138,7 +138,7 @@ function PaymentPageComponent() {
                                         <p className="text-sm text-muted-foreground mb-1">{network}</p>
                                         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
                                             <p className="font-mono text-sm sm:text-base break-all">{address || 'Address not available'}</p>
-                                            <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'} className="self-end sm:self-center">
+                                            <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'} className="self-end sm:self-center flex-shrink-0">
                                                 <Clipboard className="h-5 w-5" />
                                             </Button>
                                         </div>

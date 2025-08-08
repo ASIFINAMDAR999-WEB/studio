@@ -36,7 +36,7 @@ export default function AccessPage() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-      <main className="flex-1 flex items-center justify-center p-4">
+      <main className="flex-1 flex flex-col items-center justify-center p-4">
         {/* AnimatePresence handles the transition between the two screens. */}
         <AnimatePresence mode="wait">
           {!isAccessGranted ? (

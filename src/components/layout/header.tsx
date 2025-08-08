@@ -39,7 +39,7 @@ export function Header() {
                 {mounted && (isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />)}
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-xs bg-background/95 backdrop-blur-sm">
+            <SheetContent side="right" className="w-[85vw] max-w-sm bg-background/95 backdrop-blur-sm">
               <SheetHeader>
                  <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
                     <Shield className="h-7 w-7 text-primary" />
