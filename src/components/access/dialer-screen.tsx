@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff } from 'lucide-react';
 import {
@@ -30,11 +30,11 @@ type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
  * It appears after the user has successfully entered the access code.
  */
 export function DialerScreen() {
-  const [number, setNumber] = useState('');
+  const [number, setNumber] = useState('+');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialpad');
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
-  const [callerId, setCallerId] = useState('random');
+  const [callerId, setCallerId] = useState('+');
   const [callHistory, setCallHistory] = useState<CallLog[]>([]);
 
   // In-call state
@@ -52,7 +52,9 @@ export function DialerScreen() {
   useEffect(() => {
     const savedCallerId = localStorage.getItem('callerId');
     if (savedCallerId) {
-      setCallerId(savedCallerId);
+      setCallerId(savedCallerId.startsWith('+') ? savedCallerId : `+${savedCallerId}`);
+    } else {
+      setCallerId('+');
     }
   }, []);
 
@@ -74,19 +76,30 @@ export function DialerScreen() {
     return () => clearInterval(callIntervalRef.current);
   }, [callStatus]);
 
+  const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    // Ensure value always starts with '+' and contains only valid characters
+    value = `+${value.replace(/[^\d]/g, '')}`;
+    if (value.length <= 16) {
+      setNumber(value);
+    }
+  };
+
   const handleKeyPress = (digit: string) => {
-    if (number.length < 15) {
+    if (number.length < 16) {
       setNumber(number + digit);
     }
   };
 
   const handleDelete = () => {
-    setNumber(number.slice(0, -1));
+    if (number.length > 1) {
+        setNumber(number.slice(0, -1));
+    }
   };
 
   const handlePressStart = () => {
     longPressTimer.current = setTimeout(() => {
-      setNumber('');
+      setNumber('+');
     }, 700);
   };
   
@@ -97,7 +110,7 @@ export function DialerScreen() {
   };
 
   const handleCall = () => {
-    if (!number) return;
+    if (number.length <= 1) return;
     setCallStatus('calling');
     setShowInCallKeypad(false);
     
@@ -115,7 +128,7 @@ export function DialerScreen() {
     };
     setCallHistory([newCall, ...callHistory]);
     setTimeout(() => {
-        setNumber('');
+        setNumber('+');
         setCallStatus('idle');
     }, 1000);
   };
@@ -124,6 +137,16 @@ export function DialerScreen() {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
     const secs = (seconds % 60).toString().padStart(2, '0');
     return `${mins}:${secs}`;
+  };
+
+  const handleCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+      let value = e.target.value;
+      if (!value.startsWith('+')) {
+          value = `+${value.replace(/[^\d]/g, '')}`;
+      } else {
+          value = `+${value.substring(1).replace(/[^\d]/g, '')}`;
+      }
+      setCallerId(value);
   };
 
   const containerVariants = {
@@ -192,7 +215,7 @@ export function DialerScreen() {
 
             <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4">
               <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId}</span></span>
+                <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId === '+' ? 'random' : callerId}</span></span>
                 <button onClick={() => setShowSettingsModal(true)}>
                   <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
                 </button>
@@ -227,9 +250,13 @@ export function DialerScreen() {
             {activeTab === 'dialpad' ? (
               <div className='flex flex-col flex-grow'>
                 <motion.div variants={itemVariants} className="relative mb-4">
-                  <div className="bg-card rounded-xl h-14 flex items-center justify-center p-4 text-lg font-light tracking-wider text-foreground">
-                    {number || <span className="text-muted-foreground/80">Enter phone number</span>}
-                  </div>
+                  <Input
+                    type="text"
+                    value={number}
+                    onChange={handleNumberChange}
+                    className="bg-card rounded-xl h-14 w-full text-center p-4 text-lg font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
+                    placeholder="Enter phone number"
+                  />
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 flex-grow">
@@ -248,11 +275,11 @@ export function DialerScreen() {
                   <div /> 
                   <motion.button
                     onClick={handleCall}
-                    disabled={!number}
+                    disabled={number.length <= 1}
                     className={cn(
                         'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-card active:bg-muted',
                         'disabled:opacity-50 disabled:cursor-not-allowed',
-                        number && 'animate-ringing'
+                        number.length > 1 && 'animate-ringing'
                     )}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -267,7 +294,7 @@ export function DialerScreen() {
                     onTouchEnd={handlePressEnd}
                     className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted"
                     whileTap={{ scale: 0.95 }}
-                    disabled={!number}
+                    disabled={number.length <= 1}
                   >
                     <X className="h-6 w-6" />
                   </motion.button>
@@ -390,14 +417,14 @@ export function DialerScreen() {
       >
           <div className="space-y-4">
               <label htmlFor="callerIdInput" className="block text-sm font-medium text-muted-foreground">
-                  Enter the new Caller ID you want to display.
+                  Enter the new Caller ID you want to display. Type 'random' to use a random number.
               </label>
               <Input
                   id="callerIdInput"
                   type="text"
-                  defaultValue={callerId}
-                  placeholder="e.g., +18001234567"
-                  onBlur={(e) => setCallerId(e.target.value || 'random')}
+                  value={callerId}
+                  onChange={handleCallerIdChange}
+                  placeholder="+18001234567"
                   className="w-full"
               />
           </div>
