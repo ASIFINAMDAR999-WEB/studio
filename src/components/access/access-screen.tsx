@@ -10,10 +10,10 @@ import ReCAPTCHA from 'react-google-recaptcha';
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 const VALID_CODES: Record<string, string> = {
-  'loginaccess:9383': 'Platinum 1-Month',
-  'gold:1111': 'Gold Plan',
-  'diamond:2222': 'Diamond Plan',
-  'platinum:3333': 'Platinum Plan',
+  'platinum:1111': 'Platinum 1-Month',
+  'gold:2222': 'Gold Plan',
+  'diamond:3333': 'Diamond Plan',
+  'platinum3m:4444': 'Platinum Plan',
 };
 
 export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => void }) {
