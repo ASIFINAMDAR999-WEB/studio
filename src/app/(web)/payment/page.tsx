@@ -96,7 +96,7 @@ function PaymentPageComponent() {
                     </div>
                 </div>
                 <div className="text-sm text-muted-foreground pt-2 border-t">
-                    <p className="font-semibold mb-2">Features Included:</p>
+                    <div className="font-semibold mb-2">Features Included:</div>
                     <ul className="space-y-1">
                       {plan.features.slice(0, 3).map((feature, index) => (
                         <li key={index} className="flex items-center gap-2">

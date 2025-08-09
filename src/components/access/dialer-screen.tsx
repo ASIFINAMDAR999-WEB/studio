@@ -184,7 +184,9 @@ export function DialerScreen({ planName }: { planName: string }) {
       } else {
         value = `+${digits}`;
       }
-      setCallerId(value);
+      if (value.length <= 16) {
+        setCallerId(value);
+      }
   };
 
   const containerVariants = {
