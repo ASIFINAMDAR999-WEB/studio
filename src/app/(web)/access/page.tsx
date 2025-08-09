@@ -7,7 +7,8 @@ import { AnimatePresence } from 'framer-motion';
 import { AccessScreen } from '@/components/access/access-screen';
 import { DialerScreen } from '@/components/access/dialer-screen';
 import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
+
+const PLAN_NAME = 'Platinum 1-Month';
 
 /**
  * AccessPage component
@@ -17,12 +18,14 @@ import { Footer } from '@/components/layout/footer';
 export default function AccessPage() {
   // State to track if the user has been granted access.
   const [isAccessGranted, setIsAccessGranted] = useState(false);
+  const [planName, setPlanName] = useState('');
 
   // Check for access cookie on initial render
   useEffect(() => {
     const accessCookie = Cookies.get('accessGranted');
     if (accessCookie === 'true') {
       setIsAccessGranted(true);
+      setPlanName(PLAN_NAME); // Set plan name if already logged in
     }
   }, []);
 
@@ -31,6 +34,7 @@ export default function AccessPage() {
     // Set a cookie that expires in 1 day
     Cookies.set('accessGranted', 'true', { expires: 1 });
     setIsAccessGranted(true);
+    setPlanName(PLAN_NAME); // Set plan name on successful login
   };
 
   return (
@@ -44,7 +48,7 @@ export default function AccessPage() {
             <AccessScreen key="access-screen" onSuccess={handleSuccess} />
           ) : (
             // Show the dialer screen once access is granted.
-            <DialerScreen key="dialer-screen" />
+            <DialerScreen key="dialer-screen" planName={planName} />
           )}
         </AnimatePresence>
       </main>

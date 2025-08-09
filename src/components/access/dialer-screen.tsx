@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,12 +29,12 @@ type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
  * This component provides a fully functional and animated dialer interface.
  * It appears after the user has successfully entered the access code.
  */
-export function DialerScreen() {
+export function DialerScreen({ planName }: { planName: string }) {
   const [number, setNumber] = useState('+');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialpad');
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
-  const [callerId, setCallerId] = useState('+');
+  const [callerId, setCallerId] = useState('');
   const [callHistory, setCallHistory] = useState<CallLog[]>([]);
 
   // In-call state
@@ -70,7 +70,9 @@ export function DialerScreen() {
   // Save state to localStorage whenever it changes
   useEffect(() => {
     try {
-      localStorage.setItem('callerId', callerId);
+      if (callerId) {
+        localStorage.setItem('callerId', callerId);
+      }
     } catch (error) {
        console.error("Failed to save callerId to localStorage", error);
     }
@@ -250,6 +252,15 @@ export function DialerScreen() {
             </motion.div>
 
             <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4">
+              {planName && (
+                <div className="flex justify-between items-center text-sm border-b pb-3 mb-3">
+                    <span className="text-muted-foreground flex items-center gap-2">
+                        <Award className="h-4 w-4" />
+                        Active Plan:
+                    </span>
+                    <span className="text-primary font-bold">{planName}</span>
+                </div>
+              )}
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId}</span></span>
                 <button onClick={() => setShowSettingsModal(true)}>
@@ -476,5 +487,3 @@ export function DialerScreen() {
     </>
   );
 }
-
-    
