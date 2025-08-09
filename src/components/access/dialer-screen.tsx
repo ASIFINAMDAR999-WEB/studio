@@ -222,12 +222,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   return (
     <>
-      <div className="w-full max-w-sm mx-auto p-2 sm:p-4 flex flex-col bg-background overflow-hidden flex-grow">
+      <div className="w-full h-full md:h-auto max-w-sm mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
           <motion.div
             key="dialer"
-            className="flex flex-col h-full"
+            className="flex flex-col h-full p-2 sm:p-4"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -380,13 +380,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         ) : (
           <motion.div
               key="in-call"
-              className="flex flex-col h-full items-center justify-between flex-grow"
+              className="flex flex-col h-full w-full items-center justify-between flex-grow md:flex-grow-0 md:max-h-[85vh] md:max-w-sm"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
           >
-              <Card className="w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white shadow-2xl">
+              <div className="w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white md:rounded-2xl shadow-2xl">
                 <div className="text-center pt-8">
                     <motion.h2 
                       className="text-3xl font-bold"
@@ -465,7 +465,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       <PhoneOff className="w-8 h-8" />
                   </motion.button>
                 </div>
-              </Card>
+              </div>
           </motion.div>
         )}
         </AnimatePresence>
@@ -492,4 +492,4 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       </Modal>
     </>
   );
-}
+};
