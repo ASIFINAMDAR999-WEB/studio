@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useRef, useEffect, ChangeEvent } from 'react';
+import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award } from 'lucide-react';
 import {
@@ -24,12 +24,16 @@ type CallLog = {
 
 type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
 
+interface DialerScreenProps {
+  planName: string;
+}
+
 /**
  * DialerScreen Component
  * This component provides a fully functional and animated dialer interface.
  * It appears after the user has successfully entered the access code.
  */
-export function DialerScreen({ planName }: { planName: string }) {
+export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [number, setNumber] = useState('+');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialpad');

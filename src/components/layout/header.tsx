@@ -37,7 +37,7 @@ export function Header() {
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden ml-2">
-                <span className="sr-only">Toggle Menu</span>
+                <div className="sr-only">Toggle Menu</div>
                 {mounted && (isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />)}
               </Button>
             </SheetTrigger>
