@@ -202,6 +202,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
   };
 
   const InCallButton = ({ children, onClick, text, active }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean }) => (
@@ -300,82 +301,86 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
               </div>
             </motion.div>
 
-            {activeTab === 'dialpad' ? (
-              <div className='flex flex-col flex-grow'>
-                <motion.div variants={itemVariants} className="relative mb-4">
-                  <Input
-                    type="tel"
-                    value={number}
-                    onChange={handleNumberChange}
-                    className="bg-card rounded-xl h-14 w-full text-center p-4 text-2xl font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
-                    placeholder="+1234567890"
-                  />
-                </motion.div>
-
-                <motion.div variants={itemVariants} className="grid grid-cols-3 gap-3 flex-grow">
-                  {keypad.map((key, i) => (
-                    <motion.button
-                      key={i}
-                      onClick={() => handleKeyPress(key.digit)}
-                      className="relative aspect-[4/3] sm:aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted"
-                      whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
-                    >
-                      <span className="text-2xl font-semibold">{key.digit}</span>
-                      <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
-                    </motion.button>
-                  ))}
-
-                  <div /> 
-                  <motion.button
-                    onClick={handleCall}
-                    disabled={number.length <= 1}
-                    className={cn(
-                        'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white',
-                        'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground'
-                    )}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Phone className="h-6 w-6"/>
-                  </motion.button>
-                  <motion.button
-                    onClick={handleDelete}
-                    onMouseDown={handlePressStart}
-                    onMouseUp={handlePressEnd}
-                    onMouseLeave={handlePressEnd}
-                    onTouchStart={handlePressStart}
-                    onTouchEnd={handlePressEnd}
-                    className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
-                    whileTap={{ scale: 0.95 }}
-                    disabled={number.length <= 1}
-                  >
-                    <X className="h-6 w-6" />
-                  </motion.button>
-                </motion.div>
-              </div>
-            ) : (
-              <motion.div variants={itemVariants} className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
-                  {callHistory.length > 0 ? (
-                    callHistory.map((log, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted">
-                        <div className="flex items-center gap-3">
-                          <History className="h-5 w-5 text-muted-foreground" />
-                          <div>
-                            <p className="font-semibold text-foreground">{log.number}</p>
-                            <p className="text-sm text-muted-foreground">Outgoing call</p>
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground">{log.time}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="flex-grow flex flex-col items-center justify-center text-center">
-                      <Clock className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="text-xl font-semibold text-foreground">No Call History</h3>
-                      <p className="text-muted-foreground mt-2">Your recent calls will appear here.</p>
+            <div className="flex-grow flex flex-col">
+              <AnimatePresence mode="wait">
+                {activeTab === 'dialpad' ? (
+                  <motion.div key="dialpad-view" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className='flex flex-col flex-grow'>
+                    <div className="relative mb-4">
+                      <Input
+                        type="tel"
+                        value={number}
+                        onChange={handleNumberChange}
+                        className="bg-card rounded-xl h-14 w-full text-center p-4 text-2xl font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
+                        placeholder="+1234567890"
+                      />
                     </div>
-                  )}
-              </motion.div>
-            )}
+
+                    <div className="grid grid-cols-3 gap-3 flex-grow">
+                      {keypad.map((key, i) => (
+                        <motion.button
+                          key={i}
+                          onClick={() => handleKeyPress(key.digit)}
+                          className="relative aspect-[4/3] sm:aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted"
+                          whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
+                        >
+                          <span className="text-2xl font-semibold">{key.digit}</span>
+                          <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
+                        </motion.button>
+                      ))}
+
+                      <div /> 
+                      <motion.button
+                        onClick={handleCall}
+                        disabled={number.length <= 1}
+                        className={cn(
+                            'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white',
+                            'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground'
+                        )}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Phone className="h-6 w-6"/>
+                      </motion.button>
+                      <motion.button
+                        onClick={handleDelete}
+                        onMouseDown={handlePressStart}
+                        onMouseUp={handlePressEnd}
+                        onMouseLeave={handlePressEnd}
+                        onTouchStart={handlePressStart}
+                        onTouchEnd={handlePressEnd}
+                        className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+                        whileTap={{ scale: 0.95 }}
+                        disabled={number.length <= 1}
+                      >
+                        <X className="h-6 w-6" />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div key="history-view" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
+                      {callHistory.length > 0 ? (
+                        callHistory.map((log, index) => (
+                          <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted">
+                            <div className="flex items-center gap-3">
+                              <History className="h-5 w-5 text-muted-foreground" />
+                              <div>
+                                <p className="font-semibold text-foreground">{log.number}</p>
+                                <p className="text-sm text-muted-foreground">Outgoing call</p>
+                              </div>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{log.time}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="flex-grow flex flex-col items-center justify-center text-center">
+                          <Clock className="h-12 w-12 text-muted-foreground mb-4" />
+                          <h3 className="text-xl font-semibold text-foreground">No Call History</h3>
+                          <p className="text-muted-foreground mt-2">Your recent calls will appear here.</p>
+                        </div>
+                      )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </motion.div>
         ) : (
           <motion.div
