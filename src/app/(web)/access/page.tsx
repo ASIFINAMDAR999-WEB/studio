@@ -8,7 +8,6 @@ import { AccessScreen } from '@/components/access/access-screen';
 import { DialerScreen } from '@/components/access/dialer-screen';
 import { Header } from '@/components/layout/header';
 
-const PLAN_NAME = 'Platinum 1-Month';
 
 /**
  * AccessPage component
@@ -25,16 +24,22 @@ export default function AccessPage() {
     const accessCookie = Cookies.get('accessGranted');
     if (accessCookie === 'true') {
       setIsAccessGranted(true);
-      setPlanName(PLAN_NAME); // Set plan name if already logged in
+      // Retrieve plan name from localStorage if access is already granted
+      const savedPlanName = localStorage.getItem('planName');
+      if (savedPlanName) {
+        setPlanName(savedPlanName);
+      }
     }
   }, []);
 
   // Callback function passed to AccessScreen to update the state upon successful login.
-  const handleSuccess = () => {
+  const handleSuccess = (loggedInPlanName: string) => {
     // Set a cookie that expires in 1 day
     Cookies.set('accessGranted', 'true', { expires: 1 });
+    // Save plan name to localStorage
+    localStorage.setItem('planName', loggedInPlanName);
     setIsAccessGranted(true);
-    setPlanName(PLAN_NAME); // Set plan name on successful login
+    setPlanName(loggedInPlanName);
   };
 
   return (
@@ -52,7 +57,6 @@ export default function AccessPage() {
           )}
         </AnimatePresence>
       </main>
-      {/* Footer is removed for a cleaner dialer view */}
     </div>
   );
 }

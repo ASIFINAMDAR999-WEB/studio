@@ -7,10 +7,16 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-const VALID_CODE = 'loginaccess:9383';
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
+const VALID_CODES: Record<string, string> = {
+  'loginaccess:9383': 'Platinum 1-Month',
+  'gold:1111': 'Gold Plan',
+  'diamond:2222': 'Diamond Plan',
+  'platinum:3333': 'Platinum Plan',
+};
+
+export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => void }) {
   const [code, setCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,9 +63,11 @@ export function AccessScreen({ onSuccess }: { onSuccess: () => void }) {
     // and then validate the access code.
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    
+    const planName = VALID_CODES[code];
 
-    if (code === VALID_CODE) {
-      onSuccess();
+    if (planName) {
+      onSuccess(planName);
     } else {
       setError('Invalid code. Please try again.');
       setIsShaking(true);
