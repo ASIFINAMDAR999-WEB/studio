@@ -50,6 +50,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const longPressTimer = useRef<NodeJS.Timeout>();
   const callIntervalRef = useRef<NodeJS.Timeout>();
+  const ringtoneRef = useRef<HTMLAudioElement>(null);
 
   // Load state from localStorage on initial render
   useEffect(() => {
@@ -60,6 +61,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       } else {
         setCallerId('+');
       }
+      
+      const savedPlanName = localStorage.getItem('planName');
+      if (planName === '' && savedPlanName) {
+        // This part is for when component reloads but props are not passed again
+        // It's a bit of a workaround for the state management on access page
+      }
 
       const savedHistory = localStorage.getItem('callHistory');
       if (savedHistory) {
@@ -68,7 +75,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     } catch (error) {
       console.error("Failed to access localStorage", error);
     }
-  }, []);
+  }, [planName]);
 
   // Save state to localStorage whenever it changes
   useEffect(() => {
@@ -108,6 +115,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     const digits = value.replace(/[^\d+]/g, '');
     if (digits.length > 0 && !digits.startsWith('+')) {
       value = `+${digits.replace(/\+/g, '')}`;
+    } else if (digits === '+') {
+      value = '+';
     } else {
       value = digits;
     }
@@ -125,7 +134,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   };
 
   const handleDelete = () => {
-    setNumber((prev) => prev.slice(0, -1));
+    setNumber((prev) => (prev.length > 1 ? prev.slice(0, -1) : ''));
   };
 
   const handlePressStart = () => {
@@ -140,19 +149,37 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     }
   };
 
+  const playRinging = () => {
+    if (ringtoneRef.current) {
+      ringtoneRef.current.loop = true;
+      ringtoneRef.current.play().catch(error => console.error("Ringtone play failed:", error));
+    }
+  };
+
+  const stopRinging = () => {
+    if (ringtoneRef.current) {
+      ringtoneRef.current.pause();
+      ringtoneRef.current.currentTime = 0;
+    }
+  };
+
+
   const handleCall = () => {
     if (number.length <= 1) return;
     setCallStatus('calling');
+    playRinging();
     setShowInCallKeypad(false);
     setCallTimer(0);
     
     // Simulate connection time
     setTimeout(() => {
+      stopRinging();
       setCallStatus('connected');
-    }, 2500);
+    }, 5000); // Ring for 5 seconds before "connecting"
   };
 
   const handleEndCall = () => {
+    stopRinging();
     const newCall: CallLog = {
       number: number,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -221,6 +248,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   return (
     <>
+      <audio ref={ringtoneRef} src="/audio/ringing.mp3" preload="auto" />
       <div className="w-full h-full md:h-auto max-w-sm mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
