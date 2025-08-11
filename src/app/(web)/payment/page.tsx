@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
@@ -172,7 +173,7 @@ function PaymentPageComponent() {
                       )}
                     </div>
 
-                    <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6" asChild>
+                    <Button size="lg" className="w-full text-lg py-6" asChild>
                       <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
                     </Button>
                 </CardContent>

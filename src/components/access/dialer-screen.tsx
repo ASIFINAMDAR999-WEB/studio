@@ -15,7 +15,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
-import { Card } from '@/components/ui/card';
 
 type CallLog = {
   number: string;
@@ -34,7 +33,7 @@ interface DialerScreenProps {
  * It appears after the user has successfully entered the access code.
  */
 export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
-  const [number, setNumber] = useState('+');
+  const [number, setNumber] = useState('');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialpad');
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
@@ -106,11 +105,11 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     // Sanitize and format the number
-    const digits = value.replace(/[^\d]/g, '');
-    if (!value.startsWith('+')) {
-      value = `+${digits}`;
+    const digits = value.replace(/[^\d+]/g, '');
+    if (digits.length > 0 && !digits.startsWith('+')) {
+      value = `+${digits.replace(/\+/g, '')}`;
     } else {
-      value = `+${digits}`;
+      value = digits;
     }
     
     if (value.length <= 16) {
@@ -121,19 +120,17 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const handleKeyPress = (digit: string) => {
     if (number.length < 16) {
-      setNumber(number + digit);
+      setNumber((prev) => (prev.length === 0 ? '+' : prev) + digit);
     }
   };
 
   const handleDelete = () => {
-    if (number.length > 1) {
-        setNumber(number.slice(0, -1));
-    }
+    setNumber((prev) => prev.slice(0, -1));
   };
 
   const handlePressStart = () => {
     longPressTimer.current = setTimeout(() => {
-      setNumber('+');
+      setNumber('');
     }, 700);
   };
   
@@ -164,7 +161,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setCallStatus('ended');
     
     setTimeout(() => {
-        setNumber('+');
+        setNumber('');
         setCallStatus('idle');
     }, 1500);
   };
@@ -182,12 +179,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         return;
       }
       // Sanitize and format the number
-      const digits = value.replace(/[^\d]/g, '');
-      if (!value.startsWith('+')) {
-        value = `+${digits}`;
+      const digits = value.replace(/[^\d+]/g, '');
+      if (digits.length > 0 && !digits.startsWith('+')) {
+        value = `+${digits.replace(/\+/g, '')}`;
       } else {
-        value = `+${digits}`;
+        value = digits;
       }
+
       if (value.length <= 16) {
         setCallerId(value);
       }
@@ -269,7 +267,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 </div>
               )}
               <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId}</span></span>
+                <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
                 <button onClick={() => setShowSettingsModal(true)}>
                   <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
                 </button>
@@ -311,7 +309,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         value={number}
                         onChange={handleNumberChange}
                         className="bg-card rounded-xl h-14 w-full text-center p-4 text-2xl font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
-                        placeholder="+1234567890"
+                        placeholder="Enter number"
                       />
                     </div>
 
@@ -349,7 +347,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         onTouchEnd={handlePressEnd}
                         className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                         whileTap={{ scale: 0.95 }}
-                        disabled={number.length <= 1}
+                        disabled={number.length === 0}
                       >
                         <X className="h-6 w-6" />
                       </motion.button>
