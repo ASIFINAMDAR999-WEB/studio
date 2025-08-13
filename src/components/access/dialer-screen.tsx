@@ -3,7 +3,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, Music2, Music2Off } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '../ui/label';
 
 type CallLog = {
   number: string;
@@ -39,6 +41,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
   const [callHistory, setCallHistory] = useState<CallLog[]>([]);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   // In-call state
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
@@ -62,10 +65,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         setCallerId('+');
       }
       
-      const savedPlanName = localStorage.getItem('planName');
-      if (planName === '' && savedPlanName) {
-        // This part is for when component reloads but props are not passed again
-        // It's a bit of a workaround for the state management on access page
+      const savedSoundEnabled = localStorage.getItem('soundEnabled');
+      if (savedSoundEnabled) {
+          setSoundEnabled(JSON.parse(savedSoundEnabled));
       }
 
       const savedHistory = localStorage.getItem('callHistory');
@@ -75,7 +77,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     } catch (error) {
       console.error("Failed to access localStorage", error);
     }
-  }, [planName]);
+  }, []);
 
   // Save state to localStorage whenever it changes
   useEffect(() => {
@@ -96,6 +98,14 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     }
   }, [callHistory]);
 
+  useEffect(() => {
+    try {
+        localStorage.setItem('soundEnabled', JSON.stringify(soundEnabled));
+    } catch (error) {
+        console.error("Failed to save sound setting to localStorage", error);
+    }
+  }, [soundEnabled]);
+
 
   // Effect for the call timer
   useEffect(() => {
@@ -111,7 +121,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-    // Sanitize and format the number
     const digits = value.replace(/[^\d+]/g, '');
     if (digits.length > 0 && !digits.startsWith('+')) {
       value = `+${digits.replace(/\+/g, '')}`;
@@ -134,7 +143,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   };
 
   const handleDelete = () => {
-    setNumber((prev) => (prev.length > 1 ? prev.slice(0, -1) : ''));
+     setNumber((prev) => (prev.length > 1 ? prev.slice(0, -1) : ''));
   };
 
   const handlePressStart = () => {
@@ -150,9 +159,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   };
 
   const playRinging = () => {
-    if (ringtoneRef.current) {
+    if (soundEnabled && ringtoneRef.current) {
       ringtoneRef.current.loop = true;
-      ringtoneRef.current.play().catch(error => console.error("Ringtone play failed:", error));
+      ringtoneRef.current.play().catch(error => console.error("Ringtone play failed. Ensure the audio file exists and the format is supported.", error));
     }
   };
 
@@ -205,7 +214,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         setCallerId('random');
         return;
       }
-      // Sanitize and format the number
       const digits = value.replace(/[^\d+]/g, '');
       if (digits.length > 0 && !digits.startsWith('+')) {
         value = `+${digits.replace(/\+/g, '')}`;
@@ -248,7 +256,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   return (
     <>
-      <audio ref={ringtoneRef} src="/audio/ringing.mp3" preload="auto" />
+      {soundEnabled && <audio ref={ringtoneRef} src="/audio/ringing.mp3" preload="auto" />}
       <div className="w-full h-full md:h-auto max-w-md mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
@@ -260,7 +268,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
             animate="visible"
             exit="exit"
           >
-            <motion.div variants={itemVariants} className="text-center">
+            <motion.div variants={itemVariants} className="text-center md:flex-grow-0">
                 <h1 className="text-2xl font-bold text-foreground">Make a call</h1>
                 <div className="flex justify-center gap-2 mt-4 mb-6">
                     <button 
@@ -359,7 +367,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         onClick={handleCall}
                         disabled={number.length <= 1}
                         className={cn(
-                            'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white',
+                            'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white active:scale-95',
                             'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground'
                         )}
                         whileTap={{ scale: 0.95 }}
@@ -373,7 +381,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         onMouseLeave={handlePressEnd}
                         onTouchStart={handlePressStart}
                         onTouchEnd={handlePressEnd}
-                        className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                         whileTap={{ scale: 0.95 }}
                         disabled={number.length === 0}
                       >
@@ -490,7 +498,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <div className="flex justify-center w-full pb-8">
                   <motion.button
                       onClick={handleEndCall}
-                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg"
+                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg active:scale-95"
                       whileTap={{ scale: 0.9 }}
                   >
                       <PhoneOff className="w-8 h-8" />
@@ -505,20 +513,34 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       <Modal
           isOpen={showSettingsModal}
           onClose={() => setShowSettingsModal(false)}
-          title="Change Caller ID"
+          title="Dialer Settings"
       >
-          <div className="space-y-4">
-              <label htmlFor="callerIdInput" className="block text-sm font-medium text-muted-foreground">
-                  Enter the new Caller ID you want to display. Type 'random' to use a random number.
-              </label>
-              <Input
-                  id="callerIdInput"
-                  type="tel"
-                  value={callerId}
-                  onChange={handleCallerIdChange}
-                  placeholder="+18001234567"
-                  className="w-full"
-              />
+          <div className="space-y-6">
+              <div>
+                <Label htmlFor="callerIdInput" className="block text-sm font-medium text-muted-foreground mb-2">
+                    Caller ID
+                </Label>
+                <Input
+                    id="callerIdInput"
+                    type="tel"
+                    value={callerId}
+                    onChange={handleCallerIdChange}
+                    placeholder="+18001234567 or 'random'"
+                    className="w-full"
+                />
+                 <p className='text-xs text-muted-foreground mt-2'>Enter the ID to display. Type 'random' for a random number.</p>
+              </div>
+              <div className='flex items-center justify-between rounded-lg border p-3'>
+                <Label htmlFor="sound-switch" className="flex items-center gap-2 font-medium text-foreground cursor-pointer">
+                    {soundEnabled ? <Music2 className='h-4 w-4'/> : <Music2Off className='h-4 w-4'/>}
+                    <span>Enable Ringing Sound</span>
+                </Label>
+                <Switch
+                    id="sound-switch"
+                    checked={soundEnabled}
+                    onCheckedChange={setSoundEnabled}
+                />
+              </div>
           </div>
       </Modal>
     </>
