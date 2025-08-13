@@ -172,7 +172,7 @@ export default {
           textShadow: theme('textShadow.glow'),
         },
       }
-      addUtilities(newUtilities, ['responsive', 'hover'])
+      addUtilities(newUtilities, ['responsive'])
     })
   ],
 } satisfies Config;

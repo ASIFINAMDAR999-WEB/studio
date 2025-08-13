@@ -48,7 +48,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [showInCallKeypad, setShowInCallKeypad] = useState(false);
 
 
-  const longPressTimer = useRef<NodeJS.Timeout>();
+  const longPressTimer = useRef<ReturnType<typeof setTimeout>>();
   const callIntervalRef = useRef<NodeJS.Timeout>();
   const ringtoneRef = useRef<HTMLAudioElement>(null);
 
