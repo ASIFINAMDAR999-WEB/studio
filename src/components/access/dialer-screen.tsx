@@ -249,7 +249,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   return (
     <>
       <audio ref={ringtoneRef} src="/audio/ringing.mp3" preload="auto" />
-      <div className="w-full h-full md:h-auto max-w-sm mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0">
+      <div className="w-full h-full md:h-auto max-w-md mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
           <motion.div

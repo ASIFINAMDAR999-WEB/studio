@@ -22,13 +22,13 @@ export function CtaSection() {
                     </Link>
                 </Button>
                  <Button asChild size="lg" className="text-lg py-7 px-8" variant="secondary">
-                    <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
+                    <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer" aria-label="Watch demos on Telegram">
                         Watch Demos
                         <Video className="ml-2 h-5 w-5" />
                     </a>
                 </Button>
                  <Button asChild size="lg" className="text-lg py-7 px-8" variant="secondary">
-                    <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">
+                    <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram">
                         Contact Admin
                         <User className="ml-2 h-5 w-5" />
                     </a>

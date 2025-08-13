@@ -174,7 +174,7 @@ function PaymentPageComponent() {
                     </div>
 
                     <Button size="lg" className="w-full text-lg py-6" asChild>
-                      <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">Contact Admin on Telegram</a>
+                      <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram to confirm payment">Contact Admin on Telegram</a>
                     </Button>
                 </CardContent>
             </Card>
