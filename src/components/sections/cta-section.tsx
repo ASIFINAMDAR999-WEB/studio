@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bot, Video, User } from 'lucide-react';
 
@@ -9,7 +9,7 @@ export function CtaSection() {
     <section id="cta" className="py-20 md:py-28" aria-labelledby="cta-heading">
       <div className="container px-4 sm:px-6">
         <Card className="bg-primary text-primary-foreground shadow-xl animate-fade-in-up">
-          <div className="p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+          <CardContent className="p-6 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
             <div className="flex-1">
               <h2 id="cta-heading" className="text-3xl font-bold">Ready to Get Started?</h2>
               <p className="text-primary-foreground/80 mt-2 max-w-xl mx-auto lg:mx-0">Explore our bots, watch demos, or contact support directly.</p>
@@ -34,7 +34,7 @@ export function CtaSection() {
                     </a>
                 </Button>
             </div>
-          </div>
+          </CardContent>
         </Card>
       </div>
     </section>

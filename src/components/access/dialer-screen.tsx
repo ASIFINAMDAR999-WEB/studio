@@ -389,7 +389,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         ) : (
           <motion.div
               key="in-call"
-              className="flex flex-col h-full w-full items-center justify-between flex-grow md:flex-grow-0 md:max-h-[85vh] md:max-w-sm"
+              className="flex flex-col h-full w-full items-center justify-between flex-grow md:flex-grow-0 md:max-h-[85vh] md:max-w-sm md:w-[380px]"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -492,7 +492,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 </Label>
                 <Input
                     id="callerIdInput"
-                    type="tel"
+                    type="text"
+                    inputMode='tel'
                     value={callerId}
                     onChange={handleCallerIdChange}
                     placeholder="+18001234567 or 'random'"
