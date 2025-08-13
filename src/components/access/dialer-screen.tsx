@@ -3,7 +3,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, Music2, Music2Off } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
-import { Switch } from '@/components/ui/switch';
 import { Label } from '../ui/label';
 
 type CallLog = {
@@ -41,7 +40,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
   const [callHistory, setCallHistory] = useState<CallLog[]>([]);
-  const [soundEnabled, setSoundEnabled] = useState(true);
 
   // In-call state
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
@@ -53,7 +51,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const longPressTimer = useRef<ReturnType<typeof setTimeout>>();
   const callIntervalRef = useRef<NodeJS.Timeout>();
-  const ringtoneRef = useRef<HTMLAudioElement>(null);
 
   // Load state from localStorage on initial render
   useEffect(() => {
@@ -65,11 +62,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         setCallerId('+');
       }
       
-      const savedSoundEnabled = localStorage.getItem('soundEnabled');
-      if (savedSoundEnabled) {
-          setSoundEnabled(JSON.parse(savedSoundEnabled));
-      }
-
       const savedHistory = localStorage.getItem('callHistory');
       if (savedHistory) {
         setCallHistory(JSON.parse(savedHistory));
@@ -98,14 +90,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     }
   }, [callHistory]);
 
-  useEffect(() => {
-    try {
-        localStorage.setItem('soundEnabled', JSON.stringify(soundEnabled));
-    } catch (error) {
-        console.error("Failed to save sound setting to localStorage", error);
-    }
-  }, [soundEnabled]);
-
 
   // Effect for the call timer
   useEffect(() => {
@@ -124,8 +108,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     const digits = value.replace(/[^\d+]/g, '');
     if (digits.length > 0 && !digits.startsWith('+')) {
       value = `+${digits.replace(/\+/g, '')}`;
-    } else if (digits === '+') {
-      value = '+';
+    } else if (digits.length > 1 && digits.lastIndexOf('+') > 0) {
+      value = '+' + digits.slice(1).replace(/\+/g, '');
     } else {
       value = digits;
     }
@@ -138,12 +122,16 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const handleKeyPress = (digit: string) => {
     if (number.length < 16) {
-      setNumber((prev) => (prev.length === 0 ? '+' : prev) + digit);
+      if (number.length === 0 && digit !== '+') {
+        setNumber('+' + digit);
+      } else if (digit !== '+' || number.length === 0) {
+        setNumber((prev) => prev + digit);
+      }
     }
   };
 
   const handleDelete = () => {
-     setNumber((prev) => (prev.length > 1 ? prev.slice(0, -1) : ''));
+    setNumber((prev) => prev.slice(0, -1));
   };
 
   const handlePressStart = () => {
@@ -158,37 +146,20 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     }
   };
 
-  const playRinging = () => {
-    if (soundEnabled && ringtoneRef.current) {
-      ringtoneRef.current.loop = true;
-      ringtoneRef.current.play().catch(error => console.error("Ringtone play failed. Ensure the audio file exists and the format is supported.", error));
-    }
-  };
-
-  const stopRinging = () => {
-    if (ringtoneRef.current) {
-      ringtoneRef.current.pause();
-      ringtoneRef.current.currentTime = 0;
-    }
-  };
-
-
   const handleCall = () => {
     if (number.length <= 1) return;
+
     setCallStatus('calling');
-    playRinging();
     setShowInCallKeypad(false);
     setCallTimer(0);
     
     // Simulate connection time
     setTimeout(() => {
-      stopRinging();
       setCallStatus('connected');
     }, 5000); // Ring for 5 seconds before "connecting"
   };
 
   const handleEndCall = () => {
-    stopRinging();
     const newCall: CallLog = {
       number: number,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -256,13 +227,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   return (
     <>
-      {soundEnabled && <audio ref={ringtoneRef} src="/audio/ringing.mp3" preload="auto" />}
-      <div className="w-full h-full md:h-auto max-w-md mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0">
+      <div className="w-full h-full md:h-auto max-w-md mx-auto p-0 md:p-4 flex flex-col bg-background overflow-hidden flex-grow md:flex-grow-0 md:items-center md:justify-center">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
           <motion.div
             key="dialer"
-            className="flex flex-col h-full p-2 sm:p-4"
+            className="flex flex-col h-full p-2 sm:p-4 md:w-[380px]"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -529,17 +499,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     className="w-full"
                 />
                  <p className='text-xs text-muted-foreground mt-2'>Enter the ID to display. Type 'random' for a random number.</p>
-              </div>
-              <div className='flex items-center justify-between rounded-lg border p-3'>
-                <Label htmlFor="sound-switch" className="flex items-center gap-2 font-medium text-foreground cursor-pointer">
-                    {soundEnabled ? <Music2 className='h-4 w-4'/> : <Music2Off className='h-4 w-4'/>}
-                    <span>Enable Ringing Sound</span>
-                </Label>
-                <Switch
-                    id="sound-switch"
-                    checked={soundEnabled}
-                    onCheckedChange={setSoundEnabled}
-                />
               </div>
           </div>
       </Modal>
