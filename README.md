@@ -28,3 +28,4 @@ Follow these steps:
 2.  **Import Project on Vercel**: Go to your [Vercel dashboard](https://vercel.com/new) and import the project from your GitHub repository. Vercel will automatically detect that you are using Next.js and configure the build settings.
 3.  **Deploy**: Vercel will automatically trigger a deployment when you push new commits to your repository.
 
+<!-- Dummy commit -->
