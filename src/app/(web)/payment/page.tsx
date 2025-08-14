@@ -22,6 +22,8 @@ const addresses: Record<string, { network: string; address: string }> = {
   ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1qwumrvhys9nmp7my4pjnzdcepx9zwcwnhnuwxxs' },
   xrp: { network: 'Ripple (XRP) Network', address: 'rf8nfQ2AZhHiJKkQTeaVqtX3NzckCSbSqV' },
   sol: { network: 'Solana (SOL) Network', address: '7hkJe4QF6ricWwp9T2i4Bb1KthjyhGiwyrx4C6DoTSek' },
+  trx: { network: 'Tron (TRX) TRC-20 Network', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
+  ton: { network: 'TON (The Open Network)', address: 'UQD-gSWrtQMc0ZqDxjtv2u0uEUunx9VNcJfWtj_k6C0ucv0p' },
 };
 
 const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
@@ -31,6 +33,8 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
     ltc: { name: 'Litecoin (LTC)', networks: ['ltc']},
     xrp: { name: 'Ripple (XRP)', networks: ['xrp']},
     sol: { name: 'Solana (SOL)', networks: ['sol']},
+    trx: { name: 'Tron (TRX)', networks: ['trx']},
+    ton: { name: 'TON (The Open Network)', networks: ['ton']},
 }
 
 function PaymentPageComponent() {
@@ -172,6 +176,9 @@ function PaymentPageComponent() {
                       </ul>
                        {cryptoName === 'xrp' && (
                         <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For XRP, a destination tag is not required.</p>
+                      )}
+                      {cryptoName === 'ton' && (
+                        <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For TON, a memo/comment is not required if sending from a private wallet. If sending from an exchange, a memo may be required.</p>
                       )}
                     </div>
 

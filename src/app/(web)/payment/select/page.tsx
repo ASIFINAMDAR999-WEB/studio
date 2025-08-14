@@ -64,6 +64,21 @@ const SolanaIcon = () => (
     </svg>
 );
 
+const TronIcon = () => (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="20" fill="#EF0027"/>
+      <path d="M29.5 13.15L19.47 28.53L10.5 22.84L12.33 21.01L19.47 25.53L27.67 15L29.5 13.15Z" fill="white"/>
+      <path d="M19.47 28.53L10.5 22.84L19.47 11.47L29.5 13.15L19.47 28.53Z" fill="white"/>
+    </svg>
+);
+
+const TonIcon = () => (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="20" fill="#0098EA"/>
+      <path d="M25.79 14.83C25.43 14.47 25.07 14.11 24.71 13.75L20 18.46L15.29 13.75C14.93 14.11 14.57 14.47 14.21 14.83L20 20.62L25.79 14.83ZM20 22.5L12.75 15.25C12.39 15.61 12.03 15.97 11.67 16.33L20 24.66L28.33 16.33C27.97 15.97 27.61 15.61 27.25 15.25L20 22.5Z" fill="white"/>
+    </svg>
+);
+
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: <UsdtIcon /> },
     { id: 'btc', name: 'Bitcoin (BTC)', icon: <BtcIcon /> },
@@ -71,6 +86,8 @@ const cryptoOptions = [
     { id: 'ltc', name: 'Litecoin (LTC)', icon: <LtcIcon /> },
     { id: 'xrp', name: 'Ripple (XRP)', icon: <XrpIcon /> },
     { id: 'sol', name: 'Solana (SOL)', icon: <SolanaIcon /> },
+    { id: 'trx', name: 'Tron (TRX)', icon: <TronIcon /> },
+    { id: 'ton', name: 'TON (The Open Network)', icon: <TonIcon /> },
 ];
 
 function SelectCryptoComponent() {
