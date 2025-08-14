@@ -51,12 +51,26 @@ const XrpIcon = () => (
     </svg>
 );
 
+const SolanaIcon = () => (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="20" fill="black"/>
+        <path d="M9.42,12.36,6,13.51V11.21l11.4-4.24,3.42,1.15L9.42,12.36ZM6,15.29l3.42,1.14L20.82,12,6,15.29Zm15.18,4.24L24,18.38V20.68L12.6,24.92,9.18,23.77,21.18,19.53ZM24,16.63,20.58,15.49,9.18,19.72,24,16.63Z" fill="url(#solana-gradient)" />
+        <defs>
+            <linearGradient id="solana-gradient" x1="6" y1="18" x2="24" y2="18" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#14F195" />
+                <stop offset="1" stopColor="#9945FF" />
+            </linearGradient>
+        </defs>
+    </svg>
+);
+
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: <UsdtIcon /> },
     { id: 'btc', name: 'Bitcoin (BTC)', icon: <BtcIcon /> },
     { id: 'eth', name: 'Ethereum (ETH)', icon: <EthIcon /> },
     { id: 'ltc', name: 'Litecoin (LTC)', icon: <LtcIcon /> },
     { id: 'xrp', name: 'Ripple (XRP)', icon: <XrpIcon /> },
+    { id: 'sol', name: 'Solana (SOL)', icon: <SolanaIcon /> },
 ];
 
 function SelectCryptoComponent() {

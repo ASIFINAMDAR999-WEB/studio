@@ -21,6 +21,7 @@ const addresses: Record<string, { network: string; address: string }> = {
   eth: { network: 'Ethereum (ETH) Network', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
   ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1qwumrvhys9nmp7my4pjnzdcepx9zwcwnhnuwxxs' },
   xrp: { network: 'Ripple (XRP) Network', address: 'rf8nfQ2AZhHiJKkQTeaVqtX3NzckCSbSqV' },
+  sol: { network: 'Solana (SOL) Network', address: '7hkJe4QF6ricWwp9T2i4Bb1KthjyhGiwyrx4C6DoTSek' },
 };
 
 const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
@@ -29,6 +30,7 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
     eth: { name: 'Ethereum (ETH)', networks: ['eth']},
     ltc: { name: 'Litecoin (LTC)', networks: ['ltc']},
     xrp: { name: 'Ripple (XRP)', networks: ['xrp']},
+    sol: { name: 'Solana (SOL)', networks: ['sol']},
 }
 
 function PaymentPageComponent() {
