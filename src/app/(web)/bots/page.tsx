@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 };
 
 const bots = [
-  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot', description: 'Primary service & support bot.' },
-  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot', description: 'General purpose backup bot.' },
-  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot', description: 'Dedicated bot for OTP services.' },
-  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot', description: 'Alternative service bot.' },
-  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot', description: 'Specialized OTP access bot.' },
-  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot', description: 'International access bot.' },
-  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot', description: 'Legacy support bot.' },
+  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot', description: 'Official Service & Support Bot' },
+  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot', description: 'Official Service & Support Bot' },
+  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot', description: 'Official Service & Support Bot' },
+  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot', description: 'Official Service & Support Bot' },
+  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot', description: 'Official Service & Support Bot' },
+  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot', description: 'Official Service & Support Bot' },
+  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot', description: 'Official Service & Support Bot' },
 ];
 
 export default function BotsPage() {
