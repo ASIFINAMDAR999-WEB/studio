@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Bot, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 };
 
 const bots = [
-  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot' },
-  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot' },
-  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot' },
-  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot' },
-  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot' },
-  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot' },
-  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot' },
+  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot', description: 'Primary service & support bot.' },
+  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot', description: 'General purpose backup bot.' },
+  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot', description: 'Dedicated bot for OTP services.' },
+  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot', description: 'Alternative service bot.' },
+  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot', description: 'Specialized OTP access bot.' },
+  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot', description: 'International access bot.' },
+  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot', description: 'Legacy support bot.' },
 ];
 
 export default function BotsPage() {
@@ -34,53 +34,60 @@ export default function BotsPage() {
               background: `radial-gradient(600px circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 80%)`,
             }}
           />
-          <div className="text-center mb-12 animate-fade-in-up relative z-10">
+          <div className="text-center mb-16 animate-fade-in-up relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Our Telegram Bots
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Connect with our automated services through our official bots.
+            <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+              Connect with our automated services through our official bots. Click any bot to start a chat on Telegram for support or to access our services.
             </p>
           </div>
 
-          <div className="max-w-xl mx-auto relative z-10">
-            <div 
-              className="animate-fade-in-up rounded-xl p-px group transition-all duration-300 hover:bg-primary/20"
-              style={{ animationDelay: '200ms' }}
-            >
-              <Card className="shadow-lg transition-all duration-300 group-hover:shadow-2xl h-full w-full bg-card">
-                  <CardHeader>
-                      <CardTitle className="text-2xl">Official Bot List</CardTitle>
-                      <CardDescription>
-                          Click a link to start a chat with one of our bots.
-                      </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                      {bots.map((bot, index) => (
-                         <a 
-                            key={index} 
-                            href={bot.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="group block p-4 rounded-lg transition-colors hover:bg-muted"
-                          >
-                            <p className="font-mono text-base text-muted-foreground transition-colors group-hover:text-primary">
-                                {bot.name}
-                            </p>
-                        </a>
-                      ))}
-                      <div className="!mt-6 bg-amber-500/10 border-l-4 border-amber-500 text-amber-700 dark:text-amber-400 p-4 rounded-md" role="alert">
-                        <div className="flex">
-                            <AlertTriangle className="h-5 w-5 mr-3 flex-shrink-0" />
-                            <div>
-                                <p className="font-bold">Important Notice</p>
-                                <p className="text-sm">If one bot is banned or unavailable, please try another from the list.</p>
-                            </div>
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {bots.map((bot, index) => (
+               <div 
+                key={index}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <Card className="group h-full flex flex-col justify-between overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 border hover:border-primary/50">
+                    <CardHeader className="flex flex-row items-center gap-4">
+                        <div className="bg-primary/10 p-3 rounded-full">
+                           <Bot className="h-7 w-7 text-primary" />
                         </div>
-                      </div>
-                  </CardContent>
-               </Card>
-            </div>
+                        <div>
+                            <CardTitle className="text-lg font-mono tracking-tighter">{bot.name}</CardTitle>
+                            <CardDescription>{bot.description}</CardDescription>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                      <a 
+                        href={bot.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="w-full"
+                      >
+                         <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                           Start Chat
+                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                         </Button>
+                       </a>
+                    </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
+
+          <div className="max-w-3xl mx-auto mt-16 animate-fade-in-up" style={{animationDelay: '300ms'}}>
+             <div className="bg-amber-500/10 border-l-4 border-amber-500 text-amber-700 dark:text-amber-400 p-4 rounded-md" role="alert">
+                <div className="flex">
+                    <AlertTriangle className="h-5 w-5 mr-3 flex-shrink-0" />
+                    <div>
+                        <p className="font-bold">Important Notice</p>
+                        <p className="text-sm">If one bot is banned or unavailable, please try another from the list above. Our services remain active across multiple bots for redundancy.</p>
+                    </div>
+                </div>
+              </div>
           </div>
         </div>
       </main>
