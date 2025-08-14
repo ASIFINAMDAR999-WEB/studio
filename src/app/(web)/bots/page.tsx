@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 };
 
 const bots = [
-  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot', description: 'Official Service & Support Bot' },
-  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot', description: 'Official Service & Support Bot' },
-  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot', description: 'Official Service & Support Bot' },
-  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot', description: 'Official Service & Support Bot' },
-  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot', description: 'Official Service & Support Bot' },
-  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot', description: 'Official Service & Support Bot' },
-  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot', description: 'Official Service & Support Bot' },
+  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot' },
+  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot' },
+  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot' },
+  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot' },
+  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot' },
+  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot' },
+  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot' },
 ];
 
 export default function BotsPage() {
@@ -57,7 +57,6 @@ export default function BotsPage() {
                         </div>
                         <div>
                             <CardTitle className="text-lg font-mono tracking-tighter">{bot.name}</CardTitle>
-                            <CardDescription>{bot.description}</CardDescription>
                         </div>
                     </CardHeader>
                     <CardContent>
