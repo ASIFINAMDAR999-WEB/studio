@@ -23,7 +23,7 @@ const addresses: Record<string, { network: string; address: string }> = {
   xrp: { network: 'Ripple (XRP) Network', address: 'rf8nfQ2AZhHiJKkQTeaVqtX3NzckCSbSqV' },
   sol: { network: 'Solana (SOL) Network', address: '7hkJe4QF6ricWwp9T2i4Bb1KthjyhGiwyrx4C6DoTSek' },
   trx: { network: 'Tron (TRX) TRC-20 Network', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
-  ton: { network: 'TON (The Open Network)', address: 'UQD-gSWrtQMc0ZqDxjtv2u0uEUunx9VNcJfWtj_k6C0ucv0p' },
+  ton: { network: 'TON', address: 'UQD-gSWrtQMc0ZqDxjtv2u0uEUunx9VNcJfWtj_k6C0ucv0p' },
 };
 
 const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
@@ -34,7 +34,7 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
     xrp: { name: 'Ripple (XRP)', networks: ['xrp']},
     sol: { name: 'Solana (SOL)', networks: ['sol']},
     trx: { name: 'Tron (TRX)', networks: ['trx']},
-    ton: { name: 'TON (The Open Network)', networks: ['ton']},
+    ton: { name: 'TON', networks: ['ton']},
 }
 
 function PaymentPageComponent() {
