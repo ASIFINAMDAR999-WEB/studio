@@ -19,23 +19,26 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'REDArmor v0.2 | Global Call Spoofing Service for USA, UK & Europe',
-  description: 'Buy high-quality call spoofing plans with fake caller ID. Trusted service for clients in the USA, UK, and Europe. REDArmor v0.2 – the #1 call spoofing top-up store.',
+  title: 'CallCraft | AI-Powered Plan Recommendations & Calling',
+  description: 'Explore top-up plans for calling services with AI-powered recommendations. Connect with our demo channel and support on Telegram. Find the perfect plan for your needs.',
   openGraph: {
     type: 'website',
-    url: 'https://callspoofing.shop/',
-    title: 'REDArmor v0.2 | Global Call Spoofing Service for USA, UK & Europe',
-    description: 'Buy high-quality call spoofing plans with fake caller ID. Trusted service for clients in the USA, UK, and Europe. REDArmor v0.2 – the #1 call spoofing top-up store.',
-    images: [{ url: 'https://callspoofing.shop/og-image.jpg' }],
+    url: 'https://callcraft.app/',
+    title: 'CallCraft | AI-Powered Plan Recommendations & Calling',
+    description: 'Explore top-up plans for calling services with AI-powered recommendations. Connect with our demo channel and support on Telegram. Find the perfect plan for your needs.',
+    images: [{ url: 'https://callcraft.app/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'REDArmor v0.2 | Global Call Spoofing Service for USA, UK & Europe',
-    description: 'Buy high-quality call spoofing plans with fake caller ID. Trusted service for clients in the USA, UK, and Europe. REDArmor v0.2 – the #1 call spoofing top-up store.',
-    images: ['https://callspoofing.shop/twitter-image.jpg'],
+    title: 'CallCraft | AI-Powered Plan Recommendations & Calling',
+    description: 'Explore top-up plans for calling services with AI-powered recommendations. Connect with our demo channel and support on Telegram. Find the perfect plan for your needs.',
+    images: ['https://callcraft.app/twitter-image.png'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
