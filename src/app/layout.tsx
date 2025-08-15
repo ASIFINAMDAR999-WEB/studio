@@ -34,6 +34,11 @@ export const metadata: Metadata = {
     description: 'Buy high-quality call spoofing plans with fake caller ID. Trusted service for clients in the USA, UK, and Europe. REDArmor v0.2 – the #1 call spoofing top-up store.',
     images: ['https://callspoofing.shop/twitter-image.jpg'],
   },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
