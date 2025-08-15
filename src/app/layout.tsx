@@ -19,20 +19,20 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'CallCraft | AI-Powered Plan Recommendations & Calling',
-  description: 'Explore top-up plans for calling services with AI-powered recommendations. Connect with our demo channel and support on Telegram. Find the perfect plan for your needs.',
+  title: 'REDArmor v0.2 | Secure Communication Services',
+  description: 'Explore our secure call spoofing, voice changing, and communication services. Anonymity and privacy guaranteed.',
   openGraph: {
     type: 'website',
-    url: 'https://callcraft.app/',
-    title: 'CallCraft | AI-Powered Plan Recommendations & Calling',
-    description: 'Explore top-up plans for calling services with AI-powered recommendations. Connect with our demo channel and support on Telegram. Find the perfect plan for your needs.',
-    images: [{ url: 'https://callcraft.app/og-image.png' }],
+    url: 'https://redarmor.app/',
+    title: 'REDArmor v0.2 | Secure Communication Services',
+    description: 'Explore our secure call spoofing, voice changing, and communication services. Anonymity and privacy guaranteed.',
+    images: [{ url: 'https://redarmor.app/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CallCraft | AI-Powered Plan Recommendations & Calling',
-    description: 'Explore top-up plans for calling services with AI-powered recommendations. Connect with our demo channel and support on Telegram. Find the perfect plan for your needs.',
-    images: ['https://callcraft.app/twitter-image.png'],
+    title: 'REDArmor v0.2 | Secure Communication Services',
+    description: 'Explore our secure call spoofing, voice changing, and communication services. Anonymity and privacy guaranteed.',
+    images: ['https://redarmor.app/twitter-image.png'],
   },
   icons: {
     icon: [
