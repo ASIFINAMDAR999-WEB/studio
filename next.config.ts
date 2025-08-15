@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
         hostname: 'i.ibb.co',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'bkbjdhvwwqqujhwjeaga.supabase.co',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
