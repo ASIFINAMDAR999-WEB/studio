@@ -139,7 +139,7 @@ export const testimonials = [
       role: "Verified Customer"
     },
     {
-      quote: "REDArmor v0.2 is by far the most reliable and feature-rich service I've used. The customer support is also top-notch, always ready to help.",
+      quote: "REDArmor 2.0 is by far the most reliable and feature-rich service I've used. The customer support is also top-notch, always ready to help.",
       name: "Jane S.",
       role: "Verified Customer"
     },
@@ -174,7 +174,7 @@ export const testimonials = [
       role: "Verified Customer"
     },
     {
-      quote: "As a security consultant, I need tools that are both powerful and discreet. REDArmor v0.2 delivers on all fronts. The OTP bot is particularly impressive.",
+      quote: "As a security consultant, I need tools that are both powerful and discreet. REDArmor 2.0 delivers on all fronts. The OTP bot is particularly impressive.",
       name: "Ben G.",
       role: "Verified Customer"
     }
