@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | REDArmor v0.2',
-  description: 'Read the Terms of Service for using REDArmor v0.2. Understand your responsibilities and our policies.',
+  title: 'Terms of Service | REDArmor 2.0',
+  description: 'Read the Terms of Service for using REDArmor 2.0. Understand your responsibilities and our policies.',
 };
 
 export default function TermsOfServicePage() {
@@ -36,7 +36,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-semibold text-foreground">3. Intellectual Property</h2>
               <p>
-                The Service and its original content, features, and functionality are and will remain the exclusive property of REDArmor v0.2 and its licensors.
+                The Service and its original content, features, and functionality are and will remain the exclusive property of REDArmor 2.0 and its licensors.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">4. Termination</h2>
@@ -46,7 +46,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-semibold text-foreground">5. Limitation of Liability</h2>
               <p>
-                In no event shall REDArmor v0.2, nor its directors or employees, be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the service, particularly any use that violates applicable laws. You agree to indemnify and hold harmless REDArmor v0.2 from any claims arising out of your unlawful use of the Services.
+                In no event shall REDArmor 2.0, nor its directors or employees, be liable for any indirect, incidental, special, consequential or punitive damages resulting from your use of the service, particularly any use that violates applicable laws. You agree to indemnify and hold harmless REDArmor 2.0 from any claims arising out of your unlawful use of the Services.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">6. Governing Law</h2>

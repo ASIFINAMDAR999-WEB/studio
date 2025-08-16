@@ -8,7 +8,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Telegram Bots | REDArmor v0.2',
+  title: 'Telegram Bots | REDArmor 2.0',
   description: 'Access our list of official REDArmor Telegram bots for support and services. Find an active bot to connect with us.',
 };
 

@@ -19,18 +19,18 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'REDArmor v0.2 | Secure Communication Services',
+  title: 'REDArmor 2.0 | Secure Communication Services',
   description: 'Explore our secure call spoofing, voice changing, and communication services. Anonymity and privacy guaranteed.',
   openGraph: {
     type: 'website',
     url: 'https://redarmor.app/',
-    title: 'REDArmor v0.2 | Secure Communication Services',
+    title: 'REDArmor 2.0 | Secure Communication Services',
     description: 'Explore our secure call spoofing, voice changing, and communication services. Anonymity and privacy guaranteed.',
     images: [{ url: 'https://redarmor.app/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'REDArmor v0.2 | Secure Communication Services',
+    title: 'REDArmor 2.0 | Secure Communication Services',
     description: 'Explore our secure call spoofing, voice changing, and communication services. Anonymity and privacy guaranteed.',
     images: ['https://redarmor.app/twitter-image.png'],
   },

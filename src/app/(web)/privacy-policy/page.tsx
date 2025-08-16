@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | REDArmor v0.2',
+  title: 'Privacy Policy | REDArmor 2.0',
   description: 'Learn about our commitment to your privacy and anonymity. We do not collect or store any personally identifiable information.',
 };
 
@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
               
               <h2 className="text-xl font-semibold text-foreground">1. Introduction</h2>
               <p>
-                Welcome to REDArmor v0.2. We are committed to protecting your privacy and ensuring your anonymity. This Privacy Policy explains our stance on data. By using our call spoofing, voice changing, and other related services ("Services"), you agree to this policy.
+                Welcome to REDArmor 2.0. We are committed to protecting your privacy and ensuring your anonymity. This Privacy Policy explains our stance on data. By using our call spoofing, voice changing, and other related services ("Services"), you agree to this policy.
               </p>
 
               <h2 className="text-xl font-semibold text-foreground">2. Information We Collect</h2>
