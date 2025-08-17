@@ -9,8 +9,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Telegram Bots | CallCraft',
-  description: 'Access our list of official CallCraft Telegram bots for support and services. Find an active bot to connect with us.',
+  title: 'Call Spoofing Telegram Bots | REDArmor 2.0',
+  description: 'Instantly access our official call spoofing Telegram bots. Connect with our automated services for support and start your call spoofing now.',
   alternates: {
     canonical: 'https://www.callspoofing.shop/bots',
   },
@@ -70,7 +70,7 @@ export default function BotsPage() {
                 <Card className="group h-full flex flex-col justify-between overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 border hover:border-primary/50">
                     <CardHeader className="flex flex-row items-center gap-4">
                         <div className="bg-primary/10 p-1 rounded-full flex items-center justify-center w-12 h-12 flex-shrink-0">
-                           <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-16_11-58-07-414.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE2XzExLTU4LTA3LTQxNC5wbmciLCJpYXQiOjE3NTUzMjYxMjUsImV4cCI6MjA3MDY4NjEyNX0.HrqwzcCFG0oUt0HEewn9XZC4jXJhrWc_sLq1YGqStqE" alt="CallCraft Logo" width={40} height={40} className="rounded-full" />
+                           <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-16_11-58-07-414.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE2XzExLTU4LTA3LTQxNC5wbmciLCJpYXQiOjE3NTUzMjYxMjUsImV4cCI6MjA3MDY4NjEyNX0.HrqwzcCFG0oUt0HEewn9XZC4jXJhrWc_sLq1YGqStqE" alt="REDArmor 2.0 Logo" width={40} height={40} className="rounded-full" />
                         </div>
                         <div>
                             <CardTitle className="text-lg font-mono tracking-tighter">{bot.name}</CardTitle>

@@ -7,8 +7,8 @@ import { Send, Clock } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | REDArmor 2.0',
-  description: 'Get in touch with the REDArmor team. Contact our admin on Telegram for support, sales, and any inquiries you may have.',
+  title: 'Contact for Call Spoofing | REDArmor 2.0',
+  description: 'Contact our admin on Telegram for support with our call spoofing services. Get help with payments, setup, or any questions you have.',
 };
 
 export default function ContactPage() {
