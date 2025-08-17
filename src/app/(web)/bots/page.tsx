@@ -17,13 +17,26 @@ export const metadata: Metadata = {
 };
 
 const bots = [
-  { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot' },
-  { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot' },
-  { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot' },
-  { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot' },
-  { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot' },
-  { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot' },
-  { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot' },
+    { name: '@nexuscallss_bot', url: 'https://t.me/nexuscallss_bot' },
+    { name: '@Callspoofing0499_bot', url: 'https://t.me/Callspoofing0499_bot' },
+    { name: '@Callspoofterbotbot', url: 'https://t.me/Callspoofterbotbot' },
+    { name: '@Callspoofing6162bot', url: 'https://t.me/Callspoofing6162bot' },
+    { name: '@Nexuscallbotbot', url: 'https://t.me/Nexuscallbotbot' },
+    { name: '@Nexusspoofingbot', url: 'https://t.me/Nexusspoofingbot' },
+    { name: '@Nexuscallspoofingbot', url: 'https://t.me/Nexuscallspoofingbot' },
+    { name: '@Mexicocallspoofingactivebot', url: 'https://t.me/Mexicocallspoofingactivebot' },
+    { name: '@Spoofcallbot_bot', url: 'https://t.me/Spoofcallbot_bot' },
+    { name: '@Callspoofbotbot', url: 'https://t.me/Callspoofbotbot' },
+    { name: '@Callspoofingbotofficialbot', url: 'https://t.me/Callspoofingbotofficialbot' },
+    { name: '@Spoofcall_0499bot', url: 'https://t.me/Spoofcall_0499bot' },
+    { name: '@Callspoofing001_bot', url: 'https://t.me/Callspoofing001_bot' },
+    { name: '@Spoofcallbotbot', url: 'https://t.me/Spoofcallbotbot' },
+    { name: '@Callspoofing2025bot', url: 'https://t.me/Callspoofing2025bot' },
+    { name: '@Callspoofing0011_bot', url: 'https://t.me/Callspoofing0011_bot' },
+    { name: '@Callspoofing_202526bot', url: 'https://t.me/Callspoofing_202526bot' },
+    { name: '@Callspoofingotpbot', url: 'https://t.me/Callspoofingotpbot' },
+    { name: '@Callspoofingglobe_bot', url: 'https://t.me/Callspoofingglobe_bot' },
+    { name: '@Call_spoofingbot', url: 'https://t.me/Call_spoofingbot' },
 ];
 
 export default function BotsPage() {
