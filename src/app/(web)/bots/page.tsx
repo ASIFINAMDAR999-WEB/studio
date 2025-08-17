@@ -3,13 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { AlertTriangle, Bot, ArrowRight } from 'lucide-react';
+import { AlertTriangle, ArrowRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Telegram Bots | REDArmor 2.0',
   description: 'Access our list of official REDArmor Telegram bots for support and services. Find an active bot to connect with us.',
+  alternates: {
+    canonical: 'https://www.callspoofing.shop/bots',
+  },
 };
 
 const bots = [
@@ -52,8 +56,8 @@ export default function BotsPage() {
               >
                 <Card className="group h-full flex flex-col justify-between overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 border hover:border-primary/50">
                     <CardHeader className="flex flex-row items-center gap-4">
-                        <div className="bg-primary/10 p-3 rounded-full">
-                           <Bot className="h-7 w-7 text-primary" />
+                        <div className="bg-primary/10 p-2 rounded-full">
+                           <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-16_11-58-07-414.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE2XzExLTU4LTA3LTQxNC5wbmciLCJpYXQiOjE3NTUzMjYxMjUsImV4cCI6MjA3MDY4NjEyNX0.HrqwzcCFG0oUt0HEewn9XZC4jXJhrWc_sLq1YGqStqE" alt="REDArmor 2.0 Logo" width={32} height={32} className="h-8 w-8" />
                         </div>
                         <div>
                             <CardTitle className="text-lg font-mono tracking-tighter">{bot.name}</CardTitle>
