@@ -1,29 +1,53 @@
-# Firebase Studio
 
-This is a NextJS starter in Firebase Studio.
+# REDArmor 2.0
 
-To get started, take a look at src/app/page.tsx.
+### The Premier Solution for Secure Call Spoofing & Voice Changing
 
-## Running Locally
+REDArmor 2.0 is a sophisticated web application designed to provide secure, anonymous, and feature-rich call spoofing services. Our platform allows users to make calls from any number, change their voice in real-time, and manage communications with complete privacy.
 
-1.  **Install dependencies**:
+---
+
+## Features
+
+*   **Advanced Call Spoofing**: Place calls from any phone number worldwide.
+*   **Premium Voice Changer**: Modify your voice with multiple high-quality presets.
+*   **Secure Crypto Payments**: We accept a wide range of cryptocurrencies for anonymous transactions.
+*   **Global Service**: Our services are available to clients across the globe without restrictions.
+*   **24/7 Support**: Dedicated admin support available via Telegram.
+*   **Anonymous & Private**: No logs, no personal data collection. Your privacy is our top priority.
+
+---
+
+## Tech Stack
+
+This project is built with a modern, robust, and scalable technology stack:
+
+*   **[Next.js](https://nextjs.org/)**: React framework for production-grade applications.
+*   **[React](https://reactjs.org/)**: JavaScript library for building user interfaces.
+*   **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development.
+*   **[ShadCN UI](https://ui.shadcn.com/)**: Re-usable components built using Radix UI and Tailwind CSS.
+*   **[TypeScript](https://www.typescriptlang.org/)**: Typed superset of JavaScript that compiles to plain JavaScript.
+
+---
+
+## Getting Started
+
+To run the project locally, follow these steps:
+
+1.  **Install Dependencies**
     ```bash
     npm install
     ```
 
-2.  **Run the development server**:
+2.  **Run the Development Server**
     ```bash
     npm run dev
     ```
 
-Open [http://localhost:9002](http://localhost:9002) with your browser to see the result.
+Open [http://localhost:9002](http://localhost:9002) in your browser to see the result.
 
-## Deployment on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Follow these steps:
-
-1.  **Push to GitHub**: Push your code to a new GitHub repository.
-2.  **Import Project on Vercel**: Go to your [Vercel dashboard](https://vercel.com/new) and import the project from your GitHub repository. Vercel will automatically detect that you are using Next.js and configure the build settings.
-3.  **Deploy**: Vercel will automatically trigger a deployment when you push new commits to your repository.
+For support or inquiries, please reach out to our admin on Telegram: **[@AF3092](https://t.me/AF3092)**
