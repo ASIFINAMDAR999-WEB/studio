@@ -1,5 +1,6 @@
 
 'use client';
+import * as React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
@@ -9,21 +10,29 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { testimonials } from '@/lib/data';
+import Autoplay from "embla-carousel-autoplay"
 
 export function TestimonialSection() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true })
+  )
+
   return (
     <section id="testimonial" className="py-20 md:py-28 bg-card" aria-labelledby="testimonial-heading">
        <div className="container px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
-             <h2 id="testimonial-heading" className="text-3xl md:text-4xl font-bold">What Our Customers Say</h2>
+             <h2 id="testimonial-heading" className="text-3xl md:text-4xl font-bold">What Our Client's Say</h2>
           </div>
           <div className="max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <Carousel
+              plugins={[plugin.current]}
               opts={{
                 align: "start",
                 loop: true,
               }}
               className="w-full"
+              onMouseEnter={plugin.current.stop}
+              onMouseLeave={plugin.current.reset}
             >
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
