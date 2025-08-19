@@ -50,8 +50,8 @@ export default function ContactPage() {
                           <Image 
                             src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-19_15-31-41-904.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE5XzE1LTMxLTQxLTkwNC5wbmciLCJpYXQiOjE3NTU1OTc4MDksImV4cCI6MjA3MDk1NzgwOX0.cSNWar3ZIpoqTpmQIxu_wgrdtOBenau7oMiL72ubNFU"
                             alt="Telegram Icon"
-                            width={32}
-                            height={32}
+                            width={40}
+                            height={40}
                             className="transition-transform duration-300 group-hover/link:scale-110"
                           />
                           <div className='text-muted-foreground group-hover/link:text-primary transition-colors'>
