@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { Send, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Contact for Call Spoofing | REDArmor 2.0',
@@ -46,7 +47,13 @@ export default function ContactPage() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                        <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group/link p-4 rounded-lg transition-colors hover:bg-muted">
-                          <Send className="h-7 w-7 text-primary transition-transform duration-300 group-hover/link:scale-110" />
+                          <Image 
+                            src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-19_15-31-41-904.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE5XzE1LTMxLTQxLTkwNC5wbmciLCJpYXQiOjE3NTU1OTc4MDksImV4cCI6MjA3MDk1NzgwOX0.cSNWar3ZIpoqTpmQIxu_wgrdtOBenau7oMiL72ubNFU"
+                            alt="Telegram Icon"
+                            width={32}
+                            height={32}
+                            className="transition-transform duration-300 group-hover/link:scale-110"
+                          />
                           <div className='text-muted-foreground group-hover/link:text-primary transition-colors'>
                               <p className='font-semibold text-lg'>Telegram</p>
                               <p className="text-base">@AF3092</p>
