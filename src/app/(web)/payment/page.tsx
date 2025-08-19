@@ -118,9 +118,12 @@ function PaymentPageComponent() {
                 </div>
                 {plan.bonus && (
                   <div className="pt-4 border-t">
-                    <div className="p-3 bg-primary/10 border-l-4 border-primary rounded-r-lg flex items-start gap-3">
+                    <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
                         <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <p className="text-sm font-semibold text-primary">{plan.bonus}</p>
+                        <p className="text-sm text-primary-foreground">
+                          <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
+                          {plan.bonus.split(':')[1]}
+                        </p>
                     </div>
                   </div>
                 )}
@@ -210,5 +213,3 @@ export default function PaymentPage() {
     </Suspense>
   );
 }
-
-    
