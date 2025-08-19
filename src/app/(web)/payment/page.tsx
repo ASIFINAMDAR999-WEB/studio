@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -103,7 +103,7 @@ function PaymentPageComponent() {
                     </div>
                 </div>
                 <div className="text-sm text-muted-foreground pt-2 border-t">
-                    <div className="font-semibold mb-2">Features Included:</div>
+                    <div className="font-semibold mb-2 text-foreground">Features Included:</div>
                     <ul className="space-y-1">
                       {plan.features.slice(0, 3).map((feature, index) => (
                         <li key={index} className="flex items-center gap-2">
@@ -116,6 +116,14 @@ function PaymentPageComponent() {
                       )}
                     </ul>
                 </div>
+                {plan.bonus && (
+                  <div className="pt-4 border-t">
+                    <div className="p-3 bg-primary/10 border-l-4 border-primary rounded-r-lg flex items-start gap-3">
+                        <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                        <p className="text-sm font-semibold text-primary">{plan.bonus}</p>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -202,3 +210,5 @@ export default function PaymentPage() {
     </Suspense>
   );
 }
+
+    
