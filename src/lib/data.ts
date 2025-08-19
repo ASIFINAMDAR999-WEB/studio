@@ -112,7 +112,7 @@ export const faqItems = [
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We exclusively accept cryptocurrency to ensure privacy and security. You can pay with USDT (TRC-20, ERC-20, BEP-20), Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), and Ripple (XRP). This allows for fast, anonymous, and secure transactions."
+    answer: "We exclusively accept cryptocurrency to ensure your privacy and security. We support a wide range of coins, including USDT (TRC-20, ERC-20, BEP-20), Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), Solana (SOL), Tron (TRX), TON, and Ripple (XRP). This allows for fast, anonymous, and secure transactions."
   },
   {
     question: "How do I get support if I have an issue?",
