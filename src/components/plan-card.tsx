@@ -41,8 +41,14 @@ export function PlanCard({ plan }: { plan: Plan }) {
       </CardHeader>
       <CardContent className="flex-1 p-6 pt-0 z-10">
         {plan.bonus && (
-          <div className="mb-6 p-3 bg-primary/10 border-l-4 border-primary rounded-r-lg">
-              <p className="text-sm font-semibold text-primary">{plan.bonus}</p>
+          <div className="mb-6">
+            <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
+              <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+              <p className="text-sm text-muted-foreground">
+                <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
+                {plan.bonus.split(':')[1]}
+              </p>
+            </div>
           </div>
         )}
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
