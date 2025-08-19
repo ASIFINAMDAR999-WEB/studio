@@ -120,7 +120,7 @@ function PaymentPageComponent() {
                   <div className="pt-4 border-t">
                     <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
                         <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <p className="text-sm text-primary-foreground">
+                        <p className="text-sm text-muted-foreground">
                           <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
                           {plan.bonus.split(':')[1]}
                         </p>
