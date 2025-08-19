@@ -67,7 +67,7 @@ export const plans: Plan[] = [
     highlight: false,
     isHot: false,
     cta: 'Choose Plan',
-    bonus: 'Diamond Plan Bonus: On first-time purchase, enjoy an extra 15 days free (new clients only).',
+    bonus: 'New Client Offer: Your first purchase includes an extra 15 days of service, on us.',
   },
   {
     name: 'Platinum Plan',
@@ -90,7 +90,7 @@ export const plans: Plan[] = [
     highlight: false,
     isHot: false,
     cta: 'Choose Plan',
-    bonus: 'Platinum Plan Bonus: On first-time purchase, receive an entire extra month free (new clients only).',
+    bonus: 'Welcome Bonus: New clients receive an entire extra month of service, completely free.',
   },
   {
     name: 'Silver Plan',
