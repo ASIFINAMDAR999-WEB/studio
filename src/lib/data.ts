@@ -108,27 +108,27 @@ export const plans: Plan[] = [
 export const faqItems = [
   {
     question: "What is the process to purchase a plan?",
-    answer: "Purchasing a plan is simple. Just follow these steps: 1. Select the plan that best fits your needs from our pricing section. 2. Choose your preferred cryptocurrency for payment. 3. Send the exact amount to the provided wallet address. 4. Send a screenshot of the transaction to our admin on Telegram (@AF3092). Your plan will be activated within 5 minutes of confirmation."
+    answer: "Purchasing a plan is simple and secure. First, browse our plans and select the one that best fits your needs. Next, choose your preferred cryptocurrency for payment. Our system will provide you with a unique wallet address for the transaction. After sending the exact amount, please send a screenshot of the transaction confirmation to our admin on Telegram (@AF3092). Your plan will typically be activated within 5-10 minutes of confirmation."
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We exclusively accept cryptocurrency to ensure your privacy and security. We support a wide range of coins, including USDT (TRC-20, ERC-20, BEP-20), Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), Solana (SOL), Tron (TRX), TON, and Ripple (XRP). This allows for fast, anonymous, and secure transactions."
+    answer: "We exclusively accept cryptocurrency to ensure client privacy and security. We support a wide range of popular coins, including USDT (TRC-20, ERC-20, BEP-20), Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), Solana (SOL), Tron (TRX), TON, and Ripple (XRP). This allows for fast, anonymous, and secure transactions from anywhere in the world."
   },
   {
     question: "How do I get support if I have an issue?",
-    answer: "Our primary support channel is Telegram. You can contact our admin directly at @AF3092 for any questions, payment confirmations, or technical issues. We also have a list of official bots on our 'Bots' page for automated services."
+    answer: "Our dedicated support team is available to assist you. The most effective way to get help is by contacting our admin directly on Telegram at @AF3092. Whether you have questions about our services, need help with a payment, or encounter a technical issue, our team is ready to provide prompt and knowledgeable assistance. For automated services, you can also use one of our official bots listed on the 'Bots' page."
   },
   {
     question: "Are there any contracts or hidden fees?",
-    answer: "No. Our pricing is transparent and straightforward. The price you see is the price you pay. Our plans are based on a one-time payment for the specified duration (e.g., 1, 2, or 3 months) with no recurring charges or hidden fees."
+    answer: "No, we believe in full transparency. The price you see listed for each plan is the total price you pay for the specified service duration. There are no recurring charges, hidden fees, or long-term contracts. Your payment is a one-time purchase for the access period you've selected."
   },
   {
     question: "Can I try the service before I buy?",
-    answer: "We do not offer free trials to maintain the quality and integrity of our service. However, you can view demo videos on our official Telegram channel (https://t.me/+Eg-SFpyzbpM0YzM1) to see our features in action before making a purchase."
+    answer: "To maintain the highest quality of service and prevent misuse, we do not offer free trials. However, we provide extensive demo videos on our official Telegram channel (https://t.me/+Eg-SFpyzbpM0YzM1), which showcase our features and their functionality. This allows you to see our service in action before making a commitment."
   },
   {
     question: "Is using a call spoofing service legal?",
-    answer: "The legality of call spoofing varies significantly by jurisdiction. It is your sole responsibility to ensure that your use of our Services complies with all applicable local, state, national, and international laws, including but not limited to those in the United States, United Kingdom, and all European countries. You shall not use the Service for any fraudulent, harassing, or illegal activity."
+    answer: "The legality of call spoofing varies significantly depending on your jurisdiction and how you use the service. It is your sole responsibility to understand and comply with all applicable local, state, national, and international laws. Our services are intended for lawful purposes only. We strictly prohibit any fraudulent, harassing, or illegal activities, and misuse will result in immediate service termination."
   }
 ];
 
