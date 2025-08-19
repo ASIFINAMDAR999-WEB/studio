@@ -4,7 +4,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Check } from "lucide-react"
+import { Check, Gift } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import type { Plan } from "@/lib/data"
@@ -40,6 +40,11 @@ export function PlanCard({ plan }: { plan: Plan }) {
         {!plan.priceOptions && <CardDescription className="mt-2 min-h-[40px]">{plan.description}</CardDescription>}
       </CardHeader>
       <CardContent className="flex-1 p-6 pt-0 z-10">
+        {plan.bonus && (
+          <div className="mb-6 p-3 bg-primary/10 border-l-4 border-primary rounded-r-lg">
+              <p className="text-sm font-semibold text-primary">{plan.bonus}</p>
+          </div>
+        )}
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
         <ul className="space-y-3 text-sm">
           {plan.features.map((feature, index) => (
