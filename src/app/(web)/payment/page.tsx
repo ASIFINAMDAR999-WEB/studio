@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -12,6 +12,17 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
+
+// Note: Since this is a client component, this metadata will not be statically rendered.
+// To have static metadata, this page would need to be a server component.
+export const metadata: Metadata = {
+  title: 'Complete Payment | REDArmor 2.0',
+  description: 'Securely complete your payment for your selected REDArmor 2.0 plan using cryptocurrency. Follow the instructions to activate your service.',
+  alternates: {
+    canonical: 'https://www.callspoofing.shop/payment',
+  },
+};
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
@@ -42,6 +53,10 @@ function PaymentPageComponent() {
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const cryptoName = searchParams.get('crypto');
   
+  useEffect(() => {
+    document.title = `Complete Payment for ${planName} | REDArmor 2.0`;
+  }, [planName]);
+
   const isTopUp = planName.includes('Silver Plan');
   const topUpAmount = isTopUp ? planName.split(' - ')[1] : null;
 

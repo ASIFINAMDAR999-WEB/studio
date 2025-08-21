@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ChevronRight } from 'lucide-react';
@@ -9,6 +9,17 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
+
+// Note: Since this is a client component, this metadata will not be statically rendered.
+// To have static metadata, this page would need to be a server component.
+export const metadata: Metadata = {
+  title: 'Select Payment Method | REDArmor 2.0',
+  description: 'Choose your preferred cryptocurrency to pay for your REDArmor 2.0 plan. We accept BTC, ETH, USDT, and more.',
+  alternates: {
+    canonical: 'https://www.callspoofing.shop/payment/select',
+  },
+};
 
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -24,6 +35,10 @@ const cryptoOptions = [
 function SelectCryptoComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
+
+  useEffect(() => {
+    document.title = `Select Payment for ${planName} | REDArmor 2.0`;
+  }, [planName]);
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">

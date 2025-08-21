@@ -7,6 +7,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Call Spoofing Privacy Policy | REDArmor 2.0',
   description: 'Our privacy policy for call spoofing services. We are committed to your anonymity and do not collect or store any personally identifiable information.',
+  alternates: {
+    canonical: 'https://www.callspoofing.shop/privacy-policy',
+  },
 };
 
 export default function PrivacyPolicyPage() {
