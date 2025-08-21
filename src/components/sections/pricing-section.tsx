@@ -1,8 +1,12 @@
 
 import { plans } from '@/lib/data';
 import { PlanCard } from '@/components/plan-card';
+import { Separator } from '@/components/ui/separator';
 
 export function PricingSection() {
+  const subscriptionPlans = plans.filter(p => !p.priceOptions);
+  const topUpPlan = plans.find(p => p.priceOptions);
+
   return (
     <section id="pricing" className="py-20 md:py-28" aria-labelledby="pricing-heading">
       <div className="container px-4 sm:px-6">
@@ -12,13 +16,29 @@ export function PricingSection() {
               Choose the plan that's right for you. All plans come with our top-notch features and support.
            </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start justify-center">
-          {plans.map((plan, i) => (
+        
+        {/* Subscription Plans */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start justify-center">
+          {subscriptionPlans.map((plan, i) => (
             <div key={plan.name} className="animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
                 <PlanCard plan={plan} />
             </div>
           ))}
         </div>
+
+        {/* Top-up Plan */}
+        {topUpPlan && (
+          <>
+            <div className="my-16 animate-fade-in-up" style={{animationDelay: '600ms'}}>
+              <Separator />
+            </div>
+            <div className="flex justify-center animate-fade-in-up" style={{animationDelay: '750ms'}}>
+              <div className="w-full lg:max-w-md">
+                <PlanCard plan={topUpPlan} />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
