@@ -39,7 +39,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
 
         {!plan.priceOptions && <CardDescription className="mt-2 min-h-[40px]">{plan.description}</CardDescription>}
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col p-6 pt-0 z-10">
+      <CardContent className="flex-grow flex flex-col p-6 pt-0 z-10">
         {plan.bonus && (
           <div className="mb-6">
             <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
@@ -52,7 +52,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
           </div>
         )}
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
-        <ul className="space-y-3 text-sm flex-1">
+        <ul className="space-y-3 text-sm">
           {plan.features.map((feature, index) => (
             <li key={index} className="flex items-start gap-3">
               <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
@@ -61,7 +61,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
           ))}
         </ul>
       </CardContent>
-      <CardFooter className="p-6 pt-0 mt-4 z-10">
+      <CardFooter className="p-6 pt-0 mt-auto z-10">
         {plan.priceOptions ? (
            <div className="w-full flex flex-col gap-3">
                 <p className="text-sm font-semibold text-center text-muted-foreground">Select an amount to top-up:</p>
