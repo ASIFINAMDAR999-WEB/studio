@@ -98,7 +98,6 @@ export const plans: Plan[] = [
     duration: '',
     description: 'For virtual numbers and eSIMs',
     features: [
-        'Manual top-up via Admin: @AF3092',
         'Service for virtual numbers and eSIMs only'
     ],
     highlight: false,
