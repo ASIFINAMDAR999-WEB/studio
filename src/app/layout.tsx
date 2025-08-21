@@ -39,18 +39,21 @@ const organizationSchema: WithContext<Organization> = {
 export const metadata: Metadata = {
   title: 'REDArmor 2.0 | #1 Call Spoofing & Voice Changer Service',
   description: 'Top call spoofing service with a premium voice changer. Secure, anonymous, and reliable communication. Get started today!',
+  alternates: {
+    canonical: 'https://www.callspoofing.shop',
+  },
   openGraph: {
     type: 'website',
-    url: 'https://redarmor.app/',
+    url: 'https://www.callspoofing.shop',
     title: 'REDArmor 2.0 | #1 Call Spoofing & Voice Changer Service',
     description: 'Top call spoofing service with a premium voice changer. Secure, anonymous, and reliable communication. Get started today!',
-    images: [{ url: 'https://redarmor.app/og-image.png' }],
+    images: [{ url: 'https://www.callspoofing.shop/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'REDArmor 2.0 | #1 Call Spoofing & Voice Changer Service',
     description: 'Top call spoofing service with a premium voice changer. Secure, anonymous, and reliable communication. Get started today!',
-    images: ['https://redarmor.app/twitter-image.png'],
+    images: ['https://www.callspoofing.shop/twitter-image.png'],
   },
   icons: {
     icon: [
