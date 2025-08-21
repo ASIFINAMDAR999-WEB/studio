@@ -42,35 +42,35 @@
   .dark {
     --background: 0 0% 0%; /* Black */
     --foreground: 210 40% 98%;
-    --card: 0 0% 5%; /* Very dark grey, almost black */
+    --card: 0 0% 3%; /* Near black for subtle depth */
     --card-foreground: 210 40% 98%;
     --popover: 0 0% 0%;
     --popover-foreground: 210 40% 98%;
     --primary: 263.4 70% 55.4%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 5% 15%;
+    --secondary: 240 5% 10%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 240 5% 15%;
-    --muted-foreground: 215 25% 75%; /* Increased contrast for dark mode */
+    --muted: 240 5% 10%;
+    --muted-foreground: 215 25% 75%;
     --accent: 262 80% 75%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 240 5% 15%;
-    --input: 240 5% 18%;
+    --border: 240 5% 10%;
+    --input: 240 5% 12%;
     --ring: 263.4 70% 55.4%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 0 0% 2%;
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 210 40% 96%;
     --sidebar-primary: 263.4 70% 55.4%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 5% 15%;
+    --sidebar-accent: 240 5% 10%;
     --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 240 5% 15%;
+    --sidebar-border: 240 5% 10%;
     --sidebar-ring: 263.4 70% 55.4%;
   }
 }
