@@ -12,17 +12,6 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import type { Metadata } from 'next';
-
-// Note: Since this is a client component, this metadata will not be statically rendered.
-// To have static metadata, this page would need to be a server component.
-export const metadata: Metadata = {
-  title: 'Complete Payment | REDArmor 2.0',
-  description: 'Securely complete your payment for your selected REDArmor 2.0 plan using cryptocurrency. Follow the instructions to activate your service.',
-  alternates: {
-    canonical: 'https://www.callspoofing.shop/payment',
-  },
-};
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
@@ -135,9 +124,11 @@ function PaymentPageComponent() {
                   <div className="pt-4 border-t">
                     <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
                         <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm">
                           <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
-                          {plan.bonus.split(':')[1]}
+                          <span className="text-muted-foreground">
+                            {plan.bonus.split(':')[1]}
+                          </span>
                         </p>
                     </div>
                   </div>
