@@ -7,18 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import { AccessScreen } from '@/components/access/access-screen';
 import { DialerScreen } from '@/components/access/dialer-screen';
 import { Header } from '@/components/layout/header';
-import type { Metadata } from 'next';
 
-
-// Note: Since this is a client component, this metadata will not be statically rendered.
-// To have static metadata, this page would need to be a server component.
-export const metadata: Metadata = {
-  title: 'Client Access | REDArmor 2.0',
-  description: 'Enter your access code to use the REDArmor 2.0 call spoofing and voice changing dialer. Secure client-only access.',
-  alternates: {
-    canonical: 'https://www.callspoofing.shop/access',
-  },
-};
 
 /**
  * AccessPage component
