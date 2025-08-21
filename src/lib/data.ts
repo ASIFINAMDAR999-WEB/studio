@@ -88,7 +88,7 @@ export const plans: Plan[] = [
       'Leverage Premium SIP Trunk Access',
     ],
     highlight: false,
-    isHot: false,
+    isHot: true,
     cta: 'Choose Plan',
     bonus: 'Welcome Bonus: New clients receive an entire extra month of service, completely free.',
   },
