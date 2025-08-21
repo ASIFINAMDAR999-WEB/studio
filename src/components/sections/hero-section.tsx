@@ -9,7 +9,7 @@ export function HeroSection() {
   return (
     <section id="hero" className="relative text-center py-24 md:py-32 overflow-hidden flex items-center justify-center min-h-[50vh] md:min-h-[70vh] bg-background">
       <div 
-        className="absolute inset-0 z-0 opacity-40 dark:opacity-50"
+        className="absolute inset-0 z-0 opacity-40 dark:opacity-50 animate-glow-pulse"
         style={{
           background: `radial-gradient(600px circle at center, hsl(var(--primary) / 0.15), transparent 80%)`,
         }}
