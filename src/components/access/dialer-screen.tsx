@@ -172,6 +172,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         setCallStatus('idle');
     }, 1500);
   };
+  
+  const handleHistoryClick = (logNumber: string) => {
+    setNumber(logNumber);
+    setActiveTab('dialpad');
+  };
+
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -377,7 +383,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
                       {callHistory.length > 0 ? (
                         callHistory.map((log, index) => (
-                          <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted">
+                          <button 
+                            key={index} 
+                            onClick={() => handleHistoryClick(log.number)}
+                            className="flex items-center justify-between p-3 rounded-lg hover:bg-muted text-left w-full"
+                            aria-label={`Call ${log.number}`}
+                          >
                             <div className="flex items-center gap-3">
                               <History className="h-5 w-5 text-muted-foreground" />
                               <div>
@@ -386,7 +397,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                               </div>
                             </div>
                             <p className="text-sm text-muted-foreground">{log.time}</p>
-                          </div>
+                          </button>
                         ))
                       ) : (
                         <div className="flex-grow flex flex-col items-center justify-center text-center">
@@ -440,10 +451,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 50 }}
                           >
-                            {keypad.slice(0, 9).map((key, i) => (
+                            {keypad.map((key, i) => (
                               <motion.button
                                 key={i}
-                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white transform-gpu"
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white active:bg-white/30 transform-gpu transition-colors"
                                 whileTap={{ scale: 0.95 }}
                                 aria-label={`Keypad ${key.digit}`}
                               >
@@ -451,8 +462,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                                 {key.letters && <p className="text-xs tracking-widest uppercase">{key.letters}</p>}
                               </motion.button>
                             ))}
-                              <div />
-                              <motion.button
+                            <div/>
+                            <div/>
+                            <motion.button
                                 onClick={() => setShowInCallKeypad(false)}
                                 className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transform-gpu"
                                 whileTap={{ scale: 0.95 }}
@@ -460,7 +472,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                               >
                                 <ChevronDown className="w-6 h-6"/>
                               </motion.button>
-                              <div />
                           </motion.div>
                       ) : (
                         <motion.div 

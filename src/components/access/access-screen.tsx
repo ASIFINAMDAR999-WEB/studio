@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { useTheme } from 'next-themes';
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -24,6 +25,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -129,7 +131,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
                 sitekey={RECAPTCHA_SITE_KEY}
                 onChange={(token) => setRecaptchaToken(token)}
                 onExpired={() => setRecaptchaToken(null)}
-                theme="dark"
+                theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
               />
             </div>
 
