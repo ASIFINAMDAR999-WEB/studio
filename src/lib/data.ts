@@ -87,7 +87,7 @@ export const plans: Plan[] = [
       'Spoof Premium Toll-Free Numbers',
       'Leverage Premium SIP Trunk Access',
     ],
-    highlight: false,
+    highlight: true,
     isHot: true,
     cta: 'Choose Plan',
     bonus: 'Welcome Bonus: New clients receive an entire extra month of service, completely free.',
