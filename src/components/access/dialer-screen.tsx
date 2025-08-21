@@ -209,12 +209,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
   };
 
-  const InCallButton = ({ children, onClick, text, active }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean }) => (
+  const InCallButton = ({ children, onClick, text, active, 'aria-label': ariaLabel }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean, 'aria-label'?: string }) => (
     <div className="flex flex-col items-center gap-2">
       <motion.button
         onClick={onClick}
+        aria-label={ariaLabel || text}
         className={cn(
-          "h-14 w-14 rounded-full flex items-center justify-center transition-colors duration-200",
+          "h-14 w-14 rounded-full flex items-center justify-center transition-colors duration-200 transform-gpu",
           active ? 'bg-white text-gray-800' : 'bg-white/10 hover:bg-white/20 text-white/80'
         )}
         whileTap={{ scale: 0.9 }}
@@ -240,8 +241,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
           >
             <motion.div variants={itemVariants} className="text-center md:flex-grow-0">
                 <h1 className="text-2xl font-bold text-foreground">Make a call</h1>
-                <div className="flex justify-center gap-2 mt-4 mb-6">
+                <div role="tablist" aria-label="Dialer navigation" className="flex justify-center gap-2 mt-4 mb-6">
                     <button 
+                      role="tab"
+                      aria-selected={activeTab === 'dialpad'}
+                      id="dialpad-tab"
+                      aria-controls="dialpad-panel"
                       onClick={() => setActiveTab('dialpad')}
                       className={cn(
                         "py-2 px-4 rounded-lg text-sm font-semibold",
@@ -251,6 +256,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       Dialpad
                     </button>
                     <button 
+                      role="tab"
+                      aria-selected={activeTab === 'history'}
+                      id="history-tab"
+                      aria-controls="history-panel"
                       onClick={() => setActiveTab('history')}
                       className={cn(
                         "py-2 px-4 rounded-lg text-sm font-semibold",
@@ -274,20 +283,20 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
               )}
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
-                <button onClick={() => setShowSettingsModal(true)}>
+                <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
                   <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
                 </button>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-muted-foreground">Voice:</span>
+                <span id="voice-changer-label" className="text-muted-foreground">Voice:</span>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="flex items-center gap-2 text-foreground font-semibold bg-muted px-3 py-1 rounded-md">
+                        <button className="flex items-center gap-2 text-foreground font-semibold bg-muted px-3 py-1 rounded-md" aria-labelledby="voice-changer-label">
                             {selectedVoice}
                             <ChevronDown className="h-4 w-4 text-muted-foreground" />
                         </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent>
+                    <DropdownMenuContent aria-label="Voice changer options">
                       <DropdownMenuItem onSelect={() => setSelectedVoice('Disabled')}>Disabled</DropdownMenuItem>
                       <DropdownMenuItem onSelect={() => setSelectedVoice('Male 1')}>Male 1</DropdownMenuItem>
                       <DropdownMenuItem onSelect={() => setSelectedVoice('Male 2')}>Male 2</DropdownMenuItem>
@@ -308,9 +317,11 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
             <div className="flex-grow flex flex-col">
               <AnimatePresence mode="wait">
                 {activeTab === 'dialpad' ? (
-                  <motion.div key="dialpad-view" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className='flex flex-col flex-grow'>
+                  <motion.div key="dialpad-view" role="tabpanel" id="dialpad-panel" aria-labelledby="dialpad-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className='flex flex-col flex-grow'>
                     <div className="relative mb-4">
+                       <label htmlFor="phone-number-input" className="sr-only">Phone Number</label>
                       <Input
+                        id="phone-number-input"
                         type="tel"
                         value={number}
                         onChange={handleNumberChange}
@@ -324,8 +335,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         <motion.button
                           key={i}
                           onClick={() => handleKeyPress(key.digit)}
-                          className="relative aspect-[4/3] sm:aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted"
+                          className="relative aspect-[4/3] sm:aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted transform-gpu"
                           whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
+                          aria-label={`Key ${key.digit} ${key.letters}`}
                         >
                           <span className="text-2xl font-semibold">{key.digit}</span>
                           <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
@@ -337,10 +349,11 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         onClick={handleCall}
                         disabled={number.length <= 1}
                         className={cn(
-                            'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white active:scale-95',
+                            'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white active:scale-95 transform-gpu',
                             'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground'
                         )}
                         whileTap={{ scale: 0.95 }}
+                        aria-label="Make call"
                       >
                         <Phone className="h-6 w-6"/>
                       </motion.button>
@@ -351,16 +364,17 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         onMouseLeave={handlePressEnd}
                         onTouchStart={handlePressStart}
                         onTouchEnd={handlePressEnd}
-                        className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transform-gpu"
                         whileTap={{ scale: 0.95 }}
                         disabled={number.length === 0}
+                        aria-label="Delete last digit"
                       >
                         <X className="h-6 w-6" />
                       </motion.button>
                     </div>
                   </motion.div>
                 ) : (
-                  <motion.div key="history-view" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
+                  <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
                       {callHistory.length > 0 ? (
                         callHistory.map((log, index) => (
                           <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted">
@@ -395,7 +409,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
               animate="visible"
               exit="exit"
           >
-              <div className="w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white md:rounded-2xl shadow-2xl">
+              <div className="w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white md:rounded-2xl shadow-2xl transform-gpu">
                 <div className="text-center pt-8">
                     <motion.h2 
                       className="text-3xl font-bold"
@@ -408,6 +422,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       className="text-lg text-white/70 mt-2"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+                      aria-live="polite"
                     >
                         {callStatus === 'calling' && "Calling..."}
                         {callStatus === 'connected' && formatTime(callTimer)}
@@ -425,11 +440,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 50 }}
                           >
-                            {keypad.map((key, i) => (
+                            {keypad.slice(0, 9).map((key, i) => (
                               <motion.button
                                 key={i}
-                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white"
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white transform-gpu"
                                 whileTap={{ scale: 0.95 }}
+                                aria-label={`Keypad ${key.digit}`}
                               >
                                 <span className="text-2xl font-semibold">{key.digit}</span>
                                 {key.letters && <p className="text-xs tracking-widest uppercase">{key.letters}</p>}
@@ -438,8 +454,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                               <div />
                               <motion.button
                                 onClick={() => setShowInCallKeypad(false)}
-                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center"
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transform-gpu"
                                 whileTap={{ scale: 0.95 }}
+                                aria-label="Hide keypad"
                               >
                                 <ChevronDown className="w-6 h-6"/>
                               </motion.button>
@@ -451,13 +468,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                         >
-                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute">
+                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute" aria-label={isMuted ? 'Unmute' : 'Mute'}>
                               {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
                             </InCallButton>
-                            <InCallButton onClick={() => setShowInCallKeypad(true)} text="Keypad">
+                            <InCallButton onClick={() => setShowInCallKeypad(true)} text="Keypad" aria-label="Show keypad">
                               <Grid2x2 className="w-6 h-6"/>
                             </InCallButton>
-                            <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker">
+                            <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker" aria-label={isSpeaker ? 'Turn off speaker' : 'Turn on speaker'}>
                               <Volume2 className="w-6 h-6"/>
                             </InCallButton>
                         </motion.div>
@@ -468,8 +485,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <div className="flex justify-center w-full pb-8">
                   <motion.button
                       onClick={handleEndCall}
-                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg active:scale-95"
+                      className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg active:scale-95 transform-gpu"
                       whileTap={{ scale: 0.9 }}
+                      aria-label="End call"
                   >
                       <PhoneOff className="w-8 h-8" />
                   </motion.button>

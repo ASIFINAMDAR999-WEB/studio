@@ -133,7 +133,11 @@ export default {
           '40%, 80%': { transform: 'translateX(5px)' },
         },
         'ripple': {
-          'to': {
+          '0%': {
+            transform: 'scale(0)',
+            opacity: '0.35',
+          },
+          '100%': {
             transform: 'scale(4)',
             opacity: '0',
           },
@@ -158,6 +162,7 @@ export default {
         'shake': 'shake 0.3s ease-in-out',
         'pulse-ring': 'pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
         'ringing': 'ringing 1.5s ease-in-out infinite',
+        'ripple': 'ripple 600ms linear'
       },
       backgroundSize: {
         '200%': '200% 200%',
@@ -171,8 +176,11 @@ export default {
         '.text-shadow-glow': {
           textShadow: theme('textShadow.glow'),
         },
+        '.transform-gpu': {
+           transform: 'translateZ(0)',
+        }
       }
-      addUtilities(newUtilities, ['responsive'])
+      addUtilities(newUtilities, ['responsive', 'hover'])
     })
   ],
 } satisfies Config;

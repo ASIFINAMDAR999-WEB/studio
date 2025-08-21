@@ -31,7 +31,7 @@ export const NavLinks = ({ onLinkClick }: NavLinksProps) => {
               href={link.href} 
               onClick={onLinkClick}
               className={cn(
-                "transition-colors hover:text-primary p-2 md:p-0 rounded-md md:rounded-none",
+                "transition-colors hover:text-primary p-2 md:p-0 rounded-md md:rounded-none text-base font-medium",
                 isActive ? "text-primary font-semibold" : "text-muted-foreground"
               )}
             >

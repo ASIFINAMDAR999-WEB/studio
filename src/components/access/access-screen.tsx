@@ -87,10 +87,12 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
       animate={isShaking ? "shaking" : "visible"}
       initial="hidden"
       exit="exit"
+      role="region"
+      aria-labelledby="access-code-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10">
+      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10 transform-gpu">
         <div className="p-8 md:p-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
+          <h2 id="access-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
             Enter Access Code
           </h2>
 
@@ -115,6 +117,9 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
                     : 'border-muted-foreground/30 focus:border-primary'
                 )}
                 placeholder="Enter your access code"
+                aria-label="Access code input"
+                aria-invalid={!!error}
+                aria-describedby={error ? "error-message" : undefined}
               />
             </div>
 
@@ -132,13 +137,14 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
               type="submit"
               disabled={code.length < 5 || isLoading || !recaptchaToken}
               className={cn(
-                'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative group/button',
+                'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative group/button transform-gpu',
                 'bg-gradient-to-r from-primary to-accent',
                 'disabled:opacity-50 disabled:cursor-not-allowed',
                 'hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1',
                 'focus:outline-none focus:ring-4 focus:ring-primary/50'
               )}
               whileTap={{ scale: 0.98 }}
+              aria-live="polite"
             >
               <span className="absolute inset-0 bg-black/10 opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></span>
               <span className="relative">
@@ -157,6 +163,8 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
           <AnimatePresence>
             {error && (
               <motion.p
+                id="error-message"
+                role="alert"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
