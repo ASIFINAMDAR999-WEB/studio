@@ -96,9 +96,11 @@ export const plans: Plan[] = [
     name: 'Silver Plan',
     priceString: '',
     duration: '',
-    description: 'For virtual numbers and eSIMs',
+    description: 'Top-up credit for Virtual Numbers (DIDs) and eSIM services.',
     features: [
-        'Service for virtual numbers and eSIMs only'
+        "Purchase and extend Virtual Numbers (DIDs)",
+        "Top-up and manage your eSIM data plans",
+        "Credits do not apply to call spoofing plans",
     ],
     highlight: false,
     isHot: false,
