@@ -133,6 +133,10 @@ export const faqItems = [
   {
     question: "Is using a call spoofing service legal?",
     answer: "The legality of call spoofing varies significantly depending on your jurisdiction and how you use the service. It is your sole responsibility to understand and comply with all applicable local, state, national, and international laws. Our services are intended for lawful purposes only. We strictly prohibit any fraudulent, harassing, or illegal activities, and misuse will result in immediate service termination."
+  },
+  {
+    question: "REPLACE_WITH_YOUR_QUESTION",
+    answer: "REPLACE_WITH_YOUR_ANSWER."
   }
 ];
 
