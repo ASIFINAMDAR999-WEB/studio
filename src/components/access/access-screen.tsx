@@ -10,13 +10,6 @@ import { useTheme } from 'next-themes';
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-const VALID_CODES: Record<string, string> = {
-  'platinum:1111': 'Platinum 1-Month',
-  'gold:2222': 'Gold Plan',
-  'diamond:2222': 'Diamond Plan',
-  'platinum3m:4444': 'Platinum Plan',
-};
-
 export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => void }) {
   const [code, setCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -59,27 +52,32 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
     setIsLoading(true);
     setError(null);
 
-    // **IMPORTANT**: In a real application, you would send the `recaptchaToken`
-    // and the `code` to your backend (e.g., a Firebase Function) for verification.
-    // The backend would verify the reCAPTCHA token with Google using your SECRET KEY
-    // and then validate the access code.
+    try {
+      const response = await fetch('/api/validate-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code, recaptchaToken }),
+      });
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    const planName = VALID_CODES[code];
+      const data = await response.json();
 
-    if (planName) {
-      onSuccess(planName);
-    } else {
-      setError('Invalid code. Please try again.');
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 500);
-      setCode('');
-      recaptchaRef.current?.reset();
-      setRecaptchaToken(null);
+      if (response.ok && data.success) {
+        onSuccess(data.planName);
+      } else {
+        setError(data.error || 'Invalid code. Please try again.');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 500);
+        setCode('');
+        recaptchaRef.current?.reset();
+        setRecaptchaToken(null);
+      }
+    } catch (err) {
+      setError('Failed to connect to the server. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (

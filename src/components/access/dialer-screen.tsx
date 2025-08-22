@@ -105,10 +105,11 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
+    // Allow only digits and a single leading '+'
     const digits = value.replace(/[^\d+]/g, '');
     if (digits.length > 0 && !digits.startsWith('+')) {
       value = `+${digits.replace(/\+/g, '')}`;
-    } else if (digits.length > 1 && digits.lastIndexOf('+') > 0) {
+    } else if (digits.startsWith('+')) {
       value = '+' + digits.slice(1).replace(/\+/g, '');
     } else {
       value = digits;
@@ -191,9 +192,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         setCallerId('random');
         return;
       }
+      
+      // Allow only digits and a single leading '+'
       const digits = value.replace(/[^\d+]/g, '');
       if (digits.length > 0 && !digits.startsWith('+')) {
         value = `+${digits.replace(/\+/g, '')}`;
+      } else if (digits.startsWith('+')) {
+        value = '+' + digits.slice(1).replace(/\+/g, '');
       } else {
         value = digits;
       }
