@@ -3,20 +3,15 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <header className="py-4 px-4 sm:px-6 border-b bg-background/80 backdrop-blur-sm sticky top-0 z-40" style={{ willChange: 'transform' }}>
@@ -38,8 +33,9 @@ export function Header() {
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden ml-2">
-                <div className="sr-only">Toggle Menu</div>
-                {mounted && (isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />)}
+                <span className="sr-only">Toggle Menu</span>
+                <Menu className="h-5 w-5 absolute transition-all scale-100 rotate-0 group-data-[state=open]:scale-0 group-data-[state=open]:-rotate-90" />
+                <X className="h-5 w-5 absolute transition-all scale-0 rotate-90 group-data-[state=open]:scale-100 group-data-[state=open]:rotate-0" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[85vw] max-w-sm bg-background/95 backdrop-blur-sm">
