@@ -135,8 +135,8 @@ export const faqItems = [
     answer: "The legality of call spoofing varies significantly depending on your jurisdiction and how you use the service. It is your sole responsibility to understand and comply with all applicable local, state, national, and international laws. Our services are intended for lawful purposes only. We strictly prohibit any fraudulent, harassing, or illegal activities, and misuse will result in immediate service termination."
   },
   {
-    question: "REPLACE_WITH_YOUR_QUESTION",
-    answer: "REPLACE_WITH_YOUR_ANSWER."
+    question: "Can I spoof victim caller id / Mobile Number and call bank ?",
+    answer: "Yes of course you can spoof victim caller ID / Mobile Number and call Bank and collect the info and all stuff our many clients use our service for this type of work."
   }
 ];
 
