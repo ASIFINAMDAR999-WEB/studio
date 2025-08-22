@@ -66,7 +66,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
            <div className="w-full flex flex-col gap-3">
                 <p className="text-sm font-semibold text-center text-muted-foreground">Select an amount to top-up:</p>
                 {plan.priceOptions.map((price) => (
-                    <Button asChild key={price} className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105" variant={'outline'}>
+                    <Button asChild key={price} className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105">
                         <Link href={`/payment/select?plan=${encodeURIComponent(`${plan.name} - ${price}`)}`}>
                             {price}
                         </Link>
@@ -77,7 +77,6 @@ export function PlanCard({ plan }: { plan: Plan }) {
             <Button
               asChild={!isContactAdmin}
               className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105"
-              variant={plan.highlight ? 'default' : 'outline'}
             >
               {isContactAdmin ? (
                 <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>
