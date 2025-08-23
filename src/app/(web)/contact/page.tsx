@@ -9,8 +9,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Contact for Call Spoofing | REDArmor 2.0',
-  description: 'Contact our admin on Telegram for support with our call spoofing services. Get help with payments, setup, or any questions you have.',
+  title: 'Contact for Callspoofing Support | REDArmor 2.0',
+  description: 'Contact our admin on Telegram for support with our callspoofing services. Get help with payments, setup, or any questions you have.',
   alternates: {
     canonical: 'https://www.callspoofing.shop/contact',
   },

@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Call Spoofing Terms of Service | REDArmor 2.0',
-  description: 'Read the Terms of Service for using REDArmor 2.0. Understand your responsibilities when using our call spoofing services.',
+  title: 'Callspoofing Terms of Service | REDArmor 2.0',
+  description: 'Read the Terms of Service for using REDArmor 2.0. Understand your responsibilities when using our callspoofing services.',
   alternates: {
     canonical: 'https://www.callspoofing.shop/terms-of-service',
   },

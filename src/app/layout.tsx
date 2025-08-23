@@ -37,22 +37,22 @@ const organizationSchema: WithContext<Organization> = {
 }
 
 export const metadata: Metadata = {
-  title: 'REDArmor 2.0 | #1 Call Spoofing & Voice Changer Service',
-  description: 'Top call spoofing service with a premium voice changer. Secure, anonymous, and reliable communication. Get started today!',
+  title: 'Callspoofing Service by REDArmor 2.0 | #1 Voice Changer',
+  description: 'The #1 callspoofing service with a premium voice changer. Secure, anonymous, and reliable for all your communication needs. Get started today!',
   alternates: {
     canonical: 'https://www.callspoofing.shop',
   },
   openGraph: {
     type: 'website',
     url: 'https://www.callspoofing.shop',
-    title: 'REDArmor 2.0 | #1 Call Spoofing & Voice Changer Service',
-    description: 'Top call spoofing service with a premium voice changer. Secure, anonymous, and reliable communication. Get started today!',
+    title: 'Callspoofing Service by REDArmor 2.0 | #1 Voice Changer',
+    description: 'The #1 callspoofing service with a premium voice changer. Secure, anonymous, and reliable for all your communication needs. Get started today!',
     images: [{ url: 'https://www.callspoofing.shop/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'REDArmor 2.0 | #1 Call Spoofing & Voice Changer Service',
-    description: 'Top call spoofing service with a premium voice changer. Secure, anonymous, and reliable communication. Get started today!',
+    title: 'Callspoofing Service by REDArmor 2.0 | #1 Voice Changer',
+    description: 'The #1 callspoofing service with a premium voice changer. Secure, anonymous, and reliable for all your communication needs. Get started today!',
     images: ['https://www.callspoofing.shop/twitter-image.png'],
   },
   icons: {
