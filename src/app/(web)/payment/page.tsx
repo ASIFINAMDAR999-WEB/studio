@@ -43,7 +43,7 @@ function PaymentPageComponent() {
   const cryptoName = searchParams.get('crypto');
   
   useEffect(() => {
-    document.title = `Complete Payment for ${planName} | REDArmor 2.0`;
+    document.title = `Payment for ${planName} | REDArmor 2.0`;
   }, [planName]);
 
   const isTopUp = planName.includes('Silver Plan');

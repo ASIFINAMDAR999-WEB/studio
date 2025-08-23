@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Callspoofing Privacy Policy | REDArmor 2.0',
-  description: 'Our privacy policy for callspoofing services. We are committed to your anonymity and do not collect or store any personally identifiable information.',
+  title: 'Privacy Policy for Callspoofing Services | REDArmor 2.0',
+  description: 'Review the privacy policy for our callspoofing and VoIP services. We are committed to user anonymity and do not store personally identifiable information.',
   alternates: {
     canonical: 'https://www.callspoofing.shop/privacy-policy',
   },

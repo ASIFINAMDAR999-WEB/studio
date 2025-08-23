@@ -37,22 +37,22 @@ const organizationSchema: WithContext<Organization> = {
 }
 
 export const metadata: Metadata = {
-  title: 'Callspoofing Service by REDArmor 2.0 | #1 Voice Changer',
-  description: 'The #1 callspoofing service with a premium voice changer. Secure, anonymous, and reliable for all your communication needs. Get started today!',
+  title: 'Professional Callspoofing Service & Global VoIP Provider | REDArmor 2.0',
+  description: 'REDArmor 2.0 is the leading global VoIP provider for professional callspoofing services, offering secure SIP trunk access and anonymous communication solutions.',
   alternates: {
     canonical: 'https://www.callspoofing.shop',
   },
   openGraph: {
     type: 'website',
     url: 'https://www.callspoofing.shop',
-    title: 'Callspoofing Service by REDArmor 2.0 | #1 Voice Changer',
-    description: 'The #1 callspoofing service with a premium voice changer. Secure, anonymous, and reliable for all your communication needs. Get started today!',
+    title: 'Professional Callspoofing Service & Global VoIP Provider | REDArmor 2.0',
+    description: 'REDArmor 2.0 is the leading global VoIP provider for professional callspoofing services, offering secure SIP trunk access and anonymous communication solutions.',
     images: [{ url: 'https://www.callspoofing.shop/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Callspoofing Service by REDArmor 2.0 | #1 Voice Changer',
-    description: 'The #1 callspoofing service with a premium voice changer. Secure, anonymous, and reliable for all your communication needs. Get started today!',
+    title: 'Professional Callspoofing Service & Global VoIP Provider | REDArmor 2.0',
+    description: 'REDArmor 2.0 is the leading global VoIP provider for professional callspoofing services, offering secure SIP trunk access and anonymous communication solutions.',
     images: ['https://www.callspoofing.shop/twitter-image.png'],
   },
   icons: {
