@@ -15,14 +15,15 @@ export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
       "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden hover:-translate-y-2 h-full",
-      "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary",
-      "hover:ring-2 hover:ring-primary/50 dark:hover:ring-primary"
+      plan.highlight ? "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary" : "",
+      plan.highlight ? "hover:ring-2 hover:ring-primary/50 dark:hover:ring-primary" : "hover:border-primary/50"
     )}>
-      <div className={cn("absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100", plan.highlight ? "bg-primary/20" : "")} />
-      <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/10 to-transparent opacity-50 -translate-x-full transition-transform duration-700 group-hover:translate-x-0" />
+      {plan.highlight && <div className={cn("absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100", plan.highlight ? "bg-primary/20" : "")} />}
+      {plan.highlight && <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/10 to-transparent opacity-50 -translate-x-full transition-transform duration-700 group-hover:translate-x-0" />}
+      
       <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
-            <CardTitle>{plan.name}</CardTitle>
+            <CardTitle className="text-3xl font-bold">{plan.name}</CardTitle>
             {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white dark:bg-red-600">HOT</Badge>}
         </div>
 
@@ -44,9 +45,11 @@ export function PlanCard({ plan }: { plan: Plan }) {
           <div className="mb-6">
             <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
               <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm">
                 <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
-                {plan.bonus.split(':')[1]}
+                <span className="text-muted-foreground">
+                  {plan.bonus.split(':')[1]}
+                </span>
               </p>
             </div>
           </div>
@@ -66,7 +69,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
            <div className="w-full flex flex-col gap-3">
                 <p className="text-sm font-semibold text-center text-muted-foreground">Select an amount to top-up:</p>
                 {plan.priceOptions.map((price) => (
-                    <Button asChild key={price} className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105">
+                    <Button asChild key={price} variant="outline" className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
                         <Link href={`/payment/select?plan=${encodeURIComponent(`${plan.name} - ${price}`)}`}>
                             {price}
                         </Link>
