@@ -38,7 +38,7 @@ export function FaqSection() {
           <div className="max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <Accordion type="single" collapsible className="w-full space-y-3">
               {faqItems.map((item, index) => (
-                <AccordionItem value={`item-${index+1}`} key={index} className="bg-card border rounded-lg transition-all duration-300 hover:shadow-lg hover:bg-muted/30 hover:border-primary/30">
+                <AccordionItem value={`item-${index+1}`} key={index} className="bg-card border rounded-lg transition-all duration-300 hover:shadow-glow hover:bg-muted/30 hover:border-primary/30">
                   <AccordionTrigger className="text-lg font-semibold text-left hover:no-underline px-6 py-4">
                     {item.question}
                   </AccordionTrigger>

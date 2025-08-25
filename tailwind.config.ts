@@ -18,6 +18,9 @@ export default {
       },
     },
     extend: {
+      boxShadow: {
+        glow: '0 0 15px 0 hsl(var(--primary) / 0.5)',
+      },
       textShadow: {
         glow: '0 0 8px hsl(var(--primary) / 0.5), 0 0 20px hsl(var(--accent) / 0.5)',
       },
