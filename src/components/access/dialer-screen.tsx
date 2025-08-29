@@ -183,7 +183,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
     const secs = (seconds % 60).toString().padStart(2, '0');
-    return `${mins}:${secs.split('').map((char, i) => i === 0 && seconds % 2 !== 0 ? `<span class="opacity-50">${char}</span>` : `<span>${char}</span>`).join('')}`;
+    const isEven = seconds % 2 === 0;
+    return `${mins}<span class="${isEven ? '' : 'opacity-50'}">:</span>${secs}`;
   };
 
   const handleCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -554,5 +555,3 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
-
-    
