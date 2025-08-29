@@ -149,10 +149,6 @@ export default {
           '0%': { transform: 'scale(0.8)', opacity: '1' },
           '100%': { transform: 'scale(1.4)', opacity: '0' },
         },
-        'ringing': {
-          '0%, 100%': { transform: 'scale(1)', 'box-shadow': '0 0 0.5rem 0.25rem hsl(var(--primary) / 0.2)' },
-          '50%': { transform: 'scale(1.05)', 'box-shadow': '0 0 1rem 0.5rem hsl(var(--primary) / 0.4)' },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -164,7 +160,6 @@ export default {
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
         'shake': 'shake 0.3s ease-in-out',
         'pulse-ring': 'pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
-        'ringing': 'ringing 1.5s ease-in-out infinite',
         'ripple': 'ripple 600ms linear'
       },
       backgroundSize: {

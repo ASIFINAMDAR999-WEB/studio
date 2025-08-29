@@ -363,7 +363,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         className={cn(
                             'relative aspect-square rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white active:scale-95 transform-gpu',
                             'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground',
-                             number.length > 1 && 'animate-ringing'
+                             number.length > 1 && 'shadow-glow'
                         )}
                         whileTap={{ scale: 0.95 }}
                         aria-label="Make call"
