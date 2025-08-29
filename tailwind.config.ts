@@ -169,6 +169,9 @@ export default {
       },
       backgroundSize: {
         '200%': '200% 200%',
+      },
+      padding: {
+        'safe': 'env(safe-area-inset-bottom)',
       }
     },
   },
@@ -187,3 +190,5 @@ export default {
     })
   ],
 } satisfies Config;
+
+    

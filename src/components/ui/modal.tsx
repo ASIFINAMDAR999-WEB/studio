@@ -33,7 +33,7 @@ export function Modal({ isOpen, onClose, title, description, children }: ModalPr
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative w-full max-w-md m-4 p-6 bg-card rounded-2xl shadow-2xl border border-border"
+            className="relative w-[90%] max-w-md m-4 p-6 bg-card rounded-2xl shadow-2xl border border-border"
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
             <div className='flex justify-between items-start'>
@@ -58,3 +58,5 @@ export function Modal({ isOpen, onClose, title, description, children }: ModalPr
     </AnimatePresence>
   );
 }
+
+    

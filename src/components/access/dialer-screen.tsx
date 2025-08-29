@@ -183,7 +183,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
     const secs = (seconds % 60).toString().padStart(2, '0');
-    return `${mins}:${secs}`;
+    return `${mins}:${secs.split('').map((char, i) => i === 0 && seconds % 2 !== 0 ? `<span class="opacity-50">${char}</span>` : `<span>${char}</span>`).join('')}`;
   };
 
   const handleCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -250,9 +250,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
             animate="visible"
             exit="exit"
           >
-            <motion.div variants={itemVariants} className="text-center md:flex-grow-0">
+            <motion.div variants={itemVariants} className="text-center md:flex-grow-0 shrink-0">
                 <h1 className="text-2xl font-bold text-foreground">Make a call</h1>
-                <div role="tablist" aria-label="Dialer navigation" className="flex justify-center gap-2 mt-4 mb-6">
+                <div role="tablist" aria-label="Dialer navigation" className="flex justify-center gap-2 mt-4 mb-2 sm:mb-4">
                     <button 
                       role="tab"
                       aria-selected={activeTab === 'dialpad'}
@@ -282,7 +282,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4">
+            <motion.div variants={itemVariants} className="bg-card rounded-xl p-4 space-y-3 mb-4 shrink-0">
               {planName && (
                 <div className="flex justify-between items-center text-sm border-b pb-3 mb-3">
                     <span className="text-muted-foreground flex items-center gap-2">
@@ -325,11 +325,11 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
               </div>
             </motion.div>
 
-            <div className="flex-grow flex flex-col">
+            <div className="flex-grow flex flex-col min-h-0">
               <AnimatePresence mode="wait">
                 {activeTab === 'dialpad' ? (
                   <motion.div key="dialpad-view" role="tabpanel" id="dialpad-panel" aria-labelledby="dialpad-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className='flex flex-col flex-grow'>
-                    <div className="relative mb-4">
+                    <div className="relative mb-4 shrink-0">
                        <label htmlFor="phone-number-input" className="sr-only">Phone Number</label>
                       <Input
                         id="phone-number-input"
@@ -341,17 +341,17 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       />
                     </div>
 
-                    <div className="grid grid-cols-3 gap-3 flex-grow">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3 flex-grow min-h-0">
                       {keypad.map((key, i) => (
                         <motion.button
                           key={i}
                           onClick={() => handleKeyPress(key.digit)}
-                          className="relative aspect-[4/3] sm:aspect-[3/2] rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted transform-gpu"
+                          className="relative aspect-square rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted transform-gpu flex flex-col items-center justify-center"
                           whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
                           aria-label={`Key ${key.digit} ${key.letters}`}
                         >
-                          <span className="text-2xl font-semibold">{key.digit}</span>
-                          <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
+                          <span className="text-2xl sm:text-3xl font-semibold">{key.digit}</span>
+                          <p className="text-[0.5rem] sm:text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
                         </motion.button>
                       ))}
 
@@ -360,13 +360,14 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         onClick={handleCall}
                         disabled={number.length <= 1}
                         className={cn(
-                            'relative aspect-[4/3] sm:aspect-[3/2] rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white active:scale-95 transform-gpu',
-                            'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground'
+                            'relative aspect-square rounded-xl transition-all duration-300 flex items-center justify-center bg-green-500 text-white active:scale-95 transform-gpu',
+                            'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground',
+                             number.length > 1 && 'animate-ringing'
                         )}
                         whileTap={{ scale: 0.95 }}
                         aria-label="Make call"
                       >
-                        <Phone className="h-6 w-6"/>
+                        <Phone className="h-6 w-6 sm:h-7 sm:w-7"/>
                       </motion.button>
                       <motion.button
                         onClick={handleDelete}
@@ -385,13 +386,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     </div>
                   </motion.div>
                 ) : (
-                  <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2">
+                  <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-2 sm:p-4 space-y-2 overflow-y-auto">
                       {callHistory.length > 0 ? (
                         callHistory.map((log, index) => (
                           <button 
                             key={index} 
                             onClick={() => handleHistoryClick(log.number)}
-                            className="flex items-center justify-between p-3 rounded-lg hover:bg-muted text-left w-full"
+                            className="flex items-center justify-between p-3 rounded-lg hover:bg-muted text-left w-full shrink-0"
                             aria-label={`Call ${log.number}`}
                           >
                             <div className="flex items-center gap-3">
@@ -425,7 +426,19 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
               animate="visible"
               exit="exit"
           >
-              <div className="w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white md:rounded-2xl shadow-2xl transform-gpu">
+              <div className="relative w-full flex-grow flex flex-col justify-between items-center p-6 bg-gradient-to-br from-gray-800 to-black text-white md:rounded-2xl shadow-2xl transform-gpu overflow-hidden">
+                <AnimatePresence>
+                  {callStatus === 'connected' && (
+                    <motion.div
+                      className="absolute inset-0 bg-black/20 -z-10"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <div className="absolute inset-1/2 w-0 h-0 rounded-full bg-primary/20 animate-ripple -z-10" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 <div className="text-center pt-8">
                     <motion.h2 
                       className="text-3xl font-bold"
@@ -435,15 +448,16 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       {number}
                     </motion.h2>
                     <motion.p 
-                      className="text-lg text-white/70 mt-2"
+                      className="text-lg text-white/70 mt-2 font-mono"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
                       aria-live="polite"
-                    >
-                        {callStatus === 'calling' && "Calling..."}
-                        {callStatus === 'connected' && formatTime(callTimer)}
-                        {callStatus === 'ended' && "Call Ended"}
-                    </motion.p>
+                      dangerouslySetInnerHTML={{
+                          __html: callStatus === 'calling' ? "Calling..." :
+                                  callStatus === 'connected' ? formatTime(callTimer) :
+                                  "Call Ended"
+                      }}
+                    />
                 </div>
 
                 <div className="w-full max-w-xs">
@@ -459,7 +473,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                             {keypad.map((key, i) => (
                               <motion.button
                                 key={i}
-                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white active:bg-white/30 transform-gpu transition-colors"
+                                className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white active:bg-white/30 transform-gpu transition-colors flex flex-col items-center justify-center"
                                 whileTap={{ scale: 0.95 }}
                                 aria-label={`Keypad ${key.digit}`}
                               >
@@ -498,7 +512,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     </AnimatePresence>
                 </div>
                 
-                <div className="flex justify-center w-full pb-8">
+                <div className="flex justify-center w-full pb-8 pb-safe">
                   <motion.button
                       onClick={handleEndCall}
                       className="w-16 h-16 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center shadow-lg active:scale-95 transform-gpu"
@@ -540,3 +554,5 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
+
+    
