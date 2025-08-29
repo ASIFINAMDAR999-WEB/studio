@@ -32,3 +32,5 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+// Dummy comment for commit
