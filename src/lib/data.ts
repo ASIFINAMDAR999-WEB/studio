@@ -15,7 +15,7 @@ export type Plan = {
 export const plans: Plan[] = [
   {
     name: 'Platinum 1-Month',
-    priceString: '$100',
+    priceString: '$120',
     duration: '/month',
     description: '1 Month Unlimited Calling — For New Clients Only',
     features: [
@@ -36,7 +36,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Gold Plan',
-    priceString: '$90',
+    priceString: '$100',
     duration: '/month',
     description: '1 Month Unlimited Calling — no per-minute charges',
     features: [
