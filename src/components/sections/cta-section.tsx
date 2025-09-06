@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Bot, Video, User, ArrowRight } from 'lucide-react';
+import { Bot, Video, User } from 'lucide-react';
 
 export function CtaSection() {
   const ctaButtons = [
@@ -33,12 +33,12 @@ export function CtaSection() {
       <div className="container px-4 sm:px-6">
         <Card className="bg-primary text-primary-foreground shadow-xl animate-fade-in-up overflow-hidden relative">
            <div className="absolute -top-1/4 -right-1/4 w-1/2 h-[150%] bg-primary-foreground/10 rounded-full blur-3xl opacity-50 animate-float" />
-          <CardContent className="p-6 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left relative z-10">
+          <CardContent className="p-6 sm:p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left relative z-10">
             <div className="flex-1">
               <h2 id="cta-heading" className="text-3xl font-bold">Ready to Get Started?</h2>
               <p className="text-primary-foreground/80 mt-2 max-w-xl mx-auto lg:mx-0">Explore our bots, watch demos, or contact support directly.</p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
+            <div className="flex flex-wrap justify-center gap-4 flex-shrink-0">
               {ctaButtons.map((buttonInfo, index) => (
                 <Button 
                   asChild 
@@ -67,3 +67,5 @@ export function CtaSection() {
     </section>
   );
 }
+
+    

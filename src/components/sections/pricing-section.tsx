@@ -18,7 +18,7 @@ export function PricingSection() {
         </div>
         
         {/* Subscription Plans */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-start justify-center">
           {subscriptionPlans.map((plan, i) => (
             <div key={plan.name} className="animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
                 <PlanCard plan={plan} />
@@ -43,3 +43,5 @@ export function PricingSection() {
     </section>
   );
 }
+
+    

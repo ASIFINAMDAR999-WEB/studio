@@ -227,7 +227,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         onClick={onClick}
         aria-label={ariaLabel || text}
         className={cn(
-          "h-14 w-14 rounded-full flex items-center justify-center transition-colors duration-200 transform-gpu",
+          "h-14 w-14 sm:h-16 sm:w-16 rounded-full flex items-center justify-center transition-colors duration-200 transform-gpu",
           active ? 'bg-white text-gray-800' : 'bg-white/10 hover:bg-white/20 text-white/80'
         )}
         whileTap={{ scale: 0.9 }}
@@ -240,7 +240,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   return (
     <>
-      <div className="w-full max-w-md mx-auto p-4 flex flex-col bg-background">
+      <div className="w-full max-w-sm mx-auto p-2 sm:p-4 flex flex-col bg-background">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
           <motion.div
@@ -337,12 +337,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         type="tel"
                         value={number}
                         onChange={handleNumberChange}
-                        className="bg-card rounded-xl h-14 w-full text-center p-4 text-2xl font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
+                        className="bg-card rounded-xl h-14 w-full text-center p-4 text-2xl lg:text-3xl font-light tracking-wider text-foreground focus:outline-none focus:ring-0 border-none"
                         placeholder="Enter number"
                       />
                     </div>
 
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-3">
                       {keypad.map((key, i) => (
                         <motion.button
                           key={i}
@@ -387,7 +387,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     </div>
                   </motion.div>
                 ) : (
-                  <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2 overflow-y-auto">
+                  <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2 overflow-y-auto max-h-[420px]">
                       {callHistory.length > 0 ? (
                         callHistory.map((log, index) => (
                           <button 
@@ -495,7 +495,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           </motion.div>
                       ) : (
                         <motion.div 
-                          className="grid grid-cols-3 gap-x-6 w-full max-w-xs mx-auto mb-8"
+                          className="grid grid-cols-3 gap-x-4 sm:gap-x-6 w-full max-w-xs mx-auto mb-8"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                         >
@@ -555,3 +555,5 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
+
+    
