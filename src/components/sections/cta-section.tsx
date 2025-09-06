@@ -32,7 +32,7 @@ export function CtaSection() {
     <section id="cta" className="py-20 md:py-28" aria-labelledby="cta-heading">
       <div className="container px-4 sm:px-6">
         <Card className="bg-primary text-primary-foreground shadow-xl animate-fade-in-up overflow-hidden relative">
-           <div className="absolute -top-1/4 -right-1/4 w-1/2 h-[150%] bg-primary-foreground/10 rounded-full blur-3xl opacity-50 animate-float" />
+           <div className="absolute -top-1/4 -right-1/4 w-1/2 h-[150%] bg-primary-foreground/10 rounded-full blur-3xl opacity-50 animate-float transform-gpu" />
           <CardContent className="p-6 sm:p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left relative z-10">
             <div className="flex-1">
               <h2 id="cta-heading" className="text-3xl font-bold">Ready to Get Started?</h2>
@@ -67,5 +67,3 @@ export function CtaSection() {
     </section>
   );
 }
-
-    

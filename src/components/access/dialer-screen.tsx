@@ -421,7 +421,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         ) : (
           <motion.div
               key="in-call"
-              className="flex flex-col h-full items-center justify-between"
+              className="flex flex-col h-full items-center justify-between transform-gpu"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -555,5 +555,3 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
-
-    
