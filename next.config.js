@@ -33,4 +33,4 @@ const nextConfig = {
 
 module.exports = nextConfig;
 
-// This is a new dummy comment for a commit.
+// This is a new dummy comment for a commit. This is for deployment purposes.
