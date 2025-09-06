@@ -14,8 +14,10 @@ const VALID_CODES: Record<string, string> = {
 async function verifyRecaptcha(token: string) {
   if (!RECAPTCHA_SECRET_KEY) {
     console.error("reCAPTCHA secret key is not set.");
-    // For development purposes, if the key is not set, we can bypass verification.
-    // In production, this should throw an error.
+    // In production, we must throw an error. In development, we can bypass.
+    if (process.env.NODE_ENV === 'production') {
+        throw new Error("reCAPTCHA secret key is not set for production.");
+    }
     return { success: true }; 
   }
   

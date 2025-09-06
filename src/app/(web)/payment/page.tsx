@@ -12,6 +12,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { Loader } from '@/components/loader';
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
@@ -214,7 +215,7 @@ function PaymentPageComponent() {
 
 export default function PaymentPage() {
   return (
-    <Suspense fallback={<div className="flex h-screen w-full items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<Loader />}>
       <PaymentPageComponent />
     </Suspense>
   );

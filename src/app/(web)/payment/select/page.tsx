@@ -9,6 +9,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Loader } from '@/components/loader';
 
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -77,7 +78,7 @@ function SelectCryptoComponent() {
 
 export default function SelectCryptoPage() {
     return (
-        <Suspense fallback={<div className="flex h-screen w-full items-center justify-center">Loading...</div>}>
+        <Suspense fallback={<Loader />}>
             <SelectCryptoComponent />
         </Suspense>
     )
