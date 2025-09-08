@@ -1,9 +1,10 @@
 
+
 'use client';
 
 import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,6 +40,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [activeTab, setActiveTab] = useState('dialpad');
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
+  const [tempCallerId, setTempCallerId] = useState('');
   const [callHistory, setCallHistory] = useState<CallLog[]>([]);
 
   // In-call state
@@ -56,11 +58,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   useEffect(() => {
     try {
       const savedCallerId = localStorage.getItem('callerId');
-      if (savedCallerId) {
-        setCallerId(savedCallerId);
-      } else {
-        setCallerId('+');
-      }
+      const initialCallerId = savedCallerId || '+';
+      setCallerId(initialCallerId);
+      setTempCallerId(initialCallerId);
       
       const savedHistory = localStorage.getItem('callHistory');
       if (savedHistory) {
@@ -187,14 +187,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     return `${mins}<span class="${isEven ? '' : 'opacity-50'}">:</span>${secs}`;
   };
 
-  const handleCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTempCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
       let value = e.target.value;
       if (value.toLowerCase() === 'random') {
-        setCallerId('random');
+        setTempCallerId('random');
         return;
       }
       
-      // Allow only digits and a single leading '+'
       const digits = value.replace(/[^\d+]/g, '');
       if (digits.length > 0 && !digits.startsWith('+')) {
         value = `+${digits.replace(/\+/g, '')}`;
@@ -205,8 +204,18 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       }
 
       if (value.length <= 16) {
-        setCallerId(value);
+        setTempCallerId(value);
       }
+  };
+
+  const handleSaveSettings = () => {
+    setCallerId(tempCallerId);
+    setShowSettingsModal(false);
+  };
+  
+  const handleCloseSettings = () => {
+    setTempCallerId(callerId);
+    setShowSettingsModal(false);
   };
 
   const containerVariants = {
@@ -531,25 +540,31 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       
       <Modal
           isOpen={showSettingsModal}
-          onClose={() => setShowSettingsModal(false)}
+          onClose={handleCloseSettings}
           title="Dialer Settings"
       >
-          <div className="space-y-6">
+          <div className="space-y-6 pt-2">
               <div>
-                <Label htmlFor="callerIdInput" className="block text-sm font-medium text-muted-foreground mb-2">
+                <Label htmlFor="callerIdInput" className="text-sm font-medium text-foreground">
                     Caller ID
                 </Label>
-                <Input
-                    id="callerIdInput"
-                    type="text"
-                    inputMode='tel'
-                    value={callerId}
-                    onChange={handleCallerIdChange}
-                    placeholder="+18001234567 or 'random'"
-                    className="w-full"
-                />
-                 <p className='text-xs text-muted-foreground mt-2'>Enter the ID to display. Type 'random' for a random number.</p>
+                <p className='text-xs text-muted-foreground mb-3'>Enter the ID to display. Type 'random' for a random number.</p>
+                <div className="relative">
+                  <ContactRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input
+                      id="callerIdInput"
+                      type="text"
+                      inputMode='tel'
+                      value={tempCallerId}
+                      onChange={handleTempCallerIdChange}
+                      placeholder="+18001234567 or 'random'"
+                      className="w-full pl-10"
+                  />
+                </div>
               </div>
+              <Button onClick={handleSaveSettings} className="w-full">
+                Save
+              </Button>
           </div>
       </Modal>
     </>
