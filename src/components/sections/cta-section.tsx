@@ -38,7 +38,7 @@ export function CtaSection() {
               <h2 id="cta-heading" className="text-3xl font-bold">Ready to Get Started?</h2>
               <p className="text-primary-foreground/80 mt-2 max-w-xl mx-auto lg:mx-0">Explore our bots, watch demos, or contact support directly.</p>
             </div>
-            <div className="flex flex-wrap justify-center gap-4 flex-shrink-0">
+            <div className="flex flex-wrap justify-center lg:justify-end gap-4 flex-shrink-0">
               {ctaButtons.map((buttonInfo, index) => (
                 <Button 
                   asChild 

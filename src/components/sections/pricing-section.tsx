@@ -33,7 +33,7 @@ export function PricingSection() {
               <Separator />
             </div>
             <div className="flex justify-center animate-fade-in-up" style={{animationDelay: '750ms'}}>
-              <div className="w-full lg:max-w-md">
+              <div className="w-full sm:max-w-md">
                 <PlanCard plan={topUpPlan} />
               </div>
             </div>
@@ -43,5 +43,3 @@ export function PricingSection() {
     </section>
   );
 }
-
-    

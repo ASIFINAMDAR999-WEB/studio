@@ -544,7 +544,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     type="text"
                     inputMode='tel'
                     value={callerId}
-                    onChange={handleCallerIdInput}
+                    onChange={handleCallerIdChange}
                     placeholder="+18001234567 or 'random'"
                     className="w-full"
                 />
