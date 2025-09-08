@@ -78,7 +78,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#6A33D3" />
+        <meta name="theme-color" content="#601DE2" />
       </head>
       <body className="font-body antialiased">
         <Providers>{children}</Providers>
