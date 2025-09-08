@@ -499,13 +499,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                         >
-                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text={isMuted ? 'Unmute' : 'Mute'} aria-label={isMuted ? 'Unmute' : 'Mute'}>
+                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text={isMuted ? 'Unmute' : 'Mute'} aria-label={isMuted ? 'Unmute microphone' : 'Mute microphone'}>
                               {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
                             </InCallButton>
                             <InCallButton onClick={() => setShowInCallKeypad(true)} text="Keypad" aria-label="Show keypad">
                               <Grid2x2 className="w-6 h-6"/>
                             </InCallButton>
-                            <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker" aria-label={isSpeaker ? 'Turn off speaker' : 'Turn on speaker'}>
+                            <InCallButton onClick={() => setIsSpeaker(!isSpeaker)} active={isSpeaker} text="Speaker" aria-label={isSpeaker ? 'Turn off speaker phone' : 'Turn on speaker phone'}>
                               <Volume2 className="w-6 h-6"/>
                             </InCallButton>
                         </motion.div>
