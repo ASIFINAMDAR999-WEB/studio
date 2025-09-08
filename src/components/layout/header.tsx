@@ -4,12 +4,13 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Video, User } from 'lucide-react';
 import { NavLinks } from '@/components/layout/nav-links';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,8 +40,12 @@ export function Header() {
                 <X className="h-6 w-6 absolute transition-all scale-0 rotate-90 group-data-[state=open]:scale-100 group-data-[state=open]:rotate-0" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] max-w-sm bg-background/95 backdrop-blur-sm">
-              <SheetHeader>
+            <SheetContent 
+              side="right" 
+              className="w-[85vw] max-w-xs bg-background/95 backdrop-blur-sm p-0 flex flex-col"
+            >
+               <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"></div>
+              <SheetHeader className="p-6 pb-2">
                  <Link href="/" className="flex items-center gap-3 mb-4" onClick={() => setIsMenuOpen(false)}>
                     <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-16_11-58-07-414.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE2XzExLTU4LTA3LTQxNC5wbmciLCJpYXQiOjE3NTUzMjYxMjUsImV4cCI6MjA3MDY4NjEyNX0.HrqwzcCFG0oUt0HEewn9XZC4jXJhrWc_sLq1YGqStqE" alt="REDArmor 2.0 Logo" width={50} height={50} />
                      <span className="text-xl font-bold font-headline text-foreground">
@@ -49,10 +54,25 @@ export function Header() {
                  </Link>
                 <SheetTitle className="sr-only">Menu</SheetTitle>
               </SheetHeader>
-              <Separator className="my-4" />
-              <nav className="flex flex-col gap-2 text-lg">
-                <NavLinks onLinkClick={() => setIsMenuOpen(false)} />
+              <Separator />
+              <nav className="flex-grow flex flex-col p-4 gap-2 text-lg overflow-y-auto">
+                <NavLinks onLinkClick={() => setIsMenuOpen(false)} isMobile />
               </nav>
+              <Separator />
+              <div className="p-4 space-y-3">
+                <Button asChild size="lg" className="w-full justify-start text-base group" variant="ghost">
+                   <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer">
+                      <Video className="mr-3 h-5 w-5 text-primary transition-transform group-hover:rotate-12" />
+                      Watch Demos
+                   </a>
+                </Button>
+                 <Button asChild size="lg" className="w-full justify-start text-base group" variant="ghost">
+                    <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">
+                      <User className="mr-3 h-5 w-5 text-primary transition-transform group-hover:scale-110" />
+                      Contact Admin
+                    </a>
+                </Button>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
@@ -60,5 +80,3 @@ export function Header() {
     </header>
   );
 }
-
-    
