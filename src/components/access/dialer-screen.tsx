@@ -499,7 +499,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                         >
-                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text="Mute" aria-label={isMuted ? 'Unmute' : 'Mute'}>
+                            <InCallButton onClick={() => setIsMuted(!isMuted)} active={isMuted} text={isMuted ? 'Unmute' : 'Mute'} aria-label={isMuted ? 'Unmute' : 'Mute'}>
                               {isMuted ? <MicOff className="w-6 h-6"/> : <Mic className="w-6 h-6"/>}
                             </InCallButton>
                             <InCallButton onClick={() => setShowInCallKeypad(true)} text="Keypad" aria-label="Show keypad">
@@ -544,7 +544,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     type="text"
                     inputMode='tel'
                     value={callerId}
-                    onChange={handleCallerIdChange}
+                    onChange={handleCallerIdInput}
                     placeholder="+18001234567 or 'random'"
                     className="w-full"
                 />
