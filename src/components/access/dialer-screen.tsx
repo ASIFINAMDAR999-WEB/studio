@@ -183,8 +183,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
     const secs = (seconds % 60).toString().padStart(2, '0');
-    const isEven = seconds % 2 === 0;
-    return `${mins}<span class="${isEven ? '' : 'opacity-50'}">:</span>${secs}`;
+    return `${mins}:${secs}`;
   };
 
   const handleTempCallerIdChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -246,6 +245,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       <span className='text-xs text-white/70'>{text}</span>
     </div>
   );
+  
+  const renderCallStatus = () => {
+    if (callStatus === 'calling') return "Calling...";
+    if (callStatus === 'connected') return formatTime(callTimer);
+    if (callStatus === 'ended') return "Call Ended";
+    return "";
+  };
 
   return (
     <>
@@ -462,12 +468,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
                       aria-live="polite"
-                      dangerouslySetInnerHTML={{
-                          __html: callStatus === 'calling' ? "Calling..." :
-                                  callStatus === 'connected' ? formatTime(callTimer) :
-                                  "Call Ended"
-                      }}
-                    />
+                    >
+                      {renderCallStatus()}
+                    </motion.p>
                 </div>
 
                 <div className="w-full max-w-xs">
