@@ -85,6 +85,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
       variants={cardVariants}
       animate={isShaking ? "shaking" : "visible"}
       initial="hidden"
+      exit={{ opacity: 0, y: -50 }}
       role="region"
       aria-labelledby="access-code-heading"
     >

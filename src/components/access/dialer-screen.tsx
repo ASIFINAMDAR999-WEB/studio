@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
@@ -407,7 +406,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transform-gpu"
                         whileTap={{ scale: 0.95 }}
                         disabled={number.length === 0}
-                        aria-label="Delete last digit"
+                        aria-label="Delete last digit. Hold to delete all."
                       >
                         <X className="h-6 w-6" />
                       </motion.button>

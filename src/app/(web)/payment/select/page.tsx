@@ -10,5 +10,5 @@ export default function SelectCryptoPage() {
         <Suspense fallback={<Loader />}>
             <SelectCryptoComponent />
         </Suspense>
-    )
+    );
 }
