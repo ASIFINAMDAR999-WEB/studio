@@ -11,7 +11,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import { Loader } from '@/components/loader';
 
 const addresses: Record<string, { network: string; address: string }> = {
@@ -28,7 +27,9 @@ const addresses: Record<string, { network: string; address: string }> = {
 };
 
 const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
-    usdt: { name: 'USDT (Tether)', networks: ['usdt_trc20', 'usdt_erc20', 'usdt_bep20']},
+    usdt_trc20: { name: 'USDT (Tether)', networks: ['usdt_trc20']},
+    usdt_erc20: { name: 'USDT (Tether)', networks: ['usdt_erc20']},
+    usdt_bep20: { name: 'USDT (Tether)', networks: ['usdt_bep20']},
     btc: { name: 'Bitcoin (BTC)', networks: ['btc']},
     eth: { name: 'Ethereum (ETH)', networks: ['eth']},
     ltc: { name: 'Litecoin (LTC)', networks: ['ltc']},
@@ -41,7 +42,7 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
 function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
-  const cryptoName = searchParams.get('crypto');
+  const cryptoKey = searchParams.get('crypto');
   
   useEffect(() => {
     document.title = `Payment for ${planName} | REDArmor 2.0`;
@@ -70,7 +71,7 @@ function PaymentPageComponent() {
     }
   };
   
-  const selectedCrypto = cryptoName ? cryptoOptions[cryptoName] : null;
+  const selectedCrypto = cryptoKey ? cryptoOptions[cryptoKey] : null;
 
   const instructions = [
     { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">exact amount.</span> Double-check the address and network before sending.</> },
@@ -192,10 +193,10 @@ function PaymentPageComponent() {
                           </li>
                         ))}
                       </ul>
-                       {cryptoName === 'xrp' && (
+                       {cryptoKey === 'xrp' && (
                         <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For XRP, a destination tag is not required.</p>
                       )}
-                      {cryptoName === 'ton' && (
+                      {cryptoKey === 'ton' && (
                         <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For TON, a memo/comment is not required if sending from a private wallet. If sending from an exchange, a memo may be required.</p>
                       )}
                     </div>
