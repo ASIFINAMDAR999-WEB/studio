@@ -5,7 +5,7 @@ const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
 // In a real-world scenario, these codes would be stored securely in a database.
 // The key is the code the user enters, the value is the plan name.
-const VALID_CODES: { [key: string]: string } = {
+const VALID_CODES: Record<string, string> = {
   'platinum:1111': 'Platinum 1-Month',
   'gold:2222': 'Gold Plan',
   'diamond:2222': 'Diamond Plan',
@@ -50,8 +50,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { code, recaptchaToken } = body;
 
-    if (!code || !recaptchaToken) {
-      return NextResponse.json({ error: 'Missing code or reCAPTCHA token' }, { status: 400 });
+    if (!code || typeof code !== 'string' || !recaptchaToken) {
+      return NextResponse.json({ error: 'Missing or invalid code or reCAPTCHA token' }, { status: 400 });
     }
 
     const recaptchaResult = await verifyRecaptcha(recaptchaToken);
