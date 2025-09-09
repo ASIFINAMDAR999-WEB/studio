@@ -1,6 +1,4 @@
 
-'use client';
-
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -31,6 +29,8 @@ const usdtNetworks = [
 ];
 
 function SelectCryptoComponent() {
+  'use client';
+  
   const searchParams = useSearchParams();
   const router = useRouter();
   const planName = searchParams.get('plan');

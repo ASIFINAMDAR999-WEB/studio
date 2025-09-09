@@ -1,7 +1,5 @@
 
-'use client';
-
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -12,6 +10,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import { Loader } from '@/components/loader';
+import { useEffect } from 'react';
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
@@ -40,6 +39,8 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
 }
 
 function PaymentPageComponent() {
+  'use client';
+  
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const cryptoKey = searchParams.get('crypto');
