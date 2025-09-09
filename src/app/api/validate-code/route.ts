@@ -4,38 +4,51 @@ import { NextResponse } from 'next/server';
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
 // In a real-world scenario, these codes would be stored securely in a database.
-const VALID_CODES: Record<string, string> = {
+// The key is the code the user enters, the value is the plan name.
+const VALID_CODES: { [key: string]: string } = {
   'platinum:1111': 'Platinum 1-Month',
   'gold:2222': 'Gold Plan',
   'diamond:2222': 'Diamond Plan',
   'platinum3m:4444': 'Platinum Plan',
 };
 
-async function verifyRecaptcha(token: string) {
+async function verifyRecaptcha(token: string): Promise<{ success: boolean; 'error-codes'?: string[] }> {
   if (!RECAPTCHA_SECRET_KEY) {
     console.error("reCAPTCHA secret key is not set.");
-    // In production, we must throw an error. In development, we can bypass.
+    // In development, we can bypass. In production, this should be a fatal error.
     if (process.env.NODE_ENV === 'production') {
-        throw new Error("reCAPTCHA secret key is not set for production.");
+        throw new Error("reCAPTCHA secret key is not configured for production.");
     }
+    console.warn("Bypassing reCAPTCHA verification in development.");
     return { success: true }; 
   }
   
-  const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
-  });
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
+    });
 
-  const data = await response.json();
-  return data;
+    if (!response.ok) {
+        console.error(`reCAPTCHA verification failed with status: ${response.status}`);
+        return { success: false, 'error-codes': ['recaptcha-request-failed'] };
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error during reCAPTCHA verification request:", error);
+    return { success: false, 'error-codes': ['recaptcha-network-error'] };
+  }
 }
 
 export async function POST(request: Request) {
   try {
-    const { code, recaptchaToken } = await request.json();
+    const body = await request.json();
+    const { code, recaptchaToken } = body;
 
     if (!code || !recaptchaToken) {
       return NextResponse.json({ error: 'Missing code or reCAPTCHA token' }, { status: 400 });
@@ -44,6 +57,7 @@ export async function POST(request: Request) {
     const recaptchaResult = await verifyRecaptcha(recaptchaToken);
 
     if (!recaptchaResult.success) {
+      console.warn('reCAPTCHA verification failed:', recaptchaResult['error-codes']);
       return NextResponse.json({ error: 'Invalid reCAPTCHA. Please try again.' }, { status: 400 });
     }
 
@@ -55,7 +69,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Invalid access code.' }, { status: 401 });
     }
   } catch (error) {
-    console.error('Validation error:', error);
+    console.error('Unhandled error in /api/validate-code:', error);
+    // Return a generic error to the client
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
   }
 }
