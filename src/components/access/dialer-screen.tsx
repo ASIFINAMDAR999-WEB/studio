@@ -42,6 +42,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [callerId, setCallerId] = useState('');
   const [tempCallerId, setTempCallerId] = useState('');
   const [callHistory, setCallHistory] = useState<CallLog[]>([]);
+  const [inCallDtmf, setInCallDtmf] = useState('');
+
 
   // In-call state
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
@@ -130,6 +132,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       }
     }
   };
+  
+  const handleInCallKeyPress = (digit: string) => {
+    setInCallDtmf((prev) => prev + digit);
+  };
 
   const handleDelete = () => {
     setNumber((prev) => prev.slice(0, -1));
@@ -153,6 +159,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setCallStatus('calling');
     setShowInCallKeypad(false);
     setCallTimer(0);
+    setInCallDtmf('');
     
     // Simulate connection time
     setTimeout(() => {
@@ -248,7 +255,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   
   const renderCallStatus = () => {
     if (callStatus === 'calling') return "Calling...";
-    if (callStatus === 'connected') return formatTime(callTimer);
+    if (callStatus === 'connected') {
+       if (inCallDtmf) {
+        return inCallDtmf;
+       }
+       return formatTime(callTimer);
+    }
     if (callStatus === 'ended') return "Call Ended";
     return "";
   };
@@ -464,7 +476,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       {number}
                     </motion.h2>
                     <motion.p 
-                      className="text-lg text-white/70 mt-2 font-mono"
+                      className="text-lg text-white/70 mt-2 font-mono h-7"
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
                       aria-live="polite"
@@ -486,6 +498,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                             {keypad.map((key, i) => (
                               <motion.button
                                 key={i}
+                                onClick={() => handleInCallKeyPress(key.digit)}
                                 className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white active:bg-white/30 transform-gpu transition-colors flex flex-col items-center justify-center"
                                 whileTap={{ scale: 0.95 }}
                                 aria-label={`Keypad ${key.digit}`}

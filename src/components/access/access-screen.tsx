@@ -38,7 +38,6 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
-    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.3, ease: 'easeIn' } },
     shaking: {
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.5 },
@@ -86,7 +85,6 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
       variants={cardVariants}
       animate={isShaking ? "shaking" : "visible"}
       initial="hidden"
-      exit="exit"
       role="region"
       aria-labelledby="access-code-heading"
     >

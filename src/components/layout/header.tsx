@@ -67,7 +67,7 @@ export function Header() {
                    </a>
                 </Button>
                  <Button asChild size="lg" className="w-full justify-start text-base group" variant="ghost">
-                    <a href="https.t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram">
+                    <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram">
                       <User className="mr-3 h-5 w-5 text-primary transition-transform group-hover:scale-110" />
                       Contact Admin
                     </a>
