@@ -9,9 +9,9 @@ import { PricingSection } from '@/components/sections/pricing-section';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
-const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section'));
-const FaqSection = dynamic(() => import('@/components/sections/faq-section'));
-const CtaSection = dynamic(() => import('@/components/sections/cta-section'));
+const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection));
+const FaqSection = dynamic(() => import('@/components/sections/faq-section').then(mod => mod.FaqSection));
+const CtaSection = dynamic(() => import('@/components/sections/cta-section').then(mod => mod.CtaSection));
 
 
 export default function Home() {
