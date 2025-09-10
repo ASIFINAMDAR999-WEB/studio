@@ -17,16 +17,17 @@ export function PlanCard({ plan }: { plan: Plan }) {
       "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden hover:-translate-y-2 h-full transform-gpu",
       "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary"
     )}>
-      {plan.isHot && (
-        <Badge variant="destructive" className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 -rotate-45 z-20 text-sm py-1 px-4 transform-gpu">
-          HOT
-        </Badge>
-      )}
+      
       <div className="absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 -z-10" />
       
       <CardHeader className="p-6 text-center z-10">
-        <div className="flex justify-center items-center gap-4 mb-2">
+        <div className="flex justify-center items-center gap-2 mb-2">
             <CardTitle className="text-3xl font-bold">{plan.name}</CardTitle>
+            {plan.isHot && (
+              <Badge variant="destructive" className="text-sm py-1 px-3">
+                HOT
+              </Badge>
+            )}
         </div>
 
         {plan.priceOptions ? (
