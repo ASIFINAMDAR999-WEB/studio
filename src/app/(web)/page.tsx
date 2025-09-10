@@ -2,11 +2,25 @@
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { HeroSection } from '@/components/sections/hero-section';
-import { FeaturesSection } from '@/components/sections/features-section';
-import { PricingSection } from '@/components/sections/pricing-section';
-import { TestimonialSection } from '@/components/sections/testimonial-section';
-import { FaqSection } from '@/components/sections/faq-section';
-import { CtaSection } from '@/components/sections/cta-section';
+import dynamic from 'next/dynamic';
+import { Loader } from '@/components/loader';
+
+const FeaturesSection = dynamic(() => import('@/components/sections/features-section').then(mod => mod.FeaturesSection), {
+  loading: () => <Loader />,
+});
+const PricingSection = dynamic(() => import('@/components/sections/pricing-section').then(mod => mod.PricingSection), {
+  loading: () => <Loader />,
+});
+const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection), {
+  loading: () => <Loader />,
+});
+const FaqSection = dynamic(() => import('@/components/sections/faq-section').then(mod => mod.FaqSection), {
+  loading: () => <Loader />,
+});
+const CtaSection = dynamic(() => import('@/components/sections/cta-section').then(mod => mod.CtaSection), {
+  loading: () => <Loader />,
+});
+
 
 export default function Home() {
   return (

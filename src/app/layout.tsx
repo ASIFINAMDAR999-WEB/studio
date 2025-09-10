@@ -11,12 +11,14 @@ const ptSans = PT_Sans({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-pt-sans',
+  display: 'swap',
 });
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['700'],
   variable: '--font-poppins',
+  display: 'swap',
 });
 
 const organizationSchema: WithContext<Organization> = {
@@ -73,6 +75,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ptSans.variable} ${poppins.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
+        <link rel="preload" href={ptSans.style.fontFamily} as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href={poppins.style.fontFamily} as="font" type="font/woff2" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
