@@ -8,6 +8,7 @@ export type Plan = {
     cta: string;
     priceOptions?: string[];
     bonus?: string;
+    isHot?: boolean;
 };
 
 export const plans: Plan[] = [
@@ -29,6 +30,7 @@ export const plans: Plan[] = [
       'Leverage Premium SIP Trunk Access',
     ],
     cta: 'Choose Plan',
+    isHot: true,
   },
   {
     name: 'Gold Plan',
@@ -81,6 +83,7 @@ export const plans: Plan[] = [
     ],
     cta: 'Choose Plan',
     bonus: 'Welcome Bonus: New clients receive an entire extra month of service, completely free.',
+    isHot: true,
   },
   {
     name: 'Silver Plan',
