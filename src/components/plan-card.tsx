@@ -18,7 +18,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
       "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary"
     )}>
       {plan.isHot && (
-        <Badge variant="destructive" className="absolute top-0 right-6 -mt-3 z-20 text-sm py-1 px-4">
+        <Badge variant="destructive" className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 -rotate-45 z-20 text-sm py-1 px-4 transform-gpu">
           HOT
         </Badge>
       )}
