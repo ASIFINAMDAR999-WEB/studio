@@ -8,6 +8,7 @@ import { FeaturesSection } from '@/components/sections/features-section';
 import { PricingSection } from '@/components/sections/pricing-section';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
+import { WorldMapSection } from '@/components/sections/world-map-section';
 
 const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection));
 const FaqSection = dynamic(() => import('@/components/sections/faq-section').then(mod => mod.FaqSection));
@@ -68,6 +69,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <FeaturesSection />
+        <WorldMapSection />
         <PricingSection />
         <TestimonialSection />
         <FaqSection />
