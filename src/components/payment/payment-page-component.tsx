@@ -13,16 +13,16 @@ import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 
 const addresses: Record<string, { network: string; address: string }> = {
-  usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
-  usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
-  usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
-  btc: { network: 'Bitcoin (BTC) Network', address: 'bc1q5clkxvk8u9lgfdkq2njutcd0pmxpe08um4mdyw' },
-  eth: { network: 'Ethereum (ETH) Network', address: '0x36da8622EBdD7BF9AA6668fb68Ec18870CCCDAAC' },
-  ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1qwumrvhys9nmp7my4pjnzdcepx9zwcwnhnuwxxs' },
-  xrp: { network: 'Ripple (XRP) Network', address: 'rf8nfQ2AZhHiJKkQTeaVqtX3NzckCSbSqV' },
-  sol: { network: 'Solana (SOL) Network', address: '7hkJe4QF6ricWwp9T2i4Bb1KthjyhGiwyrx4C6DoTSek' },
-  trx: { network: 'Tron (TRX) TRC-20 Network', address: 'THcpxC6Tzye4vaYxLcP2ufkbhy7XMCVdRc' },
-  ton: { network: 'TON', address: 'UQD-gSWrtQMc0ZqDxjtv2u0uEUunx9VNcJfWtj_k6C0ucv0p' },
+  usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THfGmkAHRBFtvQBn5JzVfvSmGeoWiakmQC' },
+  usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
+  usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
+  btc: { network: 'Bitcoin (BTC) Network', address: 'bc1qrl0c5tyr7hcpa7na8025sgt85aefazun5d4rmy' },
+  eth: { network: 'Ethereum (ETH) Network', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
+  ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1q0vnwl9guz7pd3dgjl5swl8gl4733mgch0mslqd' },
+  xrp: { network: 'Ripple (XRP) Network', address: 'rBs9Hq2srqPu8KA7gheBE257GRJg3Xa8jS' },
+  sol: { network: 'Solana (SOL) Network', address: 'BS2PW1znWhf1ypSYSuWvmLXzX1BYU6n9P7DB34VNDk6E' },
+  trx: { network: 'Tron (TRX) TRC-20 Network', address: 'THfGmkAHRBFtvQBn5JzVfvSmGeoWiakmQC' },
+  ton: { network: 'TON', address: 'UQCTDuH5udkgZDqvhmhmOHhG7NazA7g85-PUqj63jutnGXBI' },
 };
 
 const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
