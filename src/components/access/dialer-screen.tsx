@@ -489,7 +489,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       {showInCallKeypad ? (
                           <motion.div
                             key="in-call-keypad"
-                            className="w-full grid grid-cols-3 gap-3 mb-6"
+                            className="w-full grid grid-cols-3 gap-2 sm:gap-3 mb-6"
                             initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 50 }}
@@ -502,8 +502,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                                 whileTap={{ scale: 0.95 }}
                                 aria-label={`Keypad ${key.digit}`}
                               >
-                                <span className="text-2xl font-semibold">{key.digit}</span>
-                                {key.letters && <p className="text-xs tracking-widest uppercase">{key.letters}</p>}
+                                <span className="text-2xl sm:text-3xl font-semibold">{key.digit}</span>
+                                {key.letters && <p className="text-[10px] sm:text-xs tracking-widest uppercase">{key.letters}</p>}
                               </motion.button>
                             ))}
                             <div/>
