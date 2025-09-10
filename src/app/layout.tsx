@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Call Spoofing | REDArmor 2.0',
     description: 'REDArmor 2.0 — global VOIP call provider offering advanced Call Spoofing, SIP trunking, IVR and DTMF. Secure, private, and reliable voice services worldwide.',
-    images: ['https://www.callspoofing.shop/twitter-image.png'],
+    images: ['https://www.callspoofing.shop/og-image.png'],
   },
   icons: {
     icon: [

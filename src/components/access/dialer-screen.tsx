@@ -501,7 +501,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                                 onClick={() => handleInCallKeyPress(key.digit)}
                                 className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white active:bg-white/30 transform-gpu transition-colors flex flex-col items-center justify-center"
                                 whileTap={{ scale: 0.95 }}
-                                aria-label={`Keypad ${key.digit}`}
+                                aria-label={`Keypad ${key.digit} ${key.letters}`}
                               >
                                 <span className="text-2xl sm:text-3xl font-semibold">{key.digit}</span>
                                 {key.letters && <p className="text-[10px] sm:text-xs tracking-widest uppercase">{key.letters}</p>}

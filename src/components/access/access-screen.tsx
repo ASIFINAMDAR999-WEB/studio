@@ -128,7 +128,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
                 sitekey={RECAPTCHA_SITE_KEY}
                 onChange={(token) => setRecaptchaToken(token)}
                 onExpired={() => setRecaptchaToken(null)}
-                theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
+                theme={'light'}
               />
             </div>
 
