@@ -75,8 +75,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ptSans.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="preload" href={ptSans.style.fontFamily} as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href={poppins.style.fontFamily} as="font" type="font/woff2" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

@@ -9,9 +9,9 @@ import { PricingSection } from '@/components/sections/pricing-section';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
-const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection), { ssr: false });
-const FaqSection = dynamic(() => import('@/components/sections/faq-section').then(mod => mod.FaqSection), { ssr: false });
-const CtaSection = dynamic(() => import('@/components/sections/cta-section').then(mod => mod.CtaSection), { ssr: false });
+const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection));
+const FaqSection = dynamic(() => import('@/components/sections/faq-section').then(mod => mod.FaqSection));
+const CtaSection = dynamic(() => import('@/components/sections/cta-section').then(mod => mod.CtaSection));
 
 
 export default function Home() {
@@ -46,10 +46,10 @@ export default function Home() {
       if (anchor) {
         const href = anchor.getAttribute('href');
         if (href && href.length > 1) {
-          event.preventDefault();
           const element = document.querySelector(href);
           if (element) {
-            smoothScroll(element, 800); // 800ms duration for a slower scroll
+            event.preventDefault();
+            smoothScroll(element, 800);
           }
         }
       }
