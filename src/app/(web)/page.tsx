@@ -1,9 +1,12 @@
 
+'use client';
+
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { HeroSection } from '@/components/sections/hero-section';
 import dynamic from 'next/dynamic';
 import { Loader } from '@/components/loader';
+import { useEffect } from 'react';
 
 const FeaturesSection = dynamic(() => import('@/components/sections/features-section').then(mod => mod.FeaturesSection), {
   loading: () => <Loader />,
@@ -23,6 +26,30 @@ const CtaSection = dynamic(() => import('@/components/sections/cta-section').the
 
 
 export default function Home() {
+  useEffect(() => {
+    const handleAnchorClick = (event: MouseEvent) => {
+      const target = event.target as HTMLAnchorElement;
+      const href = target.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        event.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', handleAnchorClick as EventListener);
+    });
+
+    return () => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.removeEventListener('click', handleAnchorClick as EventListener);
+      });
+    };
+  }, []);
+
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />

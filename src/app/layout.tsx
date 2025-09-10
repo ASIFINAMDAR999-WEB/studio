@@ -73,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ptSans.variable} ${poppins.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${ptSans.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preload" href={ptSans.style.fontFamily} as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href={poppins.style.fontFamily} as="font" type="font/woff2" crossOrigin="anonymous" />
