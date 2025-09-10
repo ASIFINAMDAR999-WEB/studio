@@ -16,7 +16,7 @@ const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THfGmkAHRBFtvQBn5JzVfvSmGeoWiakmQC' },
   usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
   usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
-  btc: { network: 'Bitcoin (BTC) Network', address: 'bc1qrl0c5tyr7hcpa7na8025sgt85aefazun5d4rmy' },
+  btc: { network: 'Bitcoin (BTC) Network', address: 'bc1qu7c0sgs4a8mwj2gsmhr638k8v9phdc4n4w6tay' },
   eth: { network: 'Ethereum (ETH) Network', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
   ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1q0vnwl9guz7pd3dgjl5swl8gl4733mgch0mslqd' },
   xrp: { network: 'Ripple (XRP) Network', address: 'rBs9Hq2srqPu8KA7gheBE257GRJg3Xa8jS' },
