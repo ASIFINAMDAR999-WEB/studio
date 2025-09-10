@@ -1,4 +1,5 @@
 
+import Image from 'next/image';
 import { ShieldCheck, Zap, Coins, Headset, Globe } from 'lucide-react';
 
 export function FeaturesSection() {
@@ -31,8 +32,21 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="py-20 md:py-28 bg-card" aria-labelledby="features-heading">
-      <div className="container px-4 sm:px-6">
+    <section id="features" className="py-20 md:py-28 bg-card relative overflow-hidden" aria-labelledby="features-heading">
+      <div className="absolute inset-0 flex items-center justify-center -z-0">
+        <Image
+          src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-10_19-47-45-483.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEwXzE5LTQ3LTQ1LTQ4My5wbmciLCJpYXQiOjE3NTc1MTM5OTcsImV4cCI6MjA3Mjg3Mzk5N30.VkMQ0YzgMTKXPqI06HIz9e2z1RKGtVJTjJt6GtmLnCs"
+          alt="World Map"
+          width={1200}
+          height={600}
+          className="w-full max-w-6xl h-auto object-contain opacity-5 dark:opacity-100 dark:filter dark:grayscale dark:invert-[15%] dark:brightness-50 dark:saturate-[5] dark:hue-rotate-[200deg] dark:blur-sm dark:animate-pulse"
+          style={{
+            maskImage: 'radial-gradient(ellipse at center, white 30%, transparent 70%)',
+          }}
+          data-ai-hint="world map background"
+        />
+      </div>
+      <div className="container px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
           <p className="mt-4 text-muted-foreground">
