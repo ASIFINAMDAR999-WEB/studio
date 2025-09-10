@@ -76,7 +76,7 @@ export default function ContactPage() {
           </div>
 
           <div className="max-w-3xl mx-auto mt-16 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <Card className="bg-card/80 backdrop-blur-sm border hover:border-transparent transition-colors duration-300 hover:border-primary/30">
+            <Card className="bg-card/80 backdrop-blur-sm border border-primary/30 shadow-glow transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-xl">Looking for Quick Answers?</CardTitle>
                 <CardDescription>Check our resources before reaching out. You might find what you need instantly.</CardDescription>
