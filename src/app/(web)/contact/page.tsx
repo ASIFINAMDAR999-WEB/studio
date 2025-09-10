@@ -41,7 +41,7 @@ export default function ContactPage() {
 
           <div className="max-w-2xl mx-auto relative z-10">
              <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-                <Card className="shadow-lg hover:shadow-glow transition-all duration-500 bg-card/80 backdrop-blur-sm border hover:border-primary">
+                <Card className="shadow-lg shadow-glow transition-all duration-500 bg-card/80 backdrop-blur-sm border border-primary">
                     <CardHeader className="text-center">
                         <CardTitle className="text-2xl flex items-center justify-center gap-3">
                            <Send className="w-7 h-7 text-primary" />
