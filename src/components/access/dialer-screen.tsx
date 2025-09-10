@@ -106,28 +106,31 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
-    // Keep only digits from the input
-    const digits = rawValue.replace(/[^\d]/g, '');
-    
-    // Always start with a '+'
-    let formattedValue = `+${digits}`;
+    // Allow only digits and the initial '+'
+    const sanitized = rawValue.replace(/[^\d+]/g, '');
 
-    // Limit length
+    let formattedValue = sanitized;
+    // Ensure it starts with '+'
+    if (!formattedValue.startsWith('+')) {
+      formattedValue = `+${formattedValue.replace(/\+/g, '')}`;
+    }
+
+    // Prevent multiple '+'
+    if ((formattedValue.match(/\+/g) || []).length > 1) {
+      formattedValue = `+${formattedValue.replace(/\+/g, '')}`;
+    }
+
     if (formattedValue.length > 16) {
       formattedValue = formattedValue.slice(0, 16);
     }
-
+    
     setNumber(formattedValue);
   };
 
 
   const handleKeyPress = (digit: string) => {
     if (number.length < 16) {
-      if (number.length === 0 && digit !== '+') {
-        setNumber('+' + digit);
-      } else if (digit !== '+' || number.length === 0) {
         setNumber((prev) => prev + digit);
-      }
     }
   };
   

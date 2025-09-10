@@ -24,10 +24,16 @@ export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
   ];
 
   const checkIsActive = (href: string) => {
+    // For anchor links on the homepage, check the hash
     if (href.startsWith('/#')) {
-      return pathname === '/' && window.location.hash === href.substring(1);
+      if (typeof window !== 'undefined') {
+        return pathname === '/' && window.location.hash === href.substring(1);
+      }
+      return false;
     }
-    return pathname.startsWith(href) && (href !== '/' || pathname === '/');
+    // For other links, check if the current path starts with the href
+    // This correctly handles parent routes (e.g., /payment/select is active for /payment)
+    return pathname.startsWith(href);
   };
 
   if (!isMobile) {

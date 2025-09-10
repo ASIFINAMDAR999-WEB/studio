@@ -18,7 +18,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const { resolvedTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     inputRef.current?.focus();
