@@ -51,6 +51,7 @@ export default function BotsPage() {
               background: `radial-gradient(600px circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 80%)`,
             }}
           />
+          <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"></div>
           <div className="text-center mb-16 animate-fade-in-up relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Our Telegram Bots
@@ -65,7 +66,7 @@ export default function BotsPage() {
                <div 
                 key={index}
                 className="animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <Card className="group h-full flex flex-col justify-between overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 border hover:border-primary/50">
                     <CardHeader className="flex flex-row items-center gap-4">

@@ -22,7 +22,6 @@ export function PlanCard({ plan }: { plan: Plan }) {
       <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
             <CardTitle className="text-3xl font-bold">{plan.name}</CardTitle>
-            {plan.isHot && <Badge variant="destructive" className="bg-red-500 text-white dark:bg-red-600">HOT</Badge>}
         </div>
 
         {plan.priceOptions ? (

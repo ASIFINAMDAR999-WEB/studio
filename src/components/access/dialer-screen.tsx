@@ -466,7 +466,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <div className="text-center pt-8">
+                <div className="text-center pt-8 relative">
+                     {callStatus === 'connected' && <div className="absolute inset-0 -m-4 rounded-full border-2 border-primary/50 animate-pulse-ring -z-10" />}
                     <motion.h2 
                       className="text-3xl font-bold"
                       initial={{ y: 20, opacity: 0 }}

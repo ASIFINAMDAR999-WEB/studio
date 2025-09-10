@@ -5,9 +5,7 @@ export type Plan = {
     duration: string;
     description: string;
     features: string[];
-    highlight: boolean;
     cta: string;
-    isHot?: boolean;
     priceOptions?: string[];
     bonus?: string;
 };
@@ -30,8 +28,6 @@ export const plans: Plan[] = [
       'Spoof Premium Toll-Free Numbers',
       'Leverage Premium SIP Trunk Access',
     ],
-    highlight: true,
-    isHot: true,
     cta: 'Choose Plan',
   },
   {
@@ -44,8 +40,6 @@ export const plans: Plan[] = [
       'Use the Standard Voice Changer',
       'Full Access to Website & Application',
     ],
-    highlight: false,
-    isHot: false,
     cta: 'Choose Plan',
   },
   {
@@ -64,8 +58,6 @@ export const plans: Plan[] = [
       'Spoof Toll-Free Numbers',
       'Standard SIP Trunk Access (inbound & outbound)',
     ],
-    highlight: false,
-    isHot: false,
     cta: 'Choose Plan',
     bonus: 'Welcome Bonus: New clients receive an extra 15 days of service, completely free.',
   },
@@ -87,8 +79,6 @@ export const plans: Plan[] = [
       'Spoof Premium Toll-Free Numbers',
       'Leverage Premium SIP Trunk Access',
     ],
-    highlight: true,
-    isHot: true,
     cta: 'Choose Plan',
     bonus: 'Welcome Bonus: New clients receive an entire extra month of service, completely free.',
   },
@@ -102,8 +92,6 @@ export const plans: Plan[] = [
         "Top-up and manage your eSIM data plans",
         "Credits do not apply to call spoofing plans",
     ],
-    highlight: false,
-    isHot: false,
     cta: '', // CTA is handled by the price options now
     priceOptions: ['$50', '$100', '$250', '$500'],
   },

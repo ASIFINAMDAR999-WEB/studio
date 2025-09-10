@@ -40,7 +40,7 @@ export default function ContactPage() {
           </div>
 
           <div className="max-w-2xl mx-auto relative z-10">
-             <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+             <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
                 <Card className="shadow-2xl hover:shadow-glow transition-all duration-500 bg-card/80 backdrop-blur-sm border hover:border-primary">
                     <CardHeader className="text-center">
                         <CardTitle className="text-2xl flex items-center justify-center gap-3">
@@ -75,7 +75,7 @@ export default function ContactPage() {
              </div>
           </div>
 
-          <div className="max-w-3xl mx-auto mt-16 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+          <div className="max-w-3xl mx-auto mt-16 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
             <Card className="bg-card/80 backdrop-blur-sm border hover:border-transparent transition-colors duration-300 hover:border-primary/30">
               <CardHeader>
                 <CardTitle className="text-xl">Looking for Quick Answers?</CardTitle>
