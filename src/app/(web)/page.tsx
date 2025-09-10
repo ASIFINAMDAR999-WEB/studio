@@ -28,25 +28,26 @@ const CtaSection = dynamic(() => import('@/components/sections/cta-section').the
 export default function Home() {
   useEffect(() => {
     const handleAnchorClick = (event: MouseEvent) => {
-      const target = event.target as HTMLAnchorElement;
-      const href = target.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        event.preventDefault();
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+      const target = event.target as HTMLElement;
+      // Find the closest anchor tag, which may be the target itself or a parent
+      const anchor = target.closest('a[href^="#"]');
+
+      if (anchor) {
+        const href = anchor.getAttribute('href');
+        if (href) {
+          event.preventDefault();
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
         }
       }
     };
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', handleAnchorClick as EventListener);
-    });
+    document.addEventListener('click', handleAnchorClick);
 
     return () => {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', handleAnchorClick as EventListener);
-      });
+      document.removeEventListener('click', handleAnchorClick);
     };
   }, []);
 
