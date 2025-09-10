@@ -27,18 +27,40 @@ const CtaSection = dynamic(() => import('@/components/sections/cta-section').the
 
 export default function Home() {
   useEffect(() => {
+    const smoothScroll = (targetElement: Element, duration: number) => {
+      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      let startTime: number | null = null;
+
+      const ease = (t: number, b: number, c: number, d: number) => {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+      };
+
+      const animation = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        window.scrollTo(0, ease(timeElapsed, startPosition, distance, duration));
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      };
+
+      requestAnimationFrame(animation);
+    };
+
     const handleAnchorClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      // Find the closest anchor tag, which may be the target itself or a parent
       const anchor = target.closest('a[href^="#"]');
 
       if (anchor) {
         const href = anchor.getAttribute('href');
-        if (href) {
+        if (href && href.length > 1) {
           event.preventDefault();
           const element = document.querySelector(href);
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            smoothScroll(element, 800); // 800ms duration for a slower scroll
           }
         }
       }
