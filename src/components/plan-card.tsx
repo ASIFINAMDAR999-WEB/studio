@@ -15,10 +15,9 @@ export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
       "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden hover:-translate-y-2 h-full",
-      plan.highlight ? "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary" : "border-border",
-      "hover:ring-2 hover:ring-primary/50"
+      "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary"
     )}>
-      {plan.highlight && <div className="absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 -z-10" />}
+      <div className="absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 -z-10" />
       
       <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
