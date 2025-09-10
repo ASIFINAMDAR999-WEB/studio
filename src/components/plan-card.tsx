@@ -15,11 +15,10 @@ export function PlanCard({ plan }: { plan: Plan }) {
   return (
     <Card className={cn(
       "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden hover:-translate-y-2 h-full",
-      "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary",
-      "hover:ring-2 hover:ring-primary/50 dark:hover:ring-primary"
+      plan.highlight ? "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary" : "border-border",
+      "hover:ring-2 hover:ring-primary/50"
     )}>
-      {plan.highlight && <div className={cn("absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100", plan.highlight ? "bg-primary/20" : "")} />}
-      {plan.highlight && <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/10 to-transparent opacity-50 -translate-x-full transition-transform duration-700 group-hover:translate-x-0" />}
+      {plan.highlight && <div className="absolute top-0 left-0 w-full h-full bg-primary/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100 -z-10" />}
       
       <CardHeader className="p-6 text-center z-10">
         <div className="flex justify-center items-center gap-4 mb-2">
@@ -69,7 +68,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
            <div className="w-full flex flex-col gap-3">
                 <p className="text-sm font-semibold text-center text-muted-foreground">Select an amount to top-up:</p>
                 {plan.priceOptions.map((price) => (
-                    <Button asChild key={price} variant="outline" className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Button asChild key={price} variant="outline" className="w-full text-lg py-6 transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
                         <Link href={`/payment/select?plan=${encodeURIComponent(`${plan.name} - ${price}`)}`}>
                             {price}
                         </Link>
