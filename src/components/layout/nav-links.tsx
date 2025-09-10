@@ -23,11 +23,18 @@ export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
     { href: "/access", label: "Access", icon: <ShieldCheck className="h-5 w-5" /> },
   ];
 
+  const checkIsActive = (href: string) => {
+    if (href.startsWith('/#')) {
+      return pathname === '/' && window.location.hash === href.substring(1);
+    }
+    return pathname.startsWith(href) && (href !== '/' || pathname === '/');
+  };
+
   if (!isMobile) {
     return (
       <>
         {links.map((link) => {
-          const isActive = pathname === link.href;
+          const isActive = checkIsActive(link.href);
           return (
               <Link 
                 key={link.href}
@@ -49,7 +56,7 @@ export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
   return (
     <>
       {links.map((link) => {
-        const isActive = pathname === link.href;
+        const isActive = checkIsActive(link.href);
         return (
             <Link 
               key={link.href}

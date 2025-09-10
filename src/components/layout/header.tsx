@@ -34,13 +34,20 @@ export function Header() {
            <ThemeToggle />
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden ml-2 h-10 w-10 group">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="md:hidden ml-2 h-10 w-10 group"
+                aria-controls="mobile-menu"
+                aria-expanded={isMenuOpen}
+              >
                 <span className="sr-only">Toggle Menu</span>
                 <Menu className="h-6 w-6 absolute transition-all scale-100 rotate-0 group-data-[state=open]:scale-0 group-data-[state=open]:-rotate-90" />
                 <X className="h-6 w-6 absolute transition-all scale-0 rotate-90 group-data-[state=open]:scale-100 group-data-[state=open]:rotate-0" />
               </Button>
             </SheetTrigger>
             <SheetContent 
+              id="mobile-menu"
               side="right" 
               className="w-[85vw] max-w-xs bg-background/95 backdrop-blur-sm p-0 flex flex-col"
             >

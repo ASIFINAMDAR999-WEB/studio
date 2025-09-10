@@ -105,20 +105,19 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   }, [callStatus]);
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    // Allow only digits and a single leading '+'
-    const digits = value.replace(/[^\d+]/g, '');
-    if (digits.length > 0 && !digits.startsWith('+')) {
-      value = `+${digits.replace(/\+/g, '')}`;
-    } else if (digits.startsWith('+')) {
-      value = '+' + digits.slice(1).replace(/\+/g, '');
-    } else {
-      value = digits;
-    }
+    const rawValue = e.target.value;
+    // Keep only digits from the input
+    const digits = rawValue.replace(/[^\d]/g, '');
     
-    if (value.length <= 16) {
-      setNumber(value);
+    // Always start with a '+'
+    let formattedValue = `+${digits}`;
+
+    // Limit length
+    if (formattedValue.length > 16) {
+      formattedValue = formattedValue.slice(0, 16);
     }
+
+    setNumber(formattedValue);
   };
 
 

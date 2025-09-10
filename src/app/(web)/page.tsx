@@ -6,51 +6,31 @@ import { Footer } from '@/components/layout/footer';
 import { HeroSection } from '@/components/sections/hero-section';
 import { FeaturesSection } from '@/components/sections/features-section';
 import { PricingSection } from '@/components/sections/pricing-section';
+import { FaqSection } from '@/components/sections/faq-section';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 
 const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection));
-const FaqSection = dynamic(() => import('@/components/sections/faq-section').then(mod => mod.FaqSection));
 const CtaSection = dynamic(() => import('@/components/sections/cta-section').then(mod => mod.CtaSection));
 
 
 export default function Home() {
   useEffect(() => {
-    const smoothScroll = (targetElement: Element, duration: number) => {
-      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-      const startPosition = window.pageYOffset;
-      const distance = targetPosition - startPosition;
-      let startTime: number | null = null;
-
-      const ease = (t: number, b: number, c: number, d: number) => {
-        t /= d / 2;
-        if (t < 1) return c / 2 * t * t + b;
-        t--;
-        return -c / 2 * (t * (t - 2) - 1) + b;
-      };
-
-      const animation = (currentTime: number) => {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        window.scrollTo(0, ease(timeElapsed, startPosition, distance, duration));
-        if (timeElapsed < duration) requestAnimationFrame(animation);
-      };
-
-      requestAnimationFrame(animation);
-    };
-
     const handleAnchorClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const anchor = target.closest('a[href^="#"]');
+      const anchor = (event.target as HTMLElement).closest('a[href^="/#"]');
 
       if (anchor) {
+        event.preventDefault();
         const href = anchor.getAttribute('href');
-        if (href && href.length > 1) {
-          const element = document.querySelector(href);
-          if (element) {
-            event.preventDefault();
-            smoothScroll(element, 800);
-          }
+        if (href) {
+            const elementId = href.substring(2);
+            const element = document.getElementById(elementId);
+            if (element) {
+              window.scrollTo({
+                top: element.offsetTop - 80, // Adjust for header height
+                behavior: 'smooth',
+              });
+            }
         }
       }
     };
