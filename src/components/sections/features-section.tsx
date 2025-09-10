@@ -53,7 +53,7 @@ export function FeaturesSection() {
             We provide a robust set of features to ensure you have the best experience.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 justify-center">
           {features.map((feature, index) => (
             <div key={index} className="text-center p-4 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
               <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
