@@ -187,14 +187,16 @@ export function PaymentPageComponent() {
                             })}
                              {qrCodeUrl && (
                                 <div className="mt-4 flex flex-col items-center">
+                                  <div className="p-4 bg-muted/30 rounded-lg border shadow-inner">
                                     <Image
                                         src={qrCodeUrl}
                                         alt={`${selectedCrypto.name} QR Code`}
                                         width={200}
                                         height={200}
-                                        className="rounded-lg shadow-md"
+                                        className="rounded-lg"
                                         data-ai-hint="qr code"
                                     />
+                                  </div>
                                 </div>
                             )}
                         </div>
@@ -239,3 +241,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
