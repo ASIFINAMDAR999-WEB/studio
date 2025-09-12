@@ -174,7 +174,7 @@ export function PaymentPageComponent() {
                                 )
                             })}
                              {cryptoKey === 'btc' && (
-                                <div className="mt-4 flex flex-col items-center gap-4">
+                                <div className="mt-4 flex flex-col items-center">
                                     <Image
                                         src={btcQrCodeUrl}
                                         alt="Bitcoin QR Code"
@@ -183,12 +183,6 @@ export function PaymentPageComponent() {
                                         className="rounded-lg shadow-md"
                                         data-ai-hint="qr code"
                                     />
-                                    <Button variant="outline" asChild>
-                                      <a href={btcQrCodeUrl} download="redarmor-btc-qr.png">
-                                        <Download className="mr-2 h-4 w-4" />
-                                        Download QR
-                                      </a>
-                                    </Button>
                                 </div>
                             )}
                         </div>
