@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Download } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -38,6 +38,8 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
     trx: { name: 'Tron (TRX)', networks: ['trx']},
     ton: { name: 'TON', networks: ['ton']},
 }
+
+const btcQrCodeUrl = "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_08-27-20-430.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA4LTI3LTIwLTQzMC5wbmciLCJpYXQiOjE3NTc2NDY2NTksImV4cCI6MjA3MzAwNjY1OX0._0MZqMTJArQqibbrTsuf_JN373_MK8SwN-OjnMpiogo";
 
 export function PaymentPageComponent() {
   const searchParams = useSearchParams();
@@ -172,15 +174,21 @@ export function PaymentPageComponent() {
                                 )
                             })}
                              {cryptoKey === 'btc' && (
-                                <div className="mt-4 flex justify-center">
+                                <div className="mt-4 flex flex-col items-center gap-4">
                                     <Image
-                                        src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_08-27-20-430.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA4LTI3LTIwLTQzMC5wbmciLCJpYXQiOjE3NTc2NDY2NTksImV4cCI6MjA3MzAwNjY1OX0._0MZqMTJArQqibbrTsuf_JN373_MK8SwN-OjnMpiogo"
+                                        src={btcQrCodeUrl}
                                         alt="Bitcoin QR Code"
                                         width={200}
                                         height={200}
                                         className="rounded-lg shadow-md"
                                         data-ai-hint="qr code"
                                     />
+                                    <Button variant="outline" asChild>
+                                      <a href={btcQrCodeUrl} download="redarmor-btc-qr.png">
+                                        <Download className="mr-2 h-4 w-4" />
+                                        Download QR
+                                      </a>
+                                    </Button>
                                 </div>
                             )}
                         </div>
