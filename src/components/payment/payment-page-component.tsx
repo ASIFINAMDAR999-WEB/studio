@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THfGmkAHRBFtvQBn5JzVfvSmGeoWiakmQC' },
@@ -170,6 +171,18 @@ export function PaymentPageComponent() {
                                     </div>
                                 )
                             })}
+                             {cryptoKey === 'btc' && (
+                                <div className="mt-4 flex justify-center">
+                                    <Image
+                                        src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_08-27-20-430.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA4LTI3LTIwLTQzMC5wbmciLCJpYXQiOjE3NTc2NDY2NTksImV4cCI6MjA3MzAwNjY1OX0._0MZqMTJArQqibbrTsuf_JN373_MK8SwN-OjnMpiogo"
+                                        alt="Bitcoin QR Code"
+                                        width={200}
+                                        height={200}
+                                        className="rounded-lg shadow-md"
+                                        data-ai-hint="qr code"
+                                    />
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <div className="text-center py-8">

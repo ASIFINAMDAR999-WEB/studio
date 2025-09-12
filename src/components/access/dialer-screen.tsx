@@ -62,15 +62,24 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       const initialCallerId = savedCallerId || '+';
       setCallerId(initialCallerId);
       setTempCallerId(initialCallerId);
-      
+
       const savedHistory = localStorage.getItem('callHistory');
       if (savedHistory) {
-        setCallHistory(JSON.parse(savedHistory));
+        try {
+          const parsedHistory = JSON.parse(savedHistory);
+          if (Array.isArray(parsedHistory)) {
+            setCallHistory(parsedHistory);
+          }
+        } catch (e) {
+          console.error("Failed to parse call history from localStorage", e);
+          setCallHistory([]); // Fallback to an empty array
+        }
       }
     } catch (error) {
       console.error("Failed to access localStorage", error);
     }
   }, []);
+
 
   // Save state to localStorage whenever it changes
   useEffect(() => {
@@ -105,26 +114,22 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   }, [callStatus]);
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    // Allow only digits and the initial '+'
-    const sanitized = rawValue.replace(/[^\d+]/g, '');
-
-    let formattedValue = sanitized;
-    // Ensure it starts with '+'
-    if (!formattedValue.startsWith('+')) {
-      formattedValue = `+${formattedValue.replace(/\+/g, '')}`;
+    const value = e.target.value;
+    const sanitized = value.replace(/[^\d+]/g, '');
+    let formatted = '+';
+  
+    if (sanitized && sanitized !== '+') {
+      // Remove all '+' except a potential first one, then add it back
+      const digits = sanitized.replace(/\+/g, '');
+      formatted += digits;
     }
-
-    // Prevent multiple '+'
-    if ((formattedValue.match(/\+/g) || []).length > 1) {
-      formattedValue = `+${formattedValue.replace(/\+/g, '')}`;
+  
+    // Limit length
+    if (formatted.length > 16) {
+      formatted = formatted.slice(0, 16);
     }
-
-    if (formattedValue.length > 16) {
-      formattedValue = formattedValue.slice(0, 16);
-    }
-    
-    setNumber(formattedValue);
+  
+    setNumber(formatted);
   };
 
 
@@ -588,3 +593,5 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
+
+    
