@@ -28,9 +28,13 @@ export default function AccessPage() {
     if (accessCookie === 'true') {
       setIsAccessGranted(true);
       // Retrieve plan name from localStorage if access is already granted
-      const savedPlanName = localStorage.getItem('planName');
-      if (savedPlanName) {
-        setPlanName(savedPlanName);
+      try {
+        const savedPlanName = localStorage.getItem('planName');
+        if (savedPlanName) {
+          setPlanName(savedPlanName);
+        }
+      } catch (error) {
+        console.error('Failed to access localStorage:', error);
       }
     }
   }, []);
@@ -40,7 +44,11 @@ export default function AccessPage() {
     // Set a cookie that expires in 1 day
     Cookies.set('accessGranted', 'true', { expires: 1 });
     // Save plan name to localStorage
-    localStorage.setItem('planName', loggedInPlanName);
+    try {
+        localStorage.setItem('planName', loggedInPlanName);
+    } catch (error) {
+        console.error('Failed to save to localStorage:', error);
+    }
     setIsAccessGranted(true);
     setPlanName(loggedInPlanName);
   };
