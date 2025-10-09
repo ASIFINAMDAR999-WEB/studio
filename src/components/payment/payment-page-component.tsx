@@ -14,15 +14,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const addresses: Record<string, { network: string; address: string }> = {
-  usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'THfGmkAHRBFtvQBn5JzVfvSmGeoWiakmQC' },
-  usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
-  usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
+  usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'TYdBx5944hZZUnfoMCNEDy4pKZ17oC4N3a' },
+  usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0xd30CD71Fb569D14c67f4cB9c03aA0fF1ad02f3d8' },
+  usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0xd30CD71Fb569D14c67f4cB9c03aA0fF1ad02f3d8' },
   btc: { network: 'Bitcoin (BTC) Network', address: 'bc1qrl0c5tyr7hcpa7na8025sgt85aefazun5d4rmy' },
   eth: { network: 'Ethereum (ETH) Network', address: '0x1b8Cb4565Db3d2c7ebF02839aDd1741031bC1709' },
   ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1q0vnwl9guz7pd3dgjl5swl8gl4733mgch0mslqd' },
   xrp: { network: 'Ripple (XRP) Network', address: 'rBs9Hq2srqPu8KA7gheBE257GRJg3Xa8jS' },
   sol: { network: 'Solana (SOL) Network', address: 'BS2PW1znWhf1ypSYSuWvmLXzX1BYU6n9P7DB34VNDk6E' },
-  trx: { network: 'Tron (TRX) TRC-20 Network', address: 'THfGmkAHRBFtvQBn5JzVfvSmGeoWiakmQC' },
+  trx: { network: 'Tron (TRX) TRC-20 Network', address: 'TYdBx5944hZZUnfoMCNEDy4pKZ17oC4N3a' },
   ton: { network: 'TON', address: 'UQCTDuH5udkgZDqvhmhmOHhG7NazA7g85-PUqj63jutnGXBI' },
 };
 
@@ -41,15 +41,15 @@ const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
 
 const qrCodes: Record<string, string> = {
   btc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_08-27-20-430.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA4LTI3LTIwLTQzMC5wbmciLCJpYXQiOjE3NTc2NDY2NTksImV4cCI6MjA3MzAwNjY1OX0._0MZqMTJArQqibbrTsuf_JN373_MK8SwN-OjnMpiogo',
-  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-32-12-210.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTMyLTEyLTIxMC5wbmciLCJpYXQiOjE3NTc2NDk4MzksImV4cCI6MjA3MzAwOTgzOX0.5a64nHw9ggJyP_Y6Q2XFmYq7vqo06MBn5GaDm3K81D8',
+  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-26-46-955.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI2LTQ2LTk1NS5wbmciLCJpYXQiOjE3NjAwMDQyODAsImV4cCI6MjA3NTM2NDI4MH0.fGKobL3rORKiSuE88c8RtV3Y1zPkksSZlgSpa9RxEiY',
   eth: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-36-24-890.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTM2LTI0LTg5MC5wbmciLCJpYXQiOjE3NTc2NTAwNDQsImV4cCI6MjA3MzAxMDA0NH0.KHWhq8PMM2q5qb_ICnMMHb4vHTH6ECgWPHS1dCcW0aY',
   ltc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-40-17-854.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQwLTE3LTg1NC5wbmciLCJpYXQiOjE3NTc2NTAzNTMsImV4cCI6MjA3MzAxMDM1M30.Z4_FQ_h49OLTmzLi85K95_IJoX2BlFmDSdHlW76houo',
   xrp: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-46-25-627.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQ2LTI1LTYyNy5wbmciLCJpYXQiOjE3NTc2NTA2NTYsImV4cCI6MjA3MzAxMDY1Nn0.ecMfSJfbEr64WHr9F_57m3hq7RLX3xnQD8WRMNDZj_0',
   sol: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-54-02-688.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTU0LTAyLTY4OC5wbmciLCJpYXQiOjE3NTc2NTExOTcsImV4cCI6MjA3MzAxMTE5N30.lMmjFzzz3BbYA2XjczRGpW5KeDMN7PgLPwKLaW97bi4',
   ton: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_10-08-56-974.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzEwLTA4LTU2LTk3NC5wbmciLCJpYXQiOjE3NTc2NTE5OTIsImV4cCI6MjA3MzAxMTk5Mn0.rmVIGvGJQk1Xo9ArWfpgadJNbItpvzR5mp3rUY7DR3A',
-  usdt_trc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_10-13-54-470.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzEwLTEzLTU0LTQ3MC5wbmciLCJpYXQiOjE3NTc2NTIzMTEsImV4cCI6MjA3MzAxMjMxMX0.rM825PMA2bJD0XtQaLnqvgHAV6stFMihsFrPeTjC2uM',
-  usdt_bep20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_10-21-06-734.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzEwLTIxLTA2LTczNC5wbmciLCJpYXQiOjE3NTc2NTI4NDAsImV4cCI6MjA3MzAxMjg0MH0.-Wk0yfBY_XOPXRM_0UXx6-ynB1mWvaOLg-Dz1fn8y_4',
-  usdt_erc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_10-27-49-446.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzEwLTI3LTQ5LTQ0Ni5wbmciLCJpYXQiOjE3NTc2NTMxNTYsImV4cCI6MjA3MzAxMzE1Nn0.yM-jr9hsEs-Q6g29lZNBZnmqHzLzINwmF0jXu-zJtfs',
+  usdt_trc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-24-10-048.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI0LTEwLTA0OC5wbmciLCJpYXQiOjE3NjAwMDQxMjIsImV4cCI6MjA3NTM2NDEyMn0.nkpkF0gK90TXUc1x5ByIP9a4QxleZX2eDIgedtPuAIM',
+  usdt_bep20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-41-49-574.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTQxLTQ5LTU3NC5wbmciLCJpYXQiOjE3NjAwMDQ5NTgsImV4cCI6MjA3NTM2NDk1OH0.TBi2LGIaDVHIDZJfoJOWOgMbjELkYMwkgyhtpjpiO2U',
+  usdt_erc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-43-48-752.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTQzLTQ4LTc1Mi5wbmciLCJpYXQiOjE3NjAwMDUwMzYsImV4cCI6MjA3NTM2NTAzNn0.LqEN0Ay0v_iubWAaWaz4rREH0xZtBFnFGriYUUIuM3s',
 };
 
 export function PaymentPageComponent() {
@@ -241,5 +241,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
-    
