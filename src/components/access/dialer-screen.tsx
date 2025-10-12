@@ -566,29 +566,30 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
           onClose={handleCloseSettings}
           title="Dialer Settings"
       >
-          <div className="space-y-6 pt-2">
-              <div>
-                <Label htmlFor="callerIdInput" className="text-sm font-medium text-foreground">
-                    Caller ID
-                </Label>
-                <p className='text-xs text-muted-foreground mb-3'>Enter the ID to display. Type 'random' for a random number.</p>
-                <div className="relative">
-                  <ContactRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                      id="callerIdInput"
-                      type="text"
-                      inputMode='tel'
-                      value={tempCallerId}
-                      onChange={handleTempCallerIdChange}
-                      placeholder="+18001234567 or 'random'"
-                      className="w-full pl-10"
-                  />
-                </div>
+        <div className="space-y-6 pt-4">
+            <div>
+              <Label htmlFor="callerIdInput" className="text-sm font-medium text-foreground">
+                  Caller ID
+              </Label>
+              <p className='text-xs text-muted-foreground mb-2'>Enter the ID to display. Type 'random' for a random number.</p>
+              <div className="relative flex items-center">
+                <ContactRound className="absolute left-3 h-5 w-5 text-muted-foreground pointer-events-none" />
+                <span className="absolute left-10 text-muted-foreground pointer-events-none">+</span>
+                <Input
+                    id="callerIdInput"
+                    type="text"
+                    inputMode='tel'
+                    value={tempCallerId}
+                    onChange={handleTempCallerIdChange}
+                    placeholder="18001234567 or 'random'"
+                    className="w-full pl-11 bg-background/50 border-muted-foreground/30 focus:border-primary"
+                />
               </div>
-              <Button onClick={handleSaveSettings} className="w-full">
-                Save
-              </Button>
-          </div>
+            </div>
+            <Button onClick={handleSaveSettings} className="w-full text-base py-5">
+              Save
+            </Button>
+        </div>
       </Modal>
     </>
   );

@@ -4,6 +4,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 /**
  * Modal Component
@@ -15,9 +16,10 @@ interface ModalProps {
   title: string;
   description?: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
-export function Modal({ isOpen, onClose, title, description, children }: ModalProps) {
+export function Modal({ isOpen, onClose, title, description, children, className }: ModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -33,7 +35,10 @@ export function Modal({ isOpen, onClose, title, description, children }: ModalPr
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="relative w-[90%] max-w-md m-4 p-6 bg-card rounded-2xl shadow-2xl border border-border"
+            className={cn(
+              "relative w-[90%] max-w-md m-4 p-6 bg-card/80 dark:bg-card/60 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 transform-gpu",
+              className
+            )}
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
             <div className='flex justify-between items-start'>
@@ -58,5 +63,3 @@ export function Modal({ isOpen, onClose, title, description, children }: ModalPr
     </AnimatePresence>
   );
 }
-
-    
