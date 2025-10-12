@@ -12,6 +12,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'TYdBx5944hZZUnfoMCNEDy4pKZ17oC4N3a' },
@@ -94,147 +95,192 @@ export function PaymentPageComponent() {
     { icon: <ShieldCheck className="h-5 w-5 text-primary" />, text: "Your plan will be activated once the transaction is confirmed by our team." },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
 
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-10 animate-fade-in-up">
+          <motion.div 
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Complete Your Purchase
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
               You're almost there! Follow the steps below to securely complete your payment.
             </p>
-          </div>
+          </motion.div>
           
-          <div className="space-y-8 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <Card className="shadow-lg border-l-4 border-primary">
-              <CardHeader>
-                <CardTitle className="text-xl">Order Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between items-center flex-wrap gap-2">
-                    <p className="text-lg font-semibold">{planName}</p>
-                    <div className="text-right">
-                        <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
-                        {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
-                    </div>
-                </div>
-                <div className="text-sm text-muted-foreground pt-2 border-t">
-                    <div className="font-semibold mb-2 text-foreground">Features Included:</div>
-                    <ul className="space-y-1">
-                      {plan.features.slice(0, 3).map((feature, index) => (
-                        <li key={index} className="flex items-center gap-2">
-                          <Check className="h-4 w-4 text-green-500 shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                      {plan.features.length > 3 && (
-                        <li className='text-xs'>+ {plan.features.length - 3} more features</li>
-                      )}
-                    </ul>
-                </div>
-                {plan.bonus && (
-                  <div className="pt-4 border-t">
-                    <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
-                        <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                        <p className="text-sm">
-                          <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
-                          <span className="text-muted-foreground">
-                            {plan.bonus.split(':')[1]}
-                          </span>
-                        </p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card className="shadow-lg">
+          <motion.div 
+            className="space-y-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={itemVariants}>
+              <Card className="shadow-lg border-l-4 border-primary transition-all duration-300 hover:shadow-glow">
                 <CardHeader>
-                    <div className='flex justify-between items-center flex-wrap gap-2'>
-                        <CardTitle className="text-xl flex items-center gap-2">
-                            <Wallet className="h-6 w-6 text-primary"/>
-                            <span>Payment Instructions</span>
-                        </CardTitle>
-                        <Button variant="outline" size="sm" asChild>
-                            <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
-                                <ArrowLeft className="mr-2 h-4 w-4" />
-                                Change Crypto
-                            </Link>
-                        </Button>
-                    </div>
-                    {selectedCrypto && <CardDescription>Pay with {selectedCrypto.name}</CardDescription>}
+                  <CardTitle className="text-xl">Order Summary</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                    {selectedCrypto ? (
-                        <div className='space-y-4'>
-                            {selectedCrypto.networks.map(networkKey => {
-                                const { network, address } = addresses[networkKey] || {};
-                                return (
-                                    <div key={networkKey} className="bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80">
-                                        <p className="text-sm text-muted-foreground mb-1">{network}</p>
-                                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
-                                            <p className="font-mono text-sm sm:text-base break-all">{address || 'Address not available'}</p>
-                                            <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'} className="self-end sm:self-center flex-shrink-0">
-                                                <Clipboard className="h-5 w-5" />
-                                            </Button>
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                             {qrCodeUrl && (
-                                <div className="mt-4 flex flex-col items-center">
-                                  <div className="p-4 bg-muted/30 rounded-lg border shadow-inner">
-                                    <Image
-                                        src={qrCodeUrl}
-                                        alt={`${selectedCrypto.name} QR Code`}
-                                        width={200}
-                                        height={200}
-                                        className="rounded-lg"
-                                        data-ai-hint="qr code"
-                                    />
-                                  </div>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <div className="text-center py-8">
-                            <p className="text-muted-foreground mb-4">No cryptocurrency selected.</p>
-                            <Button asChild>
-                                 <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
-                                    Choose Payment Method
-                                 </Link>
-                            </Button>
-                        </div>
-                    )}
-
-                    <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4 mt-4">
-                      <h4 className="font-bold text-primary">Important Instructions:</h4>
-                      <ul className="space-y-3">
-                        {instructions.map((item, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <div className="flex-shrink-0 mt-0.5">{item.icon}</div>
-                            <span className="text-sm text-muted-foreground">{item.text}</span>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center flex-wrap gap-2">
+                      <p className="text-lg font-semibold">{planName}</p>
+                      <div className="text-right">
+                          <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
+                          {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
+                      </div>
+                  </div>
+                  <div className="text-sm text-muted-foreground pt-2 border-t">
+                      <div className="font-semibold mb-2 text-foreground">Features Included:</div>
+                      <ul className="space-y-1">
+                        {plan.features.slice(0, 3).map((feature, index) => (
+                          <li key={index} className="flex items-center gap-2">
+                            <Check className="h-4 w-4 text-green-500 shrink-0" />
+                            <span>{feature}</span>
                           </li>
                         ))}
+                        {plan.features.length > 3 && (
+                          <li className='text-xs'>+ {plan.features.length - 3} more features</li>
+                        )}
                       </ul>
-                       {cryptoKey === 'xrp' && (
-                        <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For XRP, a destination tag is not required.</p>
-                      )}
-                      {cryptoKey === 'ton' && (
-                        <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For TON, a memo/comment is not required if sending from a private wallet. If sending from an exchange, a memo may be required.</p>
-                      )}
+                  </div>
+                  {plan.bonus && (
+                    <div className="pt-4 border-t">
+                      <div className="p-3 bg-primary/5 border-l-4 border-primary/50 rounded-r-md flex items-start gap-3">
+                          <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                          <p className="text-sm">
+                            <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
+                            <span className="text-muted-foreground ml-1">
+                              {plan.bonus.split(':')[1]}
+                            </span>
+                          </p>
+                      </div>
                     </div>
-
-                    <Button size="lg" className="w-full text-lg py-6" asChild>
-                      <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram to confirm payment">Contact Admin on Telegram</a>
-                    </Button>
+                  )}
                 </CardContent>
-            </Card>
-          </div>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl overflow-hidden">
+                  <CardHeader>
+                      <div className='flex justify-between items-center flex-wrap gap-2'>
+                          <CardTitle className="text-xl flex items-center gap-2">
+                              <Wallet className="h-6 w-6 text-primary"/>
+                              <span>Payment Instructions</span>
+                          </CardTitle>
+                          <Button variant="outline" size="sm" asChild className="group">
+                              <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                                  <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                                  Change Crypto
+                              </Link>
+                          </Button>
+                      </div>
+                      {selectedCrypto && <CardDescription>Pay with {selectedCrypto.name}</CardDescription>}
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                      {selectedCrypto ? (
+                          <div className='space-y-4'>
+                              {selectedCrypto.networks.map(networkKey => {
+                                  const { network, address } = addresses[networkKey] || {};
+                                  return (
+                                      <div key={networkKey} className="group relative bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80 hover:shadow-md">
+                                          <p className="text-sm text-muted-foreground mb-1">{network}</p>
+                                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
+                                              <p className="font-mono text-sm sm:text-base break-all text-foreground">{address || 'Address not available'}</p>
+                                              <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'} className="self-end sm:self-center flex-shrink-0 transition-colors duration-300 hover:bg-primary/20 disabled:hover:bg-transparent">
+                                                  <Clipboard className="h-5 w-5" />
+                                              </Button>
+                                          </div>
+                                      </div>
+                                  )
+                              })}
+                               {qrCodeUrl && (
+                                  <motion.div 
+                                    className="mt-4 flex flex-col items-center"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1, duration: 0.4 }}
+                                  >
+                                    <div className="p-4 bg-muted/30 rounded-lg border shadow-inner transition-all duration-300 hover:shadow-xl hover:scale-105">
+                                      <Image
+                                          src={qrCodeUrl}
+                                          alt={`${selectedCrypto.name} QR Code`}
+                                          width={200}
+                                          height={200}
+                                          className="rounded-lg"
+                                          data-ai-hint="qr code"
+                                      />
+                                    </div>
+                                  </motion.div>
+                              )}
+                          </div>
+                      ) : (
+                          <div className="text-center py-8">
+                              <p className="text-muted-foreground mb-4">No cryptocurrency selected.</p>
+                              <Button asChild>
+                                   <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                                      Choose Payment Method
+                                   </Link>
+                              </Button>
+                          </div>
+                      )}
+
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4 mt-4">
+                        <h4 className="font-bold text-primary">Important Instructions:</h4>
+                        <ul className="space-y-3">
+                          {instructions.map((item, index) => (
+                            <li key={index} className="flex items-start gap-3">
+                              <div className="flex-shrink-0 mt-0.5">{item.icon}</div>
+                              <span className="text-sm text-muted-foreground">{item.text}</span>
+                            </li>
+                          ))}
+                        </ul>
+                         {cryptoKey === 'xrp' && (
+                          <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For XRP, a destination tag is not required.</p>
+                        )}
+                        {cryptoKey === 'ton' && (
+                          <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For TON, a memo/comment is not required if sending from a private wallet. If sending from an exchange, a memo may be required.</p>
+                        )}
+                      </div>
+
+                      <Button size="lg" className="w-full text-lg py-6 group" asChild>
+                        <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram to confirm payment">
+                            Contact Admin on Telegram
+                            <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </a>
+                      </Button>
+                  </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
         </div>
       </main>
       <Footer />
