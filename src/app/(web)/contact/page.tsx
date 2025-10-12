@@ -1,22 +1,31 @@
 
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Bot, HelpCircle, Send } from 'lucide-react';
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-
-export const metadata: Metadata = {
-  title: 'Contact for Callspoofing & VoIP Support | REDArmor 2.0',
-  description: 'Contact our admin on Telegram for support with our professional callspoofing, VoIP, and SIP trunk services. Get help with payments, setup, or any questions.',
-  alternates: {
-    canonical: 'https://www.callspoofing.shop/contact',
-  },
-};
+import { motion } from 'framer-motion';
 
 export default function ContactPage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } },
+  };
+
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
@@ -30,17 +39,27 @@ export default function ContactPage() {
           />
            <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"></div>
 
-          <div className="text-center mb-16 animate-fade-in-up relative z-10">
+          <motion.div 
+            className="text-center mb-16 relative z-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Get In Touch
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
               We're here to help. For the fastest response, please contact our admin on Telegram.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="max-w-2xl mx-auto relative z-10">
-             <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+          <motion.div 
+            className="max-w-3xl mx-auto relative z-10 space-y-16"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+             <motion.div variants={itemVariants}>
                 <Card className="shadow-lg shadow-glow transition-all duration-500 bg-card/80 backdrop-blur-sm border border-primary">
                     <CardHeader className="text-center">
                         <CardTitle className="text-2xl flex items-center justify-center gap-3">
@@ -72,39 +91,39 @@ export default function ContactPage() {
                         </Button>
                     </CardContent>
                 </Card>
-             </div>
-          </div>
+             </motion.div>
 
-          <div className="max-w-3xl mx-auto mt-16 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <Card className="bg-card/80 backdrop-blur-sm border border-primary/30 shadow-glow transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="text-xl">Looking for Quick Answers?</CardTitle>
-                <CardDescription>Check our resources before reaching out. You might find what you need instantly.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Link href="/#faq" passHref>
-                    <div className="group flex items-start gap-4 p-4 rounded-lg transition-colors hover:bg-background cursor-pointer">
-                        <HelpCircle className="h-8 w-8 text-primary flex-shrink-0 mt-1 transition-transform group-hover:rotate-12" />
-                        <div>
-                            <p className='font-semibold text-foreground text-lg'>Check our FAQ</p>
-                            <p className="text-sm text-muted-foreground">Find answers to common questions about payments, legality, and how to get started.</p>
-                        </div>
-                    </div>
-                  </Link>
-                  <Link href="/bots" passHref>
-                    <div className="group flex items-start gap-4 p-4 rounded-lg transition-colors hover:bg-background cursor-pointer">
-                        <Bot className="h-8 w-8 text-primary flex-shrink-0 mt-1 transition-transform group-hover:scale-110" />
-                        <div>
-                            <p className='font-semibold text-foreground text-lg'>Use Our Bots</p>
-                            <p className="text-sm text-muted-foreground">For automated services or if one bot is down, find our list of official Telegram bots here.</p>
-                        </div>
-                    </div>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+            <motion.div variants={itemVariants}>
+              <Card className="bg-card/80 backdrop-blur-sm border border-primary/30 shadow-glow transition-all duration-300">
+                <CardHeader>
+                  <CardTitle className="text-xl">Looking for Quick Answers?</CardTitle>
+                  <CardDescription>Check our resources before reaching out. You might find what you need instantly.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Link href="/#faq" passHref>
+                      <div className="group flex items-start gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-muted cursor-pointer hover:shadow-inner">
+                          <HelpCircle className="h-8 w-8 text-primary flex-shrink-0 mt-1 transition-transform group-hover:rotate-12" />
+                          <div>
+                              <p className='font-semibold text-foreground text-lg'>Check our FAQ</p>
+                              <p className="text-sm text-muted-foreground">Find answers to common questions about payments, legality, and how to get started.</p>
+                          </div>
+                      </div>
+                    </Link>
+                    <Link href="/bots" passHref>
+                      <div className="group flex items-start gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-muted cursor-pointer hover:shadow-inner">
+                          <Bot className="h-8 w-8 text-primary flex-shrink-0 mt-1 transition-transform group-hover:scale-110" />
+                          <div>
+                              <p className='font-semibold text-foreground text-lg'>Use Our Bots</p>
+                              <p className="text-sm text-muted-foreground">For automated services or if one bot is down, find our list of official Telegram bots here.</p>
+                          </div>
+                      </div>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
         </div>
       </main>
       <Footer />
