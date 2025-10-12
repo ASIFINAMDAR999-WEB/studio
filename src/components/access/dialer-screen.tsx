@@ -572,27 +572,26 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   Caller ID
               </Label>
               <p className='text-xs text-muted-foreground mb-2'>Enter the ID to display. Type 'random' for a random number.</p>
-              <div className="relative flex items-center">
-                <ContactRound className="absolute left-3 h-5 w-5 text-muted-foreground pointer-events-none" />
-                <span className="absolute left-10 text-muted-foreground pointer-events-none">+</span>
+              <div className="relative flex items-center group/input">
+                <ContactRound className="absolute left-3 h-5 w-5 text-muted-foreground pointer-events-none transition-colors group-focus-within/input:text-primary" />
                 <Input
                     id="callerIdInput"
                     type="text"
                     inputMode='tel'
                     value={tempCallerId}
                     onChange={handleTempCallerIdChange}
-                    placeholder="18001234567 or 'random'"
-                    className="w-full pl-11 bg-background/50 border-muted-foreground/30 focus:border-primary"
+                    placeholder="e.g. 18001234567 or 'random'"
+                    className="w-full pl-10 bg-background/50 border-muted-foreground/30 focus:border-primary"
                 />
               </div>
             </div>
-            <Button onClick={handleSaveSettings} className="w-full text-base py-5">
-              Save
-            </Button>
+            <motion.div whileTap={{ scale: 0.97 }}>
+                <Button onClick={handleSaveSettings} className="w-full text-base py-5">
+                  Save
+                </Button>
+            </motion.div>
         </div>
       </Modal>
     </>
   );
 };
-
-    
