@@ -5,13 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Zap, CircleDollarSign, HelpCircle, Bot, Send, ShieldCheck } from "lucide-react";
+import { motion } from 'framer-motion';
 
 type NavLinksProps = {
   onLinkClick?: () => void;
   isMobile?: boolean;
+  itemVariants?: any;
 };
 
-export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
+export const NavLinks = ({ onLinkClick, isMobile = false, itemVariants }: NavLinksProps) => {
   const pathname = usePathname();
 
   const links = [
@@ -24,16 +26,16 @@ export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
   ];
 
   const checkIsActive = (href: string) => {
-    // For anchor links on the homepage, check the hash
     if (href.startsWith('/#')) {
       if (typeof window !== 'undefined') {
-        return pathname === '/' && window.location.hash === href.substring(1);
+        const hash = href.substring(1);
+        if (pathname === '/') {
+           return window.location.hash === hash;
+        }
       }
       return false;
     }
-    // For other links, check if the current path starts with the href
-    // This correctly handles parent routes (e.g., /payment/select is active for /payment)
-    return pathname.startsWith(href);
+    return pathname === href || (href !== '/' && pathname.startsWith(href));
   };
 
   if (!isMobile) {
@@ -47,11 +49,15 @@ export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
                 href={link.href} 
                 onClick={onLinkClick}
                 className={cn(
-                  "transition-colors hover:text-primary p-2 md:p-0 rounded-md md:rounded-none text-base font-medium",
-                  isActive ? "text-primary font-semibold" : "text-muted-foreground"
+                  "relative transition-colors p-2 md:p-0 rounded-md md:rounded-none text-base font-medium group",
+                  isActive ? "text-primary font-semibold" : "text-muted-foreground hover:text-primary"
                 )}
               >
                 {link.label}
+                 <span className={cn(
+                    "absolute bottom-0 left-0 h-0.5 bg-primary w-full transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100",
+                    isActive ? "scale-x-100" : "scale-x-0"
+                 )}/>
               </Link>
           )
         })}
@@ -64,18 +70,21 @@ export const NavLinks = ({ onLinkClick, isMobile = false }: NavLinksProps) => {
       {links.map((link) => {
         const isActive = checkIsActive(link.href);
         return (
-            <Link 
-              key={link.href}
-              href={link.href} 
-              onClick={onLinkClick}
-              className={cn(
-                "flex items-center gap-4 p-3 rounded-lg text-base font-medium transition-colors",
-                isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
-              )}
-            >
-              <span className={cn(isActive ? 'text-primary' : 'text-muted-foreground')}>{link.icon}</span>
-              {link.label}
-            </Link>
+            <motion.div key={link.href} variants={itemVariants}>
+              <Link 
+                href={link.href} 
+                onClick={onLinkClick}
+                className={cn(
+                  "flex items-center gap-4 p-3 rounded-lg text-base font-medium transition-colors duration-300 transform-gpu",
+                  isActive 
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30" 
+                    : "text-foreground hover:bg-muted/80 hover:text-primary hover:translate-x-1"
+                )}
+              >
+                <span className={cn(isActive ? 'text-primary-foreground' : 'text-muted-foreground')}>{link.icon}</span>
+                {link.label}
+              </Link>
+            </motion.div>
         )
       })}
     </>
