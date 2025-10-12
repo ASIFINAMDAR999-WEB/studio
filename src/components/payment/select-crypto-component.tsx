@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -33,7 +34,7 @@ export function SelectCryptoComponent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const planName = searchParams.get('plan');
-  const [showUsdtOptions, setShowUsdtOptions] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState('');
   
   useEffect(() => {
     if (planName) {
@@ -61,11 +62,45 @@ export function SelectCryptoComponent() {
 
   const handleCryptoSelect = (cryptoId: string) => {
     if (cryptoId === 'usdt') {
-      setShowUsdtOptions(!showUsdtOptions);
+      setOpenAccordion(openAccordion === 'usdt-item' ? '' : 'usdt-item');
     } else {
       router.push(`/payment?plan=${encodeURIComponent(planName)}&crypto=${cryptoId}`);
     }
   };
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.07,
+      },
+    },
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
+  const ListItem = ({ children, onClick, className = '' }: { children: React.ReactNode; onClick?: () => void; className?: string }) => (
+    <div
+      onClick={onClick}
+      className={`group relative rounded-lg border bg-background/50 p-4 overflow-hidden transition-all duration-300 ease-in-out hover:shadow-glow hover:-translate-y-1.5 hover:border-primary/50 cursor-pointer ring-1 ring-transparent hover:ring-primary/30 transform-gpu ${className}`}
+    >
+      <div className="absolute -inset-px rounded-lg bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg" />
+      <div className="relative flex items-center justify-between">
+        {children}
+      </div>
+    </div>
+  );
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -73,11 +108,16 @@ export function SelectCryptoComponent() {
 
       <main className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 sm:px-6 py-8 md:py-16">
         <div className="max-w-2xl w-full">
-            <div className="relative animate-fade-in-up">
+            <motion.div 
+              className="relative"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
               <div 
-                className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)]"
+                className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"
               />
-              <Card className="shadow-2xl bg-card/80 backdrop-blur-sm">
+              <Card className="shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20">
                 <CardHeader className="text-center p-6 md:p-8">
                   <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
                     Select Payment Method
@@ -87,60 +127,83 @@ export function SelectCryptoComponent() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 md:p-8 pt-0">
-                  <div className="grid grid-cols-1 gap-4">
+                  <motion.div 
+                    className="grid grid-cols-1 gap-4"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
                     {cryptoOptions.map((crypto) => {
                        if (crypto.id === 'usdt') {
                            return (
-                               <Accordion type="single" collapsible key={crypto.id} value={showUsdtOptions ? "usdt-item" : ""}>
-                                   <AccordionItem value="usdt-item" className="border-0">
-                                      <div
-                                        className="group rounded-lg border bg-background/50 p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50 hover:bg-muted/50 cursor-pointer ring-1 ring-transparent hover:ring-primary/30"
-                                        onClick={() => handleCryptoSelect(crypto.id)}
-                                      >
-                                          <AccordionTrigger className="w-full p-0 hover:no-underline">
-                                            <div className="flex items-center justify-between w-full">
-                                                <div className="flex items-center gap-4">
-                                                    <Image src={crypto.icon} alt={`${crypto.name} logo`} width={40} height={40} />
-                                                    <span className="text-lg font-medium text-foreground">{crypto.name}</span>
+                               <motion.div key={crypto.id} variants={itemVariants}>
+                                 <Accordion type="single" collapsible value={openAccordion} onValueChange={setOpenAccordion}>
+                                     <AccordionItem value="usdt-item" className="border-0">
+                                        <ListItem onClick={() => handleCryptoSelect(crypto.id)}>
+                                            <AccordionTrigger className="w-full p-0 hover:no-underline">
+                                              <div className="flex items-center justify-between w-full">
+                                                  <div className="flex items-center gap-4">
+                                                      <Image src={crypto.icon} alt={`${crypto.name} logo`} width={40} height={40} />
+                                                      <span className="text-lg font-medium text-foreground">{crypto.name}</span>
+                                                  </div>
+                                                  <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary data-[state=open]:rotate-90" />
+                                              </div>
+                                            </AccordionTrigger>
+                                        </ListItem>
+                                        <AnimatePresence>
+                                          {openAccordion === 'usdt-item' && (
+                                            <AccordionContent asChild>
+                                              <motion.div
+                                                initial={{ opacity: 0, height: 0 }}
+                                                animate={{ opacity: 1, height: 'auto' }}
+                                                exit={{ opacity: 0, height: 0 }}
+                                                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                                                className="pt-2 pl-2 pr-2 overflow-hidden"
+                                              >
+                                                <div className="grid grid-cols-1 gap-2 mt-2 pl-4 border-l-2 border-primary/20">
+                                                    {usdtNetworks.map((network, index) => (
+                                                        <motion.div 
+                                                          key={network.id}
+                                                          initial={{ opacity: 0, x: -10 }}
+                                                          animate={{ opacity: 1, x: 0 }}
+                                                          transition={{ delay: index * 0.05, ease: 'easeOut' }}
+                                                        >
+                                                            <Link href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${network.id}`} passHref>
+                                                                <div className="group flex items-center justify-between p-3 rounded-lg hover:bg-muted cursor-pointer transition-colors">
+                                                                    <span className="text-md font-medium text-foreground">{network.name}</span>
+                                                                    <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1" />
+                                                                </div>
+                                                            </Link>
+                                                        </motion.div>
+                                                    ))}
                                                 </div>
-                                                <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary data-[state=open]:rotate-90" />
-                                            </div>
-                                          </AccordionTrigger>
-                                      </div>
-                                      <AccordionContent className="pt-2 pl-2 pr-2">
-                                          <div className="grid grid-cols-1 gap-2 mt-2 pl-4 border-l-2 border-primary/20">
-                                              {usdtNetworks.map((network) => (
-                                                  <Link key={network.id} href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${network.id}`} passHref>
-                                                      <div className="group flex items-center justify-between p-3 rounded-lg hover:bg-muted cursor-pointer">
-                                                          <span className="text-md font-medium text-foreground">{network.name}</span>
-                                                          <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1" />
-                                                      </div>
-                                                  </Link>
-                                              ))}
-                                          </div>
-                                      </AccordionContent>
-                                   </AccordionItem>
-                               </Accordion>
+                                              </motion.div>
+                                            </AccordionContent>
+                                          )}
+                                        </AnimatePresence>
+                                     </AccordionItem>
+                                 </Accordion>
+                               </motion.div>
                            )
                        }
                        return (
-                          <Link key={crypto.id} href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${crypto.id}`} passHref>
-                              <div className="group rounded-lg border bg-background/50 p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50 hover:bg-muted/50 cursor-pointer ring-1 ring-transparent hover:ring-primary/30">
-                                <div className="flex items-center justify-between">
+                          <motion.div key={crypto.id} variants={itemVariants}>
+                            <Link href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${crypto.id}`} passHref>
+                                <ListItem>
                                     <div className="flex items-center gap-4">
                                         <Image src={crypto.icon} alt={`${crypto.name} logo`} width={40} height={40} />
                                         <span className="text-lg font-medium text-foreground">{crypto.name}</span>
                                     </div>
                                     <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
-                                </div>
-                              </div>
-                          </Link>
+                                </ListItem>
+                            </Link>
+                          </motion.div>
                        )
                     })}
-                  </div>
+                  </motion.div>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
         </div>
       </main>
 
@@ -148,5 +211,3 @@ export function SelectCryptoComponent() {
     </div>
   );
 }
-
-    
