@@ -1,20 +1,14 @@
 
+'use client';
+
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { AlertTriangle, ArrowRight } from 'lucide-react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-
-export const metadata: Metadata = {
-  title: 'Callspoofing & VoIP Telegram Bots | REDArmor 2.0',
-  description: 'Access our official Telegram bots for automated callspoofing and VoIP services. Connect instantly for support or service access.',
-  alternates: {
-    canonical: 'https://www.callspoofing.shop/bots',
-  },
-};
+import { motion } from 'framer-motion';
 
 const bots = [
     { name: '@nexuscallss_bot', url: 'https://t.me/nexuscallss_bot' },
@@ -40,6 +34,28 @@ const bots = [
 ];
 
 export default function BotsPage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.07,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
@@ -52,23 +68,32 @@ export default function BotsPage() {
             }}
           />
           <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"></div>
-          <div className="text-center mb-16 animate-fade-in-up relative z-10">
+          <motion.div 
+            className="text-center mb-16 relative z-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          >
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Our Telegram Bots
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
               Connect with our automated services through our official bots. Click any bot to start a chat on Telegram for support or to access our services.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div 
+            className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {bots.map((bot, index) => (
-               <div 
+               <motion.div 
                 key={index}
-                className="animate-fade-in-up"
-                style={{ animationDelay: `${index * 50}ms` }}
+                variants={itemVariants}
               >
-                <Card className="group h-full flex flex-col justify-between overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 border hover:border-primary/50">
+                <Card className="group h-full flex flex-col justify-between overflow-hidden shadow-lg transition-all duration-300 hover:shadow-glow hover:-translate-y-1.5 border hover:border-primary/50 bg-card/80 backdrop-blur-sm">
                     <CardHeader className="flex flex-row items-center gap-4">
                         <div className="bg-primary/10 p-1 rounded-full flex items-center justify-center w-12 h-12 flex-shrink-0">
                            <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-16_11-58-07-414.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE2XzExLTU4LTA3LTQxNC5wbmciLCJpYXQiOjE3NTUzMjYxMjUsImV4cCI6MjA3MDY4NjEyNX0.HrqwzcCFG0oUt0HEewn9XZC4jXJhrWc_sLq1YGqStqE" alt="REDArmor 2.0 Logo" width={40} height={40} className="rounded-full" />
@@ -84,18 +109,23 @@ export default function BotsPage() {
                         rel="noopener noreferrer" 
                         className="w-full"
                       >
-                         <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                         <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
                            Start Chat
                            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                          </Button>
                        </a>
                     </CardContent>
                 </Card>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="max-w-3xl mx-auto mt-16 animate-fade-in-up" style={{animationDelay: '300ms'}}>
+          <motion.div 
+            className="max-w-3xl mx-auto mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
              <div className="bg-amber-500/10 border-l-4 border-amber-500 text-amber-700 dark:text-amber-400 p-4 rounded-md" role="alert">
                 <div className="flex">
                     <AlertTriangle className="h-5 w-5 mr-3 flex-shrink-0" />
@@ -105,7 +135,7 @@ export default function BotsPage() {
                     </div>
                 </div>
               </div>
-          </div>
+          </motion.div>
         </div>
       </main>
       <Footer />
