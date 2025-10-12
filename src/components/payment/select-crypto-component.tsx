@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -101,6 +102,22 @@ export function SelectCryptoComponent() {
       </div>
     </div>
   );
+  
+  const subListContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.06,
+        delayChildren: 0.1,
+      },
+    },
+  };
+  
+  const subListItemVariants = {
+    hidden: { x: -15, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { type: 'spring', stiffness: 120 } },
+  };
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -160,23 +177,26 @@ export function SelectCryptoComponent() {
                                                 transition={{ duration: 0.3, ease: 'easeInOut' }}
                                                 className="pt-2 pl-2 pr-2 overflow-hidden"
                                               >
-                                                <div className="grid grid-cols-1 gap-2 mt-2 pl-4 border-l-2 border-primary/20">
-                                                    {usdtNetworks.map((network, index) => (
+                                                <motion.div 
+                                                  className="grid grid-cols-1 gap-1 pl-4 border-l-2 border-primary/20"
+                                                  variants={subListContainerVariants}
+                                                  initial="hidden"
+                                                  animate="visible"
+                                                >
+                                                    {usdtNetworks.map((network) => (
                                                         <motion.div 
                                                           key={network.id}
-                                                          initial={{ opacity: 0, x: -10 }}
-                                                          animate={{ opacity: 1, x: 0 }}
-                                                          transition={{ delay: index * 0.05, ease: 'easeOut' }}
+                                                          variants={subListItemVariants}
                                                         >
                                                             <Link href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${network.id}`} passHref>
                                                                 <div className="group flex items-center justify-between p-3 rounded-lg hover:bg-muted cursor-pointer transition-colors">
-                                                                    <span className="text-md font-medium text-foreground">{network.name}</span>
-                                                                    <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1" />
+                                                                    <span className="text-md font-medium text-foreground group-hover:text-primary">{network.name}</span>
+                                                                    <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
                                                                 </div>
                                                             </Link>
                                                         </motion.div>
                                                     ))}
-                                                </div>
+                                                </motion.div>
                                               </motion.div>
                                             </AccordionContent>
                                           )}
