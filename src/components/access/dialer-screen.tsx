@@ -114,22 +114,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   }, [callStatus]);
 
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const sanitized = value.replace(/[^\d+]/g, '');
-    let formatted = '+';
-  
-    if (sanitized && sanitized !== '+') {
-      // Remove all '+' except a potential first one, then add it back
-      const digits = sanitized.replace(/\+/g, '');
-      formatted += digits;
+    const value = e.target.value.replace(/[^\d+*#]/g, '');
+    if (value.length > 16) {
+      setNumber(value.slice(0, 16));
+    } else {
+      setNumber(value);
     }
-  
-    // Limit length
-    if (formatted.length > 16) {
-      formatted = formatted.slice(0, 16);
-    }
-  
-    setNumber(formatted);
   };
 
 
@@ -382,7 +372,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           onClick={() => handleKeyPress(key.digit)}
                           className="relative aspect-square rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted transform-gpu flex flex-col items-center justify-center"
                           whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
-                          aria-label={`Key ${key.digit} ${key.letters}`}
+                          aria-label={`Key ${key.digit}${key.letters ? `, letters ${key.letters}` : ''}`}
                         >
                           <span className="text-3xl font-semibold">{key.digit}</span>
                           <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
@@ -508,7 +498,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                                 onClick={() => handleInCallKeyPress(key.digit)}
                                 className="relative aspect-square rounded-full bg-white/10 hover:bg-white/20 text-white active:bg-white/30 transform-gpu transition-colors flex flex-col items-center justify-center"
                                 whileTap={{ scale: 0.95 }}
-                                aria-label={`Keypad ${key.digit} ${key.letters}`}
+                                aria-label={`Keypad ${key.digit}${key.letters ? `, letters ${key.letters}` : ''}`}
                               >
                                 <span className="text-2xl sm:text-3xl font-semibold">{key.digit}</span>
                                 {key.letters && <p className="text-[10px] sm:text-xs tracking-widest uppercase">{key.letters}</p>}

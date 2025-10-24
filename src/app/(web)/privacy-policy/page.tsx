@@ -1,17 +1,10 @@
 
+'use client';
+
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Metadata } from 'next';
 import { motion } from 'framer-motion';
-
-export const metadata: Metadata = {
-  title: 'Privacy Policy for Callspoofing Services | REDArmor 2.0',
-  description: 'Review the privacy policy for our callspoofing and VoIP services. We are committed to user anonymity and do not store personally identifiable information.',
-  alternates: {
-    canonical: 'https://www.callspoofing.shop/privacy-policy',
-  },
-};
 
 export default function PrivacyPolicyPage() {
   const content = [
