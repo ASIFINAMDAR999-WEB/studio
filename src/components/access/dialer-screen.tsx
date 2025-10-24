@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
+import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound } from 'lucide-react';
 import {
@@ -52,7 +52,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [showInCallKeypad, setShowInCallKeypad] = useState(false);
 
 
-  const longPressTimer = useRef<ReturnType<typeof setTimeout>>();
+  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const callIntervalRef = useRef<NodeJS.Timeout>();
 
   // Load state from localStorage on initial render
@@ -137,7 +137,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setNumber((prev) => prev.slice(0, -1));
   };
 
-  const handlePressStart = () => {
+  const handlePressStart = (e: MouseEvent | TouchEvent) => {
+    e.preventDefault();
     longPressTimer.current = setTimeout(() => {
       setNumber('');
     }, 700);
@@ -146,6 +147,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const handlePressEnd = () => {
     if (longPressTimer.current) {
       clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
     }
   };
 
@@ -372,7 +374,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           onClick={() => handleKeyPress(key.digit)}
                           className="relative aspect-square rounded-xl bg-card text-foreground transition-colors duration-100 ease-out active:bg-muted transform-gpu flex flex-col items-center justify-center"
                           whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
-                          aria-label={`Key ${key.digit}${key.letters ? `, letters ${key.letters}` : ''}`}
+                          aria-label={`Dialpad key ${key.digit}${key.letters ? `, letters ${key.letters}` : ''}`}
                         >
                           <span className="text-3xl font-semibold">{key.digit}</span>
                           <p className="text-xs text-muted-foreground tracking-widest uppercase">{key.letters}</p>
@@ -403,7 +405,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         className="flex items-center justify-center text-muted-foreground bg-card rounded-xl active:bg-muted active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transform-gpu"
                         whileTap={{ scale: 0.95 }}
                         disabled={number.length === 0}
-                        aria-label="Delete last digit. Hold to delete all."
+                        aria-label="Delete last digit. Hold to clear all."
                       >
                         <X className="h-6 w-6" />
                       </motion.button>
