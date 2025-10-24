@@ -64,6 +64,7 @@ export const plans: Plan[] = [
     ],
     cta: 'Choose Plan',
     bonus: 'Welcome Bonus: New clients receive an extra 15 days of service, completely free.',
+    isHot: true,
   },
   {
     name: 'Platinum Plan',
