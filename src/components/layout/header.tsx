@@ -13,41 +13,41 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Video, User } from 'lucide-react';
 
 const AnimatedHamburgerIcon = ({ isOpen }: { isOpen: boolean }) => {
-  const topVariants = {
-    closed: { rotate: 0, translateY: 0 },
-    open: { rotate: 45, translateY: 7 },
+  const lineVariants = {
+    closed: (y: number) => ({ rotate: 0, y }),
+    open: (y: number) => ({
+      rotate: y === 0 ? 45 : -45,
+      y: y === 0 ? 8 : -8,
+    }),
   };
-  const middleVariants = {
-    closed: { opacity: 1 },
-    open: { opacity: 0 },
-  };
-  const bottomVariants = {
-    closed: { rotate: 0, translateY: 0 },
-    open: { rotate: -45, translateY: -7 },
+  const middleLineVariants = {
+    closed: { opacity: 1, scaleX: 1 },
+    open: { opacity: 0, scaleX: 0 },
   };
 
   return (
-    <div className="w-6 h-6 relative">
+    <div className="w-6 h-6 relative flex flex-col justify-between" style={{ height: '18px' }}>
       <motion.span
-        className="block absolute h-0.5 w-full bg-current rounded-full"
-        style={{ top: '6px' }}
-        variants={topVariants}
+        className="block h-0.5 w-full bg-current rounded-full"
+        custom={0}
+        variants={lineVariants}
         animate={isOpen ? 'open' : 'closed'}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ y: 0, originX: '50%', originY: '50%' }}
       />
       <motion.span
-        className="block absolute h-0.5 w-full bg-current rounded-full"
-        style={{ top: '13px' }}
-        variants={middleVariants}
+        className="block h-0.5 w-full bg-current rounded-full"
+        variants={middleLineVariants}
         animate={isOpen ? 'open' : 'closed'}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
       />
       <motion.span
-        className="block absolute h-0.5 w-full bg-current rounded-full"
-        style={{ top: '20px' }}
-        variants={bottomVariants}
+        className="block h-0.5 w-full bg-current rounded-full"
+        custom={16}
+        variants={lineVariants}
         animate={isOpen ? 'open' : 'closed'}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
+        style={{ y: 16, originX: '50%', originY: '50%' }}
       />
     </div>
   );
