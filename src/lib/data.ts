@@ -65,7 +65,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Platinum Plan',
-    priceString: '$300',
+    priceString: '$320',
     duration: '/3 months',
     description: '3 Months Unlimited Calling — no per-minute charges',
     features: [
