@@ -9,48 +9,7 @@ import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, User } from 'lucide-react';
-
-const AnimatedHamburgerIcon = ({ isOpen }: { isOpen: boolean }) => {
-  const lineVariants = {
-    closed: (y: number) => ({ rotate: 0, y }),
-    open: (y: number) => ({
-      rotate: y === 0 ? 45 : -45,
-      y: y === 0 ? 8 : -8,
-    }),
-  };
-  const middleLineVariants = {
-    closed: { opacity: 1, scaleX: 1 },
-    open: { opacity: 0, scaleX: 0 },
-  };
-
-  return (
-    <div className="w-6 h-6 relative flex flex-col justify-between" style={{ height: '18px' }}>
-      <motion.span
-        className="block h-0.5 w-full bg-current rounded-full"
-        custom={0}
-        variants={lineVariants}
-        animate={isOpen ? 'open' : 'closed'}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ y: 0, originX: '50%', originY: '50%' }}
-      />
-      <motion.span
-        className="block h-0.5 w-full bg-current rounded-full"
-        variants={middleLineVariants}
-        animate={isOpen ? 'open' : 'closed'}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
-      />
-      <motion.span
-        className="block h-0.5 w-full bg-current rounded-full"
-        custom={16}
-        variants={lineVariants}
-        animate={isOpen ? 'open' : 'closed'}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        style={{ y: 16, originX: '50%', originY: '50%' }}
-      />
-    </div>
-  );
-};
+import { Menu, Video, User } from 'lucide-react';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -97,8 +56,8 @@ export function Header() {
                 aria-controls="mobile-menu"
                 aria-expanded={isMenuOpen}
               >
+                <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
-                <AnimatedHamburgerIcon isOpen={isMenuOpen} />
               </Button>
             </SheetTrigger>
             <SheetContent 
