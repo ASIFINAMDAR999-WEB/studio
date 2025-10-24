@@ -96,7 +96,6 @@ export const plans: Plan[] = [
     features: [
         "Purchase and extend Virtual Numbers (DIDs)",
         "Top-up and manage your eSIM data plans",
-        'DTMF Feature (Dial-Pad Tones)',
         "Credits do not apply to call spoofing plans",
     ],
     cta: '', // CTA is handled by the price options now
