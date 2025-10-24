@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useTheme } from 'next-themes';
@@ -16,6 +16,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
   const [error, setError] = useState<string | null>(null);
   const [isShaking, setIsShaking] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const { theme } = useTheme();
@@ -79,6 +80,10 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  }
+
   return (
     <motion.div
       className="w-full max-w-md"
@@ -100,7 +105,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
                <label htmlFor="access-code" className="sr-only">Access Code</label>
               <input
                 ref={inputRef}
-                type="text"
+                type={isPasswordVisible ? 'text' : 'password'}
                 id="access-code"
                 value={code}
                 onChange={(e) => {
@@ -109,7 +114,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
                 }}
                 disabled={isLoading}
                 className={cn(
-                  'block w-full px-4 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all duration-300',
+                  'block w-full px-4 pr-12 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all duration-300',
                   'focus:outline-none focus:ring-4 focus:ring-primary/20',
                   error
                     ? 'border-destructive focus:border-destructive'
@@ -120,6 +125,14 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
                 aria-invalid={!!error}
                 aria-describedby={error ? "error-message" : undefined}
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground transition-colors"
+                aria-label={isPasswordVisible ? 'Hide code' : 'Show code'}
+              >
+                {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
             </div>
 
             <div className="flex justify-center">
