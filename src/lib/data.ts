@@ -21,6 +21,7 @@ export const plans: Plan[] = [
       'Unlock Advanced Call Spoofing',
       'Access the Premium Voice Changer',
       'Utilize Enhanced Routing Capabilities',
+      'DTMF Feature (Dial-Pad Tones)',
       'Receive Priority Customer Support',
       'Gain Access to the Advanced OTP Bot',
       'Full Access to Website & Application',
@@ -53,6 +54,7 @@ export const plans: Plan[] = [
       'Unlock Advanced Call Spoofing',
       'Access the Premium Voice Changer',
       'Utilize Enhanced Call Routing',
+      'DTMF Feature (Dial-Pad Tones)',
       'Gain Access to the Advanced OTP Bot',
       'Full Access to Website & Application',
       'Utilize Email & SMS Spoofing Features',
@@ -72,6 +74,7 @@ export const plans: Plan[] = [
       'Unlock Advanced Call Spoofing',
       'Access the Premium Voice Changer',
       'Utilize Enhanced Routing Capabilities',
+      'DTMF Feature (Dial-Pad Tones)',
       'Receive Priority Customer Support',
       'Gain Access to the Advanced OTP Bot',
       'Full API & Custom Integration Support',
@@ -93,6 +96,7 @@ export const plans: Plan[] = [
     features: [
         "Purchase and extend Virtual Numbers (DIDs)",
         "Top-up and manage your eSIM data plans",
+        'DTMF Feature (Dial-Pad Tones)',
         "Credits do not apply to call spoofing plans",
     ],
     cta: '', // CTA is handled by the price options now
