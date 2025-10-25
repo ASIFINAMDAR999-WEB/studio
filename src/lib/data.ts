@@ -136,36 +136,36 @@ export const faqItems = [
 ];
 
 export const testimonials = [
-    {
-      quote: "The reliability of REDArmor is unmatched. I rely on the premium voice changer and enhanced call routing daily, and the connection is always crystal-clear and stable. It's an essential tool for my privacy needs.",
-      name: "Alex J.",
-      role: "Security Consultant"
-    },
-    {
-      quote: "As a business owner, the professional IVR system and premium SIP trunk access have been game-changers. It has elevated our client interaction while ensuring total anonymity. The 24/7 support is also incredibly responsive.",
-      name: "Samantha L.",
-      role: "Business Owner"
-    },
-    {
-        quote: "I've tried other services, but none compare to REDArmor 2.0. The setup was instant after my crypto payment. The OTP bot and DTMF controls are advanced features that you just don't find elsewhere.",
-        name: "Michael C.",
-        role: "IT Specialist"
-    },
-    {
-        quote: "The Platinum Plan is worth every penny. Full API access allowed for a seamless integration into our existing workflow. The service is powerful, flexible, and the commitment to privacy is evident in every feature.",
-        name: "Emily R.",
-        role: "Lead Developer"
-    },
-    {
-        quote: "From SMS spoofing to securing virtual numbers, this platform covers all bases. The user interface is intuitive, and the global service reach means I can operate from anywhere without a hitch. A truly comprehensive solution.",
-        name: "David P.",
-        role: "Global Operations Manager"
-    },
-    {
-        quote: "Their support team is fantastic. I had a complex question about SIP trunking, and they were not only knowledgeable but also genuinely helpful. It's rare to find this level of expertise and customer care.",
-        name: "Olivia B.",
-        role: "Telecom Analyst"
-    }
+  {
+    quote: "The reliability of REDArmor is unmatched. I rely on the premium voice changer and enhanced call routing daily, and the connection is always crystal-clear and stable. It's an essential tool for my privacy needs.",
+    name: "Alex J.",
+    role: "Security Consultant"
+  },
+  {
+    quote: "As a business owner, the professional IVR system and premium SIP trunk access have been game-changers. It has elevated our client interaction while ensuring total anonymity. The 24/7 support is also incredibly responsive.",
+    name: "Samantha L.",
+    role: "Business Owner"
+  },
+  {
+    quote: "I've tried other services, but none compare to REDArmor 2.0. The setup was instant after my crypto payment. The OTP bot and DTMF controls are advanced features that you just don't find elsewhere.",
+    name: "Michael C.",
+    role: "IT Specialist"
+  },
+  {
+    quote: "The Platinum Plan is worth every penny. Full API access allowed for a seamless integration into our existing workflow. The service is powerful, flexible, and the commitment to privacy is evident in every feature.",
+    name: "Emily R.",
+    role: "Lead Developer"
+  },
+  {
+    quote: "From SMS spoofing to securing virtual numbers, this platform covers all bases. The user interface is intuitive, and the global service reach means I can operate from anywhere without a hitch. A truly comprehensive solution.",
+    name: "David P.",
+    role: "Global Operations Manager"
+  },
+  {
+    quote: "Their support team is fantastic. I had a complex question about SIP trunking, and they were not only knowledgeable but also genuinely helpful. It's rare to find this level of expertise and customer care.",
+    name: "Olivia B.",
+    role: "Telecom Analyst"
+  }
 ];
 
 export const keypad = [
