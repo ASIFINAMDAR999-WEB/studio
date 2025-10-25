@@ -76,7 +76,6 @@ export function TestimonialSection() {
                             </blockquote>
                             <div className="mt-6 text-right">
                                <p className="font-semibold">{testimonial.name}</p>
-                               <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                             </div>
                          </CardContent>
                        </Card>
