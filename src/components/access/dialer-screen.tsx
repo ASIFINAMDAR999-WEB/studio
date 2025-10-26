@@ -20,11 +20,6 @@ import { Label } from '../ui/label';
 import { EmailSpoofScreen } from './email-spoof-screen';
 import { SmsSpoofScreen } from './sms-spoof-screen';
 
-type CallLog = {
-  number: string;
-  time: string;
-};
-
 type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
 
 interface DialerScreenProps {
@@ -39,11 +34,10 @@ interface DialerScreenProps {
 export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [number, setNumber] = useState('');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'history', 'email', 'sms'
+  const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'email', 'sms'
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
   const [tempCallerId, setTempCallerId] = useState('');
-  const [callHistory, setCallHistory] = useState<CallLog[]>([]);
   const [inCallDtmf, setInCallDtmf] = useState('');
 
 
@@ -65,19 +59,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       const initialCallerId = savedCallerId || '+';
       setCallerId(initialCallerId);
       setTempCallerId(initialCallerId);
-
-      const savedHistory = localStorage.getItem('callHistory');
-      if (savedHistory) {
-        try {
-          const parsedHistory = JSON.parse(savedHistory);
-          if (Array.isArray(parsedHistory)) {
-            setCallHistory(parsedHistory);
-          }
-        } catch (e) {
-          console.error("Failed to parse call history from localStorage", e);
-          setCallHistory([]); // Fallback to an empty array
-        }
-      }
     } catch (error) {
       console.error("Failed to access localStorage", error);
     }
@@ -94,14 +75,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
        console.error("Failed to save callerId to localStorage", error);
     }
   }, [callerId]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('callHistory', JSON.stringify(callHistory));
-    } catch (error) {
-      console.error("Failed to save call history to localStorage", error);
-    }
-  }, [callHistory]);
 
 
   // Effect for the call timer
@@ -169,22 +142,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   };
 
   const handleEndCall = () => {
-    const newCall: CallLog = {
-      number: number,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
-    setCallHistory(prev => [newCall, ...prev]);
     setCallStatus('ended');
     
     setTimeout(() => {
         setNumber('');
         setCallStatus('idle');
     }, 1500);
-  };
-  
-  const handleHistoryClick = (logNumber: string) => {
-    setNumber(logNumber);
-    setActiveTab('dialer');
   };
 
 
@@ -328,36 +291,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
             </div>
           </motion.div>
         );
-      case 'history':
-        return (
-          <motion.div key="history-view" role="tabpanel" id="history-panel" aria-labelledby="history-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col bg-card rounded-xl p-4 space-y-2 overflow-y-auto max-h-[420px]">
-              {callHistory.length > 0 ? (
-                callHistory.map((log, index) => (
-                  <button 
-                    key={index} 
-                    onClick={() => handleHistoryClick(log.number)}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted text-left w-full"
-                    aria-label={`Call ${log.number}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <History className="h-5 w-5 text-muted-foreground" />
-                      <div>
-                        <p className="font-semibold text-foreground">{log.number}</p>
-                        <p className="text-sm text-muted-foreground">Outgoing call</p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{log.time}</p>
-                  </button>
-                ))
-              ) : (
-                <div className="flex-grow flex flex-col items-center justify-center text-center">
-                  <Clock className="h-12 w-12 text-muted-foreground mb-4" />
-                  <h3 className="text-xl font-semibold text-foreground">No Call History</h3>
-                  <p className="text-muted-foreground mt-2">Your recent calls will appear here.</p>
-                </div>
-              )}
-          </motion.div>
-        );
       case 'email':
         return (
             <motion.div key="email-spoof-view" role="tabpanel" id="email-spoof-panel" aria-labelledby="email-spoof-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col">
@@ -405,20 +338,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     >
                       <Phone className="h-4 w-4"/>
                       Dialer
-                    </button>
-                    <button 
-                      role="tab"
-                      aria-selected={activeTab === 'history'}
-                      id="history-tab"
-                      aria-controls="history-panel"
-                      onClick={() => setActiveTab('history')}
-                      className={cn(
-                        "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
-                        activeTab === 'history' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
-                      )}
-                    >
-                      <History className="h-4 w-4"/>
-                      History
                     </button>
                     <button 
                       role="tab"
