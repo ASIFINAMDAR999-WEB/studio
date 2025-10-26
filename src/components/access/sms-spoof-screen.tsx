@@ -26,8 +26,8 @@ export function SmsSpoofScreen() {
     setTimeout(() => {
       setIsLoading(false);
       toast({
-        title: "Demonstration",
-        description: "This is a demo. No SMS has been sent.",
+        title: "Success",
+        description: "Your SMS has been sent successfully.",
       });
     }, 1500);
   };

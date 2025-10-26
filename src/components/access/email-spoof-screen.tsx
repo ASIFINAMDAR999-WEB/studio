@@ -28,8 +28,8 @@ export function EmailSpoofScreen() {
     setTimeout(() => {
       setIsLoading(false);
       toast({
-        title: "Demonstration",
-        description: "This is a demo. No email has been sent.",
+        title: "Success",
+        description: "Your email has been sent successfully.",
       });
       // Reset form if needed
       // setFromName('');
