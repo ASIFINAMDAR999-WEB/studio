@@ -4,7 +4,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils';
 import { keypad } from '@/lib/data';
 import { Label } from '../ui/label';
 import { EmailSpoofScreen } from './email-spoof-screen';
+import { SmsSpoofScreen } from './sms-spoof-screen';
 
 type CallLog = {
   number: string;
@@ -38,7 +39,7 @@ interface DialerScreenProps {
 export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [number, setNumber] = useState('');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'history', 'email'
+  const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'history', 'email', 'sms'
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
   const [tempCallerId, setTempCallerId] = useState('');
@@ -363,6 +364,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <EmailSpoofScreen />
             </motion.div>
         );
+      case 'sms':
+        return (
+            <motion.div key="sms-spoof-view" role="tabpanel" id="sms-spoof-panel" aria-labelledby="sms-spoof-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col">
+                <SmsSpoofScreen />
+            </motion.div>
+        );
       default:
         return null;
     }
@@ -426,6 +433,20 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     >
                       <Mail className="h-4 w-4"/>
                       Email
+                    </button>
+                     <button 
+                      role="tab"
+                      aria-selected={activeTab === 'sms'}
+                      id="sms-spoof-tab"
+                      aria-controls="sms-spoof-panel"
+                      onClick={() => setActiveTab('sms')}
+                      className={cn(
+                        "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
+                        activeTab === 'sms' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+                      )}
+                    >
+                      <MessageSquare className="h-4 w-4"/>
+                      SMS
                     </button>
                 </div>
             </motion.div>
