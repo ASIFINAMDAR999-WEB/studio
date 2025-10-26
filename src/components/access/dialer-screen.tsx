@@ -294,13 +294,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       case 'email':
         return (
             <motion.div key="email-spoof-view" role="tabpanel" id="email-spoof-panel" aria-labelledby="email-spoof-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col">
-                <EmailSpoofScreen />
+                <EmailSpoofScreen planName={planName} />
             </motion.div>
         );
       case 'sms':
         return (
             <motion.div key="sms-spoof-view" role="tabpanel" id="sms-spoof-panel" aria-labelledby="sms-spoof-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col">
-                <SmsSpoofScreen />
+                <SmsSpoofScreen planName={planName} />
             </motion.div>
         );
       default:

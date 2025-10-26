@@ -2,16 +2,20 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Send, Loader2 } from 'lucide-react';
+import { Send, Loader2, Award } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 
-export function SmsSpoofScreen() {
+interface SmsSpoofScreenProps {
+  planName: string;
+}
+
+export function SmsSpoofScreen({ planName }: SmsSpoofScreenProps) {
   const [fromNumber, setFromNumber] = useState('');
   const [toNumber, setToNumber] = useState('');
   const [message, setMessage] = useState('');
@@ -42,6 +46,15 @@ export function SmsSpoofScreen() {
         <Card className="bg-transparent border-none shadow-none">
         <CardHeader>
             <CardTitle className="text-xl text-center">SMS Spoofing Tool</CardTitle>
+            {planName && (
+                <CardDescription className="text-center pt-2">
+                    <div className="flex justify-center items-center gap-2 text-sm">
+                        <Award className="h-4 w-4 text-primary" />
+                        Active Plan:
+                        <span className="text-primary font-bold">{planName}</span>
+                    </div>
+                </CardDescription>
+            )}
         </CardHeader>
         <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
