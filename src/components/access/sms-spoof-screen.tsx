@@ -39,7 +39,7 @@ export function SmsSpoofScreen() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-        <Card className="bg-card/80 backdrop-blur-sm border-none shadow-none">
+        <Card className="bg-transparent border-none shadow-none">
         <CardHeader>
             <CardTitle className="text-xl text-center">SMS Spoofing Tool</CardTitle>
         </CardHeader>

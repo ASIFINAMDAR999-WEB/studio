@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -47,7 +47,7 @@ export function EmailSpoofScreen() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-        <Card className="bg-card/80 backdrop-blur-sm border-none shadow-none">
+        <Card className="bg-transparent border-none shadow-none">
         <CardHeader>
             <CardTitle className="text-xl text-center">Email Spoofing Tool</CardTitle>
         </CardHeader>
