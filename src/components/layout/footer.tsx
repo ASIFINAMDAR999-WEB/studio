@@ -20,7 +20,7 @@ export function Footer() {
           </Link>
         </div>
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} <span className="font-semibold text-primary">REDArmor 2.0</span>. All Rights Reserved.
+          &copy; {new Date().getFullYear()} <Link href="/" className="font-semibold text-primary hover:text-accent transition-colors duration-300">REDArmor 2.0</Link>. All Rights Reserved.
         </p>
       </div>
     </footer>
