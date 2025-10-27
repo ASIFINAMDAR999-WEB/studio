@@ -19,7 +19,9 @@ export function Footer() {
             Privacy Policy
           </Link>
         </div>
-        <p className="text-sm">&copy; {new Date().getFullYear()} REDArmor 2.0. All Rights Reserved.</p>
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} <span className="font-semibold text-primary">REDArmor 2.0</span>. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );
