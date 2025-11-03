@@ -46,7 +46,7 @@ const qrCodes: Record<string, string> = {
   trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-26-46-955.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI2LTQ2LTk1NS5wbmciLCJpYXQiOjE3NjAwMDQyODAsImV4cCI6MjA3NTM2NDI4MH0.fGKobL3rORKiSuE88c8RtV3Y1zPkksSZlgSpa9RxEiY',
   eth: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-36-24-890.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTM2LTI0LTg5MC5wbmciLCJpYXQiOjE3NTc2NTAwNDQsImV4cCI6MjA3MzAxMDA0NH0.KHWhq8PMM2q5qb_ICnMMHb4vHTH6ECgWPHS1dCcW0aY',
   ltc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-40-17-854.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQwLTE3LTg1NC5wbmciLCJpYXQiOjE3NTc2NTAzNTMsImV4cCI6MjA3MzAxMDM1M30.Z4_FQ_h49OLTmzLi85K95_IJoX2BlFmDSdHlW76houo',
-  xrp: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-46-25-627.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1ciJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQ2LTI1LTYyNy5wbmciLCJpYXQiOjE3NTc2NTA2NTYsImV4cCI6MjA3MzAxMDY1Nn0.ecMfSJfbEr64WHr9F_57m3hq7RLX3xnQD8WRMNDZj_0',
+  xrp: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-46-25-627.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQ2LTI1LTYyNy5wbmciLCJpYXQiOjE3NTc2NTA2NTYsImV4cCI6MjA3MzAxMDY1Nn0.ecMfSJfbEr64WHr9F_57m3hq7RLX3xnQD8WRMNDZj_0',
   sol: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-54-02-688.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTU0LTAyLTY4OC5wbmciLCJpYXQiOjE3NTc2NTExOTcsImV4cCI6MjA3MzAxMTE5N30.lMmjFzzz3BbYA2XjczRGpW5KeDMN7PgLPwKLaW97bi4',
   ton: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_10-08-56-974.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzEwLTA4LTU2LTk3NC5wbmciLCJpYXQiOjE3NTc2NTE5OTIsImV4cCI6MjA3MzAxMTk5Mn0.rmVIGvGJQk1Xo9ArWfpgadJNbItpvzR5mp3rUY7DR3A',
   usdt_trc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-24-10-048.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI0LTEwLTA0OC5wbmciLCJpYXQiOjE3NjAwMDQxMjIsImV4cCI6MjA3NTM2NDEyMn0.nkpkF0gK90TXUc1x5ByIP9a4QxleZX2eDIgedtPuAIM',
@@ -63,6 +63,7 @@ export function PaymentPageComponent() {
   const [isCopied, setIsCopied] = useState(false);
   
   const fetchPrices = async () => {
+    setIsLoading(true);
     const apiIds = Object.values(cryptoOptions).map(c => c.apiId).join(',');
     try {
       const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${apiIds}&vs_currencies=usd`);
@@ -186,50 +187,11 @@ export function PaymentPageComponent() {
                   <CardTitle className="text-xl">Order Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex justify-between items-start flex-wrap gap-2">
+                  <div className="flex justify-between items-center flex-wrap gap-2">
                       <p className="text-lg font-semibold">{planName}</p>
                       <div className="text-right">
                           <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
                           {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
-                          
-                          <div className="h-6 mt-1 flex justify-end items-center">
-                            <AnimatePresence mode="wait">
-                              {isLoading && cryptoKey ? (
-                                <motion.div key="loader" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
-                                  <Skeleton className="h-5 w-28 animate-pulse" />
-                                </motion.div>
-                              ) : cryptoAmountString && selectedCrypto ? (
-                                <motion.div
-                                  key="price"
-                                  className="flex items-center gap-2"
-                                  initial={{ opacity: 0, y: 5 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                >
-                                  <span className="font-mono text-sm text-primary font-bold tracking-tighter">
-                                    {cryptoAmountString} {selectedCrypto.symbol}
-                                  </span>
-                                  <motion.button
-                                    onClick={() => copyToClipboard(cryptoAmountString)}
-                                    className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
-                                    whileTap={{ scale: 0.9 }}
-                                    aria-label="Copy crypto amount"
-                                  >
-                                    <AnimatePresence mode="wait">
-                                      {isCopied ? (
-                                        <motion.div key="check" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
-                                          <Check className="h-4 w-4 text-green-500" />
-                                        </motion.div>
-                                      ) : (
-                                        <motion.div key="copy" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
-                                          <Copy className="h-4 w-4" />
-                                        </motion.div>
-                                      )}
-                                    </AnimatePresence>
-                                  </motion.button>
-                                </motion.div>
-                              ) : null}
-                            </AnimatePresence>
-                          </div>
                       </div>
                   </div>
                   <div className="text-sm text-muted-foreground pt-2 border-t">
@@ -283,6 +245,56 @@ export function PaymentPageComponent() {
                   <CardContent className="space-y-6">
                       {selectedCrypto ? (
                           <div className='space-y-4'>
+                              <div className="border bg-background rounded-lg p-4">
+                                <div className="flex justify-between items-center mb-2">
+                                  <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
+                                  <Button variant="ghost" size="sm" onClick={fetchPrices} disabled={isLoading} className="text-xs h-auto py-1 px-2">
+                                    <RefreshCw className={`h-3 w-3 mr-2 ${isLoading ? 'animate-spin' : ''}`}/>
+                                    Refresh
+                                  </Button>
+                                </div>
+                                <div className="h-8 flex items-center">
+                                  <AnimatePresence mode="wait">
+                                    {isLoading ? (
+                                      <motion.div key="loader" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="w-full">
+                                        <Skeleton className="h-6 w-3/5 animate-pulse" />
+                                      </motion.div>
+                                    ) : cryptoAmountString ? (
+                                      <motion.div
+                                        key="price"
+                                        className="flex items-center gap-2 w-full justify-between"
+                                        initial={{ opacity: 0, y: 5 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                      >
+                                        <span className="font-mono text-lg text-primary font-bold tracking-tighter">
+                                          {cryptoAmountString} {selectedCrypto.symbol}
+                                        </span>
+                                        <motion.button
+                                          onClick={() => copyToClipboard(cryptoAmountString)}
+                                          className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                                          whileTap={{ scale: 0.9 }}
+                                          aria-label="Copy crypto amount"
+                                        >
+                                          <AnimatePresence mode="wait">
+                                            {isCopied ? (
+                                              <motion.div key="check" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                <Check className="h-5 w-5 text-green-500" />
+                                              </motion.div>
+                                            ) : (
+                                              <motion.div key="copy" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                <Copy className="h-5 w-5" />
+                                              </motion.div>
+                                            )}
+                                          </AnimatePresence>
+                                        </motion.button>
+                                      </motion.div>
+                                    ) : (
+                                      <p className="text-sm text-destructive">Could not load price.</p>
+                                    )}
+                                  </AnimatePresence>
+                                </div>
+                              </div>
+                              
                               {selectedCrypto.networks.map(networkKey => {
                                   const { network, address } = addresses[networkKey] || {};
                                   return (
@@ -362,3 +374,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
