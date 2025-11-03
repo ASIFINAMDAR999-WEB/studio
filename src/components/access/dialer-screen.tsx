@@ -51,6 +51,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const callIntervalRef = useRef<NodeJS.Timeout>();
+  const ringoutAudioRef = useRef<HTMLAudioElement>(null);
+
 
   // Load state from localStorage on initial render
   useEffect(() => {
@@ -80,11 +82,19 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   // Effect for the call timer
   useEffect(() => {
     if (callStatus === 'connected') {
+      clearInterval(callIntervalRef.current); // Stop previous timer if any
+      ringoutAudioRef.current?.pause(); // Stop ringing sound
+      if (ringoutAudioRef.current) ringoutAudioRef.current.currentTime = 0;
+
       callIntervalRef.current = setInterval(() => {
         setCallTimer((prev) => prev + 1);
       }, 1000);
     } else {
       clearInterval(callIntervalRef.current);
+      if (callStatus !== 'calling') {
+        ringoutAudioRef.current?.pause();
+        if (ringoutAudioRef.current) ringoutAudioRef.current.currentTime = 0;
+      }
     }
     return () => clearInterval(callIntervalRef.current);
   }, [callStatus]);
@@ -135,6 +145,8 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setCallTimer(0);
     setInCallDtmf('');
     
+    ringoutAudioRef.current?.play();
+
     // Simulate connection time
     setTimeout(() => {
       setCallStatus('connected');
@@ -311,6 +323,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   return (
     <>
+      <audio ref={ringoutAudioRef} src="/ringout.mp3" preload="auto" loop className="hidden"></audio>
       <div className="w-full max-w-sm mx-auto p-2 sm:p-4 flex flex-col bg-background">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
