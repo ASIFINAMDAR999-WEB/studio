@@ -1,11 +1,11 @@
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -13,6 +13,7 @@ import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const addresses: Record<string, { network: string; address: string }> = {
   usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'TYdBx5944hZZUnfoMCNEDy4pKZ17oC4N3a' },
@@ -27,17 +28,17 @@ const addresses: Record<string, { network: string; address: string }> = {
   ton: { network: 'TON', address: 'UQCTDuH5udkgZDqvhmhmOHhG7NazA7g85-PUqj63jutnGXBI' },
 };
 
-const cryptoOptions: Record<string, { name: string; networks: string[] }> = {
-    usdt_trc20: { name: 'USDT (Tether)', networks: ['usdt_trc20']},
-    usdt_erc20: { name: 'USDT (Tether)', networks: ['usdt_erc20']},
-    usdt_bep20: { name: 'USDT (Tether)', networks: ['usdt_bep20']},
-    btc: { name: 'Bitcoin (BTC)', networks: ['btc']},
-    eth: { name: 'Ethereum (ETH)', networks: ['eth']},
-    ltc: { name: 'Litecoin (LTC)', networks: ['ltc']},
-    xrp: { name: 'Ripple (XRP)', networks: ['xrp']},
-    sol: { name: 'Solana (SOL)', networks: ['sol']},
-    trx: { name: 'Tron (TRX)', networks: ['trx']},
-    ton: { name: 'TON', networks: ['ton']},
+const cryptoOptions: Record<string, { name: string; networks: string[]; apiId: string; symbol: string; precision: number }> = {
+    usdt_trc20: { name: 'USDT (Tether)', networks: ['usdt_trc20'], apiId: 'tether', symbol: 'USDT', precision: 6},
+    usdt_erc20: { name: 'USDT (Tether)', networks: ['usdt_erc20'], apiId: 'tether', symbol: 'USDT', precision: 6},
+    usdt_bep20: { name: 'USDT (Tether)', networks: ['usdt_bep20'], apiId: 'tether', symbol: 'USDT', precision: 6},
+    btc: { name: 'Bitcoin (BTC)', networks: ['btc'], apiId: 'bitcoin', symbol: 'BTC', precision: 8},
+    eth: { name: 'Ethereum (ETH)', networks: ['eth'], apiId: 'ethereum', symbol: 'ETH', precision: 8},
+    ltc: { name: 'Litecoin (LTC)', networks: ['ltc'], apiId: 'litecoin', symbol: 'LTC', precision: 8},
+    xrp: { name: 'Ripple (XRP)', networks: ['xrp'], apiId: 'ripple', symbol: 'XRP', precision: 6},
+    sol: { name: 'Solana (SOL)', networks: ['sol'], apiId: 'solana', symbol: 'SOL', precision: 8},
+    trx: { name: 'Tron (TRX)', networks: ['trx'], apiId: 'tron', symbol: 'TRX', precision: 6},
+    ton: { name: 'TON', networks: ['ton'], apiId: 'the-open-network', symbol: 'TON', precision: 6},
 }
 
 const qrCodes: Record<string, string> = {
@@ -57,7 +58,33 @@ export function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const cryptoKey = searchParams.get('crypto');
+  const [prices, setPrices] = useState<Record<string, number>>({});
+  const [isLoading, setIsLoading] = useState(true);
   
+  const fetchPrices = async () => {
+    const apiIds = Object.values(cryptoOptions).map(c => c.apiId).join(',');
+    try {
+      const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${apiIds}&vs_currencies=usd`);
+      const data = await response.json();
+      const newPrices: Record<string, number> = {};
+      for (const key in data) {
+        newPrices[key] = data[key].usd;
+      }
+      setPrices(newPrices);
+    } catch (error) {
+      console.error("Failed to fetch crypto prices:", error);
+      toast({ title: "Error", description: "Could not load live crypto prices. Please refresh.", variant: "destructive" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPrices();
+    const interval = setInterval(fetchPrices, 30000); // Auto-refresh every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     document.title = `Payment for ${planName} | REDArmor 2.0`;
   }, [planName]);
@@ -68,18 +95,20 @@ export function PaymentPageComponent() {
   const basePlanName = isTopUp ? planName.split(' - ')[0] : planName;
   const plan = plans.find((p) => p.name === basePlanName) || plans[0];
   const { toast } = useToast();
+  
+  const planUsdPrice = parseFloat((topUpAmount || plan.priceString).replace('$', ''));
 
-  const copyToClipboard = (text: string) => {
-    if (text && text !== 'Address not available') {
+  const copyToClipboard = (text: string | undefined) => {
+    if (text) {
       navigator.clipboard.writeText(text);
       toast({
         title: "Copied to clipboard",
-        description: "Address has been copied to your clipboard.",
+        description: "The value has been copied to your clipboard.",
       });
     } else {
       toast({
         title: "Error",
-        description: "Address is not available to copy.",
+        description: "Value is not available to copy.",
         variant: "destructive",
       });
     }
@@ -87,6 +116,10 @@ export function PaymentPageComponent() {
   
   const selectedCrypto = cryptoKey ? cryptoOptions[cryptoKey] : null;
   const qrCodeUrl = cryptoKey ? qrCodes[cryptoKey] : null;
+  const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
+  const cryptoAmount = (currentPrice && planUsdPrice) ? (planUsdPrice / currentPrice) : undefined;
+  const cryptoAmountString = cryptoAmount?.toFixed(selectedCrypto?.precision || 8);
+
 
   const instructions = [
     { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">exact amount.</span> Double-check the address and network before sending.</> },
@@ -150,11 +183,25 @@ export function PaymentPageComponent() {
                   <CardTitle className="text-xl">Order Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex justify-between items-center flex-wrap gap-2">
+                  <div className="flex justify-between items-start flex-wrap gap-2">
                       <p className="text-lg font-semibold">{planName}</p>
                       <div className="text-right">
                           <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
                           {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
+                          
+                           {cryptoAmountString && selectedCrypto ? (
+                              <div className="flex items-center justify-end gap-2 mt-1">
+                                <span className="font-mono text-sm text-primary font-bold tracking-tighter">
+                                  {cryptoAmountString} {selectedCrypto.symbol}
+                                </span>
+                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(cryptoAmountString)}>
+                                    <Copy className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            ) : isLoading && cryptoKey ? (
+                              <Skeleton className="h-5 w-24 mt-1" />
+                            ) : null}
+
                       </div>
                   </div>
                   <div className="text-sm text-muted-foreground pt-2 border-t">
@@ -287,3 +334,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
