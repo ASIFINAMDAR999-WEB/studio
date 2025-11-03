@@ -63,7 +63,7 @@ export const plans: Plan[] = [
       'Standard SIP Trunk Access (inbound & outbound)',
     ],
     cta: 'Choose Plan',
-    bonus: 'Welcome Bonus: New clients receive an extra 15 days of service, completely free.',
+    bonus: 'Welcome Bonus: First-time clients receive 15 extra days of service (worth $75)—absolutely FREE!',
     isHot: true,
   },
   {
@@ -86,7 +86,7 @@ export const plans: Plan[] = [
       'Leverage Premium SIP Trunk Access',
     ],
     cta: 'Choose Plan',
-    bonus: 'Welcome Bonus: New clients receive an entire extra month of service, completely free.',
+    bonus: 'Welcome Bonus: First-time clients receive 30 extra days of service (worth $150)—absolutely FREE!',
     isHot: true,
   },
   {
