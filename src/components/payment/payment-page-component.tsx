@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -62,6 +62,7 @@ export function PaymentPageComponent() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAmountCopied, setIsAmountCopied] = useState(false);
   const [isAddressCopied, setIsAddressCopied] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   
   const fetchPrices = async () => {
     setIsLoading(true);
@@ -104,6 +105,10 @@ export function PaymentPageComponent() {
   const copyToClipboard = (text: string | undefined, type: 'amount' | 'address') => {
     if (text) {
       navigator.clipboard.writeText(text);
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
+      }
       if (type === 'amount') {
         setIsAmountCopied(true);
         setTimeout(() => setIsAmountCopied(false), 2000);
@@ -164,7 +169,7 @@ export function PaymentPageComponent() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-
+      <audio ref={audioRef} src="https://www.myinstants.com/media/sounds/apple-pay-sound-effect.mp3" preload="auto" className="hidden"></audio>
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
           <motion.div 
