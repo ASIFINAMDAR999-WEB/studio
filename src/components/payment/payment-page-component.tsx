@@ -266,7 +266,7 @@ export function PaymentPageComponent() {
                                         initial={{ opacity: 0, y: 5 }}
                                         animate={{ opacity: 1, y: 0 }}
                                       >
-                                        <span className="font-mono text-lg text-primary font-bold tracking-tighter">
+                                        <span className="font-mono text-base text-primary font-bold tracking-tighter">
                                           {cryptoAmountString} {selectedCrypto.symbol}
                                         </span>
                                         <motion.button
@@ -374,5 +374,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
-    
