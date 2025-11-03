@@ -132,7 +132,11 @@ export function PaymentPageComponent() {
   const selectedCrypto = cryptoKey ? cryptoOptions[cryptoKey] : null;
   const qrCodeUrl = cryptoKey ? qrCodes[cryptoKey] : null;
   const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
-  const cryptoAmount = (currentPrice && planUsdPrice) ? ((planUsdPrice + 2) / currentPrice) : undefined;
+
+  const isUsdt = cryptoKey?.startsWith('usdt');
+  const finalUsdPrice = isUsdt ? planUsdPrice : planUsdPrice + 2;
+  const cryptoAmount = (currentPrice && planUsdPrice) ? (finalUsdPrice / currentPrice) : undefined;
+
   const cryptoAmountString = cryptoAmount?.toFixed(selectedCrypto?.precision || 8);
 
 
