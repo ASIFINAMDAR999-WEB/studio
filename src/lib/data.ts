@@ -114,6 +114,10 @@ export const faqItems = [
     answer: "We exclusively accept cryptocurrency to ensure client privacy and security. We support a wide range of popular coins, including USDT (TRC-20, ERC-20, BEP-20), Bitcoin (BTC), Ethereum (ETH), Litecoin (LTC), Solana (SOL), Tron (TRX), TON, and Ripple (XRP). This allows for fast, anonymous, and secure transactions from anywhere in the world."
   },
   {
+    question: "What is the 'New Client Offer' and how do I get it?",
+    answer: "Our 'New Client Offer' is an exclusive welcome bonus for first-time customers purchasing our Diamond or Platinum plans. When you buy the Diamond Plan, you receive 15 extra days of service free. If you choose the Platinum Plan, you get a full 30 extra days free. The bonus is automatically applied to your account after your first purchase—no special code is required."
+  },
+  {
     question: "How do I get support if I have an issue?",
     answer: "Our dedicated support team is available to assist you. The most effective way to get help is by contacting our admin directly on Telegram at @AF3092. Whether you have questions about our services, need help with a payment, or encounter a technical issue, our team is ready to provide prompt and knowledgeable assistance. For automated services, you can also use one of our official bots listed on the 'Bots' page."
   },
