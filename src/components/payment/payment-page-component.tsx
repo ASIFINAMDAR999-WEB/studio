@@ -12,7 +12,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const addresses: Record<string, { network: string; address: string }> = {
@@ -60,6 +60,7 @@ export function PaymentPageComponent() {
   const cryptoKey = searchParams.get('crypto');
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isCopied, setIsCopied] = useState(false);
   
   const fetchPrices = async () => {
     const apiIds = Object.values(cryptoOptions).map(c => c.apiId).join(',');
@@ -101,10 +102,12 @@ export function PaymentPageComponent() {
   const copyToClipboard = (text: string | undefined) => {
     if (text) {
       navigator.clipboard.writeText(text);
+      setIsCopied(true);
       toast({
         title: "Copied to clipboard",
         description: "The value has been copied to your clipboard.",
       });
+      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
     } else {
       toast({
         title: "Error",
@@ -189,19 +192,44 @@ export function PaymentPageComponent() {
                           <p className="text-2xl font-bold">{isTopUp ? topUpAmount : plan.priceString}</p>
                           {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
                           
-                           {cryptoAmountString && selectedCrypto ? (
-                              <div className="flex items-center justify-end gap-2 mt-1">
-                                <span className="font-mono text-sm text-primary font-bold tracking-tighter">
-                                  {cryptoAmountString} {selectedCrypto.symbol}
-                                </span>
-                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(cryptoAmountString)}>
-                                    <Copy className="h-3 w-3" />
-                                </Button>
-                              </div>
-                            ) : isLoading && cryptoKey ? (
-                              <Skeleton className="h-5 w-24 mt-1" />
-                            ) : null}
-
+                          <div className="h-6 mt-1 flex justify-end items-center">
+                            <AnimatePresence mode="wait">
+                              {isLoading && cryptoKey ? (
+                                <motion.div key="loader" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}>
+                                  <Skeleton className="h-5 w-28 animate-pulse" />
+                                </motion.div>
+                              ) : cryptoAmountString && selectedCrypto ? (
+                                <motion.div
+                                  key="price"
+                                  className="flex items-center gap-2"
+                                  initial={{ opacity: 0, y: 5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                >
+                                  <span className="font-mono text-sm text-primary font-bold tracking-tighter">
+                                    {cryptoAmountString} {selectedCrypto.symbol}
+                                  </span>
+                                  <motion.button
+                                    onClick={() => copyToClipboard(cryptoAmountString)}
+                                    className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                                    whileTap={{ scale: 0.9 }}
+                                    aria-label="Copy crypto amount"
+                                  >
+                                    <AnimatePresence mode="wait">
+                                      {isCopied ? (
+                                        <motion.div key="check" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                          <Check className="h-4 w-4 text-green-500" />
+                                        </motion.div>
+                                      ) : (
+                                        <motion.div key="copy" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                          <Copy className="h-4 w-4" />
+                                        </motion.div>
+                                      )}
+                                    </AnimatePresence>
+                                  </motion.button>
+                                </motion.div>
+                              ) : null}
+                            </AnimatePresence>
+                          </div>
                       </div>
                   </div>
                   <div className="text-sm text-muted-foreground pt-2 border-t">
@@ -334,5 +362,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
-    
