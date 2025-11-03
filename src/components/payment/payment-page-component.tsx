@@ -60,7 +60,8 @@ export function PaymentPageComponent() {
   const cryptoKey = searchParams.get('crypto');
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [isLoading, setIsLoading] = useState(true);
-  const [isCopied, setIsCopied] = useState(false);
+  const [isAmountCopied, setIsAmountCopied] = useState(false);
+  const [isAddressCopied, setIsAddressCopied] = useState(false);
   
   const fetchPrices = async () => {
     setIsLoading(true);
@@ -100,15 +101,20 @@ export function PaymentPageComponent() {
   
   const planUsdPrice = parseFloat((topUpAmount || plan.priceString).replace('$', ''));
 
-  const copyToClipboard = (text: string | undefined) => {
+  const copyToClipboard = (text: string | undefined, type: 'amount' | 'address') => {
     if (text) {
       navigator.clipboard.writeText(text);
-      setIsCopied(true);
+      if (type === 'amount') {
+        setIsAmountCopied(true);
+        setTimeout(() => setIsAmountCopied(false), 2000);
+      } else {
+        setIsAddressCopied(true);
+        setTimeout(() => setIsAddressCopied(false), 2000);
+      }
       toast({
         title: "Copied to clipboard",
         description: "The value has been copied to your clipboard.",
       });
-      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
     } else {
       toast({
         title: "Error",
@@ -270,13 +276,13 @@ export function PaymentPageComponent() {
                                           {cryptoAmountString} {selectedCrypto.symbol}
                                         </span>
                                         <motion.button
-                                          onClick={() => copyToClipboard(cryptoAmountString)}
+                                          onClick={() => copyToClipboard(cryptoAmountString, 'amount')}
                                           className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
                                           whileTap={{ scale: 0.9 }}
                                           aria-label="Copy crypto amount"
                                         >
                                           <AnimatePresence mode="wait">
-                                            {isCopied ? (
+                                            {isAmountCopied ? (
                                               <motion.div key="check" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
                                                 <Check className="h-5 w-5 text-green-500" />
                                               </motion.div>
@@ -302,9 +308,25 @@ export function PaymentPageComponent() {
                                           <p className="text-sm text-muted-foreground mb-1">{network}</p>
                                           <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
                                               <p className="font-mono text-sm sm:text-base break-all text-foreground">{address || 'Address not available'}</p>
-                                              <Button variant="ghost" size="icon" onClick={() => copyToClipboard(address)} disabled={!address || address === 'Address not available'} className="self-end sm:self-center flex-shrink-0 transition-colors duration-300 hover:bg-primary/20 disabled:hover:bg-transparent">
-                                                  <Clipboard className="h-5 w-5" />
-                                              </Button>
+                                              <motion.button
+                                                onClick={() => copyToClipboard(address, 'address')}
+                                                className="self-end sm:self-center flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                                                whileTap={{ scale: 0.9 }}
+                                                aria-label="Copy wallet address"
+                                                disabled={!address || address === 'Address not available'}
+                                              >
+                                                <AnimatePresence mode="wait">
+                                                  {isAddressCopied ? (
+                                                    <motion.div key="check-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                      <Check className="h-5 w-5 text-green-500" />
+                                                    </motion.div>
+                                                  ) : (
+                                                    <motion.div key="copy-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                      <Clipboard className="h-5 w-5" />
+                                                    </motion.div>
+                                                  )}
+                                                </AnimatePresence>
+                                              </motion.button>
                                           </div>
                                       </div>
                                   )
