@@ -26,6 +26,8 @@ interface DialerScreenProps {
   planName: string;
 }
 
+const dtmfSounds: { [key: string]: HTMLAudioElement } = {};
+
 /**
  * DialerScreen Component
  * This component provides a fully functional and animated dialer interface.
@@ -52,6 +54,31 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const callIntervalRef = useRef<NodeJS.Timeout>();
   const ringoutAudioRef = useRef<HTMLAudioElement>(null);
+  const dtmfAudioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
+
+
+  // Preload DTMF sounds
+  useEffect(() => {
+    const keyMap: { [key: string]: string } = {
+        '1': '/1dtmf.mp3', '2': '/2dtmf.mp3', '3': '/3dtmf.mp3',
+        '4': '/4dtmf.mp3', '5': '/5dtmf.mp3', '6': '/6dtmf.mp3',
+        '7': '/7dtmf.mp3', '8': '/8dtmf.mp3', '9': '/9dtmf.mp3',
+        '0': '/0dtmf.mp3', '*': '/stardtmf.mp3', '#': '/hashtagdtmf.mp3',
+    };
+    Object.entries(keyMap).forEach(([key, src]) => {
+        const audio = new Audio(src);
+        audio.preload = 'auto';
+        dtmfAudioRefs.current[key] = audio;
+    });
+  }, []);
+
+  const playDtmfSound = (key: string) => {
+    const audio = dtmfAudioRefs.current[key];
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {}); // Fail silently
+    }
+  };
 
 
   // Load state from localStorage on initial render
@@ -99,6 +126,21 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     return () => clearInterval(callIntervalRef.current);
   }, [callStatus]);
 
+  // Keyboard support for DTMF sounds
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (dtmfAudioRefs.current[event.key]) {
+        playDtmfSound(event.key);
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [playDtmfSound]);
+
+
   const handleNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^\d+*#]/g, '');
     if (value.length > 16) {
@@ -110,12 +152,14 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
 
   const handleKeyPress = (digit: string) => {
+    playDtmfSound(digit);
     if (number.length < 16) {
         setNumber((prev) => prev + digit);
     }
   };
   
   const handleInCallKeyPress = (digit: string) => {
+    playDtmfSound(digit);
     setInCallDtmf((prev) => prev + digit);
   };
 
