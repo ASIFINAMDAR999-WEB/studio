@@ -169,7 +169,7 @@ export function PaymentPageComponent() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-      <audio ref={audioRef} src="https://www.myinstants.com/media/sounds/apple-pay-sound-effect.mp3" preload="auto" className="hidden"></audio>
+      <audio ref={audioRef} src="/applepay.mp3" preload="auto" className="hidden"></audio>
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
           <motion.div 
