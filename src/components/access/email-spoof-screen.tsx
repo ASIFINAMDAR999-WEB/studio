@@ -42,6 +42,12 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                 title: "Success",
                 description: result.message || "Your email has been sent successfully.",
             });
+            // Clear the form on success
+            setFromName('');
+            setFromEmail('');
+            setToEmail('');
+            setSubject('');
+            setMessage('');
         } else {
             throw new Error(result.error || 'An unknown error occurred.');
         }
@@ -135,7 +141,7 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                 placeholder="Type your message here..."
                 className="min-h-[120px]"
                 value={message}
-                onChange={(e) => setMessage(e.g.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
                 disabled={isLoading}
                 required
                 />
