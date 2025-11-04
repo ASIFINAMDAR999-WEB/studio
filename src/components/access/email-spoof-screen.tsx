@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Send, Loader2, Award } from 'lucide-react';
+import { Send, Loader2, Award, Paperclip } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 
@@ -21,18 +21,36 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
   const [toEmail, setToEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [attachment, setAttachment] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setAttachment(e.target.files[0]);
+    } else {
+      setAttachment(null);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
+    const formData = new FormData();
+    formData.append('fromName', fromName);
+    formData.append('fromEmail', fromEmail);
+    formData.append('toEmail', toEmail);
+    formData.append('subject', subject);
+    formData.append('message', message);
+    if (attachment) {
+        formData.append('attachment', attachment);
+    }
+
     try {
         const response = await fetch('/api/send-email', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ fromName, fromEmail, toEmail, subject, message }),
+            body: formData,
         });
 
         const result = await response.json();
@@ -48,6 +66,12 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
             setToEmail('');
             setSubject('');
             setMessage('');
+            setAttachment(null);
+            // Reset file input
+            const fileInput = document.getElementById('attachment') as HTMLInputElement;
+            if (fileInput) {
+                fileInput.value = '';
+            }
         } else {
             throw new Error(result.error || 'An unknown error occurred.');
         }
@@ -145,6 +169,19 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                 disabled={isLoading}
                 required
                 />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="attachment">Attachment (Optional)</Label>
+                <div className="relative">
+                    <Paperclip className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                        id="attachment"
+                        type="file"
+                        onChange={handleFileChange}
+                        disabled={isLoading}
+                        className="pl-9"
+                    />
+                </div>
             </div>
             <Button type="submit" className="w-full group" disabled={isLoading || isFormInvalid}>
                 {isLoading ? (
