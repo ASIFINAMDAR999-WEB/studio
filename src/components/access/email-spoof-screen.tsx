@@ -24,25 +24,39 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Success",
-        description: "Your email has been sent successfully.",
-      });
-      // Reset form if needed
-      // setFromName('');
-      // setFromEmail('');
-      // setToEmail('');
-      // setSubject('');
-      // setMessage('');
-    }, 1500);
+    try {
+        const response = await fetch('/api/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fromName, fromEmail, toEmail, subject, message }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            toast({
+                title: "Success",
+                description: result.message || "Your email has been sent successfully.",
+            });
+        } else {
+            throw new Error(result.error || 'An unknown error occurred.');
+        }
+    } catch (error: any) {
+        toast({
+            title: "Error",
+            description: error.message || "Failed to send email. Please try again.",
+            variant: 'destructive',
+        });
+    } finally {
+        setIsLoading(false);
+    }
   };
+
+  const isFormInvalid = !fromName || !fromEmail || !toEmail || !subject || !message;
 
   return (
     <motion.div
@@ -75,10 +89,11 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                     value={fromName}
                     onChange={(e) => setFromName(e.target.value)}
                     disabled={isLoading}
+                    required
                 />
                 </div>
                 <div className="space-y-2">
-                <Label htmlFor="from-email">From Email</Label>
+                <Label htmlFor="from-email">From Email (Reply-To)</Label>
                 <Input
                     id="from-email"
                     type="email"
@@ -86,6 +101,7 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                     value={fromEmail}
                     onChange={(e) => setFromEmail(e.target.value)}
                     disabled={isLoading}
+                    required
                 />
                 </div>
             </div>
@@ -109,6 +125,7 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 disabled={isLoading}
+                required
                 />
             </div>
             <div className="space-y-2">
@@ -118,11 +135,12 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                 placeholder="Type your message here..."
                 className="min-h-[120px]"
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => setMessage(e.g.target.value)}
                 disabled={isLoading}
+                required
                 />
             </div>
-            <Button type="submit" className="w-full group" disabled={isLoading || !toEmail}>
+            <Button type="submit" className="w-full group" disabled={isLoading || isFormInvalid}>
                 {isLoading ? (
                 <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
