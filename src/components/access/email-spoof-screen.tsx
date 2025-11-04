@@ -126,8 +126,8 @@ export function EmailSpoofScreen({ planName }: EmailSpoofScreenProps) {
                 <Label htmlFor="from-email">From Email (Reply-To)</Label>
                 <Input
                     id="from-email"
-                    type="email"
-                    placeholder="e.g., support@example.com"
+                    type="text"
+                    placeholder="e.g., reply@example.com"
                     value={fromEmail}
                     onChange={(e) => setFromEmail(e.target.value)}
                     disabled={isLoading}
