@@ -24,7 +24,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
         <div className="flex justify-center items-center gap-2 mb-2">
             <CardTitle className="text-3xl font-bold">{plan.name}</CardTitle>
             {plan.isHot && (
-              <Badge variant="destructive" className="text-sm py-1 px-3">
+              <Badge className="text-sm py-1 px-3 bg-red-500 text-white">
                 HOT
               </Badge>
             )}
