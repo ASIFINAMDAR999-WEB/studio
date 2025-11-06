@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -44,8 +43,8 @@ export function CtaSection() {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
-      opacity: 1,
       y: 0,
+      opacity: 1,
       transition: {
         type: 'spring',
         stiffness: 100,
@@ -68,10 +67,7 @@ export function CtaSection() {
           viewport={{ once: true, amount: 0.5 }}
           variants={containerVariants}
         >
-          <Card className="bg-primary text-primary-foreground shadow-xl overflow-hidden relative group/card">
-            <div className="absolute inset-0 bg-primary-foreground/10 opacity-0 transition-opacity duration-500 group-hover/card:opacity-20" />
-            <div className="absolute -top-1/4 -right-1/4 w-1/2 h-[150%] bg-primary-foreground/10 rounded-full blur-3xl opacity-50 animate-float transform-gpu" />
-            <div className="absolute inset-0 z-0 opacity-100 transition-opacity duration-700 group-hover/card:opacity-0 bg-gradient-to-br from-primary via-accent/80 to-primary" />
+          <Card className="text-primary-foreground shadow-xl overflow-hidden relative group/card bg-gradient-to-br from-primary via-accent to-purple-400 animated-gradient transform-gpu">
             <div 
               className="absolute inset-0 bg-grid-pattern-small opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)]"
             />
