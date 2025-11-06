@@ -10,7 +10,7 @@ export function HeroSection() {
       <div 
         className="absolute inset-0 z-0 opacity-70 dark:opacity-80"
         style={{
-          background: `radial-gradient(600px circle at center, hsl(var(--primary) / 0.25), transparent 80%)`,
+          background: `radial-gradient(circle at center, hsl(var(--primary) / 0.25), transparent 80%)`,
         }}
       />
       <div className="absolute inset-0 bg-[url(/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
