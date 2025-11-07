@@ -82,7 +82,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
         ) : (
             <Button
               asChild={!isContactAdmin}
-              className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105"
+              className="w-full text-lg py-6 transition-transform duration-300 group-hover:scale-105 transform-gpu"
             >
               {isContactAdmin ? (
                 <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>

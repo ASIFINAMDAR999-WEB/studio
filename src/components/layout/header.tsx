@@ -99,7 +99,7 @@ export function Header() {
                     animate="visible"
                   >
                     <motion.div variants={itemVariants}>
-                      <Button asChild size="lg" className="w-full justify-start text-base group" variant="ghost">
+                      <Button asChild size="lg" className="w-full justify-start text-base group transform-gpu" variant="ghost">
                          <a href="https://t.me/+Eg-SFpyzbpM0YzM1" target="_blank" rel="noopener noreferrer" aria-label="Watch demos on Telegram" onClick={() => setIsMenuOpen(false)}>
                             <Video className="mr-3 h-5 w-5 text-primary transition-transform group-hover:rotate-12" />
                             Watch Demos
@@ -107,7 +107,7 @@ export function Header() {
                       </Button>
                     </motion.div>
                     <motion.div variants={itemVariants}>
-                       <Button asChild size="lg" className="w-full justify-start text-base group" variant="ghost">
+                       <Button asChild size="lg" className="w-full justify-start text-base group transform-gpu" variant="ghost">
                           <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram" onClick={() => setIsMenuOpen(false)}>
                             <User className="mr-3 h-5 w-5 text-primary transition-transform group-hover:scale-110" />
                             Contact Admin
