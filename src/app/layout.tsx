@@ -43,12 +43,12 @@ const websiteSchema: WithContext<WebSite> = {
   '@type': 'WebSite',
   name: 'REDArmor 2.0',
   url: 'https://www.callspoofing.shop',
-  about: [
-    { '@type': 'Thing', name: 'Features', url: 'https://www.callspoofing.shop/#features' },
-    { '@type': 'Thing', name: 'Pricing', url: 'https://www.callspoofing.shop/#pricing' },
-    { '@type': 'Thing', name: 'FAQ', url: 'https://www.callspoofing.shop/#faq' },
-    { '@type': 'Thing', name: 'Contact', url: 'https://www.callspoofing.shop/contact' },
-    { '@type': 'Thing', name: 'Client Access', url: 'https://www.callspoofing.shop/access' }
+  mainEntity: [
+    { '@type': 'WebPage', 'name': 'Features', 'url': 'https://www.callspoofing.shop/#features', 'description': 'Explore the advanced features of REDArmor 2.0.' },
+    { '@type': 'WebPage', 'name': 'Pricing', 'url': 'https://www.callspoofing.shop/#pricing', 'description': 'Find the perfect plan for your needs.' },
+    { '@type': 'WebPage', 'name': 'FAQ', 'url': 'https://www.callspoofing.shop/#faq', 'description': 'Get answers to frequently asked questions.' },
+    { '@type': 'WebPage', 'name': 'Contact', 'url': 'https://www.callspoofing.shop/contact', 'description': 'Contact us for support and inquiries.' },
+    { '@type': 'WebPage', 'name': 'Client Access', 'url': 'https://www.callspoofing.shop/access', 'description': 'Access the client portal.' }
   ]
 }
 
