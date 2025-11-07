@@ -5,7 +5,7 @@ import { Providers } from './providers';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { WithContext, Organization } from 'schema-dts';
+import { WithContext, Organization, WebSite } from 'schema-dts';
 
 const ptSans = PT_Sans({
   subsets: ['latin'],
@@ -35,6 +35,20 @@ const organizationSchema: WithContext<Organization> = {
   },
   sameAs: [
     'https://t.me/AF3092'
+  ]
+}
+
+const websiteSchema: WithContext<WebSite> = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'REDArmor 2.0',
+  url: 'https://www.callspoofing.shop',
+  about: [
+    { '@type': 'Thing', name: 'Features', url: 'https://www.callspoofing.shop/#features' },
+    { '@type': 'Thing', name: 'Pricing', url: 'https://www.callspoofing.shop/#pricing' },
+    { '@type': 'Thing', name: 'FAQ', url: 'https://www.callspoofing.shop/#faq' },
+    { '@type': 'Thing', name: 'Contact', url: 'https://www.callspoofing.shop/contact' },
+    { '@type': 'Thing', name: 'Client Access', url: 'https://www.callspoofing.shop/access' }
   ]
 }
 
@@ -78,6 +92,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#601DE2" />
