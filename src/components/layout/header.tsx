@@ -93,7 +93,7 @@ export function Header() {
                <AnimatePresence>
                 {isMenuOpen && (
                   <motion.div 
-                    className="p-4 space-y-3"
+                    className="p-4 space-y-3 pb-safe"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
