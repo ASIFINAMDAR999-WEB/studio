@@ -28,6 +28,19 @@ interface DialerScreenProps {
 
 const dtmfSounds: { [key: string]: HTMLAudioElement } = {};
 
+// Helper function to trigger haptic feedback if the browser supports it.
+const triggerHapticFeedback = (pattern: number | number[] = 5) => {
+  if (typeof window !== 'undefined' && window.navigator && 'vibrate' in window.navigator) {
+    try {
+      window.navigator.vibrate(pattern);
+    } catch (error) {
+      // Vibration might be disabled by user settings
+      console.log("Haptic feedback is disabled or not supported.");
+    }
+  }
+};
+
+
 /**
  * DialerScreen Component
  * This component provides a fully functional and animated dialer interface.
@@ -152,6 +165,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
 
   const handleKeyPress = (digit: string) => {
+    triggerHapticFeedback();
     playDtmfSound(digit);
     if (number.length < 16) {
         setNumber((prev) => prev + digit);
@@ -159,11 +173,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   };
   
   const handleInCallKeyPress = (digit: string) => {
+    triggerHapticFeedback();
     playDtmfSound(digit);
     setInCallDtmf((prev) => prev + digit);
   };
 
   const handleDelete = () => {
+    triggerHapticFeedback();
     setNumber((prev) => prev.slice(0, -1));
   };
 
@@ -171,6 +187,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     e.preventDefault();
     longPressTimer.current = setTimeout(() => {
       setNumber('');
+      triggerHapticFeedback([10, 50, 10]);
     }, 700);
   };
   
@@ -184,6 +201,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const handleCall = () => {
     if (number.length <= 1) return;
 
+    triggerHapticFeedback(15);
     setCallStatus('calling');
     setShowInCallKeypad(false);
     setCallTimer(0);
@@ -198,6 +216,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   };
 
   const handleEndCall = () => {
+    triggerHapticFeedback(15);
     setCallStatus('ended');
     
     setTimeout(() => {
@@ -259,7 +278,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const InCallButton = ({ children, onClick, text, active, 'aria-label': ariaLabel }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean, 'aria-label'?: string }) => (
     <div className="flex flex-col items-center gap-2">
       <motion.button
-        onClick={onClick}
+        onClick={() => {
+          triggerHapticFeedback();
+          if(onClick) onClick();
+        }}
         aria-label={ariaLabel || text}
         className={cn(
           "h-14 w-14 sm:h-16 sm:w-16 rounded-full flex items-center justify-center transition-colors duration-200 transform-gpu",
