@@ -30,7 +30,7 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
       <main className="flex-1">
-        <div className="relative container mx-auto px-4 sm:px-6 py-20 md:py-28">
+        <div className="relative container mx-auto px-4 sm:px-6 py-16 sm:py-20 md:py-28">
            <div 
             className="absolute inset-0 z-0 opacity-50 dark:opacity-60"
             style={{
@@ -40,37 +40,37 @@ export default function ContactPage() {
            <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"></div>
 
           <motion.div 
-            className="text-center mb-16 relative z-10"
+            className="text-center mb-12 md:mb-16 relative z-10"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               Get In Touch
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="mt-4 text-md sm:text-lg text-muted-foreground max-w-3xl mx-auto">
               We're here to help. For the fastest response, please contact our admin on Telegram.
             </p>
           </motion.div>
 
           <motion.div 
-            className="max-w-3xl mx-auto relative z-10 space-y-16"
+            className="max-w-3xl mx-auto relative z-10 space-y-12 md:space-y-16"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
              <motion.div variants={itemVariants}>
                 <Card className="shadow-lg shadow-glow transition-all duration-500 bg-card/80 backdrop-blur-sm border border-primary">
-                    <CardHeader className="text-center">
+                    <CardHeader className="text-center p-6 pb-4 md:p-8 md:pb-4">
                         <CardTitle className="text-2xl flex items-center justify-center gap-3">
                            <Send className="w-7 h-7 text-primary" />
                            Direct Support Channel
                         </CardTitle>
-                        <CardDescription>
+                        <CardDescription className="pt-1">
                             The fastest way to reach our admin for support and sales.
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className="flex flex-col justify-center items-center text-center space-y-6 pt-0 pb-8">
+                    <CardContent className="flex flex-col justify-center items-center text-center space-y-6 px-6 pb-6 md:px-8 md:pb-8">
                         <Image 
                             src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-08-19_15-31-41-904.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA4LTE5XzE1LTMxLTQxLTkwNC5wbmciLCJpYXQiOjE3NTU1OTc4MDksImV4cCI6MjA3MDk1NzgwOX0.cSNWar3ZIpoqTpmQIxu_wgrdtOBenau7oMiL72ubNFU"
                             alt="Telegram Icon"
@@ -81,9 +81,9 @@ export default function ContactPage() {
                         />
                         <div className='text-center'>
                             <p className='font-semibold text-xl text-foreground'>Telegram</p>
-                            <p className="text-lg text-muted-foreground font-mono tracking-tight bg-muted px-3 py-1 rounded-md">@AF3092</p>
+                            <p className="text-md sm:text-lg text-muted-foreground font-mono tracking-tight bg-muted px-3 py-1 rounded-md">@AF3092</p>
                         </div>
-                        <Button size="lg" className="w-full text-lg py-7 group" asChild>
+                        <Button size="lg" className="w-full text-lg py-6 sm:py-7 group" asChild>
                            <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">
                             Contact on Telegram
                             <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
