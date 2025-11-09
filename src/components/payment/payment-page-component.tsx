@@ -43,7 +43,7 @@ const cryptoOptions: Record<string, { name: string; networks: string[]; apiId: s
 
 const qrCodes: Record<string, string> = {
   btc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_08-27-20-430.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA4LTI3LTIwLTQzMC5wbmciLCJpYXQiOjE3NTc2NDY2NTksImV4cCI6MjA3MzAwNjY1OX0._0MZqMTJArQqibbrTsuf_JN373_MK8SwN-OjnMpiogo',
-  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-26-46-955.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI2LTQ2LTk1NS5wbmciLCJpYXQiOjE3NjAwMDQyODAsImV4cCI6MjA3NTM2NDI4MH0.fGKobL3rORKiSuE88c8RtV3Y1zPkksSZlgSpa9RxEiY',
+  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-26-46-955.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI2LTQ2LTk1NS5wbmciLCJpYXQiOjE3NjAwMDQyODAsImV4cCI6MjA3NTM2NDI4MH0.fGKobL3rORKiSuE88c8RtV3Y1zPkksSZlgSpa9RxEiY',
   eth: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-36-24-890.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTM2LTI0LTg5MC5wbmciLCJpYXQiOjE3NTc2NTAwNDQsImV4cCI6MjA3MzAxMDA0NH0.KHWhq8PMM2q5qb_ICnMMHb4vHTH6ECgWPHS1dCcW0aY',
   ltc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-40-17-854.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQwLTE3LTg1NC5wbmciLCJpYXQiOjE3NTc2NTAzNTMsImV4cCI6MjA3MzAxMDM1M30.Z4_FQ_h49OLTmzLi85K95_IJoX2BlFmDSdHlW76houo',
   xrp: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-09-12_09-46-25-627.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTA5LTEyXzA5LTQ2LTI1LTYyNy5wbmciLCJpYXQiOjE3NTc2NTA2NTYsImV4cCI6MjA3MzAxMDY1Nn0.ecMfSJfbEr64WHr9F_57m3hq7RLX3xnQD8WRMNDZj_0',
@@ -175,7 +175,7 @@ export function PaymentPageComponent() {
       <Header />
       <audio ref={audioRef} src="/applepay.mp3" preload="auto" className="hidden"></audio>
       <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <motion.div 
             className="text-center mb-10"
             initial={{ opacity: 0, y: -20 }}
@@ -310,55 +310,59 @@ export function PaymentPageComponent() {
                                 </div>
                               </div>
                               
-                              {selectedCrypto.networks.map(networkKey => {
-                                  const { network, address } = addresses[networkKey] || {};
-                                  return (
-                                      <div key={networkKey} className="group relative bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80 hover:shadow-md">
-                                          <p className="text-sm text-muted-foreground mb-1">{network}</p>
-                                          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 sm:gap-4">
-                                              <p className="font-mono text-sm sm:text-base break-all text-foreground">{address || 'Address not available'}</p>
-                                              <motion.button
-                                                onClick={() => copyToClipboard(address, 'address')}
-                                                className="self-end sm:self-center flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
-                                                whileTap={{ scale: 0.9 }}
-                                                aria-label="Copy wallet address"
-                                                disabled={!address || address === 'Address not available'}
-                                              >
-                                                <AnimatePresence mode="wait">
-                                                  {isAddressCopied ? (
-                                                    <motion.div key="check-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
-                                                      <Check className="h-5 w-5 text-green-500" />
-                                                    </motion.div>
-                                                  ) : (
-                                                    <motion.div key="copy-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
-                                                      <Clipboard className="h-5 w-5" />
-                                                    </motion.div>
-                                                  )}
-                                                </AnimatePresence>
-                                              </motion.button>
-                                          </div>
-                                      </div>
-                                  )
-                              })}
-                               {qrCodeUrl && (
+                              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+                                <div className="md:col-span-3 space-y-4">
+                                {selectedCrypto.networks.map(networkKey => {
+                                    const { network, address } = addresses[networkKey] || {};
+                                    return (
+                                        <div key={networkKey} className="group relative bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80 hover:shadow-md">
+                                            <p className="text-sm text-muted-foreground mb-1">{network}</p>
+                                            <div className="flex items-center gap-2">
+                                                <p className="font-mono text-sm sm:text-base break-all text-foreground flex-1">{address || 'Address not available'}</p>
+                                                <motion.button
+                                                  onClick={() => copyToClipboard(address, 'address')}
+                                                  className="self-center flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                                                  whileTap={{ scale: 0.9 }}
+                                                  aria-label="Copy wallet address"
+                                                  disabled={!address || address === 'Address not available'}
+                                                >
+                                                  <AnimatePresence mode="wait">
+                                                    {isAddressCopied ? (
+                                                      <motion.div key="check-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                        <Check className="h-5 w-5 text-green-500" />
+                                                      </motion.div>
+                                                    ) : (
+                                                      <motion.div key="copy-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                        <Clipboard className="h-5 w-5" />
+                                                      </motion.div>
+                                                    )}
+                                                  </AnimatePresence>
+                                                </motion.button>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                                </div>
+                                {qrCodeUrl && (
                                   <motion.div 
-                                    className="mt-4 flex flex-col items-center"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
+                                    className="md:col-span-2 flex flex-col items-center justify-center"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
                                     transition={{ delay: 0.1, duration: 0.4 }}
                                   >
-                                    <div className="p-4 bg-muted/30 rounded-lg border shadow-inner transition-all duration-300 hover:shadow-xl hover:scale-105">
+                                    <div className="p-3 bg-muted/30 rounded-lg border shadow-inner transition-all duration-300 hover:shadow-xl hover:scale-105">
                                       <Image
                                           src={qrCodeUrl}
                                           alt={`${selectedCrypto.name} QR Code`}
-                                          width={200}
-                                          height={200}
+                                          width={180}
+                                          height={180}
                                           className="rounded-lg"
                                           data-ai-hint="qr code"
                                       />
                                     </div>
                                   </motion.div>
-                              )}
+                                )}
+                              </div>
                           </div>
                       ) : (
                           <div className="text-center py-8">
