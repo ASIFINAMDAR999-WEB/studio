@@ -212,6 +212,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     // Simulate connection time
     setTimeout(() => {
       setCallStatus('connected');
+      triggerHapticFeedback([10, 70, 10]); // Haptic for success
     }, 5000); // Ring for 5 seconds before "connecting"
   };
 
