@@ -60,6 +60,9 @@ const qrCodes: Record<string, string> = {
   usdc_trc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0245.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NS5qcGVnIiwiaWF0IjoxNzY0MzI3NzI5LCJleHAiOjIwNzk2ODc3Mjl9.2f4R2BnxZE0w9-Jq343KvEjoHnDEbhVKaZUQBO_-ugQ',
 };
 
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1500; // in ms
+
 export function PaymentPageComponent() {
   const searchParams = useSearchParams();
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
@@ -71,27 +74,49 @@ export function PaymentPageComponent() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
 
-  const fetchPrices = useCallback(async () => {
+  const fetchPrices = useCallback(async (isRetry = false) => {
     setIsPriceLoading(true);
     const apiIds = [...new Set(Object.values(cryptoOptions).map(c => c.apiId))].join(',');
-    try {
-      const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${apiIds}&vs_currencies=usd`);
-      if (!response.ok) {
-        throw new Error(`CoinGecko API request failed with status ${response.status}`);
-      }
-      const data = await response.json();
-      const newPrices: Record<string, number> = {};
-      for (const key in data) {
-        if (data[key] && data[key].usd) {
-          newPrices[key] = data[key].usd;
+    
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${apiIds}&vs_currencies=usd`);
+        if (!response.ok) {
+          throw new Error(`CoinGecko API request failed with status ${response.status}`);
+        }
+        const data = await response.json();
+        const newPrices: Record<string, number> = {};
+        let allPricesFound = true;
+        for (const id of apiIds.split(',')) {
+            if (data[id] && data[id].usd) {
+                newPrices[id] = data[id].usd;
+            } else {
+                allPricesFound = false;
+                console.warn(`Price for ${id} not found in CoinGecko response.`);
+            }
+        }
+
+        if (!allPricesFound && Object.keys(newPrices).length === 0) {
+           throw new Error("No prices returned from API.");
+        }
+
+        setPrices(newPrices);
+        setIsPriceLoading(false);
+        return; // Success, exit the loop
+      } catch (error) {
+        console.error(`Attempt ${attempt} to fetch crypto prices failed:`, error);
+        if (attempt === MAX_RETRIES) {
+          setIsPriceLoading(false);
+          toast({
+            title: "Error Loading Prices",
+            description: "Could not load live crypto rates. Please check your connection and refresh.",
+            variant: "destructive",
+          });
+        } else {
+          // Wait before retrying
+          await new Promise(res => setTimeout(res, RETRY_DELAY));
         }
       }
-      setPrices(newPrices);
-    } catch (error) {
-      console.error("Failed to fetch crypto prices:", error);
-      toast({ title: "Error", description: "Could not load live crypto prices. Please refresh.", variant: "destructive" });
-    } finally {
-      setIsPriceLoading(false);
     }
   }, [toast]);
 
@@ -274,7 +299,7 @@ export function PaymentPageComponent() {
                               <div className="border bg-background rounded-lg p-4">
                                 <div className="flex justify-between items-center mb-2">
                                   <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
-                                  <Button variant="ghost" size="sm" onClick={fetchPrices} disabled={isPriceLoading} className="text-xs h-auto py-1 px-2">
+                                  <Button variant="ghost" size="sm" onClick={() => fetchPrices(true)} disabled={isPriceLoading} className="text-xs h-auto py-1 px-2">
                                     <RefreshCw className={`h-3 w-3 mr-2 ${isPriceLoading ? 'animate-spin' : ''}`}/>
                                     Refresh
                                   </Button>
@@ -420,3 +445,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
