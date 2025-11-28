@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -65,35 +65,41 @@ export function PaymentPageComponent() {
   const planName = searchParams.get('plan') || 'Platinum 1-Month';
   const cryptoKey = searchParams.get('crypto');
   const [prices, setPrices] = useState<Record<string, number>>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isPriceLoading, setIsPriceLoading] = useState(true);
   const [isAmountCopied, setIsAmountCopied] = useState(false);
   const [isAddressCopied, setIsAddressCopied] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  
-  const fetchPrices = async () => {
-    setIsLoading(true);
-    const apiIds = Object.values(cryptoOptions).map(c => c.apiId).join(',');
+  const { toast } = useToast();
+
+  const fetchPrices = useCallback(async () => {
+    setIsPriceLoading(true);
+    const apiIds = [...new Set(Object.values(cryptoOptions).map(c => c.apiId))].join(',');
     try {
       const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${apiIds}&vs_currencies=usd`);
+      if (!response.ok) {
+        throw new Error(`CoinGecko API request failed with status ${response.status}`);
+      }
       const data = await response.json();
       const newPrices: Record<string, number> = {};
       for (const key in data) {
-        newPrices[key] = data[key].usd;
+        if (data[key] && data[key].usd) {
+          newPrices[key] = data[key].usd;
+        }
       }
       setPrices(newPrices);
     } catch (error) {
       console.error("Failed to fetch crypto prices:", error);
       toast({ title: "Error", description: "Could not load live crypto prices. Please refresh.", variant: "destructive" });
     } finally {
-      setIsLoading(false);
+      setIsPriceLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchPrices();
     const interval = setInterval(fetchPrices, 30000); // Auto-refresh every 30 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchPrices]);
 
   useEffect(() => {
     document.title = `Payment for ${planName} | REDArmor 2.0`;
@@ -104,7 +110,6 @@ export function PaymentPageComponent() {
 
   const basePlanName = isTopUp ? planName.split(' - ')[0] : planName;
   const plan = plans.find((p) => p.name === basePlanName) || plans[0];
-  const { toast } = useToast();
   
   const planUsdPrice = parseFloat((topUpAmount || plan.priceString).replace('$', ''));
 
@@ -140,7 +145,7 @@ export function PaymentPageComponent() {
   const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
 
   const isStablecoin = cryptoKey?.startsWith('usdt') || cryptoKey?.startsWith('usdc');
-  const finalUsdPrice = isStablecoin ? planUsdPrice : planUsdPrice + 2;
+  const finalUsdPrice = isStablecoin ? planUsdPrice : planUsdPrice * 1.01; // 1% buffer for non-stablecoins
   const cryptoAmount = (currentPrice && planUsdPrice) ? (finalUsdPrice / currentPrice) : undefined;
 
   const cryptoAmountString = cryptoAmount?.toFixed(selectedCrypto?.precision || 8);
@@ -269,18 +274,18 @@ export function PaymentPageComponent() {
                               <div className="border bg-background rounded-lg p-4">
                                 <div className="flex justify-between items-center mb-2">
                                   <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
-                                  <Button variant="ghost" size="sm" onClick={fetchPrices} disabled={isLoading} className="text-xs h-auto py-1 px-2">
-                                    <RefreshCw className={`h-3 w-3 mr-2 ${isLoading ? 'animate-spin' : ''}`}/>
+                                  <Button variant="ghost" size="sm" onClick={fetchPrices} disabled={isPriceLoading} className="text-xs h-auto py-1 px-2">
+                                    <RefreshCw className={`h-3 w-3 mr-2 ${isPriceLoading ? 'animate-spin' : ''}`}/>
                                     Refresh
                                   </Button>
                                 </div>
                                 <div className="h-8 flex items-center">
                                   <AnimatePresence mode="wait">
-                                    {isLoading ? (
+                                    {isPriceLoading ? (
                                       <motion.div key="loader" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="w-full">
                                         <Skeleton className="h-6 w-3/5 animate-pulse" />
                                       </motion.div>
-                                    ) : cryptoAmountString ? (
+                                    ) : cryptoAmountString && currentPrice ? (
                                       <motion.div
                                         key="price"
                                         className="flex items-center gap-2 w-full justify-between"
@@ -310,7 +315,7 @@ export function PaymentPageComponent() {
                                         </motion.button>
                                       </motion.div>
                                     ) : (
-                                      <p className="text-sm text-destructive">Could not load price.</p>
+                                      <p className="text-sm text-destructive">Could not load price. Please refresh.</p>
                                     )}
                                   </AnimatePresence>
                                 </div>
@@ -415,3 +420,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
