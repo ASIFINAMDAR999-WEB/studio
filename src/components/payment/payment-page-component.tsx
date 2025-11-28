@@ -47,7 +47,7 @@ const cryptoOptions: Record<string, { name: string; networks: string[]; apiId: s
 
 const qrCodes: Record<string, string> = {
   btc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0237.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDIzNy5qcGVnIiwiaWF0IjoxNzY0MzI1NjA1LCJleHAiOjIwNzk2ODU2MDV9.FusCZL0C9cpoZL9eTO7SYFpbJkJRviHgBwzIp3MYJtU',
-  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/Picsart_25-10-09_15-26-46-955.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9QaWNzYXJ0XzI1LTEwLTA5XzE1LTI2LTQ2LTk1NS5wbmciLCJpYXQiOjE3NjAwMDQyODAsImV4cCI6MjA3NTM2NDI4MH0.fGKobL3rORKiSuE88c8RtV3Y1zPkksSZlgSpa9RxEiY',
+  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0241.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0MS5qcGVnIiwiaWF0IjoxNzY0MzI2ODAxLCJleHAiOjIwNzk2ODY4MDF9.aYMz0dQZd7FYRLbQT80I6x5-RME2l3a-aRthMFiN9i4',
   eth: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0238.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDIzOC5qcGVnIiwiaWF0IjoxNzY0MzI1OTYxLCJleHAiOjIwNzk2ODU5NjF9.JVaVtLEFux2tgG2RN4a-RRdZTT6u7ibrL9NFkX0tRR0',
   ltc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0240.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0MC5qcGVnIiwiaWF0IjoxNzY0MzI2NTM1LCJleHAiOjIwNzk2ODY1MzV9.PGwr-b4N4md8WeiMV7PzZWQu_YOhvS-H_WZ_nGVOTag',
   xrp: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0239.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDIzOS5qcGVnIiwiaWF0IjoxNzY0MzI2MjU3LCJleHAiOjIwNzk2ODYyNTd9.2TeaIV4fh4PamtriuS5IcurgJlIG1wkjeWOzl3oW-q8',
@@ -415,3 +415,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
