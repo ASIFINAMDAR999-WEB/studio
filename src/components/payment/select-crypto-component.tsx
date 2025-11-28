@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const cryptoOptions = [
     { id: 'usdt', name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
+    { id: 'usdc', name: 'USDC', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/usdc-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS91c2RjLWxvZ28ucG5nIiwiaWF0IjoxNzYwNDE1NTc2LCJleHAiOjIwNzU3NzU1NzZ9.e-g-F4pI0Xo_GfKzEwVzV5m7fFvG7f7v_7g7f7v_7g7" },
     { id: 'btc', name: 'Bitcoin (BTC)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/bitcoin-btc-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9iaXRjb2luLWJ0Yy1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTE2MCwiZXhwIjoyMDcwNjE5MTYwfQ.QtuR1mtG7tW2m96dEa_nZDGhTFeumN7_tfgdwO8MdkI" },
     { id: 'eth', name: 'Ethereum (ETH)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/ethereum-eth-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9ldGhlcmV1bS1ldGgtbG9nby5wbmciLCJpYXQiOjE3NTUyNTkyNjQsImV4cCI6MjA3MDYxOTI2NH0.KkVoeQcTEQUMsT4wHsA0iMhKJAgBjHUmFz8HWLEti7Y" },
     { id: 'ltc', name: 'Litecoin (LTC)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/litecoin-ltc-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9saXRlY29pbi1sdGMtbG9nby5wbmciLCJpYXQiOjE3NTUyNTk1NjAsImV4cCI6MjA3MDYxOTU2MH0.4eQEtvcguQQRC4IDejgvR_qLDuENYcXMV_SU7yaI5uM" },
@@ -28,6 +29,11 @@ const usdtNetworks = [
     { id: 'usdt_trc20', name: 'USDT TRC-20' },
     { id: 'usdt_erc20', name: 'USDT ERC-20' },
     { id: 'usdt_bep20', name: 'USDT BEP-20' },
+];
+
+const usdcNetworks = [
+    { id: 'usdc_trc20', name: 'USDC TRC-20' },
+    { id: 'usdc_erc20', name: 'USDC ERC-20' },
 ];
 
 export function SelectCryptoComponent() {
@@ -63,6 +69,8 @@ export function SelectCryptoComponent() {
   const handleCryptoSelect = (cryptoId: string) => {
     if (cryptoId === 'usdt') {
       setOpenAccordion(openAccordion === 'usdt-item' ? '' : 'usdt-item');
+    } else if (cryptoId === 'usdc') {
+        setOpenAccordion(openAccordion === 'usdc-item' ? '' : 'usdc-item');
     } else {
       router.push(`/payment?plan=${encodeURIComponent(planName)}&crypto=${cryptoId}`);
     }
@@ -150,11 +158,13 @@ export function SelectCryptoComponent() {
                     animate="visible"
                   >
                     {cryptoOptions.map((crypto) => {
-                       if (crypto.id === 'usdt') {
+                       if (crypto.id === 'usdt' || crypto.id === 'usdc') {
+                           const accordionId = `${crypto.id}-item`;
+                           const networks = crypto.id === 'usdt' ? usdtNetworks : usdcNetworks;
                            return (
                                <motion.div key={crypto.id} variants={itemVariants}>
                                  <Accordion type="single" collapsible value={openAccordion} onValueChange={setOpenAccordion}>
-                                     <AccordionItem value="usdt-item" className="border-0">
+                                     <AccordionItem value={accordionId} className="border-0">
                                         <ListItem onClick={() => handleCryptoSelect(crypto.id)}>
                                             <AccordionTrigger className="w-full p-0 hover:no-underline">
                                               <div className="flex items-center justify-between w-full">
@@ -167,7 +177,7 @@ export function SelectCryptoComponent() {
                                             </AccordionTrigger>
                                         </ListItem>
                                         <AnimatePresence>
-                                          {openAccordion === 'usdt-item' && (
+                                          {openAccordion === accordionId && (
                                             <AccordionContent asChild>
                                               <motion.div
                                                 initial={{ opacity: 0, height: 0 }}
@@ -182,7 +192,7 @@ export function SelectCryptoComponent() {
                                                   initial="hidden"
                                                   animate="visible"
                                                 >
-                                                    {usdtNetworks.map((network) => (
+                                                    {networks.map((network) => (
                                                         <motion.div 
                                                           key={network.id}
                                                           variants={subListItemVariants}
