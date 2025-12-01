@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw } from 'lucide-react';
-import { plans } from '@/lib/data';
+import { plans, cryptoDetails } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
@@ -14,51 +14,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
-
-const addresses: Record<string, { network: string; address: string }> = {
-  usdt_trc20: { network: 'USDT TRC-20 (Tron Network)', address: 'TWZ3Hm2dHGm89DiwhQiYcaFJjET9GEQd43' },
-  usdt_erc20: { network: 'USDT ERC-20 (Ethereum Network)', address: '0x7C7bA0bc477d6a3A2537Ae31f4C20041285d6D33' },
-  usdt_bep20: { network: 'USDT BEP-20 (Binance Smart Chain)', address: '0x7C7bA0bc477d6a3A2537Ae31f4C20041285d6D33' },
-  btc: { network: 'Bitcoin (BTC) Network', address: 'bc1qu2n89ewls4vavkkycruldddl9a0vv5anhll335' },
-  eth: { network: 'Ethereum (ETH) Network', address: '0x7C7bA0bc477d6a3A2537Ae31f4C20041285d6D33' },
-  ltc: { network: 'Litecoin (LTC) Network', address: 'ltc1q3rt0qrkhx345z8p4ywwy7tgyg7qnap637qldtr' },
-  xrp: { network: 'Ripple (XRP) Network', address: 'rGZ2q9ZqiSmVVY7hRgjTsUUVt5ENvD6LA8' },
-  sol: { network: 'Solana (SOL) Network', address: 'bwsBf16YnxBZqHx21AnBkr51VvxpKEYbax9wf9q4tJh' },
-  trx: { network: 'Tron (TRX) TRC-20 Network', address: 'TWZ3Hm2dHGm89DiwhQiYcaFJjET9GEQd43' },
-  ton: { network: 'TON', address: 'UQDM6ugfIQm_-QOaeMPsc8VeuU78-wVEafeol-x-T76Hmh6Z' },
-  usdc_erc20: { network: 'USDC ERC-20 (Ethereum Network)', address: '0x7C7bA0bc477d6a3A2537Ae31f4C20041285d6D33' },
-  usdc_trc20: { network: 'USDC TRC-20 (Tron Network)', address: 'TWZ3Hm2dHGm89DiwhQiYcaFJjET9GEQd43' },
-};
-
-const cryptoOptions: Record<string, { name: string; networks: string[]; apiId: string; symbol: string; precision: number }> = {
-    usdt_trc20: { name: 'USDT (Tether)', networks: ['usdt_trc20'], apiId: 'tether', symbol: 'USDT', precision: 6},
-    usdt_erc20: { name: 'USDT (Tether)', networks: ['usdt_erc20'], apiId: 'tether', symbol: 'USDT', precision: 6},
-    usdt_bep20: { name: 'USDT (Tether)', networks: ['usdt_bep20'], apiId: 'tether', symbol: 'USDT', precision: 6},
-    btc: { name: 'Bitcoin (BTC)', networks: ['btc'], apiId: 'bitcoin', symbol: 'BTC', precision: 8},
-    eth: { name: 'Ethereum (ETH)', networks: ['eth'], apiId: 'ethereum', symbol: 'ETH', precision: 8},
-    ltc: { name: 'Litecoin (LTC)', networks: ['ltc'], apiId: 'litecoin', symbol: 'LTC', precision: 8},
-    xrp: { name: 'Ripple (XRP)', networks: ['xrp'], apiId: 'ripple', symbol: 'XRP', precision: 6},
-    sol: { name: 'Solana (SOL)', networks: ['sol'], apiId: 'solana', symbol: 'SOL', precision: 8},
-    trx: { name: 'Tron (TRX)', networks: ['trx'], apiId: 'tron', symbol: 'TRX', precision: 6},
-    ton: { name: 'TON', networks: ['ton'], apiId: 'the-open-network', symbol: 'TON', precision: 6},
-    usdc_erc20: { name: 'USDC', networks: ['usdc_erc20'], apiId: 'usd-coin', symbol: 'USDC', precision: 6},
-    usdc_trc20: { name: 'USDC', networks: ['usdc_trc20'], apiId: 'usd-coin', symbol: 'USDC', precision: 6},
-}
-
-const qrCodes: Record<string, string> = {
-  btc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0237.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDIzNy5qcGVnIiwiaWF0IjoxNzY0MzI1NjA1LCJleHAiOjIwNzk2ODU2MDV9.FusCZL0C9cpoZL9eTO7SYFpbJkJRviHgBwzIp3MYJtU',
-  trx: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0241.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0MS5qcGVnIiwiaWF0IjoxNzY0MzI2ODAxLCJleHAiOjIwNzk2ODY4MDF9.aYMz0dQZd7FYRLbQT80I6x5-RME2l3a-aRthMFiN9i4',
-  eth: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0238.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDIzOC5qcGVnIiwiaWF0IjoxNzY0MzI1OTYxLCJleHAiOjIwNzk2ODU5NjF9.JVaVtLEFux2tgG2RN4a-RRdZTT6u7ibrL9NFkX0tRR0',
-  ltc: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0240.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0MC5qcGVnIiwiaWF0IjoxNzY0MzI2NTM1LCJleHAiOjIwNzk2ODY1MzV9.PGwr-b4N4md8WeiMV7PzZWQu_YOhvS-H_WZ_nGVOTag',
-  xrp: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0239.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDIzOS5qcGVnIiwiaWF0IjoxNzY0MzI2MjU3LCJleHAiOjIwNzk2ODYyNTd9.2TeaIV4fh4PamtriuS5IcurgJlIG1wkjeWOzl3oW-q8',
-  sol: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0242.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0Mi5qcGVnIiwiaWF0IjoxNzY0MzI3MDI5LCJleHAiOjIwNzk2ODcwMjl9.N3AeshU0m7n8ATzAWFpS9cPiaUjqjJ1dw4xMknnKAE0',
-  ton: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0243.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0My5qcGVnIiwiaWF0IjoxNzY0MzI3MjkxLCJleHAiOjIwNzk2ODcyOTF9._GFJPlro3lzsTbPWpWYfw7qMX5R62ppIkw5HVFjAaHI',
-  usdc_erc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0244.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NC5qcGVnIiwiaWF0IjoxNzY0MzI3NTc3LCJleHAiOjIwNzk2ODc1Nzd9.SIa86pTJ20QGsQYX1KJ-_KrE0jfS86hBL7ORZI97KLA',
-  usdt_trc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0247.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0Ny5qcGVnIiwiaWF0IjoxNzY0MzI4NTU5LCJleHAiOjIwNzk2ODg1NTl9.SBEBF0fafl5rrR39LW_rzMyCp_PGjdov3akw70uSV48',
-  usdt_bep20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0248.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0OC5qcGVnIiwiaWF0IjoxNzY0MzI4Nzk2LCJleHAiOjIwNzk2ODg3OTZ9.6QiBxhzaAuUqjKSwbXjIk9v3ISi0DoFbfYrmhIBxdc8',
-  usdt_erc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0246.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0Ni5qcGVnIiwiaWF0IjoxNzY0MzI4MzIxLCJleHAiOjIwNzk2ODgzMjF9.Cq6rPCfuI5oi_EG1_SwGqUdqWrz_eyAtYfTljdaJp9w',
-  usdc_trc20: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0245.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NS5qcGVnIiwiaWF0IjoxNzY0MzI3NzI5LCJleHAiOjIwNzk2ODc3Mjl9.2f4R2BnxZE0w9-Jq343KvEjoHnDEbhVKaZUQBO_-ugQ',
-};
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1500; // in ms
@@ -74,9 +29,9 @@ export function PaymentPageComponent() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
 
-  const fetchPrices = useCallback(async (isRetry = false) => {
+  const fetchPrices = useCallback(async () => {
     setIsPriceLoading(true);
-    const apiIds = [...new Set(Object.values(cryptoOptions).map(c => c.apiId))].join(',');
+    const apiIds = [...new Set(Object.values(cryptoDetails).map(c => c.apiId))].join(',');
     
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       try {
@@ -86,17 +41,14 @@ export function PaymentPageComponent() {
         }
         const data = await response.json();
         const newPrices: Record<string, number> = {};
-        let allPricesFound = true;
+        
         for (const id of apiIds.split(',')) {
             if (data[id] && data[id].usd) {
                 newPrices[id] = data[id].usd;
-            } else {
-                allPricesFound = false;
-                console.warn(`Price for ${id} not found in CoinGecko response.`);
             }
         }
-
-        if (!allPricesFound && Object.keys(newPrices).length === 0) {
+        
+        if (Object.keys(newPrices).length === 0) {
            throw new Error("No prices returned from API.");
         }
 
@@ -109,11 +61,10 @@ export function PaymentPageComponent() {
           setIsPriceLoading(false);
           toast({
             title: "Error Loading Prices",
-            description: "Could not load live crypto rates. Please check your connection and refresh.",
+            description: "Could not load live crypto rates. Please check your connection and try refreshing.",
             variant: "destructive",
           });
         } else {
-          // Wait before retrying
           await new Promise(res => setTimeout(res, RETRY_DELAY));
         }
       }
@@ -122,8 +73,6 @@ export function PaymentPageComponent() {
 
   useEffect(() => {
     fetchPrices();
-    const interval = setInterval(fetchPrices, 30000); // Auto-refresh every 30 seconds
-    return () => clearInterval(interval);
   }, [fetchPrices]);
 
   useEffect(() => {
@@ -165,8 +114,8 @@ export function PaymentPageComponent() {
     }
   };
   
-  const selectedCrypto = cryptoKey ? cryptoOptions[cryptoKey] : null;
-  const qrCodeUrl = cryptoKey ? qrCodes[cryptoKey] : null;
+  const selectedCrypto = cryptoKey ? cryptoDetails[cryptoKey] : null;
+  const qrCodeUrl = selectedCrypto?.qrCode;
   const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
 
   const isStablecoin = cryptoKey?.startsWith('usdt') || cryptoKey?.startsWith('usdc');
@@ -291,7 +240,7 @@ export function PaymentPageComponent() {
                               </Link>
                           </Button>
                       </div>
-                      {selectedCrypto && <CardDescription>Pay with {selectedCrypto.name}</CardDescription>}
+                      {selectedCrypto && <CardDescription>Pay with {selectedCrypto.displayName}</CardDescription>}
                   </CardHeader>
                   <CardContent className="space-y-6">
                       {selectedCrypto ? (
@@ -299,7 +248,7 @@ export function PaymentPageComponent() {
                               <div className="border bg-background rounded-lg p-4">
                                 <div className="flex justify-between items-center mb-2">
                                   <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
-                                  <Button variant="ghost" size="sm" onClick={() => fetchPrices(true)} disabled={isPriceLoading} className="text-xs h-auto py-1 px-2">
+                                  <Button variant="ghost" size="sm" onClick={() => fetchPrices()} disabled={isPriceLoading} className="text-xs h-auto py-1 px-2">
                                     <RefreshCw className={`h-3 w-3 mr-2 ${isPriceLoading ? 'animate-spin' : ''}`}/>
                                     Refresh
                                   </Button>
@@ -348,36 +297,31 @@ export function PaymentPageComponent() {
                               
                               <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
                                 <div className="md:col-span-3 space-y-4">
-                                {selectedCrypto.networks.map(networkKey => {
-                                    const { network, address } = addresses[networkKey] || {};
-                                    return (
-                                        <div key={networkKey} className="group relative bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80 hover:shadow-md">
-                                            <p className="text-sm text-muted-foreground mb-1">{network}</p>
-                                            <div className="flex items-center gap-2">
-                                                <p className="font-mono text-sm sm:text-base break-all text-foreground flex-1">{address || 'Address not available'}</p>
-                                                <motion.button
-                                                  onClick={() => copyToClipboard(address, 'address')}
-                                                  className="self-center flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
-                                                  whileTap={{ scale: 0.9 }}
-                                                  aria-label="Copy wallet address"
-                                                  disabled={!address || address === 'Address not available'}
-                                                >
-                                                  <AnimatePresence mode="wait">
-                                                    {isAddressCopied ? (
-                                                      <motion.div key="check-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
-                                                        <Check className="h-5 w-5 text-green-500" />
-                                                      </motion.div>
-                                                    ) : (
-                                                      <motion.div key="copy-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
-                                                        <Clipboard className="h-5 w-5" />
-                                                      </motion.div>
-                                                    )}
-                                                  </AnimatePresence>
-                                                </motion.button>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                  <div className="group relative bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80 hover:shadow-md">
+                                      <p className="text-sm text-muted-foreground mb-1">{selectedCrypto.networkName}</p>
+                                      <div className="flex items-center gap-2">
+                                          <p className="font-mono text-sm sm:text-base break-all text-foreground flex-1">{selectedCrypto.address || 'Address not available'}</p>
+                                          <motion.button
+                                            onClick={() => copyToClipboard(selectedCrypto.address, 'address')}
+                                            className="self-center flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
+                                            whileTap={{ scale: 0.9 }}
+                                            aria-label="Copy wallet address"
+                                            disabled={!selectedCrypto.address || selectedCrypto.address === 'Address not available'}
+                                          >
+                                            <AnimatePresence mode="wait">
+                                              {isAddressCopied ? (
+                                                <motion.div key="check-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                  <Check className="h-5 w-5 text-green-500" />
+                                                </motion.div>
+                                              ) : (
+                                                <motion.div key="copy-addr" initial={{scale:0.5, opacity:0}} animate={{scale:1, opacity:1}} exit={{scale:0.5, opacity:0}}>
+                                                  <Clipboard className="h-5 w-5" />
+                                                </motion.div>
+                                              )}
+                                            </AnimatePresence>
+                                          </motion.button>
+                                      </div>
+                                  </div>
                                 </div>
                                 {qrCodeUrl && (
                                   <motion.div 
@@ -389,7 +333,7 @@ export function PaymentPageComponent() {
                                     <div className="p-3 bg-muted/30 rounded-lg border shadow-inner transition-all duration-300 hover:shadow-xl hover:scale-105">
                                       <Image
                                           src={qrCodeUrl}
-                                          alt={`${selectedCrypto.name} QR Code`}
+                                          alt={`${selectedCrypto.displayName} QR Code`}
                                           width={180}
                                           height={180}
                                           className="rounded-lg"
@@ -445,5 +389,6 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
 
     
