@@ -119,7 +119,7 @@ export function PaymentPageComponent() {
   const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
 
   const isStablecoin = cryptoKey?.startsWith('usdt') || cryptoKey?.startsWith('usdc');
-  const finalUsdPrice = isStablecoin ? planUsdPrice : planUsdPrice * 1.01; // 1% buffer for non-stablecoins
+  const finalUsdPrice = isStablecoin ? planUsdPrice : planUsdPrice + 5; // $5 fee for non-stablecoins
   const cryptoAmount = (currentPrice && planUsdPrice) ? (finalUsdPrice / currentPrice) : undefined;
 
   const cryptoAmountString = cryptoAmount?.toFixed(selectedCrypto?.precision || 8);
@@ -390,5 +390,3 @@ export function PaymentPageComponent() {
   );
 }
 
-
-    
