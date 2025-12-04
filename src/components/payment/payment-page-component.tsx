@@ -20,7 +20,7 @@ const RETRY_DELAY = 1500; // in ms
 
 export function PaymentPageComponent() {
   const searchParams = useSearchParams();
-  const planName = searchParams.get('plan') || 'Platinum 1-Month';
+  const planName = searchParams.get('plan') || 'Platinum Plan';
   const cryptoKey = searchParams.get('crypto');
   const [prices, setPrices] = useState<Record<string, number>>({});
   const [isPriceLoading, setIsPriceLoading] = useState(true);
@@ -182,7 +182,7 @@ export function PaymentPageComponent() {
             animate="visible"
           >
             <motion.div variants={itemVariants}>
-              <Card className="shadow-lg border-l-4 border-primary transition-all duration-300 hover:shadow-glow">
+              <Card className="shadow-glow border-l-4 border-primary transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-xl">Order Summary</CardTitle>
                 </CardHeader>
@@ -389,4 +389,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
