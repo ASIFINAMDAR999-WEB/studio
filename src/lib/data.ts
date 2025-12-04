@@ -63,7 +63,7 @@ export const plans: Plan[] = [
       'Standard SIP Trunk Access (inbound & outbound)',
     ],
     cta: 'Choose Plan',
-    bonus: 'New Client Offer: Get 15 extra days of service (a $75 value) absolutely FREE!',
+    bonus: 'New Client Offer: Get 15 extra days of service (a $90 value) absolutely FREE!',
     isHot: true,
   },
   {
