@@ -86,7 +86,7 @@ export const plans: Plan[] = [
       'Leverage Premium SIP Trunk Access',
     ],
     cta: 'Choose Plan',
-    bonus: 'New Client Offer: Get 30 extra days of service (a $150 value) absolutely FREE!',
+    bonus: 'New Client Offer: Get 30 extra days of service (a $179 value) absolutely FREE!',
     isHot: true,
   },
   {
