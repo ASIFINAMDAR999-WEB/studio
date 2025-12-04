@@ -73,7 +73,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
                 <p className="text-sm font-semibold text-center text-muted-foreground">Select an amount to top-up:</p>
                 {plan.priceOptions.map((price) => (
                     <Button asChild key={price} variant="outline" className="w-full text-lg py-6 transition-colors duration-300 hover:bg-primary hover:text-primary-foreground">
-                        <Link href={`/payment/select?plan=${encodeURIComponent(`${plan.name} - ${price}`)}`}>
+                        <Link href={`/payment/select?plan=${encodeURIComponent(`${plan.name} - ${price}`)}`} prefetch={true}>
                             {price}
                         </Link>
                     </Button>
@@ -87,7 +87,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
               {isContactAdmin ? (
                 <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">{plan.cta}</a>
               ) : (
-                <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`}>{plan.cta}</Link>
+                <Link href={`/payment/select?plan=${encodeURIComponent(plan.name)}`} prefetch={true}>{plan.cta}</Link>
               )}
             </Button>
         )}
