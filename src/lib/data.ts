@@ -14,7 +14,7 @@ export type Plan = {
 export const plans: Plan[] = [
   {
     name: 'Platinum Plan',
-    priceString: '$150',
+    priceString: '$179',
     duration: '/month',
     description: '1 Month Unlimited Calling — For New Clients Only',
     features: [
@@ -35,7 +35,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Gold Plan',
-    priceString: '$120',
+    priceString: '$149',
     duration: '/month',
     description: '1 Month Unlimited Calling — no per-minute charges',
     features: [
@@ -47,7 +47,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Diamond Plan',
-    priceString: '$220',
+    priceString: '$269',
     duration: '/2 months',
     description: '2 Months Unlimited Calling — no per-minute charges',
     features: [
@@ -68,7 +68,7 @@ export const plans: Plan[] = [
   },
   {
     name: 'Platinum Pro Plan',
-    priceString: '$320',
+    priceString: '$399',
     duration: '/3 months',
     description: '3 Months Unlimited Calling — no per-minute charges',
     features: [
@@ -197,5 +197,3 @@ export const cryptoDetails: Record<string, CryptoDetail> = {
   usdc_erc20: { displayName: 'USDC', networkName: 'USDC ERC-20 (Ethereum Network)', address: '0x7C7bA0bc477d6a3A2537Ae31f4C20041285d6D33', apiId: 'usd-coin', symbol: 'USDC', precision: 6, qrCode: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0244.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NC5qcGVnIiwiaWF0IjoxNzY0MzI3NTc3LCJleHAiOjIwNzk2ODc1Nzd9.SIa86pTJ20QGsQYX1KJ-_KrE0jfS86hBL7ORZI97KLA' },
   usdc_trc20: { displayName: 'USDC', networkName: 'USDC TRC-20 (Tron Network)', address: 'TWZ3Hm2dHGm89DiwhQiYcaFJjET9GEQd43', apiId: 'usd-coin', symbol: 'USDC', precision: 6, qrCode: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0245.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NS5qcGVnIiwiaWF0IjoxNzY0MzI3NzI5LCJleHAiOjIwNzk2ODc3Mjl9.2f4R2BnxZE0w9-Jq343KvEjoHnDEbhVKaZUQBO_-ugQ' },
 };
-
-    
