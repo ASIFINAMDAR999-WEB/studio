@@ -6,10 +6,10 @@ const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 // In a real-world scenario, these codes would be stored securely in a database.
 // The key is the code the user enters, the value is the plan name.
 const VALID_CODES: Record<string, string> = {
-  'platinum:1111': 'Platinum 1-Month',
+  'platinum:1111': 'Platinum Plan',
   'gold:2222': 'Gold Plan',
   'diamond:2222': 'Diamond Plan',
-  'platinum3m:4444': 'Platinum Plan',
+  'platinum3m:4444': 'Platinum Pro Plan',
 };
 
 async function verifyRecaptcha(token: string): Promise<{ success: boolean; 'error-codes'?: string[] }> {
@@ -74,3 +74,4 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
   }
 }
+
