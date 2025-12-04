@@ -117,8 +117,16 @@ export default {
           '100%': { opacity: '1', transform: 'translateY(0) translateZ(0)' },
         },
         'animated-gradient': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+          '0%, 100%': {
+            backgroundPosition: '0% 50%',
+            filter: 'saturate(1.5)',
+            transform: 'translateZ(0)',
+           },
+          '50%': {
+            backgroundPosition: '100% 50%',
+            filter: 'saturate(1)',
+            transform: 'translateZ(0)',
+           },
         },
         'float': {
           '0%': { transform: 'translateY(0px) translateZ(0)' },

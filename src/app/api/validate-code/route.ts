@@ -9,7 +9,7 @@ const VALID_CODES: Record<string, string> = {
   'platinum:1111': 'Platinum Plan',
   'gold:2222': 'Gold Plan',
   'diamond:2222': 'Diamond Plan',
-  'platinum3m:4444': 'Platinum Pro Plan',
+  'platinumpro:3333': 'Platinum Pro Plan',
 };
 
 async function verifyRecaptcha(token: string): Promise<{ success: boolean; 'error-codes'?: string[] }> {
