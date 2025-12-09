@@ -108,7 +108,7 @@ export function Header() {
                     </motion.div>
                     <motion.div variants={itemVariants}>
                        <Button asChild size="lg" className="w-full justify-start text-base group transform-gpu" variant="ghost">
-                          <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram" onClick={() => setIsMenuOpen(false)}>
+                          <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram" onClick={() => setIsMenuOpen(false)}>
                             <User className="mr-3 h-5 w-5 text-primary transition-transform group-hover:scale-110" />
                             Contact Admin
                           </a>
@@ -124,5 +124,3 @@ export function Header() {
     </header>
   );
 }
-
-    

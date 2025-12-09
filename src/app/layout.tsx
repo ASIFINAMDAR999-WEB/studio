@@ -34,7 +34,7 @@ const organizationSchema: WithContext<Organization> = {
     availableLanguage: ['English'],
   },
   sameAs: [
-    'https://t.me/AF3092'
+    'https://t.me/CSG555'
   ]
 }
 
@@ -108,5 +108,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-    

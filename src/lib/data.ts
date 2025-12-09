@@ -107,7 +107,7 @@ export const plans: Plan[] = [
 export const faqItems = [
   {
     question: "What is the process to purchase a plan?",
-    answer: "Purchasing a plan is simple and secure. First, browse our plans and select the one that best fits your needs. Next, choose your preferred cryptocurrency for payment. Our system will provide you with a unique wallet address for the transaction. After sending the exact amount, please send a screenshot of the transaction confirmation to our admin on Telegram (@AF3092). Your plan will typically be activated within 5-10 minutes of confirmation."
+    answer: "Purchasing a plan is simple and secure. First, browse our plans and select the one that best fits your needs. Next, choose your preferred cryptocurrency for payment. Our system will provide you with a unique wallet address for the transaction. After sending the exact amount, please send a screenshot of the transaction confirmation to our admin on Telegram (@CSG555). Your plan will typically be activated within 5-10 minutes of confirmation."
   },
   {
     question: "What payment methods do you accept?",
@@ -123,7 +123,7 @@ export const faqItems = [
   },
   {
     question: "How do I get support if I have an issue?",
-    answer: "Our dedicated support team is available to assist you. The most effective way to get help is by contacting our admin directly on Telegram at @AF3092. Whether you have questions about our services, need help with a payment, or encounter a technical issue, our team is ready to provide prompt and knowledgeable assistance. For automated services, you can also use one of our official bots listed on the 'Bots' page."
+    answer: "Our dedicated support team is available to assist you. The most effective way to get help is by contacting our admin directly on Telegram at @CSG555. Whether you have questions about our services, need help with a payment, or encounter a technical issue, our team is ready to provide prompt and knowledgeable assistance. For automated services, you can also use one of our official bots listed on the 'Bots' page."
   },
   {
     question: "Are there any contracts or hidden fees?",
@@ -201,5 +201,3 @@ export const cryptoDetails: Record<string, CryptoDetail> = {
   usdc_erc20: { displayName: 'USDC', networkName: 'USDC ERC-20 (Ethereum Network)', address: '0x7C7bA0bc477d6a3A2537Ae31f4C20041285d6D33', apiId: 'usd-coin', symbol: 'USDC', precision: 6, qrCode: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0244.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NC5qcGVnIiwiaWF0IjoxNzY0MzI3NTc3LCJleHAiOjIwNzk2ODc1Nzd9.SIa86pTJ20QGsQYX1KJ-_KrE0jfS86hBL7ORZI97KLA' },
   usdc_trc20: { displayName: 'USDC', networkName: 'USDC TRC-20 (Tron Network)', address: 'TWZ3Hm2dHGm89DiwhQiYcaFJjET9GEQd43', apiId: 'usd-coin', symbol: 'USDC', precision: 6, qrCode: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0245.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDI0NS5qcGVnIiwiaWF0IjoxNzY0MzI3NzI5LCJleHAiOjIwNzk2ODc3Mjl9.2f4R2BnxZE0w9-Jq343KvEjoHnDEbhVKaZUQBO_-ugQ' },
 };
-
-    

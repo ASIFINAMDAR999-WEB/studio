@@ -128,7 +128,7 @@ export function PaymentPageComponent() {
   const instructions = [
     { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">exact amount.</span> Double-check the address and network before sending.</> },
     { icon: <PenSquare className="h-5 w-5 text-primary" />, text: "After payment, send a screenshot of the transaction to our admin on Telegram." },
-    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Admin Telegram: <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@AF3092</a></> },
+    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Admin Telegram: <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@CSG555</a></> },
     { icon: <ShieldCheck className="h-5 w-5 text-primary" />, text: "Your plan will be activated once the transaction is confirmed by our team." },
   ];
 
@@ -355,8 +355,13 @@ export function PaymentPageComponent() {
                           </div>
                       )}
 
-                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4 mt-4">
-                        <h4 className="font-bold text-primary">Important Instructions:</h4>
+                      <motion.div 
+                        className="p-6 rounded-lg bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 border border-primary/20 space-y-4"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <h4 className="font-bold text-lg text-primary text-center">Important Instructions</h4>
                         <ul className="space-y-3">
                           {instructions.map((item, index) => (
                             <li key={index} className="flex items-start gap-3">
@@ -371,10 +376,10 @@ export function PaymentPageComponent() {
                         {cryptoKey === 'ton' && (
                           <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For TON, a memo/comment is not required if sending from a private wallet. If sending from an exchange, a memo may be required.</p>
                         )}
-                      </div>
+                      </motion.div>
 
                       <Button size="lg" className="w-full text-lg py-6 group" asChild>
-                        <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram to confirm payment">
+                        <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" aria-label="Contact admin on Telegram to confirm payment">
                             Contact Admin on Telegram
                             <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </a>

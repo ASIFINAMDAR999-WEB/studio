@@ -81,10 +81,10 @@ export default function ContactPage() {
                         />
                         <div className='text-center'>
                             <p className='font-semibold text-xl text-foreground'>Telegram</p>
-                            <p className="text-md sm:text-lg text-muted-foreground font-mono tracking-tight bg-muted px-3 py-1 rounded-md">@AF3092</p>
+                            <p className="text-md sm:text-lg text-muted-foreground font-mono tracking-tight bg-muted px-3 py-1 rounded-md">@CSG555</p>
                         </div>
                         <Button size="lg" className="w-full text-lg py-6 sm:py-7 group" asChild>
-                           <a href="https://t.me/AF3092" target="_blank" rel="noopener noreferrer">
+                           <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer">
                             Contact on Telegram
                             <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                            </a>

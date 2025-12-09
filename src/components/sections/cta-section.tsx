@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -22,7 +23,7 @@ export function CtaSection() {
       isExternal: true
     },
     {
-      href: "https://t.me/AF3092",
+      href: "https://t.me/CSG555",
       label: "Contact Admin",
       icon: <User className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" />,
       ariaLabel: "Contact admin on Telegram",
