@@ -131,7 +131,7 @@ export const faqItems = [
   },
   {
     question: "Can I use my own softphone software?",
-    answer: "Yes, absolutely. Since a premium SIP account is included with every plan, you can use your credentials with any third-party softphone application that supports the SIP protocol. This includes popular choices like Zoiper, 3CX, MicroSIP, PortaPhone, and many others, giving you the flexibility to manage your calls from your preferred application on any device."
+    answer: "Yes, absolutely. Since a premium SIP account is included with every plan, you can use your credentials with any third-party softphone application that supports the SIP protocol. This includes popular choices like Zoiper, 3CX, MicroSIP, PortSIP, and many others, giving you the flexibility to manage your calls from your preferred application on any device."
   },
   {
     question: "Can I try the service before I buy?",
