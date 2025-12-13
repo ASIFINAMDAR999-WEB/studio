@@ -71,7 +71,7 @@ export function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">
-                  {stat.isCurrency ? `$${stat.value}` : stat.value}
+                  {stat.value}
                 </div>
                 <p className="text-xs text-muted-foreground">{stat.subtitle}</p>
               </CardContent>
