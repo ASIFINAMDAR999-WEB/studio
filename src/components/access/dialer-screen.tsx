@@ -4,7 +4,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,6 +57,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [tempCallerId, setTempCallerId] = useState('');
   const [inCallDtmf, setInCallDtmf] = useState('');
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [showSipCredentials, setShowSipCredentials] = useState(false);
 
 
   // In-call state
@@ -282,6 +283,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setCopiedField(field);
     setTimeout(() => setCopiedField(null), 2000);
   };
+  
+  const toggleSipVisibility = () => {
+    setShowSipCredentials(prev => !prev);
+  }
 
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95 },
@@ -345,6 +350,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     }
     if (callStatus === 'ended') return "Call Ended";
     return "";
+  };
+  
+  const sipCredentials = {
+    username: 'user12345',
+    password: 'Abcde12345@#',
+    domain: 'sip.redarmor.net',
   };
 
   const renderActiveView = () => {
@@ -699,20 +710,27 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
           initial="hidden"
           animate={showSipModal ? "visible" : "hidden"}
         >
+          <div className="flex justify-end">
+            <Button variant="ghost" size="sm" onClick={toggleSipVisibility} className="text-xs h-auto py-1 px-2 flex items-center gap-1.5">
+              {showSipCredentials ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showSipCredentials ? 'Hide' : 'Show'}
+            </Button>
+          </div>
           {[
-            { label: 'Username', value: 'user12345' },
-            { label: 'Password', value: 'Abcde12345@#' },
-            { label: 'Domain', value: 'sip.redarmor.net' },
-          ].map(({ label, value }) => (
+            { label: 'Username', value: sipCredentials.username, type: 'text' },
+            { label: 'Password', value: sipCredentials.password, type: showSipCredentials ? 'text' : 'password' },
+            { label: 'Domain', value: sipCredentials.domain, type: 'text' },
+          ].map(({ label, value, type }) => (
             <motion.div key={label} variants={sipModalItemVariants}>
               <Label htmlFor={`sip-${label.toLowerCase()}`} className="text-sm font-medium text-foreground">{label}</Label>
               <div className="flex items-center gap-2 mt-1">
                 <Input
                   id={`sip-${label.toLowerCase()}`}
-                  type="text"
+                  type={type}
                   readOnly
-                  value={value}
+                  value={showSipCredentials ? value : '••••••••••••'}
                   className="bg-background/50 border-muted-foreground/30 font-mono"
+                  onClick={(e) => (e.target as HTMLInputElement).select()}
                 />
                 <Button variant="outline" size="icon" onClick={() => copyToClipboard(value, label)}>
                   <AnimatePresence mode="wait" initial={false}>
