@@ -721,6 +721,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   checked={showSipCredentials}
                   onCheckedChange={toggleSipVisibility}
                   aria-label="Toggle SIP credentials visibility"
+                  className="data-[state=checked]:bg-green-500"
               />
           </motion.div>
           {[
