@@ -294,6 +294,26 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
     exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
   };
+  
+  const sipModalContainerVariants = {
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  
+  const sipModalItemVariants = {
+    hidden: { y: 10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
 
   const InCallButton = ({ children, onClick, text, active, 'aria-label': ariaLabel }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean, 'aria-label'?: string }) => (
     <div className="flex flex-col items-center gap-2">
@@ -673,13 +693,18 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         title="SIP Account Credentials"
         description="Use these credentials with any SIP-compatible softphone, such as Zoiper, 3CX, MicroSIP, or PortSIP."
       >
-        <div className="space-y-4 pt-4">
+        <motion.div
+          className="space-y-4 pt-4"
+          variants={sipModalContainerVariants}
+          initial="hidden"
+          animate={showSipModal ? "visible" : "hidden"}
+        >
           {[
             { label: 'Username', value: 'user12345' },
             { label: 'Password', value: 'Abcde12345@#' },
             { label: 'Domain', value: 'sip.redarmor.net' },
           ].map(({ label, value }) => (
-            <div key={label}>
+            <motion.div key={label} variants={sipModalItemVariants}>
               <Label htmlFor={`sip-${label.toLowerCase()}`} className="text-sm font-medium text-foreground">{label}</Label>
               <div className="flex items-center gap-2 mt-1">
                 <Input
@@ -714,9 +739,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   </AnimatePresence>
                 </Button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Modal>
     </>
   );
