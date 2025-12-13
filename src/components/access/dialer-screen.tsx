@@ -418,48 +418,53 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
           >
             <motion.div variants={itemVariants} className="text-center">
                 <h1 className="text-2xl font-bold text-foreground">Client Access</h1>
-                <div role="tablist" aria-label="Access Tools Navigation" className="flex justify-center gap-1 mt-4 mb-4 bg-muted p-1 rounded-lg">
-                    <button 
-                      role="tab"
-                      aria-selected={activeTab === 'dialer'}
-                      id="dialpad-tab"
-                      aria-controls="dialpad-panel"
-                      onClick={() => setActiveTab('dialer')}
-                      className={cn(
-                        "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
-                        activeTab === 'dialer' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
-                      )}
-                    >
-                      <Phone className="h-4 w-4"/>
-                      Dialer
-                    </button>
-                    <button 
-                      role="tab"
-                      aria-selected={activeTab === 'email'}
-                      id="email-spoof-tab"
-                      aria-controls="email-spoof-panel"
-                      onClick={() => setActiveTab('email')}
-                      className={cn(
-                        "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
-                        activeTab === 'email' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
-                      )}
-                    >
-                      <Mail className="h-4 w-4"/>
-                      Email
-                    </button>
-                     <button 
-                      role="tab"
-                      aria-selected={activeTab === 'sms'}
-                      id="sms-spoof-tab"
-                      aria-controls="sms-spoof-panel"
-                      onClick={() => setActiveTab('sms')}
-                      className={cn(
-                        "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
-                        activeTab === 'sms' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
-                      )}
-                    >
-                      <MessageSquare className="h-4 w-4"/>
-                      SMS
+                <div className='flex justify-center items-center gap-2 mt-4 mb-4'>
+                    <div role="tablist" aria-label="Access Tools Navigation" className="flex justify-center gap-1 bg-muted p-1 rounded-lg">
+                        <button 
+                          role="tab"
+                          aria-selected={activeTab === 'dialer'}
+                          id="dialpad-tab"
+                          aria-controls="dialpad-panel"
+                          onClick={() => setActiveTab('dialer')}
+                          className={cn(
+                            "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
+                            activeTab === 'dialer' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+                          )}
+                        >
+                          <Phone className="h-4 w-4"/>
+                          Dialer
+                        </button>
+                        <button 
+                          role="tab"
+                          aria-selected={activeTab === 'email'}
+                          id="email-spoof-tab"
+                          aria-controls="email-spoof-panel"
+                          onClick={() => setActiveTab('email')}
+                          className={cn(
+                            "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
+                            activeTab === 'email' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+                          )}
+                        >
+                          <Mail className="h-4 w-4"/>
+                          Email
+                        </button>
+                         <button 
+                          role="tab"
+                          aria-selected={activeTab === 'sms'}
+                          id="sms-spoof-tab"
+                          aria-controls="sms-spoof-panel"
+                          onClick={() => setActiveTab('sms')}
+                          className={cn(
+                            "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
+                            activeTab === 'sms' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+                          )}
+                        >
+                          <MessageSquare className="h-4 w-4"/>
+                          SMS
+                        </button>
+                    </div>
+                     <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
+                      <Contact className="h-5 w-5" />
                     </button>
                 </div>
             </motion.div>
@@ -475,19 +480,11 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       <span className="text-primary font-bold">{planName}</span>
                   </div>
                 )}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
-                    <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
-                      <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-                    </button>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">SIP Account:</span>
-                     <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials">
-                      <Contact className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-                    </button>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
+                  <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
+                    <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+                  </button>
                 </div>
                 <div className="flex justify-between items-center pt-3 border-t">
                   <span id="voice-changer-label" className="text-muted-foreground">Voice:</span>
