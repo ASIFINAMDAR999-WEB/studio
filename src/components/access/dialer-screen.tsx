@@ -666,7 +666,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         isOpen={showSipModal}
         onClose={() => setShowSipModal(false)}
         title="SIP Account Credentials"
-        description="Use these credentials with any SIP-compatible softphone."
+        description="Use these credentials with any SIP-compatible softphone, such as Zoiper, 3CX, MicroSIP, or PortSIP."
       >
         <div className="space-y-4 pt-4">
           {[
