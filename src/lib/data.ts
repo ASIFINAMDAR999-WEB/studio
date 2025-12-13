@@ -130,6 +130,10 @@ export const faqItems = [
     answer: "No, we believe in full transparency. The price you see listed for each plan is the total price you pay for the specified service duration. There are no recurring charges, hidden fees, or long-term contracts. Your payment is a one-time purchase for the access period you've selected."
   },
   {
+    question: "Can I use my own softphone software?",
+    answer: "Yes, absolutely. Since a premium SIP account is included with every plan, you can use your credentials with any third-party softphone application that supports the SIP protocol. This includes popular choices like Zoiper, 3CX, MicroSIP, PortaPhone, and many others, giving you the flexibility to manage your calls from your preferred application on any device."
+  },
+  {
     question: "Can I try the service before I buy?",
     answer: "To maintain the highest quality of service and prevent misuse, we do not offer free trials. However, we provide extensive demo videos on our official Telegram channel (https://t.me/+Eg-SFpyzbpM0YzM1), which showcase our features and their functionality. This allows you to see our service in action before making a commitment."
   },
