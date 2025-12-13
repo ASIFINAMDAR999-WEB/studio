@@ -4,7 +4,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +19,7 @@ import { keypad } from '@/lib/data';
 import { Label } from '../ui/label';
 import { EmailSpoofScreen } from './email-spoof-screen';
 import { SmsSpoofScreen } from './sms-spoof-screen';
+import { useToast } from '@/hooks/use-toast';
 
 type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
 
@@ -49,11 +50,13 @@ const triggerHapticFeedback = (pattern: number | number[] = 5) => {
 export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [number, setNumber] = useState('');
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showSipModal, setShowSipModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'email', 'sms'
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
   const [tempCallerId, setTempCallerId] = useState('');
   const [inCallDtmf, setInCallDtmf] = useState('');
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
 
   // In-call state
@@ -62,6 +65,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [isSpeaker, setIsSpeaker] = useState(false);
   const [showInCallKeypad, setShowInCallKeypad] = useState(false);
+  const { toast } = useToast();
 
 
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
@@ -264,6 +268,16 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setShowSettingsModal(false);
   };
 
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text);
+    toast({
+      title: "Copied to clipboard",
+      description: `${field} has been copied.`,
+    });
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
+  };
+
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: 'easeOut' } },
@@ -461,13 +475,21 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                       <span className="text-primary font-bold">{planName}</span>
                   </div>
                 )}
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
-                  <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
-                    <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-                  </button>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
+                    <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
+                      <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </button>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">SIP Account:</span>
+                     <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials">
+                      <Contact className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    </button>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center pt-3 border-t">
                   <span id="voice-changer-label" className="text-muted-foreground">Voice:</span>
                   <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -626,7 +648,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <ContactRound className="absolute left-3 h-5 w-5 text-muted-foreground pointer-events-none transition-colors group-focus-within/input:text-primary" />
                 <Input
                     id="callerIdInput"
-                    type="text"
+                    type="tel"
                     inputMode='tel'
                     value={tempCallerId}
                     onChange={handleTempCallerIdChange}
@@ -640,6 +662,58 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   Save
                 </Button>
             </motion.div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showSipModal}
+        onClose={() => setShowSipModal(false)}
+        title="SIP Account Credentials"
+        description="Use these credentials with any SIP-compatible softphone."
+      >
+        <div className="space-y-4 pt-4">
+          {[
+            { label: 'Username', value: 'user12345' },
+            { label: 'Password', value: 'Abcde12345@#' },
+            { label: 'Domain', value: 'sip.redarmor.net' },
+          ].map(({ label, value }) => (
+            <div key={label}>
+              <Label htmlFor={`sip-${label.toLowerCase()}`} className="text-sm font-medium text-foreground">{label}</Label>
+              <div className="flex items-center gap-2 mt-1">
+                <Input
+                  id={`sip-${label.toLowerCase()}`}
+                  type="text"
+                  readOnly
+                  value={value}
+                  className="bg-background/50 border-muted-foreground/30 font-mono"
+                />
+                <Button variant="outline" size="icon" onClick={() => copyToClipboard(value, label)}>
+                  <AnimatePresence mode="wait" initial={false}>
+                    {copiedField === label ? (
+                      <motion.div
+                        key="check"
+                        initial={{ scale: 0.5, opacity: 0, rotate: -90 }}
+                        animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                        exit={{ scale: 0.5, opacity: 0, rotate: 90 }}
+                        className="text-green-500"
+                      >
+                        <Check className="h-4 w-4" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="copy"
+                        initial={{ scale: 0.5, opacity: 0, rotate: -90 }}
+                        animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                        exit={{ scale: 0.5, opacity: 0, rotate: 90 }}
+                      >
+                        <Copy className="h-4 w-4" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
       </Modal>
     </>
