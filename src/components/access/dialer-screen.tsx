@@ -71,6 +71,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const callIntervalRef = useRef<NodeJS.Timeout>();
   const ringoutAudioRef = useRef<HTMLAudioElement>(null);
+  const copyAudioRef = useRef<HTMLAudioElement>(null);
   const dtmfAudioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
 
 
@@ -270,6 +271,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
+    if (copyAudioRef.current) {
+      copyAudioRef.current.currentTime = 0;
+      copyAudioRef.current.play();
+    }
     toast({
       title: "Copied to clipboard",
       description: `${field} has been copied.`,
@@ -405,6 +410,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   return (
     <>
       <audio ref={ringoutAudioRef} src="/ringout.mp3" preload="auto" loop className="hidden"></audio>
+      <audio ref={copyAudioRef} src="/applepay.mp3" preload="auto" className="hidden"></audio>
       <div className="w-full max-w-sm mx-auto p-2 sm:p-4 flex flex-col bg-background">
         <AnimatePresence mode="wait">
         {callStatus === 'idle' ? (
@@ -645,7 +651,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <ContactRound className="absolute left-3 h-5 w-5 text-muted-foreground pointer-events-none transition-colors group-focus-within/input:text-primary" />
                 <Input
                     id="callerIdInput"
-                    type="tel"
                     inputMode='tel'
                     value={tempCallerId}
                     onChange={handleTempCallerIdChange}
