@@ -717,16 +717,15 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
             </Button>
           </div>
           {[
-            { label: 'Username', value: sipCredentials.username, type: 'text' },
-            { label: 'Password', value: sipCredentials.password, type: showSipCredentials ? 'text' : 'password' },
-            { label: 'Domain', value: sipCredentials.domain, type: 'text' },
-          ].map(({ label, value, type }) => (
+            { label: 'Username', value: sipCredentials.username },
+            { label: 'Password', value: sipCredentials.password },
+            { label: 'Domain', value: sipCredentials.domain },
+          ].map(({ label, value }) => (
             <motion.div key={label} variants={sipModalItemVariants}>
               <Label htmlFor={`sip-${label.toLowerCase()}`} className="text-sm font-medium text-foreground">{label}</Label>
               <div className="flex items-center gap-2 mt-1">
                 <Input
                   id={`sip-${label.toLowerCase()}`}
-                  type={type}
                   readOnly
                   value={showSipCredentials ? value : '••••••••••••'}
                   className="bg-background/50 border-muted-foreground/30 font-mono"
