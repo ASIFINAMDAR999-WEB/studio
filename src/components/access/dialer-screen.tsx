@@ -20,6 +20,8 @@ import { Label } from '../ui/label';
 import { EmailSpoofScreen } from './email-spoof-screen';
 import { SmsSpoofScreen } from './sms-spoof-screen';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
+
 
 type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
 
@@ -710,25 +712,34 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
           initial="hidden"
           animate={showSipModal ? "visible" : "hidden"}
         >
-          <div className="flex justify-end">
-            <Button variant="ghost" size="sm" onClick={toggleSipVisibility} className="text-xs h-auto py-1 px-2 flex items-center gap-1.5">
-              {showSipCredentials ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              {showSipCredentials ? 'Hide' : 'Show'}
-            </Button>
-          </div>
+          <motion.div variants={sipModalItemVariants} className="flex items-center justify-between rounded-lg bg-background/50 p-3">
+              <Label htmlFor="sip-visibility-toggle" className="font-medium text-foreground">
+                  Show Credentials
+              </Label>
+              <Switch
+                  id="sip-visibility-toggle"
+                  checked={showSipCredentials}
+                  onCheckedChange={toggleSipVisibility}
+                  aria-label="Toggle SIP credentials visibility"
+              />
+          </motion.div>
           {[
             { label: 'Username', value: sipCredentials.username },
             { label: 'Password', value: sipCredentials.password },
             { label: 'Domain', value: sipCredentials.domain },
           ].map(({ label, value }) => (
             <motion.div key={label} variants={sipModalItemVariants}>
-              <Label htmlFor={`sip-${label.toLowerCase()}`} className="text-sm font-medium text-foreground">{label}</Label>
+              <Label htmlFor={`sip-${label.toLowerCase()}`} className="text-sm font-medium text-muted-foreground">{label}</Label>
               <div className="flex items-center gap-2 mt-1">
                 <Input
                   id={`sip-${label.toLowerCase()}`}
                   readOnly
+                  type="text"
                   value={showSipCredentials ? value : '••••••••••••'}
-                  className="bg-background/50 border-muted-foreground/30 font-mono"
+                  className={cn(
+                    "bg-background/50 border-muted-foreground/30 font-mono transition-all duration-300",
+                    !showSipCredentials && "blur-[5px] select-none"
+                  )}
                   onClick={(e) => (e.target as HTMLInputElement).select()}
                 />
                 <Button variant="outline" size="icon" onClick={() => copyToClipboard(value, label)}>
