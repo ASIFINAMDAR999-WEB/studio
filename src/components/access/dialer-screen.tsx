@@ -4,7 +4,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, PenSquare } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -522,7 +522,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
                   <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
-                    <Settings className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
+                    <PenSquare className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
                   </button>
                 </div>
                 <div className="flex justify-between items-center pt-3 border-t">
