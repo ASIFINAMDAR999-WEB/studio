@@ -51,8 +51,9 @@ const triggerHapticFeedback = (pattern: number | number[] = 5) => {
  */
 export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [number, setNumber] = useState('');
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showFeaturesModal, setShowFeaturesModal] = useState(false);
   const [showSipModal, setShowSipModal] = useState(false);
+  const [showCallerIdModal, setShowCallerIdModal] = useState(false);
   const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'email', 'sms'
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
@@ -316,6 +317,17 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       }
   };
 
+  const handleSaveCallerId = () => {
+    setCallerId(tempCallerId);
+    setShowCallerIdModal(false);
+  };
+
+  const handleOpenCallerIdModal = () => {
+    setTempCallerId(callerId);
+    setShowCallerIdModal(true);
+  };
+
+
   const handleTempForwardingNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     const digits = value.replace(/[^\d+]/g, '');
@@ -330,19 +342,17 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       setTempForwardingNumber(value);
     }
   };
-
-  const handleSaveSettings = () => {
-    setCallerId(tempCallerId);
+  
+  const handleSaveFeatures = () => {
     setIsCallForwardingEnabled(isTempCallForwardingEnabled);
     setForwardingNumber(isTempCallForwardingEnabled ? tempForwardingNumber : '');
-    setShowSettingsModal(false);
+    setShowFeaturesModal(false);
   };
   
-  const handleCloseSettings = () => {
-    setTempCallerId(callerId);
+  const handleOpenFeaturesModal = () => {
     setIsTempCallForwardingEnabled(isCallForwardingEnabled);
     setTempForwardingNumber(forwardingNumber);
-    setShowSettingsModal(false);
+    setShowFeaturesModal(true);
   };
 
   const copyToClipboard = (text: string, field: string) => {
@@ -578,7 +588,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                      <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
                       <Contact className="h-5 w-5" />
                     </button>
-                    <button onClick={() => setShowSettingsModal(true)} aria-label="Manage Features" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
+                    <button onClick={handleOpenFeaturesModal} aria-label="Manage Features" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
                       <Settings className="h-5 w-5" />
                     </button>
                 </div>
@@ -600,7 +610,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     <span className="text-muted-foreground">Caller ID:</span>
                     <span className="text-foreground font-semibold">{callerId || "Not set"}</span>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 group" onClick={() => setShowSettingsModal(true)}>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 group" onClick={handleOpenCallerIdModal}>
                     <PenSquare className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
                   </Button>
                 </div>
@@ -758,9 +768,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       </div>
       
       <Modal
-          isOpen={showSettingsModal}
-          onClose={handleCloseSettings}
-          title="Dialer Settings"
+          isOpen={showCallerIdModal}
+          onClose={() => setShowCallerIdModal(false)}
+          title="Edit Caller ID"
       >
         <div className="space-y-6 pt-4">
             <div>
@@ -780,7 +790,20 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 />
               </div>
             </div>
+            <motion.div whileTap={{ scale: 0.97 }}>
+                <Button onClick={handleSaveCallerId} className="w-full text-base py-5">
+                  Save
+                </Button>
+            </motion.div>
+        </div>
+      </Modal>
 
+       <Modal
+          isOpen={showFeaturesModal}
+          onClose={() => setShowFeaturesModal(false)}
+          title="Manage Features"
+      >
+        <div className="space-y-6 pt-4">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -821,7 +844,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
             </div>
 
             <motion.div whileTap={{ scale: 0.97 }}>
-                <Button onClick={handleSaveSettings} className="w-full text-base py-5">
+                <Button onClick={handleSaveFeatures} className="w-full text-base py-5">
                   Save
                 </Button>
             </motion.div>
