@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
@@ -577,6 +578,9 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                      <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
                       <Contact className="h-5 w-5" />
                     </button>
+                    <button onClick={() => setShowSettingsModal(true)} aria-label="Manage Features" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
+                      <Settings className="h-5 w-5" />
+                    </button>
                 </div>
             </motion.div>
 
@@ -633,12 +637,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         <DropdownMenuItem onSelect={() => setSelectedVoice('Robot')}>Robot</DropdownMenuItem>
                       </DropdownMenuContent>
                   </DropdownMenu>
-                </div>
-                <div className="pt-3 border-t">
-                  <Button variant="outline" className="w-full group" onClick={() => setShowSettingsModal(true)}>
-                    <Settings className="mr-2 h-4 w-4 transition-transform group-hover:rotate-45" />
-                    Manage Features
-                  </Button>
                 </div>
               </motion.div>
             )}
@@ -905,5 +903,3 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
-
-    
