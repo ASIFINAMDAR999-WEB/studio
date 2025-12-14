@@ -1,10 +1,9 @@
 
-
 'use client';
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, PenSquare } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, PenSquare, PhoneForwarded } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -61,6 +60,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [showSipCredentials, setShowSipCredentials] = useState(false);
 
+  // Call Forwarding State
+  const [isCallForwardingEnabled, setIsCallForwardingEnabled] = useState(false);
+  const [forwardingNumber, setForwardingNumber] = useState('');
+  const [isTempCallForwardingEnabled, setIsTempCallForwardingEnabled] = useState(false);
+  const [tempForwardingNumber, setTempForwardingNumber] = useState('');
+
 
   // In-call state
   const [callStatus, setCallStatus] = useState<CallStatus>('idle');
@@ -109,6 +114,14 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       const initialCallerId = savedCallerId || '+';
       setCallerId(initialCallerId);
       setTempCallerId(initialCallerId);
+
+      const savedForwardingEnabled = localStorage.getItem('callForwardingEnabled') === 'true';
+      const savedForwardingNumber = localStorage.getItem('forwardingNumber') || '';
+      setIsCallForwardingEnabled(savedForwardingEnabled);
+      setForwardingNumber(savedForwardingNumber);
+      setIsTempCallForwardingEnabled(savedForwardingEnabled);
+      setTempForwardingNumber(savedForwardingNumber);
+
     } catch (error) {
       console.error("Failed to access localStorage", error);
     }
@@ -121,10 +134,16 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       if (callerId) {
         localStorage.setItem('callerId', callerId);
       }
+      localStorage.setItem('callForwardingEnabled', String(isCallForwardingEnabled));
+      if (forwardingNumber) {
+        localStorage.setItem('forwardingNumber', forwardingNumber);
+      } else {
+        localStorage.removeItem('forwardingNumber');
+      }
     } catch (error) {
-       console.error("Failed to save callerId to localStorage", error);
+       console.error("Failed to save to localStorage:", error);
     }
-  }, [callerId]);
+  }, [callerId, isCallForwardingEnabled, forwardingNumber]);
 
 
   // Effect for the call timer
@@ -262,13 +281,32 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       }
   };
 
+  const handleTempForwardingNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    const digits = value.replace(/[^\d+]/g, '');
+    if (digits.length > 0 && !digits.startsWith('+')) {
+      value = `+${digits.replace(/\+/g, '')}`;
+    } else if (digits.startsWith('+')) {
+      value = '+' + digits.slice(1).replace(/\+/g, '');
+    } else {
+      value = digits;
+    }
+    if (value.length <= 16) {
+      setTempForwardingNumber(value);
+    }
+  };
+
   const handleSaveSettings = () => {
     setCallerId(tempCallerId);
+    setIsCallForwardingEnabled(isTempCallForwardingEnabled);
+    setForwardingNumber(isTempCallForwardingEnabled ? tempForwardingNumber : '');
     setShowSettingsModal(false);
   };
   
   const handleCloseSettings = () => {
     setTempCallerId(callerId);
+    setIsTempCallForwardingEnabled(isCallForwardingEnabled);
+    setTempForwardingNumber(forwardingNumber);
     setShowSettingsModal(false);
   };
 
@@ -525,6 +563,15 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     <PenSquare className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
                   </button>
                 </div>
+                {isCallForwardingEnabled && forwardingNumber && (
+                    <div className="flex justify-between items-center text-sm pt-3 border-t">
+                        <span className="text-muted-foreground flex items-center gap-2">
+                            <PhoneForwarded className="h-4 w-4 text-green-500" />
+                            Forwarding:
+                        </span>
+                        <span className="text-green-500 font-bold">{forwardingNumber}</span>
+                    </div>
+                )}
                 <div className="flex justify-between items-center pt-3 border-t">
                   <span id="voice-changer-label" className="text-muted-foreground">Voice:</span>
                   <DropdownMenu>
@@ -692,6 +739,46 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 />
               </div>
             </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="callForwardingToggle" className="text-sm font-medium text-foreground">
+                    Call Forwarding
+                  </Label>
+                  <p className='text-xs text-muted-foreground'>Forward incoming calls.</p>
+                </div>
+                <Switch
+                  id="callForwardingToggle"
+                  checked={isTempCallForwardingEnabled}
+                  onCheckedChange={setIsTempCallForwardingEnabled}
+                  className="data-[state=checked]:bg-green-500"
+                />
+              </div>
+              <AnimatePresence>
+                {isTempCallForwardingEnabled && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="relative flex items-center group/input">
+                      <PhoneForwarded className="absolute left-3 h-5 w-5 text-muted-foreground pointer-events-none transition-colors group-focus-within/input:text-primary" />
+                      <Input
+                        id="forwardingNumberInput"
+                        inputMode='tel'
+                        value={tempForwardingNumber}
+                        onChange={handleTempForwardingNumberChange}
+                        placeholder="Enter forwarding number"
+                        className="w-full pl-10 bg-background/50 border-muted-foreground/30 focus:border-primary"
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <motion.div whileTap={{ scale: 0.97 }}>
                 <Button onClick={handleSaveSettings} className="w-full text-base py-5">
                   Save
