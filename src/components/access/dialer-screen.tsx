@@ -592,7 +592,13 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   </div>
                 )}
                 <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground">Caller ID:</span>
+                    <span className="text-foreground font-semibold">{callerId || "Not set"}</span>
+                  </div>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 group" onClick={() => setShowSettingsModal(true)}>
+                    <PenSquare className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
+                  </Button>
                 </div>
                 {isCallForwardingEnabled && forwardingNumber && (
                     <div className="flex justify-between items-center text-sm pt-3 border-t">
@@ -899,3 +905,5 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     </>
   );
 };
+
+    
