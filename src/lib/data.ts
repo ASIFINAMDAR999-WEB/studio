@@ -84,7 +84,7 @@ export const plans: Plan[] = [
       'Utilize Email & SMS Spoofing Features',
       'Implement a Professional IVR System',
       'Spoof Premium Toll-Free Numbers',
-      'Leverage Premium SIP Trunk Access',
+      'Leverage Premium SIP Trunk Access (inbound & outbound)',
     ],
     cta: 'Choose Plan',
     bonus: 'New Client Offer: Get 30 extra days of service (a $179 value) absolutely FREE!',
