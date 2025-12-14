@@ -202,7 +202,41 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const handleInCallKeyPress = (digit: string) => {
     triggerHapticFeedback();
     playDtmfSound(digit);
-    setInCallDtmf((prev) => prev + digit);
+    setInCallDtmf(digit); // Show the digit briefly
+  
+    let ivrMessage = '';
+    switch (digit) {
+      case '1':
+        ivrMessage = 'IVR: Transferred to Sales.';
+        break;
+      case '2':
+        ivrMessage = 'IVR: Transferred to Support.';
+        break;
+      case '3':
+        ivrMessage = 'IVR: Your account balance is $100.00.';
+        break;
+      case '4':
+        ivrMessage = 'IVR: Returning to the main menu.';
+        break;
+      case '0':
+        ivrMessage = 'IVR: Connecting to an operator.';
+        break;
+      default:
+        ivrMessage = `IVR: Invalid option '${digit}'.`;
+        break;
+    }
+  
+    toast({
+      title: "IVR Response",
+      description: ivrMessage,
+    });
+  
+    // Clear the DTMF display after a moment
+    setTimeout(() => {
+      if (callStatus === 'connected') {
+        setInCallDtmf('');
+      }
+    }, 800);
   };
 
   const handleDelete = () => {
