@@ -42,7 +42,6 @@ export const plans: Plan[] = [
       'Full Access to Call Spoofing',
       'Use the Standard Voice Changer',
       'Full Access to Website, Web Application & Telegram Bot',
-      'Standard SIP Trunk Access (inbound & outbound)',
     ],
     cta: 'Choose Plan',
   },
