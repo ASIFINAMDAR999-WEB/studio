@@ -593,9 +593,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 )}
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Caller ID: <span className="text-foreground font-semibold">{callerId || "Not set"}</span></span>
-                  <button onClick={() => setShowSettingsModal(true)} aria-label="Open dialer settings">
-                    <PenSquare className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
-                  </button>
                 </div>
                 {isCallForwardingEnabled && forwardingNumber && (
                     <div className="flex justify-between items-center text-sm pt-3 border-t">
@@ -630,6 +627,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         <DropdownMenuItem onSelect={() => setSelectedVoice('Robot')}>Robot</DropdownMenuItem>
                       </DropdownMenuContent>
                   </DropdownMenu>
+                </div>
+                <div className="pt-3 border-t">
+                  <Button variant="outline" className="w-full group" onClick={() => setShowSettingsModal(true)}>
+                    <Settings className="mr-2 h-4 w-4 transition-transform group-hover:rotate-45" />
+                    Manage Features
+                  </Button>
                 </div>
               </motion.div>
             )}
