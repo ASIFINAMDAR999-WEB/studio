@@ -90,7 +90,7 @@ export const plans: Plan[] = [
     isHot: true,
   },
   {
-    name: 'Platinum Max',
+    name: 'Platinum Max Plan',
     priceString: '$1200',
     duration: '/year',
     description: 'The Ultimate Annual Plan — Unbeatable value and features',
