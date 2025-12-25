@@ -115,6 +115,7 @@ export const plans: Plan[] = [
       'Early Access to New Features',
     ],
     cta: 'Choose Plan',
+    bonus: 'New Client Offer: Get 2 extra months of service (a $358 value) absolutely FREE!',
     isHot: true,
   },
   {
