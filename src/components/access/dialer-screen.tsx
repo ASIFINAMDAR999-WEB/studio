@@ -275,33 +275,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     setInCallDtmf('');
   
     ringoutAudioRef.current?.play();
-  
-    // Randomly decide if the call will be answered and when
-    const willAnswer = Math.random() > 0.3; // 70% chance of answering
-  
-    if (willAnswer) {
-      // Call will be answered after a random delay between 3 and 7 seconds
-      const answerDelay = Math.random() * 4000 + 3000;
-      callSimulationTimeoutRef.current = setTimeout(() => {
-        if (callStatus === 'calling') {
-          setCallStatus('connected');
-          triggerHapticFeedback([10, 70, 10]); // Haptic for success
-        }
-      }, answerDelay);
-    } else {
-      // Call will not be answered, rings for 15 seconds then goes to "no-answer"
-      callSimulationTimeoutRef.current = setTimeout(() => {
-        if (callStatus === 'calling') {
-          setCallStatus('no-answer');
-          triggerHapticFeedback(15); // Simple haptic for state change
-           // Automatically transition from "no-answer" back to idle
-          setTimeout(() => {
-            setCallStatus('idle');
-            setNumber('');
-          }, 2000);
-        }
-      }, 15000); // Ring for 15 seconds
-    }
   };
 
   const handleEndCall = () => {
