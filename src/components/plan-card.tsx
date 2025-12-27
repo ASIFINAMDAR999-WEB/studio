@@ -34,7 +34,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
 
   return (
     <Card className={cn(
-      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-2xl border relative overflow-hidden hover:-translate-y-2 h-full transform-gpu",
+      "group flex flex-col rounded-xl shadow-md transition-all duration-300 hover:shadow-glow border relative overflow-hidden hover:-translate-y-2 h-full transform-gpu",
       "border-primary/50 dark:border-primary ring-2 ring-primary/50 dark:ring-primary"
     )}>
       
@@ -70,7 +70,7 @@ export function PlanCard({ plan }: { plan: Plan }) {
               <Gift className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <p className="text-sm">
                 <span className="font-bold text-primary">{plan.bonus.split(':')[0]}:</span>
-                <span className="text-muted-foreground">
+                <span className="text-muted-foreground ml-1">
                   {plan.bonus.split(':')[1]}
                 </span>
               </p>
