@@ -23,7 +23,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 
 
-type CallStatus = 'idle' | 'calling' | 'connected' | 'ended';
+type CallStatus = 'idle' | 'calling' | 'connected' | 'ended' | 'no-answer';
 
 interface DialerScreenProps {
   planName: string;
@@ -80,6 +80,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const callIntervalRef = useRef<NodeJS.Timeout>();
+  const callSimulationTimeoutRef = useRef<NodeJS.Timeout>();
   const ringoutAudioRef = useRef<HTMLAudioElement>(null);
   const copyAudioRef = useRef<HTMLAudioElement>(null);
   const dtmfAudioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
@@ -165,7 +166,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
         if (ringoutAudioRef.current) ringoutAudioRef.current.currentTime = 0;
       }
     }
-    return () => clearInterval(callIntervalRef.current);
+    return () => {
+        clearInterval(callIntervalRef.current);
+        clearTimeout(callSimulationTimeoutRef.current);
+    };
   }, [callStatus]);
 
   // Keyboard support for DTMF sounds
@@ -263,24 +267,46 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
 
   const handleCall = () => {
     if (number.length <= 1) return;
-
+  
     triggerHapticFeedback(15);
     setCallStatus('calling');
     setShowInCallKeypad(false);
     setCallTimer(0);
     setInCallDtmf('');
-    
+  
     ringoutAudioRef.current?.play();
-
-    // Simulate connection time
-    setTimeout(() => {
-      setCallStatus('connected');
-      triggerHapticFeedback([10, 70, 10]); // Haptic for success
-    }, 5000); // Ring for 5 seconds before "connecting"
+  
+    // Randomly decide if the call will be answered and when
+    const willAnswer = Math.random() > 0.3; // 70% chance of answering
+  
+    if (willAnswer) {
+      // Call will be answered after a random delay between 3 and 7 seconds
+      const answerDelay = Math.random() * 4000 + 3000;
+      callSimulationTimeoutRef.current = setTimeout(() => {
+        if (callStatus === 'calling') {
+          setCallStatus('connected');
+          triggerHapticFeedback([10, 70, 10]); // Haptic for success
+        }
+      }, answerDelay);
+    } else {
+      // Call will not be answered, rings for 15 seconds then goes to "no-answer"
+      callSimulationTimeoutRef.current = setTimeout(() => {
+        if (callStatus === 'calling') {
+          setCallStatus('no-answer');
+          triggerHapticFeedback(15); // Simple haptic for state change
+           // Automatically transition from "no-answer" back to idle
+          setTimeout(() => {
+            setCallStatus('idle');
+            setNumber('');
+          }, 2000);
+        }
+      }, 15000); // Ring for 15 seconds
+    }
   };
 
   const handleEndCall = () => {
     triggerHapticFeedback(15);
+    clearTimeout(callSimulationTimeoutRef.current);
     setCallStatus('ended');
     
     setTimeout(() => {
@@ -434,6 +460,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
        return formatTime(callTimer);
     }
     if (callStatus === 'ended') return "Call Ended";
+    if (callStatus === 'no-answer') return "No Answer";
     return "";
   };
   
