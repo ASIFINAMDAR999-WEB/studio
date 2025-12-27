@@ -8,9 +8,29 @@ import { Check, Gift } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import type { Plan } from "@/lib/data"
+import { motion } from 'framer-motion';
 
 export function PlanCard({ plan }: { plan: Plan }) {
   const isContactAdmin = plan.cta === 'Contact Admin';
+
+  const featureListVariants = {
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+    hidden: { opacity: 0 },
+  };
+
+  const featureItemVariants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', stiffness: 100 },
+    },
+    hidden: { opacity: 0, y: 20 },
+  };
 
   return (
     <Card className={cn(
@@ -58,14 +78,26 @@ export function PlanCard({ plan }: { plan: Plan }) {
           </div>
         )}
         <p className="text-sm font-semibold mb-4 text-center">This package includes:</p>
-        <ul className="space-y-3 text-sm">
+        <motion.ul
+          className="space-y-3 text-sm"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={featureListVariants}
+        >
           {plan.features.map((feature, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <Check className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
+            <motion.li 
+              key={index}
+              className="flex items-start gap-3"
+              variants={featureItemVariants}
+            >
+              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 260, damping: 20, delay: index * 0.1 }}>
+                 <Check className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
+              </motion.div>
               <span className="text-muted-foreground">{feature}</span>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </CardContent>
       <CardFooter className="p-6 pt-0 mt-auto z-10">
         {plan.priceOptions ? (
