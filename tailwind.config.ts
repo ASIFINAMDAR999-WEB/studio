@@ -29,8 +29,8 @@ export default {
         'grid-pattern-small': 'url("data:image/svg+xml,%3Csvg width=\'16\' height=\'16\' viewBox=\'0 0 16 16\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M16 0.5H0.5V16\' stroke=\'hsl(var(--border))\'/%3E%3C/svg%3E")',
       },
       fontFamily: {
-        body: ['var(--font-pt-sans)', 'sans-serif'],
-        headline: ['var(--font-poppins)', 'var(--font-pt-sans)', 'sans-serif'],
+        body: ['var(--font-inter)', 'sans-serif'],
+        headline: ['var(--font-lexend)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
