@@ -32,46 +32,44 @@ export function ResellerDashboard() {
   };
 
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="space-y-8"
-      >
-        <motion.div variants={itemVariants}>
-          <div className="flex items-center justify-between space-y-2">
-            <div className='flex items-center gap-2'>
-               <SidebarTrigger className='md:hidden'/>
-               <div>
-                  <h1 className="text-3xl font-bold tracking-tight text-foreground">
-                    Reseller Dashboard
-                  </h1>
-                  <p className="text-muted-foreground">
-                    Manage your white-labeled business from one central hub.
-                  </p>
-               </div>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="flex-1 space-y-8 p-4 md:p-8 pt-6"
+    >
+      <motion.div variants={itemVariants}>
+        <div className="flex items-center justify-between space-y-2">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="md:hidden" />
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                Reseller Dashboard
+              </h1>
+              <p className="text-muted-foreground">
+                Manage your white-labeled business from one central hub.
+              </p>
             </div>
           </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants}>
-          <StatCards />
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <motion.div className="lg:col-span-2" variants={itemVariants}>
-            <RevenueChart />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <RecentOrdersTable />
-          </motion.div>
         </div>
-
-        <motion.div variants={itemVariants}>
-          <ResellerSettings />
-        </motion.div>
       </motion.div>
-    </div>
+
+      <motion.div variants={itemVariants}>
+        <StatCards />
+      </motion.div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <motion.div className="lg:col-span-2" variants={itemVariants}>
+          <RevenueChart />
+        </motion.div>
+        <motion.div variants={itemVariants}>
+          <RecentOrdersTable />
+        </motion.div>
+      </div>
+
+      <motion.div variants={itemVariants}>
+        <ResellerSettings />
+      </motion.div>
+    </motion.div>
   );
 }
