@@ -10,6 +10,14 @@ import { Brush, Globe, SlidersHorizontal, Image as ImageIcon, Palette, Type } fr
 import { Switch } from '../ui/switch';
 import { plans } from '@/lib/data';
 import { motion } from 'framer-motion';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 const resellerPlans = plans.filter(p => !p.priceOptions && p.name !== 'Silver Plan').map(p => ({
     ...p,
@@ -61,8 +69,19 @@ export function ResellerSettings() {
                         <div className="space-y-2">
                             <Label htmlFor="fontFamily">Font</Label>
                             <div className="relative">
-                                <Type className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                <Input id="fontFamily" placeholder="e.g., Poppins" defaultValue="Poppins" className='pl-9' />
+                                <Type className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
+                                <Select defaultValue="lexend">
+                                  <SelectTrigger className="pl-9">
+                                    <SelectValue placeholder="Select a font" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="inter">Inter</SelectItem>
+                                    <SelectItem value="lexend">Lexend</SelectItem>
+                                    <SelectItem value="roboto">Roboto</SelectItem>
+                                    <SelectItem value="lato">Lato</SelectItem>
+                                    <SelectItem value="montserrat">Montserrat</SelectItem>
+                                  </SelectContent>
+                                </Select>
                             </div>
                         </div>
                         <div className="space-y-2 col-span-1 md:col-span-2">
