@@ -4,7 +4,6 @@
 import { useState } from 'react';
 import { ResellerLayout } from '@/components/reseller/reseller-layout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { motion } from 'framer-motion';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -19,6 +18,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { ResellerHeader } from '@/components/reseller/reseller-header';
+
 
 type CustomerStatus = 'Active' | 'Suspended' | 'Terminated';
 
@@ -93,17 +94,10 @@ export default function CustomersPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center gap-2">
-          <SidebarTrigger className="md:hidden" />
-          <div>
-            <h1 className="text-3xl font-bold font-headline tracking-tight text-foreground">
-              Customers
-            </h1>
-            <p className="text-muted-foreground">
-              Manage your customer accounts and access.
-            </p>
-          </div>
-        </div>
+        <ResellerHeader
+          title="Customers"
+          description="Manage your customer accounts and access."
+        />
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           <Card className="shadow-lg transition-all duration-300 hover:shadow-glow">
             <CardHeader>

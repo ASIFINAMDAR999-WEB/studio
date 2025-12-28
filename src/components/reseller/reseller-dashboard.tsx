@@ -6,7 +6,7 @@ import { StatCards } from './stats-cards';
 import { RevenueChart } from './revenue-chart';
 import { RecentOrdersTable } from './recent-orders-table';
 import { ResellerSettings } from './reseller-settings';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+import { ResellerHeader } from './reseller-header';
 
 export function ResellerDashboard() {
   const containerVariants = {
@@ -39,19 +39,10 @@ export function ResellerDashboard() {
       className="flex-1 space-y-8 p-4 md:p-8 pt-6"
     >
       <motion.div variants={itemVariants}>
-        <div className="flex items-center justify-between space-y-2">
-          <div className="flex items-center gap-2">
-            <SidebarTrigger className="md:hidden" />
-            <div>
-              <h1 className="text-3xl font-bold font-headline tracking-tight text-foreground">
-                Reseller Dashboard
-              </h1>
-              <p className="text-muted-foreground">
-                Manage your white-labeled business from one central hub.
-              </p>
-            </div>
-          </div>
-        </div>
+        <ResellerHeader
+          title="Reseller Dashboard"
+          description="Manage your white-labeled business from one central hub."
+        />
       </motion.div>
 
       <motion.div variants={itemVariants}>
