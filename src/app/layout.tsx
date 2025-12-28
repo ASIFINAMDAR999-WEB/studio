@@ -1,23 +1,22 @@
 
 import type { Metadata } from 'next';
-import { PT_Sans, Poppins } from 'next/font/google';
+import { Inter, Lexend } from 'next/font/google';
 import { Providers } from './providers';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { WithContext, Organization, WebSite } from 'schema-dts';
 
-const ptSans = PT_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-pt-sans',
+  variable: '--font-inter',
   display: 'swap',
 });
 
-const poppins = Poppins({
+const lexend = Lexend({
   subsets: ['latin'],
-  weight: ['700'],
-  variable: '--font-poppins',
+  weight: ['400', '700'],
+  variable: '--font-lexend',
   display: 'swap',
 });
 
@@ -87,7 +86,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ptSans.variable} ${poppins.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${lexend.variable}`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
