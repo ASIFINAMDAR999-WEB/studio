@@ -57,7 +57,7 @@ export function ResellerLayout({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             {menuItems.map((item) => (
               <SidebarMenuItem key={item.href}>
-                <Link href={item.href} passHref>
+                <Link href={item.href} passHref legacyBehavior>
                   <SidebarMenuButton
                     asChild
                     isActive={pathname === item.href}
@@ -77,7 +77,7 @@ export function ResellerLayout({ children }: { children: React.ReactNode }) {
            <Separator className="mb-2" />
            <SidebarMenu>
               <SidebarMenuItem>
-                <Link href="/reseller/settings" passHref>
+                <Link href="/reseller/settings" passHref legacyBehavior>
                     <SidebarMenuButton tooltip="Settings" asChild isActive={pathname === '/reseller/settings'}>
                         <a>
                             <Settings/>
@@ -87,7 +87,7 @@ export function ResellerLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <Link href="/" passHref>
+                <Link href="/" passHref legacyBehavior>
                     <SidebarMenuButton tooltip="Logout" asChild>
                         <a>
                             <LogOut/>
