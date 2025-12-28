@@ -6,9 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Brush, Globe, SlidersHorizontal, Image as ImageIcon } from 'lucide-react';
+import { Brush, Globe, SlidersHorizontal, Image as ImageIcon, Palette, Type } from 'lucide-react';
 import { Switch } from '../ui/switch';
 import { plans } from '@/lib/data';
+
+const resellerPlans = plans.filter(p => !p.priceOptions && p.name !== 'Silver Plan').map(p => ({
+    ...p,
+    basePrice: parseFloat(p.priceString.replace('$', '')),
+}));
 
 export function ResellerSettings() {
   return (
@@ -35,10 +40,22 @@ export function ResellerSettings() {
                         <Label htmlFor="brandName">Brand Name</Label>
                         <Input id="brandName" placeholder="Your Brand Name" defaultValue="REDArmor 2.0" />
                     </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="tagline">Brand Tagline</Label>
+                        <Input id="tagline" placeholder="Your brand tagline" defaultValue="The Premier Solution for Secure Communications" />
+                    </div>
                     <div className="space-y-2">
                         <Label htmlFor="primaryColor">Primary Color</Label>
                         <div className="relative">
-                            <Input id="primaryColor" type="color" defaultValue="#601DE2" className="p-1 h-10" />
+                             <Palette className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input id="primaryColor" type="color" defaultValue="#601DE2" className="p-1 h-10 pl-9" />
+                        </div>
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="fontFamily">Font</Label>
+                        <div className="relative">
+                             <Type className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input id="fontFamily" placeholder="e.g., Poppins" defaultValue="Poppins" className='pl-9' />
                         </div>
                     </div>
                     <div className="space-y-2 col-span-1 md:col-span-2">
@@ -85,15 +102,27 @@ export function ResellerSettings() {
              <div className="p-6 border rounded-lg bg-background/50">
                 <h3 className="text-lg font-semibold mb-4">Manage Pricing</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                    Set your own prices for the plans you offer to your customers. Your profit is the difference between your price and our base price.
+                    Set your own prices for the plans you offer. Your profit is the difference between your price and our base price.
                 </p>
                 <div className="space-y-4">
-                    {plans.filter(p => p.name !== 'Silver Plan').map(plan => (
-                        <div key={plan.name} className="grid grid-cols-3 items-center gap-4 p-3 bg-muted/50 rounded-md">
-                            <Label className="col-span-1">{plan.name}</Label>
-                            <div className="col-span-2">
-                                <Input type="number" placeholder="Your Price" defaultValue={plan.priceString.replace('$', '')} />
-                            </div>
+                    {resellerPlans.map(plan => (
+                        <div key={plan.name} className="grid grid-cols-1 md:grid-cols-12 items-center gap-4 p-3 bg-muted/50 rounded-md">
+                           <div className="md:col-span-3 flex items-center justify-between">
+                             <Label htmlFor={`plan-toggle-${plan.name}`} className="font-semibold">{plan.name}</Label>
+                             <Switch id={`plan-toggle-${plan.name}`} defaultChecked />
+                           </div>
+                           <div className="md:col-span-3">
+                                <Label className="text-xs text-muted-foreground">Base Price</Label>
+                                <Input type="text" readOnly value={`$${plan.basePrice.toFixed(2)}`} className="bg-background/50 mt-1" />
+                           </div>
+                           <div className="md:col-span-3">
+                               <Label htmlFor={`price-${plan.name}`} className="text-xs text-muted-foreground">Your Price</Label>
+                                <Input id={`price-${plan.name}`} type="number" placeholder="Your Price" defaultValue={plan.basePrice} className="mt-1"/>
+                           </div>
+                           <div className="md:col-span-3">
+                               <Label className="text-xs text-muted-foreground">Your Profit</Label>
+                               <Input type="text" readOnly value={`$${(plan.basePrice * 0.2).toFixed(2)}`} className="bg-background/50 mt-1 text-green-500 font-semibold" />
+                           </div>
                         </div>
                     ))}
                 </div>
