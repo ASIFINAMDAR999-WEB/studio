@@ -1,8 +1,9 @@
 
 'use client';
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { useTheme } from 'next-themes';
 
 const data = [
   { month: 'Jan', revenue: 4000 },
@@ -20,6 +21,36 @@ const data = [
 ];
 
 export function RevenueChart() {
+  const { theme } = useTheme();
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="rounded-lg border bg-background p-2 shadow-sm">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex flex-col space-y-1">
+              <span className="text-[0.70rem] uppercase text-muted-foreground">
+                Month
+              </span>
+              <span className="font-bold text-muted-foreground">
+                {label}
+              </span>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <span className="text-[0.70rem] uppercase text-muted-foreground">
+                Revenue
+              </span>
+              <span className="font-bold">
+                ${payload[0].value.toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <Card className="h-full flex flex-col shadow-lg transition-all duration-300 hover:shadow-glow">
       <CardHeader>
@@ -28,18 +59,22 @@ export function RevenueChart() {
       </CardHeader>
       <CardContent className="flex-grow">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
-            <XAxis dataKey="month" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-            <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value / 1000}k`} />
+          <BarChart data={data} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border) / 0.5)" />
+            <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
             <Tooltip
-              contentStyle={{
-                backgroundColor: 'hsl(var(--background))',
-                borderColor: 'hsl(var(--border))',
-                borderRadius: 'var(--radius)',
-              }}
-              cursor={{ fill: 'hsl(var(--primary) / 0.1)' }}
+              cursor={{ fill: 'hsl(var(--primary) / 0.1)', radius: 8 }}
+              content={<CustomTooltip />}
             />
-            <Bar dataKey="revenue" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+            <Bar 
+              dataKey="revenue" 
+              fill="hsl(var(--primary))" 
+              radius={[8, 8, 0, 0]} 
+              style={{
+                filter: `drop-shadow(0 4px 8px hsl(var(--primary) / 0.3))`
+              }}
+            />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>
