@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Zap, CircleDollarSign, HelpCircle, Bot, Send, ShieldCheck } from "lucide-react";
+import { Zap, CircleDollarSign, HelpCircle, Bot, Send, ShieldCheck, Users } from "lucide-react";
 import { motion } from 'framer-motion';
 
 type NavLinksProps = {
@@ -19,6 +19,7 @@ export const NavLinks = ({ onLinkClick, isMobile = false, itemVariants }: NavLin
   const links = [
     { href: "/#features", label: "Features", icon: <Zap className="h-5 w-5" /> },
     { href: "/#pricing", label: "Pricing", icon: <CircleDollarSign className="h-5 w-5" /> },
+    { href: "/reseller", label: "Reseller", icon: <Users className="h-5 w-5" /> },
     { href: "/#faq", label: "FAQ", icon: <HelpCircle className="h-5 w-5" /> },
     { href: "/bots", label: "Bots", icon: <Bot className="h-5 w-5" /> },
     { href: "/contact", label: "Contact", icon: <Send className="h-5 w-5" /> },
