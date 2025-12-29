@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Eye, EyeOff, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useTheme } from 'next-themes';
@@ -96,9 +96,19 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
     >
       <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10 transform-gpu">
         <div className="p-8 md:p-12">
-          <h2 id="reseller-access-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
+          <h2 id="reseller-access-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-6">
             Reseller Access
           </h2>
+
+           <div className="bg-primary/10 border-l-4 border-primary text-primary-foreground p-4 rounded-md mb-6" role="alert">
+                <div className="flex">
+                    <Info className="h-5 w-5 mr-3 flex-shrink-0 text-primary" />
+                    <div>
+                        <p className="font-bold text-foreground">Under Development</p>
+                        <p className="text-sm text-muted-foreground">The reseller portal is launching soon. Stay tuned!</p>
+                    </div>
+                </div>
+            </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
