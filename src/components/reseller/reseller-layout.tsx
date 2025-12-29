@@ -120,6 +120,12 @@ export function ResellerLayout({ children }: { children: React.ReactNode }) {
                         </SidebarMenuButton>
                     </Link>
                   </SidebarMenuItem>
+                   <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Log Out" onClick={handleLogout}>
+                        <LogOut />
+                        <span>Log Out</span>
+                      </SidebarMenuButton>
+                  </SidebarMenuItem>
               </SidebarMenu>
             </SidebarFooter>
           </Sidebar>
