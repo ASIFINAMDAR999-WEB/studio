@@ -36,7 +36,10 @@ export const NavLinks = ({ onLinkClick, isMobile = false, itemVariants }: NavLin
       }
       return false;
     }
-    return pathname === href || (href !== '/' && pathname.startsWith(href));
+    if (href === '/reseller') {
+      return pathname.startsWith('/reseller');
+    }
+    return pathname === href;
   };
 
   if (!isMobile) {
@@ -45,9 +48,8 @@ export const NavLinks = ({ onLinkClick, isMobile = false, itemVariants }: NavLin
         {links.map((link) => {
           const isActive = checkIsActive(link.href);
           return (
-              <Link 
-                key={link.href}
-                href={link.href} 
+            <Link key={link.href} href={link.href} passHref legacyBehavior>
+              <a 
                 onClick={onLinkClick}
                 className={cn(
                   "relative transition-colors p-2 md:p-0 rounded-md md:rounded-none text-base font-medium group",
@@ -59,7 +61,8 @@ export const NavLinks = ({ onLinkClick, isMobile = false, itemVariants }: NavLin
                     "absolute bottom-0 left-0 h-0.5 bg-primary w-full transform scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100",
                     isActive ? "scale-x-100" : "scale-x-0"
                  )}/>
-              </Link>
+              </a>
+            </Link>
           )
         })}
       </>

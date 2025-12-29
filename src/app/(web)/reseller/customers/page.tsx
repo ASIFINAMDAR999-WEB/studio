@@ -1,7 +1,9 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 import { ResellerLayout } from '@/components/reseller/reseller-layout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { motion } from 'framer-motion';
@@ -44,6 +46,14 @@ const initialCustomers: Customer[] = [
 export default function CustomersPage() {
   const [customers, setCustomers] = useState<Customer[]>(initialCustomers);
   const { toast } = useToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    const accessCookie = Cookies.get('resellerAccessGranted');
+    if (accessCookie !== 'true') {
+      router.replace('/reseller/login');
+    }
+  }, [router]);
 
   const handleStatusChange = (customerId: string, newStatus: CustomerStatus) => {
     setCustomers(customers.map(c => c.id === customerId ? { ...c, status: newStatus } : c));

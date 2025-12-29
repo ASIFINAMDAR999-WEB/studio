@@ -1,12 +1,24 @@
 
 'use client';
 
+import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 import { ResellerLayout } from '@/components/reseller/reseller-layout';
 import { ResellerSettings } from '@/components/reseller/reseller-settings';
 import { ResellerHeader } from '@/components/reseller/reseller-header';
 import { motion } from 'framer-motion';
 
 export default function BrandingPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const accessCookie = Cookies.get('resellerAccessGranted');
+    if (accessCookie !== 'true') {
+      router.replace('/reseller/login');
+    }
+  }, [router]);
+
   return (
     <ResellerLayout>
       <motion.div
