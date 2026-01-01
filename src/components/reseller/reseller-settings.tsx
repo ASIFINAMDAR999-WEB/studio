@@ -93,7 +93,9 @@ export function ResellerSettings() {
                         </div>
                     </div>
                     <div className="mt-6 flex justify-end">
-                        <Button>Save Branding</Button>
+                        <Button asChild>
+                          <motion.button whileTap={{ scale: 0.95 }}>Save Branding</motion.button>
+                        </Button>
                     </div>
                 </div>
             </motion.div>
@@ -118,7 +120,9 @@ export function ResellerSettings() {
                         </ol>
                     </div>
                     <div className="mt-6 flex justify-end">
-                        <Button>Verify & Save Domain</Button>
+                        <Button asChild>
+                          <motion.button whileTap={{ scale: 0.95 }}>Verify & Save Domain</motion.button>
+                        </Button>
                     </div>
                 </div>
             </motion.div>
@@ -153,7 +157,9 @@ export function ResellerSettings() {
                         ))}
                     </div>
                     <div className="mt-6 flex justify-end">
-                        <Button>Save Pricing</Button>
+                         <Button asChild>
+                           <motion.button whileTap={{ scale: 0.95 }}>Save Pricing</motion.button>
+                        </Button>
                     </div>
                 </div>
              </motion.div>

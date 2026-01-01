@@ -90,7 +90,7 @@ export function ResellerLayout({ children }: { children: React.ReactNode }) {
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
-                  <Link href={item.href} passHref legacyBehavior>
+                  <Link href={item.href} passHref legacyBehavior prefetch={true}>
                     <SidebarMenuButton
                       asChild
                       isActive={pathname === item.href}
@@ -110,7 +110,7 @@ export function ResellerLayout({ children }: { children: React.ReactNode }) {
             <Separator className="mb-2" />
             <SidebarMenu>
                 <SidebarMenuItem>
-                  <Link href="/reseller/settings" passHref legacyBehavior>
+                  <Link href="/reseller/settings" passHref legacyBehavior prefetch={true}>
                       <SidebarMenuButton tooltip="Settings" asChild isActive={pathname === '/reseller/settings'}>
                           <a>
                               <Settings/>

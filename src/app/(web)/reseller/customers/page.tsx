@@ -38,7 +38,7 @@ const initialCustomers: Customer[] = [
   { id: 'cus_1', name: 'Olivia Martin', email: 'olivia.m@example.com', plan: 'Platinum Plan', accessCode: 'platinum:1111', status: 'Active' },
   { id: 'cus_2', name: 'Jackson Lee', email: 'jackson.l@example.com', plan: 'Gold Plan', accessCode: 'gold:2222', status: 'Active' },
   { id: 'cus_3', name: 'Isabella Nguyen', email: 'isabella.n@example.com', plan: 'Diamond Plan', accessCode: 'diamond:2222', status: 'Suspended' },
-  { id: 'cus_4', name: 'William Kim', email: 'will.k@example.com', plan: 'Platinum Pro', accessCode: 'platinumpro:3333', status: 'Active' },
+  { id: 'cus_4', name: 'William Kim', email: 'will.k@example.com', plan: 'Platinum Pro Plan', accessCode: 'platinumpro:3333', status: 'Active' },
   { id: 'cus_5', name: 'Sofia Davis', email: 'sofia.d@example.com', plan: 'Platinum Plan', accessCode: 'platinum:4444', status: 'Terminated' },
   { id: 'cus_6', name: 'Liam Brown', email: 'liam.b@example.com', plan: 'Gold Plan', accessCode: 'gold:5555', status: 'Active' },
 ];
