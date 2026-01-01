@@ -22,7 +22,7 @@ export default function DomainPage() {
   return (
     <ResellerLayout>
       <motion.div
-        className="flex-1 space-y-8 p-4 md:p-8 pt-6"
+        className="flex-1 space-y-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}

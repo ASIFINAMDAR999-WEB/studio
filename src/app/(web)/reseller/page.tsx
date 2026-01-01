@@ -9,34 +9,25 @@ import { ResellerDashboard } from '@/components/reseller/reseller-dashboard';
 import { ResellerLoginScreen } from '@/components/reseller/reseller-login-screen';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { useRouter } from 'next/navigation';
 
 export default function ResellerPage() {
   const [isAccessGranted, setIsAccessGranted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const accessCookie = Cookies.get('resellerAccessGranted');
     if (accessCookie === 'true') {
       setIsAccessGranted(true);
+    } else {
+        // Redirect to login if not granted
+        router.replace('/reseller/login');
     }
-  }, []);
+  }, [router]);
 
-  const handleSuccess = () => {
-    Cookies.set('resellerAccessGranted', 'true', { expires: 1 });
-    setIsAccessGranted(true);
-  };
-
+  // This will show a loading state or nothing while the check is happening
   if (!isAccessGranted) {
-    return (
-        <div className="flex flex-col min-h-dvh bg-background">
-            <Header />
-            <main className="flex-1 flex flex-col items-center justify-center p-4">
-                <AnimatePresence mode="wait">
-                    <ResellerLoginScreen key="reseller-login-screen" onSuccess={handleSuccess} />
-                </AnimatePresence>
-            </main>
-            <Footer />
-        </div>
-    );
+    return null; 
   }
 
   return (

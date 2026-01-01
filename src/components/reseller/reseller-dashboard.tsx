@@ -36,7 +36,7 @@ export function ResellerDashboard() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="flex-1 space-y-8 p-4 md:p-8 pt-6"
+      className="flex-1 space-y-8"
     >
       <motion.div variants={itemVariants}>
         <ResellerHeader
