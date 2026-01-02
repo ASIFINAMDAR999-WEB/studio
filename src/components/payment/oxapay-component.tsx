@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { ExternalLink, Loader2, AlertCircle } from 'lucide-react';
+import { ExternalLink, Loader2, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 import { plans } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -16,6 +16,7 @@ import Image from 'next/image';
 interface OxaPayInvoice {
     payLink: string;
     trackId: string;
+    orderId: string;
 }
 
 function OxaPayPageComponent() {
@@ -26,6 +27,7 @@ function OxaPayPageComponent() {
   const [invoice, setInvoice] = useState<OxaPayInvoice | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
 
   const isTopUp = planName.includes('Silver Plan');
   const topUpAmount = isTopUp ? planName.split(' - ')[1] : null;
@@ -36,6 +38,7 @@ function OxaPayPageComponent() {
   const createInvoice = useCallback(async () => {
     setIsLoading(true);
     setError(null);
+    setInvoice(null);
     try {
       const response = await fetch('/api/oxapay/create-invoice', {
         method: 'POST',
@@ -44,7 +47,7 @@ function OxaPayPageComponent() {
         },
         body: JSON.stringify({
           amount,
-          description: planName,
+          planName: planName,
         }),
       });
 
@@ -71,6 +74,44 @@ function OxaPayPageComponent() {
     document.title = `Pay with OxaPay | ${planName} | REDArmor 2.0`;
     createInvoice();
   }, [planName, createInvoice]);
+
+  const handleCheckStatus = async () => {
+    if (!invoice) return;
+    setIsCheckingStatus(true);
+    try {
+      const res = await fetch('/api/oxapay/check-status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trackId: invoice.trackId, orderId: invoice.orderId }),
+      });
+      const data = await res.json();
+      if (res.ok && data.status === 'PAID') {
+        toast({
+          title: 'Payment Confirmed!',
+          description: 'Your payment has been confirmed successfully.',
+          variant: 'default',
+        });
+        // Here you would redirect to a success page or update the UI
+        // For now, we'll just show a success message.
+        // router.push(`/payment/success?orderId=${invoice.orderId}`);
+      } else {
+        toast({
+          title: 'Payment Status',
+          description: data.message || `Status: ${data.status}`,
+          variant: 'default',
+        });
+      }
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: 'Failed to check payment status.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsCheckingStatus(false);
+    }
+  };
+
 
   return (
     <div className="flex flex-col min-h-dvh bg-background">
@@ -111,7 +152,7 @@ function OxaPayPageComponent() {
                 )}
                 {invoice && (
                   <motion.div
-                    className="text-center space-y-6"
+                    className="text-center space-y-6 w-full"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
@@ -122,9 +163,23 @@ function OxaPayPageComponent() {
                         <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                       </a>
                     </Button>
-                     <p className="text-xs text-muted-foreground pt-4 border-t">
-                        Track ID: <code className="font-mono bg-muted p-1 rounded-sm">{invoice.trackId}</code>
-                     </p>
+                     <div className="text-xs text-muted-foreground pt-4 border-t space-y-2">
+                        <p>
+                            Order ID: <code className="font-mono bg-muted p-1 rounded-sm">{invoice.orderId}</code>
+                        </p>
+                         <p>
+                            Track ID: <code className="font-mono bg-muted p-1 rounded-sm">{invoice.trackId}</code>
+                         </p>
+                         <p className="pt-2">After paying, you can use the button below to verify your payment status.</p>
+                     </div>
+                     <Button variant="outline" onClick={handleCheckStatus} disabled={isCheckingStatus} className="w-full">
+                        {isCheckingStatus ? (
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                            <CheckCircle className="mr-2 h-4 w-4" />
+                        )}
+                        Check Payment Status
+                    </Button>
                   </motion.div>
                 )}
               </CardContent>

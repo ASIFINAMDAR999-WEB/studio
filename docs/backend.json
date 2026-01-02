@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "order": {
+      "title": "Order",
+      "description": "Represents a customer's order for a service plan.",
+      "type": "object",
+      "properties": {
+        "planName": {
+          "type": "string",
+          "description": "The name of the plan being purchased."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The price of the order in USD."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the order (e.g., USD)."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the order.",
+          "enum": ["PENDING", "PAID", "FAILED", "MISMATCH", "EXPIRED"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the order was created."
+        },
+        "paidAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the order was paid."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "The payment gateway used (e.g., 'oxapay', 'manual')."
+        },
+        "oxapayTrackId": {
+          "type": "string",
+          "description": "The unique tracking ID from OxaPay."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who made the purchase (if applicable)."
+        }
+      },
+      "required": ["planName", "amount", "currency", "status", "createdAt"]
+    }
+  },
+  "auth": {
+    "providers": []
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": {
+        "$ref": "#/entities/order"
+      },
+      "description": "Stores individual customer orders."
+    }
+  }
+}

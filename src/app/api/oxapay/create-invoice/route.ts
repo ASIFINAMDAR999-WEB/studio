@@ -1,48 +1,59 @@
-
 import { NextResponse } from 'next/server';
 import axios from 'axios';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/firebase/server'; // Assumes you have a server-side Firebase admin initialization
 
 const OXAPAY_API_URL = 'https://api.oxapay.com/merchants/request';
 
 export async function POST(request: Request) {
-  const { amount, description } = await request.json();
-  
-  // Directly destructure the key from process.env for robustness on Vercel.
+  const { amount, planName } = await request.json();
   const { OXAPAY_MERCHANT_KEY: merchantKey } = process.env;
 
-  // --- Enhanced Logging for Vercel Diagnosis ---
-  console.log('--- OxaPay Invoice Creation ---');
-  console.log('Checking for OXAPAY_MERCHANT_KEY...');
-  
+  // --- Environment Key Check ---
   if (!merchantKey) {
     console.error('[CRITICAL] OXAPAY_MERCHANT_KEY is NOT FOUND in process.env.');
-    console.log('Please ensure the environment variable is set correctly in Vercel project settings and the project has been redeployed.');
-    return NextResponse.json({ 
-        error: 'Payment provider is not configured. Please contact support.' 
-    }, { status: 500 });
+    return NextResponse.json({ error: 'Payment provider is not configured. Please contact support.' }, { status: 500 });
   }
 
-  console.log('OXAPAY_MERCHANT_KEY found. Proceeding to create invoice.');
-  // For security, let's not log the key itself, but we can log a part of it to confirm it's the right one.
-  console.log(`Merchant Key Hint: Starts with '${merchantKey.substring(0, 4)}...'`);
-
-
-  if (!amount || !description) {
-    return NextResponse.json({ error: 'Amount and description are required' }, { status: 400 });
+  if (!amount || !planName) {
+    return NextResponse.json({ error: 'Amount and planName are required' }, { status: 400 });
   }
 
+  let orderId;
   try {
+    // 1. Create a PENDING order in Firestore before creating the invoice
+    const orderRef = await addDoc(collection(db, 'orders'), {
+      planName: planName,
+      amount: amount,
+      currency: 'USD',
+      status: 'PENDING',
+      createdAt: new Date(),
+      paymentMethod: 'oxapay',
+    });
+    orderId = orderRef.id;
+    console.log(`Created PENDING order with ID: ${orderId}`);
+
+  } catch (dbError) {
+    console.error('--- Firestore Order Creation Failed ---', dbError);
+    return NextResponse.json({ error: 'Failed to initialize order. Please try again.' }, { status: 500 });
+  }
+  
+  try {
+    // 2. Create the OxaPay invoice using the Firestore document ID as orderId
+    const callbackUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/oxapay/webhook`;
+    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success?orderId=${orderId}`;
+
     const response = await axios.post(OXAPAY_API_URL, {
       merchant: merchantKey,
       amount: amount,
       currency: 'USD',
-      lifeTime: 30, // Invoice lifetime in minutes
-      feePaidBy: 1, // 1 for merchant, 0 for user
-      underPaidAccept: 1, // 1 for yes, 0 for no
-      description: description,
-      orderId: `REDArmor-${Date.now()}`,
-      // callbackUrl: 'YOUR_SERVER_CALLBACK_URL', // Important for automatic activation in the future
-      // successUrl: 'YOUR_SUCCESS_URL',
+      lifeTime: 30,
+      feePaidBy: 1,
+      underPaidAccept: 0, // Set to 0 to not accept underpayments automatically
+      description: planName,
+      orderId: orderId, // Use our internal order ID
+      callbackUrl: callbackUrl,
+      successUrl: successUrl,
       // cancelUrl: 'YOUR_CANCEL_URL',
     }, {
       headers: {
@@ -50,32 +61,25 @@ export async function POST(request: Request) {
       }
     });
 
-    if (response.data && response.data.result === 100) { // OxaPay uses 100 for success
-      console.log('Successfully created OxaPay invoice. Track ID:', response.data.trackId);
+    if (response.data && response.data.result === 100) {
+      console.log(`Successfully created OxaPay invoice for order ${orderId}. Track ID:`, response.data.trackId);
+      
+      // Optionally, update the order with the trackId
+      // await updateDoc(doc(db, 'orders', orderId), { oxapayTrackId: response.data.trackId });
+
       return NextResponse.json({
         payLink: response.data.payLink,
         trackId: response.data.trackId,
+        orderId: orderId, // Return orderId to the client
       });
     } else {
       console.error('OxaPay API returned an error:', response.data.message || 'Unknown error from OxaPay');
+      // If invoice creation fails, consider updating the order status to FAILED
+      // await updateDoc(doc(db, 'orders', orderId), { status: 'FAILED' });
       return NextResponse.json({ error: response.data.message || 'Failed to create OxaPay invoice.' }, { status: 500 });
     }
   } catch (error: any) {
-    console.error('--- Full error creating OxaPay invoice: ---');
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error('Data:', error.response.data);
-      console.error('Status:', error.response.status);
-      console.error('Headers:', error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error('Request:', error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Error Message:', error.message);
-    }
-    console.error('Error Config:', error.config);
+    console.error('--- Full error creating OxaPay invoice: ---', error.response ? error.response.data : error.message);
     return NextResponse.json({ error: 'An internal server error occurred while contacting the payment provider.' }, { status: 500 });
   }
 }
