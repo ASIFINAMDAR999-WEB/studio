@@ -3,13 +3,10 @@
 
 import { useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ArrowRight, CreditCard, Droplets } from 'lucide-react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export function PaymentOptionsComponent() {
