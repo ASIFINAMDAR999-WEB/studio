@@ -5,7 +5,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag } from 'lucide-react';
 import { plans, cryptoDetails } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -14,6 +14,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Input } from '../ui/input';
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1500; // in ms
@@ -28,6 +29,13 @@ export function PaymentPageComponent() {
   const [isAddressCopied, setIsAddressCopied] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
+
+  // Coupon state
+  const [couponCode, setCouponCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [isCouponApplied, setIsCouponApplied] = useState(false);
+
 
   const fetchPrices = useCallback(async () => {
     setIsPriceLoading(true);
@@ -87,6 +95,28 @@ export function PaymentPageComponent() {
   
   const planUsdPrice = parseFloat((topUpAmount || plan.priceString).replace('$', ''));
 
+  const handleApplyCoupon = () => {
+    setCouponError(null);
+    if (couponCode.toUpperCase() === 'MAX20') {
+        setDiscount(0.20); // 20% discount
+        setIsCouponApplied(true);
+        toast({
+            title: "Coupon Applied!",
+            description: "A 20% discount has been applied to your order.",
+        });
+    } else {
+        setDiscount(0);
+        setIsCouponApplied(false);
+        setCouponError("Invalid coupon code.");
+        toast({
+            title: "Invalid Coupon",
+            description: "The coupon code you entered is not valid.",
+            variant: "destructive",
+        });
+    }
+  };
+
+
   const copyToClipboard = (text: string | undefined, type: 'amount' | 'address') => {
     if (text) {
       navigator.clipboard.writeText(text);
@@ -119,8 +149,9 @@ export function PaymentPageComponent() {
   const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
 
   const isStablecoin = cryptoKey?.startsWith('usdt') || cryptoKey?.startsWith('usdc');
-  const finalUsdPrice = isStablecoin ? planUsdPrice : planUsdPrice + 5; // $5 fee for non-stablecoins
-  const cryptoAmount = (currentPrice && planUsdPrice) ? (finalUsdPrice / currentPrice) : undefined;
+  const baseUsdPrice = isStablecoin ? planUsdPrice : planUsdPrice + 5; // $5 fee for non-stablecoins
+  const discountedUsdPrice = baseUsdPrice * (1 - discount);
+  const cryptoAmount = (currentPrice && planUsdPrice) ? (discountedUsdPrice / currentPrice) : undefined;
 
   const cryptoAmountString = cryptoAmount?.toFixed(selectedCrypto?.precision || 8);
 
@@ -194,6 +225,19 @@ export function PaymentPageComponent() {
                           {!isTopUp && <p className="text-sm text-muted-foreground">{plan.duration}</p>}
                       </div>
                   </div>
+                   {isCouponApplied && (
+                    <div className="flex justify-between items-center text-sm text-green-600 dark:text-green-400 border-t pt-3">
+                        <p className="font-semibold">Coupon Applied (20% OFF)</p>
+                        <p className="font-bold">- S${(baseUsdPrice * discount).toFixed(2)}</p>
+                    </div>
+                   )}
+                   {discount > 0 && (
+                    <div className="flex justify-between items-center border-t pt-3">
+                      <p className="text-lg font-semibold">New Total</p>
+                      <p className="text-2xl font-bold text-primary">${discountedUsdPrice.toFixed(2)}</p>
+                    </div>
+                   )}
+
                   <div className="text-sm text-muted-foreground pt-2 border-t">
                       <div className="font-semibold mb-2 text-foreground">Features Included:</div>
                       <ul className="space-y-1">
@@ -224,6 +268,33 @@ export function PaymentPageComponent() {
                 </CardContent>
               </Card>
             </motion.div>
+
+            {planName === 'Platinum Max Plan' && (
+                <motion.div variants={itemVariants}>
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="text-xl flex items-center gap-2">
+                                <Tag className="h-6 w-6 text-primary"/>
+                                Apply Coupon
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="flex gap-2">
+                                <Input 
+                                    placeholder="Enter coupon code" 
+                                    value={couponCode}
+                                    onChange={(e) => setCouponCode(e.target.value)}
+                                    disabled={isCouponApplied}
+                                />
+                                <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied}>
+                                    {isCouponApplied ? 'Applied' : 'Apply'}
+                                </Button>
+                            </div>
+                            {couponError && <p className="text-sm text-destructive mt-2">{couponError}</p>}
+                        </CardContent>
+                    </Card>
+                </motion.div>
+            )}
 
             <motion.div variants={itemVariants}>
               <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl overflow-hidden">
