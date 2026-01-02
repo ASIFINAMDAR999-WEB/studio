@@ -97,12 +97,12 @@ export function PaymentPageComponent() {
 
   const handleApplyCoupon = () => {
     setCouponError(null);
-    if (couponCode.toUpperCase() === 'MAX20') {
-        setDiscount(0.20); // 20% discount
+    if (couponCode.toUpperCase() === 'MAX2026') {
+        setDiscount(0.26); // 26% discount
         setIsCouponApplied(true);
         toast({
             title: "Coupon Applied!",
-            description: "A 20% discount has been applied to your order.",
+            description: "A 26% discount has been applied for the New Year offer.",
         });
     } else {
         setDiscount(0);
@@ -227,7 +227,7 @@ export function PaymentPageComponent() {
                   </div>
                    {isCouponApplied && (
                     <div className="flex justify-between items-center text-sm text-green-600 dark:text-green-400 border-t pt-3">
-                        <p className="font-semibold">Coupon Applied (20% OFF)</p>
+                        <p className="font-semibold">Coupon Applied (26% OFF)</p>
                         <p className="font-bold">- S${(baseUsdPrice * discount).toFixed(2)}</p>
                     </div>
                    )}
