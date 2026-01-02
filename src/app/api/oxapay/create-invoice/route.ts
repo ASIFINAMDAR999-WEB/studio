@@ -9,13 +9,10 @@ export async function POST(request: Request) {
   const merchantKey = process.env.OXAPAY_MERCHANT_KEY;
 
   if (!merchantKey) {
-    console.error('OxaPay Merchant Key is not configured.');
-    // For demonstration purposes, we will return a placeholder response.
-    // In a real application, you should throw an error.
+    console.error('OxaPay Merchant Key is not configured. Please add OXAPAY_MERCHANT_KEY to your .env.local file.');
     return NextResponse.json({ 
-        payLink: `https://www.oxapay.com/invoice/pay/TEST${Date.now()}`,
-        trackId: `TEST-${Math.random().toString(36).substring(7)}`
-    });
+        error: 'Payment provider is not configured. Please contact support.' 
+    }, { status: 500 });
   }
 
   if (!amount || !description) {
@@ -41,7 +38,7 @@ export async function POST(request: Request) {
       }
     });
 
-    if (response.data && response.data.result === 'success') {
+    if (response.data && response.data.result === 100) { // OxaPay uses 100 for success
       return NextResponse.json({
         payLink: response.data.payLink,
         trackId: response.data.trackId,
@@ -50,8 +47,8 @@ export async function POST(request: Request) {
       console.error('OxaPay API Error:', response.data.message);
       return NextResponse.json({ error: response.data.message || 'Failed to create OxaPay invoice.' }, { status: 500 });
     }
-  } catch (error) {
-    console.error('Error creating OxaPay invoice:', error);
-    return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Error creating OxaPay invoice:', error.message);
+    return NextResponse.json({ error: 'An internal server error occurred while contacting the payment provider.' }, { status: 500 });
   }
 }
