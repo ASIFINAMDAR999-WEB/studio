@@ -1,6 +1,5 @@
 
 import { NextResponse } from 'next/server';
-import { doc, getDoc, updateDoc } from 'firebase-admin/firestore';
 import { db } from '@/firebase/server';
 
 /**
@@ -29,10 +28,10 @@ export async function POST(request: Request) {
     }
 
     // 3. Get the corresponding order from Firestore
-    const orderRef = doc(db, 'orders', orderId);
-    const orderDoc = await getDoc(orderRef);
+    const orderRef = db.collection('orders').doc(orderId);
+    const orderDoc = await orderRef.get();
 
-    if (!orderDoc.exists()) {
+    if (!orderDoc.exists) {
       console.error(`Webhook Error: Order with ID ${orderId} not found in database.`);
       // Return 200 to prevent OxaPay from resending, but log the error.
       return NextResponse.json({ error: 'Order not found' }, { status: 200 });
@@ -55,12 +54,12 @@ export async function POST(request: Request) {
       console.error(`Webhook Security Alert: Mismatch for order ${orderId}.`);
       console.error(`Expected: ${orderData?.amount} ${orderData?.currency}, Received: ${amount} ${currency}`);
       // Update status to reflect mismatch and prevent activation
-      await updateDoc(orderRef, { status: 'MISMATCH', oxapayStatus: 'Paid' });
+      await orderRef.update({ status: 'MISMATCH', oxapayStatus: 'Paid' });
       return NextResponse.json({ error: 'Payment data mismatch.' }, { status: 200 });
     }
 
     // 6. Update the order status to "PAID"
-    await updateDoc(orderRef, { 
+    await orderRef.update({ 
         status: 'PAID',
         paidAt: new Date(),
         oxapayTrackId: trackId,

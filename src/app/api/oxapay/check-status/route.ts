@@ -1,7 +1,6 @@
 
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { doc, getDoc, updateDoc } from 'firebase-admin/firestore';
 import { db } from '@/firebase/server';
 
 const OXAPAY_TRANSACTION_INFO_URL = 'https://api.oxapay.com/merchants/inquiry';
@@ -37,8 +36,8 @@ export async function POST(request: Request) {
     }
 
     // 2. Get the corresponding order from Firestore
-    const orderRef = doc(db, 'orders', orderId);
-    const orderDoc = await getDoc(orderRef);
+    const orderRef = db.collection('orders').doc(orderId);
+    const orderDoc = await orderRef.get();
 
     if (!orderDoc.exists) {
       return NextResponse.json({ success: false, status: 'error', message: 'Order not found.' }, { status: 404 });
@@ -55,14 +54,14 @@ export async function POST(request: Request) {
       if (isAmountMatching && isCurrencyMatching) {
         // Update order status to PAID if it's currently PENDING
         if (orderData?.status === 'PENDING') {
-          await updateDoc(orderRef, { status: 'PAID', paidAt: new Date() });
+          await orderRef.update({ status: 'PAID', paidAt: new Date() });
           return NextResponse.json({ success: true, status: 'PAID', message: 'Payment confirmed and order updated.' });
         } else if (orderData?.status === 'PAID') {
           return NextResponse.json({ success: true, status: 'PAID', message: 'Payment was already confirmed.' });
         }
       } else {
         // Handle payment mismatch (e.g., underpayment)
-        await updateDoc(orderRef, { status: 'MISMATCH', oxapayStatus: transaction.status });
+        await orderRef.update({ status: 'MISMATCH', oxapayStatus: transaction.status });
         return NextResponse.json({ success: false, status: 'MISMATCH', message: 'Payment amount or currency mismatch.' });
       }
     }

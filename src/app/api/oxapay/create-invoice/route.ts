@@ -1,7 +1,6 @@
 
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { addDoc, collection } from 'firebase-admin/firestore';
 import { db } from '@/firebase/server'; // Assumes you have a server-side Firebase admin initialization
 
 const OXAPAY_API_URL = 'https://api.oxapay.com/merchants/request';
@@ -32,7 +31,7 @@ export async function POST(request: Request) {
   let orderId;
   try {
     // 1. Create a PENDING order in Firestore before creating the invoice
-    const orderRef = await addDoc(collection(db, 'orders'), {
+    const orderRef = await db.collection('orders').add({
       planName: planName,
       amount: amount,
       currency: 'USD',
@@ -75,7 +74,7 @@ export async function POST(request: Request) {
       console.log(`Successfully created OxaPay invoice for order ${orderId}. Track ID:`, response.data.trackId);
       
       // Optionally, update the order with the trackId
-      // await updateDoc(doc(db, 'orders', orderId), { oxapayTrackId: response.data.trackId });
+      // await db.collection('orders').doc(orderId).update({ oxapayTrackId: response.data.trackId });
 
       return NextResponse.json({
         payLink: response.data.payLink,
@@ -85,7 +84,7 @@ export async function POST(request: Request) {
     } else {
       console.error('OxaPay API returned an error:', response.data.message || 'Unknown error from OxaPay');
       // If invoice creation fails, consider updating the order status to FAILED
-      // await updateDoc(doc(db, 'orders', orderId), { status: 'FAILED' });
+      await db.collection('orders').doc(orderId).update({ status: 'FAILED' });
       return NextResponse.json({ error: response.data.message || 'Failed to create OxaPay invoice.' }, { status: 500 });
     }
   } catch (error: any) {
