@@ -375,9 +375,9 @@ export function PaymentPageComponent() {
                               <span>Payment Instructions</span>
                           </CardTitle>
                           <Button variant="outline" size="sm" asChild className="group">
-                              <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                              <Link href={`/payment/options?plan=${encodeURIComponent(planName)}`}>
                                   <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                                  Change Crypto
+                                  Change Method
                               </Link>
                           </Button>
                       </div>
@@ -489,7 +489,7 @@ export function PaymentPageComponent() {
                           <div className="text-center py-8">
                               <p className="text-muted-foreground mb-4">No cryptocurrency selected.</p>
                               <Button asChild>
-                                   <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                                   <Link href={`/payment/options?plan=${encodeURIComponent(planName)}`}>
                                       Choose Payment Method
                                    </Link>
                               </Button>
