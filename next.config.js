@@ -23,8 +23,14 @@ const nextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https' ,
         hostname: 'bkbjdhvwwqqujhwjeaga.supabase.co',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.oxapay.com',
         port: '',
         pathname: '/**',
       }

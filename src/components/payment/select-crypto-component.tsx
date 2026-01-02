@@ -71,6 +71,8 @@ export function SelectCryptoComponent() {
       setOpenAccordion(openAccordion === 'usdt-item' ? '' : 'usdt-item');
     } else if (cryptoId === 'usdc') {
         setOpenAccordion(openAccordion === 'usdc-item' ? '' : 'usdc-item');
+    } else if (cryptoId === 'oxapay') {
+        router.push(`/payment/oxapay?plan=${encodeURIComponent(planName)}`);
     } else {
       router.push(`/payment?plan=${encodeURIComponent(planName)}&crypto=${cryptoId}`);
     }
@@ -157,6 +159,17 @@ export function SelectCryptoComponent() {
                     initial="hidden"
                     animate="visible"
                   >
+                     <motion.div key="oxapay" variants={itemVariants}>
+                      <div onClick={() => handleCryptoSelect('oxapay')}>
+                        <ListItem>
+                            <div className="flex items-center gap-4">
+                                <Image src="https://www.oxapay.com/layout/new/assets/img/logo.svg" alt="OxaPay Logo" width={40} height={40} className="bg-white rounded-full p-1"/>
+                                <span className="text-lg font-medium text-foreground">OxaPay (Credit Card, Crypto & More)</span>
+                            </div>
+                            <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+                        </ListItem>
+                      </div>
+                    </motion.div>
                     {cryptoOptions.map((crypto) => {
                        if (crypto.id === 'usdt' || crypto.id === 'usdc') {
                            const accordionId = `${crypto.id}-item`;
@@ -240,5 +253,3 @@ export function SelectCryptoComponent() {
     </div>
   );
 }
-
-    
