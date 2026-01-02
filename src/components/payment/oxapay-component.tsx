@@ -75,14 +75,14 @@ function OxaPayPageComponent() {
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-      <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20">
-        <div className="max-w-md mx-auto">
+      <main className="flex-1 container mx-auto px-4 sm:px-6 py-12 md:py-20 flex items-center justify-center">
+        <div className="max-w-md w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Card className="shadow-glow border-primary/30">
+            <Card className="shadow-glow border-primary/30 bg-card/80 backdrop-blur-sm">
               <CardHeader className="text-center">
                 <div className="flex justify-center mb-4">
                   <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0787.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDc4Ny5wbmciLCJpYXQiOjE3NjczNjU2NDMsImV4cCI6MjA4MjcyNTY0M30.C36DXPHx9jIHSLWUjqGpM3TXMoUIzkMr69DO2DXoRg4" alt="OxaPay" width={120} height={40} />
@@ -92,7 +92,7 @@ function OxaPayPageComponent() {
                   You are purchasing the <span className="font-semibold text-primary">{planName}</span> plan for <span className="font-semibold text-primary">${amount.toFixed(2)}</span>.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="min-h-[250px] flex items-center justify-center">
                 {isLoading && (
                   <div className="flex flex-col items-center justify-center space-y-4 py-8">
                     <Loader2 className="h-12 w-12 text-primary animate-spin" />
