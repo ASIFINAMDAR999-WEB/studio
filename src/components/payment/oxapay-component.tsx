@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface OxaPayInvoice {
     payLink: string;
@@ -84,7 +85,7 @@ function OxaPayPageComponent() {
             <Card className="shadow-glow border-primary/30">
               <CardHeader className="text-center">
                 <div className="flex justify-center mb-4">
-                  <img src="https://www.oxapay.com/layout/new/assets/img/logo.svg" alt="OxaPay" className="h-10" />
+                  <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0787.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDc4Ny5wbmciLCJpYXQiOjE3NjczNjU2NDMsImV4cCI6MjA4MjcyNTY0M30.C36DXPHx9jIHSLWUjqGpM3TXMoUIzkMr69DO2DXoRg4" alt="OxaPay" width={120} height={40} />
                 </div>
                 <CardTitle className="text-2xl font-bold">OxaPay Checkout</CardTitle>
                 <CardDescription>

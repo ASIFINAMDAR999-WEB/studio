@@ -163,7 +163,7 @@ export function SelectCryptoComponent() {
                       <div onClick={() => handleCryptoSelect('oxapay')}>
                         <ListItem>
                             <div className="flex items-center gap-4">
-                                <Image src="https://www.oxapay.com/layout/new/assets/img/logo.svg" alt="OxaPay Logo" width={40} height={40} className="bg-white rounded-full p-1"/>
+                                <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0787.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDc4Ny5wbmciLCJpYXQiOjE3NjczNjU2NDMsImV4cCI6MjA4MjcyNTY0M30.C36DXPHx9jIHSLWUjqGpM3TXMoUIzkMr69DO2DXoRg4" alt="OxaPay Logo" width={120} height={40} className="object-contain"/>
                                 <span className="text-lg font-medium text-foreground">OxaPay (Credit Card, Crypto & More)</span>
                             </div>
                             <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
