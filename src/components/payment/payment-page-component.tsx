@@ -5,7 +5,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X } from 'lucide-react';
 import { plans, cryptoDetails } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -114,6 +114,17 @@ export function PaymentPageComponent() {
             variant: "destructive",
         });
     }
+  };
+
+  const handleRemoveCoupon = () => {
+    setDiscount(0);
+    setIsCouponApplied(false);
+    setCouponCode('');
+    setCouponError(null);
+    toast({
+        title: "Coupon Removed",
+        description: "The discount has been removed from your order.",
+    });
   };
 
 
@@ -288,20 +299,47 @@ export function PaymentPageComponent() {
                           <CardDescription>Enter your code to apply a discount.</CardDescription>
                       </CardHeader>
                       <CardContent>
-                          <div className="flex gap-2 items-center">
+                        <AnimatePresence mode="wait">
+                          {isCouponApplied ? (
+                            <motion.div
+                              key="applied"
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}
+                              className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/30"
+                            >
+                              <div className="flex items-center gap-2">
+                                <Check className="h-5 w-5 text-green-600" />
+                                <p className="font-semibold text-green-700 dark:text-green-400">
+                                  Coupon 'MAX2026' Applied!
+                                </p>
+                              </div>
+                              <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-400 hover:bg-green-500/20">
+                                <X className="h-4 w-4 mr-1" />
+                                Remove
+                              </Button>
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="form"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -10 }}
+                              className="flex gap-2 items-start"
+                            >
                               <div className="relative flex-grow">
-                                <motion.input 
-                                    placeholder="Enter coupon code" 
-                                    value={couponCode}
-                                    onChange={(e) => setCouponCode(e.target.value)}
-                                    disabled={isCouponApplied}
-                                    className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-300 focus:shadow-md focus:shadow-primary/20"
-                                    initial={{ width: '100%' }}
-                                    animate={{ borderColor: couponError ? 'hsl(var(--destructive))' : 'hsl(var(--input))' }}
+                                <motion.input
+                                  placeholder="Enter coupon code"
+                                  value={couponCode}
+                                  onChange={(e) => setCouponCode(e.target.value)}
+                                  disabled={isCouponApplied}
+                                  className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-300 focus:shadow-md focus:shadow-primary/20"
+                                  initial={{ width: '100%' }}
+                                  animate={{ borderColor: couponError ? 'hsl(var(--destructive))' : 'hsl(var(--input))' }}
                                 />
-                                 <AnimatePresence>
+                                <AnimatePresence>
                                   {couponError && (
-                                    <motion.p 
+                                    <motion.p
                                       className="text-xs text-destructive mt-1"
                                       initial={{ opacity: 0, y: -5 }}
                                       animate={{ opacity: 1, y: 0 }}
@@ -313,21 +351,16 @@ export function PaymentPageComponent() {
                                 </AnimatePresence>
                               </div>
                               <motion.div whileTap={{ scale: 0.95 }}>
-                                <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied} className="transition-all duration-300 group">
-                                  {isCouponApplied ? (
-                                    <>
-                                      <Check className="h-4 w-4 mr-2" />
-                                      Applied
-                                    </>
-                                  ) : (
-                                    <>
-                                      Apply
-                                      <ArrowLeft className="h-4 w-4 ml-2 transform -rotate-180 transition-transform group-hover:-translate-x-1" />
-                                    </>
-                                  )}
+                                <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied} className="transition-all duration-300 group h-10">
+                                  <>
+                                    Apply
+                                    <ArrowLeft className="h-4 w-4 ml-2 transform -rotate-180 transition-transform group-hover:-translate-x-1" />
+                                  </>
                                 </Button>
                               </motion.div>
-                          </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </CardContent>
                   </Card>
               </motion.div>
