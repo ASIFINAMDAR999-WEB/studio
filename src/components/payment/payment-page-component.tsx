@@ -101,8 +101,8 @@ export function PaymentPageComponent() {
         setDiscount(0.26); // 26% discount
         setIsCouponApplied(true);
         toast({
-            title: "Coupon Applied!",
-            description: "A 26% discount has been applied for the New Year offer.",
+            title: "🎉 Coupon Applied! 🎉",
+            description: "You've successfully unlocked a 26% New Year discount!",
         });
     } else {
         setDiscount(0);
@@ -110,7 +110,7 @@ export function PaymentPageComponent() {
         setCouponError("Invalid coupon code.");
         toast({
             title: "Invalid Coupon",
-            description: "The coupon code you entered is not valid.",
+            description: "The coupon code you entered is not valid. Please try again.",
             variant: "destructive",
         });
     }
