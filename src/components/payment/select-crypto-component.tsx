@@ -71,8 +71,6 @@ export function SelectCryptoComponent() {
       setOpenAccordion(openAccordion === 'usdt-item' ? '' : 'usdt-item');
     } else if (cryptoId === 'usdc') {
         setOpenAccordion(openAccordion === 'usdc-item' ? '' : 'usdc-item');
-    } else if (cryptoId === 'oxapay') {
-        router.push(`/payment/oxapay?plan=${encodeURIComponent(planName)}`);
     } else {
       router.push(`/payment?plan=${encodeURIComponent(planName)}&crypto=${cryptoId}`);
     }
@@ -146,7 +144,7 @@ export function SelectCryptoComponent() {
               <Card className="shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20">
                 <CardHeader className="text-center p-6 md:p-8">
                   <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-                    Select Payment Method
+                    Select Manual Payment Method
                   </CardTitle>
                   <CardDescription className="mt-2 text-lg text-muted-foreground">
                     You are purchasing the <span className="font-bold text-primary">{planName}</span> plan.
@@ -159,17 +157,6 @@ export function SelectCryptoComponent() {
                     initial="hidden"
                     animate="visible"
                   >
-                     <motion.div key="oxapay" variants={itemVariants}>
-                      <div onClick={() => handleCryptoSelect('oxapay')}>
-                        <ListItem>
-                            <div className="flex items-center gap-4">
-                                <Image src="https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0787.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDc4Ny5wbmciLCJpYXQiOjE3NjczNjU2NDMsImV4cCI6MjA4MjcyNTY0M30.C36DXPHx9jIHSLWUjqGpM3TXMoUIzkMr69DO2DXoRg4" alt="OxaPay Logo" width={120} height={40} className="object-contain"/>
-                                <span className="text-lg font-medium text-foreground">OxaPay (Credit Card, Crypto & More)</span>
-                            </div>
-                            <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
-                        </ListItem>
-                      </div>
-                    </motion.div>
                     {cryptoOptions.map((crypto) => {
                        if (crypto.id === 'usdt' || crypto.id === 'usdc') {
                            const accordionId = `${crypto.id}-item`;
