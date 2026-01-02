@@ -90,7 +90,7 @@ export function PaymentOptionsComponent() {
                       <h3 className="text-xl font-bold">Automatic Payment</h3>
                     </div>
                     <p className="text-muted-foreground mt-2 flex-grow">
-                      Pay with Credit Card, Apple Pay, Google Pay, or a wide range of cryptocurrencies via OxaPay for a streamlined checkout.
+                      Pay with a wide range of cryptocurrencies via OxaPay for a streamlined, automatic checkout.
                     </p>
                     <div className="mt-4 font-semibold text-primary flex items-center">
                       Choose Automatic
