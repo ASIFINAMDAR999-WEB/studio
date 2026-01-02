@@ -1,5 +1,6 @@
+
 import { NextResponse } from 'next/server';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase-admin/firestore';
 import { db } from '@/firebase/server';
 
 /**
@@ -40,19 +41,19 @@ export async function POST(request: Request) {
     const orderData = orderDoc.data();
 
     // 4. Idempotency Check: If order is already PAID, do nothing further.
-    if (orderData.status === 'PAID') {
+    if (orderData?.status === 'PAID') {
       console.log(`Webhook for order ${orderId} ignored: Order is already marked as PAID.`);
       return NextResponse.json({ message: 'Order already processed.' }, { status: 200 });
     }
 
     // 5. Security Check: Verify that amount and currency match the order.
     // Use a small tolerance for floating point comparisons if necessary.
-    const isAmountMatching = parseFloat(amount) >= orderData.amount;
-    const isCurrencyMatching = currency.toUpperCase() === orderData.currency.toUpperCase();
+    const isAmountMatching = parseFloat(amount) >= (orderData?.amount || 0);
+    const isCurrencyMatching = currency.toUpperCase() === (orderData?.currency.toUpperCase() || '');
 
     if (!isAmountMatching || !isCurrencyMatching) {
       console.error(`Webhook Security Alert: Mismatch for order ${orderId}.`);
-      console.error(`Expected: ${orderData.amount} ${orderData.currency}, Received: ${amount} ${currency}`);
+      console.error(`Expected: ${orderData?.amount} ${orderData?.currency}, Received: ${amount} ${currency}`);
       // Update status to reflect mismatch and prevent activation
       await updateDoc(orderRef, { status: 'MISMATCH', oxapayStatus: 'Paid' });
       return NextResponse.json({ error: 'Payment data mismatch.' }, { status: 200 });

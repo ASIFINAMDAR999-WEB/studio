@@ -1,18 +1,28 @@
+
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase-admin/firestore';
 import { db } from '@/firebase/server'; // Assumes you have a server-side Firebase admin initialization
 
 const OXAPAY_API_URL = 'https://api.oxapay.com/merchants/request';
 
 export async function POST(request: Request) {
   const { amount, planName } = await request.json();
-  const { OXAPAY_MERCHANT_KEY: merchantKey } = process.env;
+  const { OXAPAY_MERCHANT_KEY, NEXT_PUBLIC_BASE_URL } = process.env;
 
   // --- Environment Key Check ---
-  if (!merchantKey) {
+  console.log('--- Server Environment ---');
+  console.log('Found OXAPAY_MERCHANT_KEY:', !!OXAPAY_MERCHANT_KEY);
+  console.log('Found NEXT_PUBLIC_BASE_URL:', !!NEXT_PUBLIC_BASE_URL);
+  
+  if (!OXAPAY_MERCHANT_KEY) {
     console.error('[CRITICAL] OXAPAY_MERCHANT_KEY is NOT FOUND in process.env.');
     return NextResponse.json({ error: 'Payment provider is not configured. Please contact support.' }, { status: 500 });
+  }
+  
+  if (!NEXT_PUBLIC_BASE_URL) {
+    console.error('[CRITICAL] NEXT_PUBLIC_BASE_URL is NOT FOUND in process.env.');
+    return NextResponse.json({ error: 'Application base URL is not configured. Please contact support.' }, { status: 500 });
   }
 
   if (!amount || !planName) {
@@ -40,11 +50,11 @@ export async function POST(request: Request) {
   
   try {
     // 2. Create the OxaPay invoice using the Firestore document ID as orderId
-    const callbackUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/oxapay/webhook`;
-    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/payment/success?orderId=${orderId}`;
+    const callbackUrl = `${NEXT_PUBLIC_BASE_URL}/api/oxapay/webhook`;
+    const successUrl = `${NEXT_PUBLIC_BASE_URL}/payment/success?orderId=${orderId}`;
 
     const response = await axios.post(OXAPAY_API_URL, {
-      merchant: merchantKey,
+      merchant: OXAPAY_MERCHANT_KEY,
       amount: amount,
       currency: 'USD',
       lifeTime: 30,
@@ -79,7 +89,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: response.data.message || 'Failed to create OxaPay invoice.' }, { status: 500 });
     }
   } catch (error: any) {
-    console.error('--- Full error creating OxaPay invoice: ---', error.response ? error.response.data : error.message);
+    const errorMsg = error.response ? JSON.stringify(error.response.data, null, 2) : error.message;
+    console.error(`--- Full error creating OxaPay invoice for order ${orderId}: ---`, errorMsg);
     return NextResponse.json({ error: 'An internal server error occurred while contacting the payment provider.' }, { status: 500 });
   }
 }

@@ -1,6 +1,7 @@
+
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase-admin/firestore';
 import { db } from '@/firebase/server';
 
 const OXAPAY_TRANSACTION_INFO_URL = 'https://api.oxapay.com/merchants/inquiry';
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
     const orderRef = doc(db, 'orders', orderId);
     const orderDoc = await getDoc(orderRef);
 
-    if (!orderDoc.exists()) {
+    if (!orderDoc.exists) {
       return NextResponse.json({ success: false, status: 'error', message: 'Order not found.' }, { status: 404 });
     }
 
@@ -48,15 +49,15 @@ export async function POST(request: Request) {
     // 3. Verify the transaction status and details
     if (transaction.status === 'Paid') {
       // Security Check: Verify amount and currency
-      const isAmountMatching = parseFloat(transaction.amount) >= orderData.amount;
-      const isCurrencyMatching = transaction.currency.toUpperCase() === orderData.currency.toUpperCase();
+      const isAmountMatching = parseFloat(transaction.amount) >= (orderData?.amount || 0);
+      const isCurrencyMatching = transaction.currency.toUpperCase() === (orderData?.currency.toUpperCase() || '');
       
       if (isAmountMatching && isCurrencyMatching) {
         // Update order status to PAID if it's currently PENDING
-        if (orderData.status === 'PENDING') {
+        if (orderData?.status === 'PENDING') {
           await updateDoc(orderRef, { status: 'PAID', paidAt: new Date() });
           return NextResponse.json({ success: true, status: 'PAID', message: 'Payment confirmed and order updated.' });
-        } else if (orderData.status === 'PAID') {
+        } else if (orderData?.status === 'PAID') {
           return NextResponse.json({ success: true, status: 'PAID', message: 'Payment was already confirmed.' });
         }
       } else {
