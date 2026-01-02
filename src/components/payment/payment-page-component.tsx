@@ -226,16 +226,24 @@ export function PaymentPageComponent() {
                       </div>
                   </div>
                    {isCouponApplied && (
-                    <div className="flex justify-between items-center text-sm text-green-600 dark:text-green-400 border-t pt-3">
+                    <motion.div 
+                      className="flex justify-between items-center text-sm text-green-600 dark:text-green-400 border-t pt-3"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
                         <p className="font-semibold">Coupon Applied (26% OFF)</p>
                         <p className="font-bold">- S${(baseUsdPrice * discount).toFixed(2)}</p>
-                    </div>
+                    </motion.div>
                    )}
                    {discount > 0 && (
-                    <div className="flex justify-between items-center border-t pt-3">
+                    <motion.div 
+                      className="flex justify-between items-center border-t pt-3"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
                       <p className="text-lg font-semibold">New Total</p>
                       <p className="text-2xl font-bold text-primary">${discountedUsdPrice.toFixed(2)}</p>
-                    </div>
+                    </motion.div>
                    )}
 
                   <div className="text-sm text-muted-foreground pt-2 border-t">
@@ -270,30 +278,59 @@ export function PaymentPageComponent() {
             </motion.div>
 
             {planName === 'Platinum Max Plan' && (
-                <motion.div variants={itemVariants}>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle className="text-xl flex items-center gap-2">
-                                <Tag className="h-6 w-6 text-primary"/>
-                                Apply Coupon
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex gap-2">
-                                <Input 
+              <motion.div variants={itemVariants}>
+                  <Card className="relative overflow-hidden bg-gradient-to-br from-card to-muted/30 border-primary/20 shadow-lg">
+                      <CardHeader>
+                          <CardTitle className="text-xl flex items-center gap-2">
+                              <Tag className="h-6 w-6 text-primary"/>
+                              Have a Coupon?
+                          </CardTitle>
+                          <CardDescription>Enter your code to apply a discount.</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                          <div className="flex gap-2 items-center">
+                              <div className="relative flex-grow">
+                                <motion.input 
                                     placeholder="Enter coupon code" 
                                     value={couponCode}
                                     onChange={(e) => setCouponCode(e.target.value)}
                                     disabled={isCouponApplied}
+                                    className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-300 focus:shadow-md focus:shadow-primary/20"
+                                    initial={{ width: '100%' }}
+                                    animate={{ borderColor: couponError ? 'hsl(var(--destructive))' : 'hsl(var(--input))' }}
                                 />
-                                <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied}>
-                                    {isCouponApplied ? 'Applied' : 'Apply'}
+                                 <AnimatePresence>
+                                  {couponError && (
+                                    <motion.p 
+                                      className="text-xs text-destructive mt-1"
+                                      initial={{ opacity: 0, y: -5 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      exit={{ opacity: 0, y: -5 }}
+                                    >
+                                      {couponError}
+                                    </motion.p>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                              <motion.div whileTap={{ scale: 0.95 }}>
+                                <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied} className="transition-all duration-300 group">
+                                  {isCouponApplied ? (
+                                    <>
+                                      <Check className="h-4 w-4 mr-2" />
+                                      Applied
+                                    </>
+                                  ) : (
+                                    <>
+                                      Apply
+                                      <ArrowLeft className="h-4 w-4 ml-2 transform -rotate-180 transition-transform group-hover:-translate-x-1" />
+                                    </>
+                                  )}
                                 </Button>
-                            </div>
-                            {couponError && <p className="text-sm text-destructive mt-2">{couponError}</p>}
-                        </CardContent>
-                    </Card>
-                </motion.div>
+                              </motion.div>
+                          </div>
+                      </CardContent>
+                  </Card>
+              </motion.div>
             )}
 
             <motion.div variants={itemVariants}>
