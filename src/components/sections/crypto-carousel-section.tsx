@@ -47,14 +47,14 @@ export function CryptoCarouselSection() {
         >
           <CarouselContent>
             {cryptoLogos.map((logo, index) => (
-              <CarouselItem key={index} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 flex flex-col items-center justify-center">
+              <CarouselItem key={index} className="basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/8 flex flex-col items-center justify-center">
                 <div className="p-4 flex flex-col items-center justify-center gap-2">
                   <Image
                     src={logo.icon}
                     alt={`${logo.name} logo`}
-                    width={140}
+                    width={40}
                     height={40}
-                    className="h-10 w-auto object-contain"
+                    className="h-10 w-10 object-contain"
                   />
                   <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
                 </div>
