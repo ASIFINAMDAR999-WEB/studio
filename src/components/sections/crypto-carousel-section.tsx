@@ -25,7 +25,7 @@ const cryptoLogos = [
 
 export function CryptoCarouselSection() {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnHover: true })
+    Autoplay({ delay: 2000, stopOnInteraction: false })
   )
 
   const containerVariants = {
@@ -59,10 +59,10 @@ export function CryptoCarouselSection() {
         }}
       />
       <div className="container px-4 sm:px-6 relative z-10">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
         >
           <motion.div className="text-center max-w-3xl mx-auto mb-10" variants={itemVariants}>
@@ -82,6 +82,8 @@ export function CryptoCarouselSection() {
                   loop: true,
                 }}
                 className="w-full max-w-6xl mx-auto"
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
               >
                 <CarouselContent>
                   {cryptoLogos.map((logo, index) => (
@@ -108,3 +110,5 @@ export function CryptoCarouselSection() {
     </section>
   );
 }
+
+    
