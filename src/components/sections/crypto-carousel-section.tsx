@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -47,7 +48,7 @@ export function CryptoCarouselSection() {
         >
           <CarouselContent className="-ml-2">
             {cryptoLogos.map((logo, index) => (
-              <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
+              <CarouselItem key={index} className="pl-4 basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/8">
                 <div className="flex flex-col items-center justify-center gap-2 p-1 min-h-[6rem]">
                   <Image
                     src={logo.icon}
