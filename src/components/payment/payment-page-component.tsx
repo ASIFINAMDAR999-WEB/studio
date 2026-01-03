@@ -6,7 +6,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X, Clock } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X, Clock, KeySquare, Bot } from 'lucide-react';
 import { plans, cryptoDetails } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -202,10 +202,11 @@ export function PaymentPageComponent() {
 
 
   const instructions = [
-    { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">EXACT amount</span> to the address provided. Do NOT send from an exchange that doesn't support the specified network.</> },
-    { icon: <PenSquare className="h-5 w-5 text-primary" />, text: "After paying, take a screenshot of the transaction confirmation." },
-    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Send the screenshot to our admin on Telegram: <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@CSG555</a></> },
-    { icon: <ShieldCheck className="h-5 w-5 text-primary" />, text: "Your plan will be activated within 5-10 minutes after we confirm the payment." },
+    { icon: <Wallet className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">EXACT amount</span> to the address provided.</> },
+    { icon: <PenSquare className="h-5 w-5 text-primary" />, text: "After payment, send the transaction screenshot or payment details to the admin." },
+    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Contact the admin on Telegram: <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@CSG555</a></> },
+    { icon: <KeySquare className="h-5 w-5 text-primary" />, text: "The admin will set up your account and provide you with an access code." },
+    { icon: <Bot className="h-5 w-5 text-primary" />, text: "Your Telegram bot access will be activated by the admin." },
   ];
 
   const containerVariants = {
@@ -557,7 +558,7 @@ export function PaymentPageComponent() {
                         <ol className="space-y-3">
                           {instructions.map((item, index) => (
                             <li key={index} className="flex items-start gap-3">
-                              <div className="flex-shrink-0 mt-0.5 text-primary font-bold text-lg">{index + 1}.</div>
+                              <div className="flex-shrink-0 mt-0.5 text-primary">{item.icon}</div>
                               <span className="text-sm text-muted-foreground">{item.text}</span>
                             </li>
                           ))}
