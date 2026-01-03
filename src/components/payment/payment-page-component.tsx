@@ -407,12 +407,18 @@ export function PaymentPageComponent() {
                               <Wallet className="h-6 w-6 text-primary"/>
                               <span>Payment Instructions</span>
                           </CardTitle>
-                          <Button variant="outline" size="sm" asChild className="group">
-                              <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
-                                  <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                                  Change Crypto
-                              </Link>
-                          </Button>
+                          <div className='flex items-center gap-2'>
+                                <Button variant="outline" size="sm" onClick={handleRemoveCoupon} className="group">
+                                    <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                                    Change
+                                </Button>
+                                <Button variant="outline" size="sm" asChild className="group">
+                                    <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
+                                        <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                                        Change Crypto
+                                    </Link>
+                                </Button>
+                           </div>
                       </div>
                       {selectedCrypto && <CardDescription>Pay with {selectedCrypto.displayName}</CardDescription>}
                   </CardHeader>
@@ -435,7 +441,7 @@ export function PaymentPageComponent() {
                                         )}
                                       </AnimatePresence>
                                        <span
-                                          className="w-24 text-left font-mono font-medium"
+                                          className="w-24 text-left font-medium"
                                         >
                                           {isPriceLoading ? "Fetching..." : `Refresh ${formatCountdown(countdown)}`}
                                         </span>
