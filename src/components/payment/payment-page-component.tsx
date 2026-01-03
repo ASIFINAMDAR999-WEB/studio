@@ -202,10 +202,10 @@ export function PaymentPageComponent() {
 
 
   const instructions = [
-    { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">exact amount.</span> Double-check the address and network before sending.</> },
-    { icon: <PenSquare className="h-5 w-5 text-primary" />, text: "After payment, send a screenshot of the transaction to our admin on Telegram." },
-    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Admin Telegram: <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@CSG555</a></> },
-    { icon: <ShieldCheck className="h-5 w-5 text-primary" />, text: "Your plan will be activated once the transaction is confirmed by our team." },
+    { icon: <AlertTriangle className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">EXACT amount</span> to the address provided. Do NOT send from an exchange that doesn't support the specified network.</> },
+    { icon: <PenSquare className="h-5 w-5 text-primary" />, text: "After paying, take a screenshot of the transaction confirmation." },
+    { icon: <Send className="h-5 w-5 text-primary" />, text: <>Send the screenshot to our admin on Telegram: <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@CSG555</a></> },
+    { icon: <ShieldCheck className="h-5 w-5 text-primary" />, text: "Your plan will be activated within 5-10 minutes after we confirm the payment." },
   ];
 
   const containerVariants = {
@@ -410,7 +410,7 @@ export function PaymentPageComponent() {
                               <span>Payment Instructions</span>
                           </CardTitle>
                           <div className='flex items-center gap-2'>
-                                <Button variant="outline" size="sm" asChild className="group" onClick={handleRemoveCoupon}>
+                                <Button variant="outline" size="sm" asChild className="group">
                                     <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
                                         <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                                         Change Method
@@ -439,7 +439,7 @@ export function PaymentPageComponent() {
                                         )}
                                       </AnimatePresence>
                                        <span
-                                          className="w-24 text-left"
+                                          className="w-24 text-left font-medium"
                                         >
                                           {isPriceLoading ? "Fetching..." : `Refresh ${formatCountdown(countdown)}`}
                                         </span>
@@ -553,15 +553,15 @@ export function PaymentPageComponent() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2 }}
                       >
-                        <h4 className="font-bold text-lg text-primary text-center">Important Instructions</h4>
-                        <ul className="space-y-3">
+                        <h4 className="font-bold text-lg text-primary text-center">How to Complete Your Payment</h4>
+                        <ol className="space-y-3">
                           {instructions.map((item, index) => (
                             <li key={index} className="flex items-start gap-3">
-                              <div className="flex-shrink-0 mt-0.5">{item.icon}</div>
+                              <div className="flex-shrink-0 mt-0.5 text-primary font-bold text-lg">{index + 1}.</div>
                               <span className="text-sm text-muted-foreground">{item.text}</span>
                             </li>
                           ))}
-                        </ul>
+                        </ol>
                          {cryptoKey === 'xrp' && (
                           <p className="text-sm text-muted-foreground pl-8 pt-2 border-t border-primary/10">Note: For XRP, a destination tag is not required.</p>
                         )}
@@ -586,4 +586,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
