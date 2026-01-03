@@ -435,7 +435,7 @@ export function PaymentPageComponent() {
                                         )}
                                       </AnimatePresence>
                                        <span
-                                          className="w-24 text-left font-medium"
+                                          className="w-24 text-left font-mono font-medium"
                                         >
                                           {isPriceLoading ? "Fetching..." : `Refresh ${formatCountdown(countdown)}`}
                                         </span>
