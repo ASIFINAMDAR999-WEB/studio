@@ -1,6 +1,13 @@
 'use client';
 
+import * as React from 'react';
 import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const cryptoLogos = [
   { name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -15,7 +22,9 @@ const cryptoLogos = [
 ];
 
 export function CryptoCarouselSection() {
-  const logos = [...cryptoLogos, ...cryptoLogos]; // Duplicate logos for a seamless loop
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
 
   return (
     <section id="crypto-carousel" className="py-16 md:py-20 bg-background" aria-labelledby="crypto-heading">
@@ -26,23 +35,32 @@ export function CryptoCarouselSection() {
             We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
           </p>
         </div>
-      </div>
-      <div
-        className="group relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]"
-      >
-        <div className="flex animate-infinite-scroll group-hover:[animation-play-state:paused]">
-          {logos.map((logo, index) => (
-            <div key={index} className="flex-shrink-0 w-48 h-20 flex items-center justify-center mx-2">
-              <Image
-                src={logo.icon}
-                alt={`${logo.name} logo`}
-                width={140}
-                height={40}
-                className="max-h-10 w-auto object-contain"
-              />
-            </div>
-          ))}
-        </div>
+        <Carousel
+          plugins={[plugin.current]}
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-6xl mx-auto"
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
+        >
+          <CarouselContent className="-ml-2">
+            {cryptoLogos.map((logo, index) => (
+              <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
+                <div className="p-1 h-20 flex items-center justify-center">
+                  <Image
+                    src={logo.icon}
+                    alt={`${logo.name} logo`}
+                    width={140}
+                    height={40}
+                    className="max-h-10 w-auto object-contain"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
