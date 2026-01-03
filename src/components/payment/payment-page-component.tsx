@@ -439,7 +439,7 @@ export function PaymentPageComponent() {
                                   <div className="group relative bg-muted/50 rounded-lg p-4 transition-all duration-300 hover:bg-muted/80 hover:shadow-md">
                                       <p className="text-sm text-muted-foreground mb-1">{selectedCrypto.networkName}</p>
                                       <div className="flex items-center gap-2">
-                                          <p className="font-mono text-sm sm:text-base break-all text-foreground flex-1">{selectedCrypto.address || 'Address not available'}</p>
+                                          <p className="font-mono text-sm sm:text-base break-all text-green-500 flex-1">{selectedCrypto.address || 'Address not available'}</p>
                                           <motion.button
                                             onClick={() => copyToClipboard(selectedCrypto.address, 'address')}
                                             className="self-center flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
