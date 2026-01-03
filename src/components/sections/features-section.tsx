@@ -38,7 +38,7 @@ export function FeaturesSection() {
   return (
     <section id="features" className="py-20 md:py-28 bg-card relative overflow-hidden" aria-labelledby="features-heading">
       <div className="container px-4 sm:px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
+        <div className="text-center max-w-3xl mx-auto mb-16 animate-in fade-in-up">
           <h2 id="features-heading" className="text-3xl md:text-4xl font-bold">Why Choose Us?</h2>
           <p className="mt-4 text-muted-foreground">
             We provide a robust set of features to ensure you have the best experience.
@@ -46,7 +46,7 @@ export function FeaturesSection() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 justify-center">
           {features.map((feature, index) => (
-            <div key={index} className="text-center p-4 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
+            <div key={index} className="text-center p-4 animate-in fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
               <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mx-auto mb-4 group">
                 {feature.icon}
               </div>

@@ -35,7 +35,7 @@ export default function TermsOfServicePage() {
         />
         <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_10%,transparent_80%)] -z-10"></div>
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-4xl mx-auto animate-fade-in-up">
+          <div className="max-w-4xl mx-auto animate-in fade-in-up">
             <Card className="shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20">
                <CardHeader className="text-center pb-4 border-b">
                 <CardTitle className="text-3xl md:text-4xl font-bold">Terms of Service</CardTitle>

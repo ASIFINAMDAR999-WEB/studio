@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -15,7 +16,7 @@ export function HeroSection() {
       />
       <div className="absolute inset-0 bg-[url(/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       
-       <div className="container px-4 sm:px-6 animate-fade-in-up relative z-10">
+       <div className="container px-4 sm:px-6 animate-in fade-in-up relative z-10">
         <div className="relative inline-block animate-float transform-gpu">
           <h1 id="hero-heading" className="text-4xl sm:text-5xl md:text-6xl font-headline tracking-tighter font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-purple-400 animated-gradient transform-gpu">
             Find Your Perfect Spoofing Plan
