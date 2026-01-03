@@ -37,31 +37,36 @@ export function CryptoCarouselSection() {
           </p>
         </div>
         
-        <Carousel
-          plugins={[plugin.current]}
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full max-w-6xl mx-auto"
-        >
-          <CarouselContent>
-            {cryptoLogos.map((logo, index) => (
-              <CarouselItem key={index} className="basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/8 flex flex-col items-center justify-center">
-                <div className="p-4 flex flex-col items-center justify-center gap-2">
-                  <Image
-                    src={logo.icon}
-                    alt={`${logo.name} logo`}
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 object-contain"
-                  />
-                  <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+        <div className="relative">
+           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 [mask-image:linear-gradient(to_right,white_0%,black_10%,black_90%,white_100%)]" />
+            <Carousel
+              plugins={[plugin.current]}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full max-w-6xl mx-auto"
+            >
+              <CarouselContent>
+                {cryptoLogos.map((logo, index) => (
+                  <CarouselItem key={index} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/7">
+                    <div className="p-1">
+                      <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/20 shadow-sm transition-all duration-300 hover:bg-card hover:shadow-lg hover:-translate-y-1">
+                          <Image
+                            src={logo.icon}
+                            alt={`${logo.name} logo`}
+                            width={40}
+                            height={40}
+                            className="h-10 w-10 object-contain"
+                          />
+                          <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+        </div>
       </div>
     </section>
   );
