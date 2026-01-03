@@ -155,6 +155,10 @@ export default {
           '0%': { transform: 'scale(0.8)', opacity: '1' },
           '100%': { transform: 'scale(1.4)', opacity: '0' },
         },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -167,6 +171,7 @@ export default {
         'shake': 'shake 0.3s ease-in-out',
         'pulse-ring': 'pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
         'ripple': 'ripple 600ms linear',
+        'infinite-scroll': 'infinite-scroll 40s linear infinite',
       },
       backgroundSize: {
         '200%': '200% 200%',
@@ -191,3 +196,5 @@ export default {
     })
   ],
 } satisfies Config;
+
+    
