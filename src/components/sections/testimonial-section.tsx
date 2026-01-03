@@ -52,7 +52,7 @@ export function TestimonialSection() {
     >
        <div className="container px-4 sm:px-6">
           <motion.div className="text-center max-w-3xl mx-auto mb-12" variants={itemVariants}>
-             <h2 id="testimonial-heading" className="text-3xl md:text-4xl font-bold">What Our Client's Say</h2>
+             <h2 id="testimonial-heading" className="text-3xl md:text-4xl font-bold font-headline">What Our Client's Say</h2>
           </motion.div>
           <motion.div className="max-w-4xl mx-auto" variants={itemVariants}>
             <Carousel

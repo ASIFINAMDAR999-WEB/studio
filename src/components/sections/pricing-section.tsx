@@ -10,7 +10,7 @@ export function PricingSection() {
     <section id="pricing" className="py-20 md:py-28" aria-labelledby="pricing-heading">
       <div className="container px-4 sm:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-in fade-in-up">
-           <h2 id="pricing-heading" className="text-3xl md:text-4xl font-bold">Our Plans</h2>
+           <h2 id="pricing-heading" className="text-3xl md:text-4xl font-bold font-headline">Our Plans</h2>
            <p className="mt-4 text-muted-foreground">
               Choose the plan that's right for you. All plans come with our top-notch features and support.
            </p>

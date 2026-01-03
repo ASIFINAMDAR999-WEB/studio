@@ -58,7 +58,7 @@ export function FaqSection() {
       />
        <div className="container px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 animate-in fade-in-up">
-              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold">Frequently Asked Questions</h2>
+              <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold font-headline">Frequently Asked Questions</h2>
               <p className="mt-4 text-muted-foreground">
                  Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.
               </p>
