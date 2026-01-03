@@ -5,7 +5,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X, Clock } from 'lucide-react';
 import { plans, cryptoDetails } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -18,6 +18,7 @@ import { Input } from '../ui/input';
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1500; // in ms
+const REFRESH_INTERVAL_SECONDS = 20 * 60; // 20 minutes
 
 export function PaymentPageComponent() {
   const searchParams = useSearchParams();
@@ -27,6 +28,7 @@ export function PaymentPageComponent() {
   const [isPriceLoading, setIsPriceLoading] = useState(true);
   const [isAmountCopied, setIsAmountCopied] = useState(false);
   const [isAddressCopied, setIsAddressCopied] = useState(false);
+  const [countdown, setCountdown] = useState(REFRESH_INTERVAL_SECONDS);
   const audioRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
 
@@ -62,6 +64,7 @@ export function PaymentPageComponent() {
 
         setPrices(newPrices);
         setIsPriceLoading(false);
+        setCountdown(REFRESH_INTERVAL_SECONDS); // Reset countdown on successful fetch
         return; // Success, exit the loop
       } catch (error) {
         console.error(`Attempt ${attempt} to fetch crypto prices failed:`, error);
@@ -84,8 +87,28 @@ export function PaymentPageComponent() {
   }, [fetchPrices]);
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prevCountdown) => {
+        if (prevCountdown <= 1) {
+          fetchPrices();
+          return REFRESH_INTERVAL_SECONDS;
+        }
+        return prevCountdown - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [fetchPrices]);
+
+  useEffect(() => {
     document.title = `Payment for ${planName} | REDArmor 2.0`;
   }, [planName]);
+
+  const formatCountdown = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+  };
 
   const isTopUp = planName.includes('Silver Plan');
   const topUpAmount = isTopUp ? planName.split(' - ')[1] : null;
@@ -399,10 +422,16 @@ export function PaymentPageComponent() {
                               <div className="border bg-background rounded-lg p-4">
                                 <div className="flex justify-between items-center mb-2">
                                   <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
-                                  <Button variant="ghost" size="sm" onClick={() => fetchPrices()} disabled={isPriceLoading} className="text-xs h-auto py-1 px-2">
-                                    <RefreshCw className={`h-3 w-3 mr-2 ${isPriceLoading ? 'animate-spin' : ''}`}/>
-                                    Refresh
-                                  </Button>
+                                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                    {isPriceLoading ? (
+                                      <RefreshCw className="h-3 w-3 animate-spin" />
+                                    ) : (
+                                      <Clock className="h-3 w-3" />
+                                    )}
+                                    <span>
+                                      {isPriceLoading ? "Fetching..." : `Refreshes in ${formatCountdown(countdown)}`}
+                                    </span>
+                                  </div>
                                 </div>
                                 <div className="h-8 flex items-center">
                                   <AnimatePresence mode="wait">
