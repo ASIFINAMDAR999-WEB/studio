@@ -38,7 +38,8 @@ export function CryptoCarouselSection() {
         </div>
         
         <div className="relative">
-           <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 [mask-image:linear-gradient(to_right,white_0%,black_10%,black_90%,white_100%)]" />
+           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
+           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
             <Carousel
               plugins={[plugin.current]}
               opts={{
@@ -49,9 +50,9 @@ export function CryptoCarouselSection() {
             >
               <CarouselContent>
                 {cryptoLogos.map((logo, index) => (
-                  <CarouselItem key={index} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/7">
+                  <CarouselItem key={index} className="basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/7">
                     <div className="p-1">
-                      <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border/20 shadow-sm transition-all duration-300 hover:bg-card hover:shadow-lg hover:-translate-y-1">
+                      <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-all duration-300">
                           <Image
                             src={logo.icon}
                             alt={`${logo.name} logo`}
