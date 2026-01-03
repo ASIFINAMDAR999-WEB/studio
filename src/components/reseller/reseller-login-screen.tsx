@@ -26,6 +26,16 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
   }, []);
 
   if (!RECAPTCHA_SITE_KEY) {
+    if (process.env.NODE_ENV === 'production') {
+        return (
+            <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
+                <h2 className="text-xl font-bold text-destructive">Login Unavailable</h2>
+                <p className="mt-2 text-muted-foreground">
+                    The reseller portal is temporarily unavailable. Please try again later.
+                </p>
+            </div>
+        );
+    }
     return (
         <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
             <h2 className="text-xl font-bold text-destructive">reCAPTCHA Not Configured</h2>
