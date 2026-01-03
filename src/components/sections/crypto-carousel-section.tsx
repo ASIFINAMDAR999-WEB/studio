@@ -9,6 +9,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
+import { motion } from 'framer-motion';
 
 const cryptoLogos = [
   { name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -27,6 +28,28 @@ export function CryptoCarouselSection() {
     Autoplay({ delay: 2000, stopOnInteraction: false, stopOnHover: true })
   )
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  };
+
   return (
     <section id="crypto-carousel" className="py-16 md:py-20 bg-background relative overflow-hidden" aria-labelledby="crypto-heading">
        <div 
@@ -36,44 +59,51 @@ export function CryptoCarouselSection() {
         }}
       />
       <div className="container px-4 sm:px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">Cryptocurrencies We Accept</h2>
-          <p className="mt-4 text-md text-muted-foreground">
-            We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
-          </p>
-        </div>
-        
-        <div className="relative">
-           <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
-           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
-            <Carousel
-              plugins={[plugin.current]}
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full max-w-6xl mx-auto"
-            >
-              <CarouselContent>
-                {cryptoLogos.map((logo, index) => (
-                  <CarouselItem key={index} className="basis-1/5 sm:basis-1/6 md:basis-1/7 lg:basis-1/8">
-                    <div className="p-1">
-                      <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-all duration-300">
-                          <Image
-                            src={logo.icon}
-                            alt={`${logo.name} logo`}
-                            width={40}
-                            height={40}
-                            className="h-10 w-10 object-contain"
-                          />
-                          <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={containerVariants}
+        >
+          <motion.div className="text-center max-w-3xl mx-auto mb-10" variants={itemVariants}>
+            <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">Cryptocurrencies We Accept</h2>
+            <p className="mt-4 text-md text-muted-foreground">
+              We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
+            </p>
+          </motion.div>
+          
+          <motion.div className="relative" variants={itemVariants}>
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
+            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
+              <Carousel
+                plugins={[plugin.current]}
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full max-w-6xl mx-auto"
+              >
+                <CarouselContent>
+                  {cryptoLogos.map((logo, index) => (
+                    <CarouselItem key={index} className="basis-1/5 sm:basis-1/6 md:basis-1/7 lg:basis-1/8">
+                      <div className="p-1">
+                        <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-all duration-300">
+                            <Image
+                              src={logo.icon}
+                              alt={`${logo.name} logo`}
+                              width={40}
+                              height={40}
+                              className="h-10 w-10 object-contain"
+                            />
+                            <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
+                        </div>
                       </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-        </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
