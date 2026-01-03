@@ -1,8 +1,9 @@
 
+
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X, Clock } from 'lucide-react';
@@ -22,6 +23,7 @@ const REFRESH_INTERVAL_SECONDS = 20 * 60; // 20 minutes
 
 export function PaymentPageComponent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const planName = searchParams.get('plan') || 'Platinum Plan';
   const cryptoKey = searchParams.get('crypto');
   const [prices, setPrices] = useState<Record<string, number>>({});
@@ -408,14 +410,10 @@ export function PaymentPageComponent() {
                               <span>Payment Instructions</span>
                           </CardTitle>
                           <div className='flex items-center gap-2'>
-                                <Button variant="outline" size="sm" onClick={handleRemoveCoupon} className="group">
-                                    <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                                    Change
-                                </Button>
-                                <Button variant="outline" size="sm" asChild className="group">
+                                <Button variant="outline" size="sm" asChild className="group" onClick={handleRemoveCoupon}>
                                     <Link href={`/payment/select?plan=${encodeURIComponent(planName)}`}>
                                         <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-                                        Change Crypto
+                                        Change Method
                                     </Link>
                                 </Button>
                            </div>
@@ -441,7 +439,7 @@ export function PaymentPageComponent() {
                                         )}
                                       </AnimatePresence>
                                        <span
-                                          className="w-24 text-left font-medium"
+                                          className="w-24 text-left"
                                         >
                                           {isPriceLoading ? "Fetching..." : `Refresh ${formatCountdown(countdown)}`}
                                         </span>
@@ -588,3 +586,4 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
