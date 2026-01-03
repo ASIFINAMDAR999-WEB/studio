@@ -43,9 +43,9 @@ export function PaymentPageComponent() {
     
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       try {
-        const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${apiIds}&vs_currencies=usd`);
+        const response = await fetch(`/api/crypto-prices?ids=${apiIds}`);
         if (!response.ok) {
-          throw new Error(`CoinGecko API request failed with status ${response.status}`);
+          throw new Error(`API proxy request failed with status ${response.status}`);
         }
         const data = await response.json();
         const newPrices: Record<string, number> = {};
@@ -57,7 +57,7 @@ export function PaymentPageComponent() {
         }
         
         if (Object.keys(newPrices).length === 0) {
-           throw new Error("No prices returned from API.");
+           throw new Error("No prices returned from API proxy.");
         }
 
         setPrices(newPrices);
@@ -104,13 +104,22 @@ export function PaymentPageComponent() {
             title: "🎉 Coupon Applied! 🎉",
             description: "You've successfully unlocked a 26% New Year discount!",
         });
+    } else if (couponCode.toUpperCase() === 'MAX2026' && planName !== 'Platinum Max Plan') {
+        setDiscount(0);
+        setIsCouponApplied(false);
+        setCouponError("This coupon is only valid for the Platinum Max Plan.");
+        toast({
+            title: "Invalid Coupon",
+            description: "This coupon is only valid for the Platinum Max Plan.",
+            variant: "destructive",
+        });
     } else {
         setDiscount(0);
         setIsCouponApplied(false);
         setCouponError("Invalid coupon code.");
         toast({
             title: "Invalid Coupon",
-            description: "The coupon code you entered is not valid or not applicable to this plan.",
+            description: "The coupon code you entered is not valid.",
             variant: "destructive",
         });
     }
@@ -243,7 +252,7 @@ export function PaymentPageComponent() {
                       animate={{ opacity: 1, y: 0 }}
                     >
                         <p className="font-semibold">Coupon Applied (26% OFF)</p>
-                        <p className="font-bold">- S${(baseUsdPrice * discount).toFixed(2)}</p>
+                        <p className="font-bold">- ${((isStablecoin ? planUsdPrice : planUsdPrice + 5) * discount).toFixed(2)}</p>
                     </motion.div>
                    )}
                    {discount > 0 && (
@@ -330,7 +339,10 @@ export function PaymentPageComponent() {
                               <motion.input
                                 placeholder="Enter coupon code"
                                 value={couponCode}
-                                onChange={(e) => setCouponCode(e.target.value)}
+                                onChange={(e) => {
+                                    setCouponCode(e.target.value);
+                                    if(couponError) setCouponError(null);
+                                }}
                                 disabled={isCouponApplied}
                                 className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-300 focus:shadow-md focus:shadow-primary/20"
                                 initial={{ width: '100%' }}
