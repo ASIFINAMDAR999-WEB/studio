@@ -20,8 +20,8 @@ export default function Home() {
         <FeaturesSection />
         <PricingSection />
         <CryptoCarouselSection />
-        <TestimonialSection />
         <FaqSection />
+        <TestimonialSection />
         <CtaSection />
       </main>
       <Footer />
