@@ -434,10 +434,10 @@ export function PaymentPageComponent() {
                                           </motion.div>
                                         )}
                                       </AnimatePresence>
-                                      <span
+                                       <span
                                           className="w-24 text-left font-medium"
                                         >
-                                          {isPriceLoading ? "Fetching..." : `Refreshes in ${formatCountdown(countdown)}`}
+                                          {isPriceLoading ? "Fetching..." : `Refresh ${formatCountdown(countdown)}`}
                                         </span>
                                   </div>
                                 </div>
@@ -582,5 +582,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
-    
