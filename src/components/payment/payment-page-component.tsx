@@ -97,7 +97,7 @@ export function PaymentPageComponent() {
 
   const handleApplyCoupon = () => {
     setCouponError(null);
-    if (couponCode.toUpperCase() === 'MAX2026') {
+    if (couponCode.toUpperCase() === 'MAX2026' && planName === 'Platinum Max Plan') {
         setDiscount(0.26); // 26% discount
         setIsCouponApplied(true);
         toast({
@@ -110,7 +110,7 @@ export function PaymentPageComponent() {
         setCouponError("Invalid coupon code.");
         toast({
             title: "Invalid Coupon",
-            description: "The coupon code you entered is not valid. Please try again.",
+            description: "The coupon code you entered is not valid or not applicable to this plan.",
             variant: "destructive",
         });
     }
@@ -288,83 +288,81 @@ export function PaymentPageComponent() {
               </Card>
             </motion.div>
 
-            {planName === 'Platinum Max Plan' && (
-              <motion.div variants={itemVariants}>
-                  <Card className="relative overflow-hidden bg-gradient-to-br from-card to-muted/30 border-primary/20 shadow-lg">
-                      <CardHeader>
-                          <CardTitle className="text-xl flex items-center gap-2">
-                              <Tag className="h-6 w-6 text-primary"/>
-                              Have a Coupon?
-                          </CardTitle>
-                          <CardDescription>Enter your code to apply a discount.</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <AnimatePresence mode="wait">
-                          {isCouponApplied ? (
-                            <motion.div
-                              key="applied"
-                              initial={{ opacity: 0, y: -10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 10 }}
-                              className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/30"
-                            >
-                              <div className="flex items-center gap-2">
-                                <Check className="h-5 w-5 text-green-600" />
-                                <p className="font-semibold text-green-700 dark:text-green-400">
-                                  Coupon 'MAX2026' Applied!
-                                </p>
-                              </div>
-                              <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-400 hover:bg-green-500/20">
-                                <X className="h-4 w-4 mr-1" />
-                                Remove
+            <motion.div variants={itemVariants}>
+                <Card className="relative overflow-hidden bg-gradient-to-br from-card to-muted/30 border-primary/20 shadow-lg">
+                    <CardHeader>
+                        <CardTitle className="text-xl flex items-center gap-2">
+                            <Tag className="h-6 w-6 text-primary"/>
+                            Have a Coupon?
+                        </CardTitle>
+                        <CardDescription>Enter your code to apply a discount.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <AnimatePresence mode="wait">
+                        {isCouponApplied ? (
+                          <motion.div
+                            key="applied"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/30"
+                          >
+                            <div className="flex items-center gap-2">
+                              <Check className="h-5 w-5 text-green-600" />
+                              <p className="font-semibold text-green-700 dark:text-green-400">
+                                Coupon 'MAX2026' Applied!
+                              </p>
+                            </div>
+                            <Button variant="ghost" size="sm" onClick={handleRemoveCoupon} className="text-green-700 dark:text-green-400 hover:bg-green-500/20">
+                              <X className="h-4 w-4 mr-1" />
+                              Remove
+                            </Button>
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="form"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="flex gap-2 items-start"
+                          >
+                            <div className="relative flex-grow">
+                              <motion.input
+                                placeholder="Enter coupon code"
+                                value={couponCode}
+                                onChange={(e) => setCouponCode(e.target.value)}
+                                disabled={isCouponApplied}
+                                className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-300 focus:shadow-md focus:shadow-primary/20"
+                                initial={{ width: '100%' }}
+                                animate={{ borderColor: couponError ? 'hsl(var(--destructive))' : 'hsl(var(--input))' }}
+                              />
+                              <AnimatePresence>
+                                {couponError && (
+                                  <motion.p
+                                    className="text-xs text-destructive mt-1"
+                                    initial={{ opacity: 0, y: -5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -5 }}
+                                  >
+                                    {couponError}
+                                  </motion.p>
+                                )}
+                              </AnimatePresence>
+                            </div>
+                            <motion.div whileTap={{ scale: 0.95 }}>
+                              <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied} className="transition-all duration-300 group h-10">
+                                <>
+                                  Apply
+                                  <ArrowLeft className="h-4 w-4 ml-2 transform -rotate-180 transition-transform group-hover:-translate-x-1" />
+                                </>
                               </Button>
                             </motion.div>
-                          ) : (
-                            <motion.div
-                              key="form"
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -10 }}
-                              className="flex gap-2 items-start"
-                            >
-                              <div className="relative flex-grow">
-                                <motion.input
-                                  placeholder="Enter coupon code"
-                                  value={couponCode}
-                                  onChange={(e) => setCouponCode(e.target.value)}
-                                  disabled={isCouponApplied}
-                                  className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-300 focus:shadow-md focus:shadow-primary/20"
-                                  initial={{ width: '100%' }}
-                                  animate={{ borderColor: couponError ? 'hsl(var(--destructive))' : 'hsl(var(--input))' }}
-                                />
-                                <AnimatePresence>
-                                  {couponError && (
-                                    <motion.p
-                                      className="text-xs text-destructive mt-1"
-                                      initial={{ opacity: 0, y: -5 }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      exit={{ opacity: 0, y: -5 }}
-                                    >
-                                      {couponError}
-                                    </motion.p>
-                                  )}
-                                </AnimatePresence>
-                              </div>
-                              <motion.div whileTap={{ scale: 0.95 }}>
-                                <Button onClick={handleApplyCoupon} disabled={!couponCode || isCouponApplied} className="transition-all duration-300 group h-10">
-                                  <>
-                                    Apply
-                                    <ArrowLeft className="h-4 w-4 ml-2 transform -rotate-180 transition-transform group-hover:-translate-x-1" />
-                                  </>
-                                </Button>
-                              </motion.div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </CardContent>
-                  </Card>
-              </motion.div>
-            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </CardContent>
+                </Card>
+            </motion.div>
 
             <motion.div variants={itemVariants}>
               <Card className="shadow-lg transition-all duration-300 hover:shadow-2xl overflow-hidden">
