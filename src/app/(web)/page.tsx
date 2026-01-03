@@ -6,6 +6,7 @@ import { FeaturesSection } from '@/components/sections/features-section';
 import { PricingSection } from '@/components/sections/pricing-section';
 import { FaqSection } from '@/components/sections/faq-section';
 import dynamic from 'next/dynamic';
+import { CryptoCarouselSection } from '@/components/sections/crypto-carousel-section';
 
 const TestimonialSection = dynamic(() => import('@/components/sections/testimonial-section').then(mod => mod.TestimonialSection));
 const CtaSection = dynamic(() => import('@/components/sections/cta-section').then(mod => mod.CtaSection));
@@ -17,6 +18,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <FeaturesSection />
+        <CryptoCarouselSection />
         <PricingSection />
         <TestimonialSection />
         <FaqSection />
