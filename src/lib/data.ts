@@ -178,12 +178,12 @@ export const faqItems = [
 
 export const testimonials = [
     {
-      quote: "The premium voice changer is incredibly realistic. It's an essential tool for my work, and the sheer number of voice options available is impressive. REDArmor has exceeded all my expectations for quality and performance.",
-      name: "Marcus T."
+      quote: "The reliability is insane. Our lines are recognized by major banks like Wells Fargo without a single issue, which is critical for our operations. REDArmor is the only service we trust for this level of performance.",
+      name: "Alex S."
     },
     {
-      quote: "As a security professional, the ability to use cryptocurrency for payments and the encrypted nature of the service are non-negotiable. REDArmor delivers on its promise of privacy and security without compromising on features.",
-      name: "Isabelle R."
+      quote: "The premium voice changer is incredibly realistic. It's an essential tool for my work, and the sheer number of voice options available is impressive. REDArmor has exceeded all my expectations for quality and performance.",
+      name: "Marcus T."
     },
     {
       quote: "I was up and running in minutes. The process of paying with Bitcoin was seamless, and the support admin was incredibly fast in setting up my account. The level of customer service is as top-tier as the technology itself.",
@@ -202,8 +202,8 @@ export const testimonials = [
       name: "Fatima A."
     },
     {
-      quote: "I've used several spoofing services, and REDArmor is in a league of its own. The advanced routing capabilities ensure my calls always go through, and the connection quality is superb. It’s a professional-grade tool through and through.",
-      name: "Leo M."
+      quote: "As a security professional, the ability to use cryptocurrency for payments and the encrypted nature of the service are non-negotiable. REDArmor delivers on its promise of privacy and security without compromising on features.",
+      name: "Isabelle R."
     }
   ];
 
