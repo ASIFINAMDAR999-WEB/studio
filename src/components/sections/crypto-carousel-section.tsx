@@ -52,7 +52,7 @@ export function CryptoCarouselSection() {
 
   return (
     <section id="crypto-carousel" className="py-16 md:py-20 bg-background relative overflow-hidden" aria-labelledby="crypto-heading">
-       <div 
+      <div 
         className="absolute inset-0 z-0 opacity-50 dark:opacity-60"
         style={{
           background: `radial-gradient(circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 70%)`,
@@ -64,8 +64,9 @@ export function CryptoCarouselSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={containerVariants}
+          className="space-y-10"
         >
-          <motion.div className="text-center max-w-3xl mx-auto mb-10" variants={itemVariants}>
+          <motion.div className="text-center max-w-3xl mx-auto" variants={itemVariants}>
             <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">Cryptocurrencies We Accept</h2>
             <p className="mt-4 text-md text-muted-foreground">
               We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
@@ -87,15 +88,15 @@ export function CryptoCarouselSection() {
               >
                 <CarouselContent>
                   {cryptoLogos.map((logo, index) => (
-                    <CarouselItem key={index} className="basis-1/5 sm:basis-1/6 md:basis-1/7 lg:basis-1/8">
+                    <CarouselItem key={index} className="basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/7">
                       <div className="p-1">
                         <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-all duration-300">
                             <Image
                               src={logo.icon}
                               alt={`${logo.name} logo`}
-                              width={40}
-                              height={40}
-                              className="h-10 w-10 object-contain"
+                              width={56}
+                              height={56}
+                              className="h-14 w-14 object-contain"
                             />
                             <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
                         </div>
@@ -110,5 +111,3 @@ export function CryptoCarouselSection() {
     </section>
   );
 }
-
-    
