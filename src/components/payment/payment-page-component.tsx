@@ -422,15 +422,30 @@ export function PaymentPageComponent() {
                               <div className="border bg-background rounded-lg p-4">
                                 <div className="flex justify-between items-center mb-2">
                                   <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
-                                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                    {isPriceLoading ? (
-                                      <RefreshCw className="h-3 w-3 animate-spin" />
-                                    ) : (
-                                      <Clock className="h-3 w-3" />
-                                    )}
-                                    <span>
-                                      {isPriceLoading ? "Fetching..." : `Refreshes in ${formatCountdown(countdown)}`}
-                                    </span>
+                                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                      <AnimatePresence mode="wait">
+                                        {isPriceLoading ? (
+                                          <motion.div key="loader-icon" initial={{opacity:0, scale:0.7}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:0.7}} >
+                                            <RefreshCw className="h-3 w-3 animate-spin" />
+                                          </motion.div>
+                                        ) : (
+                                          <motion.div key="clock-icon" initial={{opacity:0, scale:0.7}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:0.7}} >
+                                            <Clock className="h-3 w-3 animate-pulse" />
+                                          </motion.div>
+                                        )}
+                                      </AnimatePresence>
+                                      <AnimatePresence mode="wait">
+                                        <motion.span
+                                          key={isPriceLoading ? 'loading' : countdown}
+                                          initial={{ opacity: 0, y: -5 }}
+                                          animate={{ opacity: 1, y: 0 }}
+                                          exit={{ opacity: 0, y: 5 }}
+                                          transition={{ duration: 0.2 }}
+                                          className="w-24 text-left"
+                                        >
+                                          {isPriceLoading ? "Fetching..." : `Refreshes in ${formatCountdown(countdown)}`}
+                                        </motion.span>
+                                      </AnimatePresence>
                                   </div>
                                 </div>
                                 <div className="h-8 flex items-center">
