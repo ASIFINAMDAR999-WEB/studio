@@ -422,7 +422,7 @@ export function PaymentPageComponent() {
                               <div className="border bg-background rounded-lg p-4">
                                 <div className="flex justify-between items-center mb-2">
                                   <p className="text-sm font-medium text-muted-foreground">Amount to Send</p>
-                                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                   <div className="flex items-center gap-2 text-xs text-primary">
                                       <AnimatePresence mode="wait">
                                         {isPriceLoading ? (
                                           <motion.div key="loader-icon" initial={{opacity:0, scale:0.7}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:0.7}} >
@@ -430,12 +430,12 @@ export function PaymentPageComponent() {
                                           </motion.div>
                                         ) : (
                                           <motion.div key="clock-icon" initial={{opacity:0, scale:0.7}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:0.7}} >
-                                            <Clock className="h-3 w-3 text-primary animate-pulse" />
+                                            <Clock className="h-3 w-3" />
                                           </motion.div>
                                         )}
                                       </AnimatePresence>
                                       <span
-                                          className="w-24 text-left"
+                                          className="w-24 text-left font-medium"
                                         >
                                           {isPriceLoading ? "Fetching..." : `Refreshes in ${formatCountdown(countdown)}`}
                                         </span>
@@ -445,7 +445,7 @@ export function PaymentPageComponent() {
                                   <AnimatePresence mode="wait">
                                     {isPriceLoading ? (
                                       <motion.div key="loader" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className="w-full">
-                                        <Skeleton className="h-6 w-3/5 animate-pulse" />
+                                        <Skeleton className="h-6 w-3/5" />
                                       </motion.div>
                                     ) : cryptoAmountString && currentPrice ? (
                                       <motion.div
@@ -582,3 +582,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
