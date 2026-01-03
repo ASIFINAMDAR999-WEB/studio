@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -33,7 +32,7 @@ export function CryptoCarouselSection() {
       >
         <div className="flex animate-infinite-scroll group-hover:[animation-play-state:paused]">
           {logos.map((logo, index) => (
-            <div key={index} className="flex-shrink-0 w-48 h-20 flex items-center justify-center mx-4">
+            <div key={index} className="flex-shrink-0 w-48 h-20 flex items-center justify-center mx-2">
               <Image
                 src={logo.icon}
                 alt={`${logo.name} logo`}
