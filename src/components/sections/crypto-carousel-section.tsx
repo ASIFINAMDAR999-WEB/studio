@@ -3,6 +3,12 @@
 
 import * as React from 'react';
 import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 const cryptoLogos = [
   { name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -16,9 +22,11 @@ const cryptoLogos = [
   { name: 'TON', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/toncoin-ton-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90b25jb2luLXRvbi1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTYwMiwiZXhwIjoyMDcwNjE5NjAyfQ.QW-O_jKeo3LYkKHWPxlzHAXpZyukPdRCr5afBIIy7Ao" },
 ];
 
-const duplicatedLogos = [...cryptoLogos, ...cryptoLogos];
-
 export function CryptoCarouselSection() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnHover: true })
+  )
+
   return (
     <section id="crypto-carousel" className="py-16 md:py-20 bg-background" aria-labelledby="crypto-heading">
       <div className="container px-4 sm:px-6">
@@ -29,41 +37,32 @@ export function CryptoCarouselSection() {
           </p>
         </div>
         
-        <div
-          className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+        <Carousel
+          plugins={[plugin.current]}
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-6xl mx-auto"
         >
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll group-hover:paused">
-            {duplicatedLogos.map((logo, index) => (
-              <li key={index} className="flex flex-col items-center justify-center gap-2 flex-shrink-0">
-                <Image
-                  src={logo.icon}
-                  alt={`${logo.name} logo`}
-                  width={140}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                />
-                <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
-              </li>
+          <CarouselContent>
+            {cryptoLogos.map((logo, index) => (
+              <CarouselItem key={index} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 flex flex-col items-center justify-center">
+                <div className="p-4 flex flex-col items-center justify-center gap-2">
+                  <Image
+                    src={logo.icon}
+                    alt={`${logo.name} logo`}
+                    width={140}
+                    height={40}
+                    className="h-10 w-auto object-contain"
+                  />
+                  <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
+                </div>
+              </CarouselItem>
             ))}
-          </ul>
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
-            {duplicatedLogos.map((logo, index) => (
-              <li key={index} className="flex flex-col items-center justify-center gap-2 flex-shrink-0">
-                <Image
-                  src={logo.icon}
-                  alt={`${logo.name} logo`}
-                  width={140}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                />
-                <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
 }
-
-    
