@@ -3,13 +3,6 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
-import { motion } from 'framer-motion';
 
 const cryptoLogos = [
   { name: 'USDT (Tether)', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/tether-usdt-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90ZXRoZXItdXNkdC1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTM5NSwiZXhwIjoyMDcwNjE5Mzk1fQ.fhb_pip8tRWXjPLa_mbSk128SkA3Xbc-Sug3aOKCVwg" },
@@ -23,91 +16,134 @@ const cryptoLogos = [
   { name: 'TON', icon: "https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/toncoin-ton-logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS90b25jb2luLXRvbi1sb2dvLnBuZyIsImlhdCI6MTc1NTI1OTYwMiwiZXhwIjoyMDcwNjE5NjAyfQ.QW-O_jKeo3LYkKHWPxlzHAXpZyukPdRCr5afBIIy7Ao" },
 ];
 
+
 export function CryptoCarouselSection() {
-  const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false })
-  )
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-      },
-    },
-  };
-
   return (
-    <section id="crypto-carousel" className="py-16 md:py-20 bg-background relative overflow-hidden" aria-labelledby="crypto-heading">
-      <div 
+    <section id="crypto-carousel" className="w-full py-16 md:py-20 bg-background relative" aria-labelledby="crypto-heading">
+        <div 
         className="absolute inset-0 z-0 opacity-50 dark:opacity-60"
         style={{
           background: `radial-gradient(circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 70%)`,
         }}
       />
-      <div className="container px-4 sm:px-6 relative z-10">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-          className="space-y-10"
+      <div className="max-w-6xl mx-auto px-4 relative z-10">
+        <div
+          className="text-center max-w-3xl mx-auto space-y-4 mb-12 animate-in fade-in-up"
         >
-          <motion.div className="text-center max-w-3xl mx-auto" variants={itemVariants}>
-            <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">Cryptocurrencies We Accept</h2>
-            <p className="mt-4 text-md text-muted-foreground">
-              We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
-            </p>
-          </motion.div>
-          
-          <motion.div className="relative" variants={itemVariants}>
-            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background to-transparent z-10" />
-            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background to-transparent z-10" />
-              <Carousel
-                plugins={[plugin.current]}
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                className="w-full max-w-6xl mx-auto"
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
-              >
-                <CarouselContent>
-                  {cryptoLogos.map((logo, index) => (
-                    <CarouselItem key={index} className="basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/7">
-                      <div className="p-1">
-                        <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-all duration-300">
-                            <Image
-                              src={logo.icon}
-                              alt={`${logo.name} logo`}
-                              width={56}
-                              height={56}
-                              className="h-14 w-14 object-contain"
-                            />
-                            <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
-          </motion.div>
-        </motion.div>
+          <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">
+            Cryptocurrencies We Accept
+          </h2>
+          <p className="mt-4 text-md text-muted-foreground">
+            We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
+          </p>
+        </div>
+
+        <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+          <div
+            className="marquee flex"
+          >
+            <div className="marquee-group">
+              {cryptoLogos.map((logo, index) => (
+                <div key={`a-${index}`} className="logo-card">
+                  <div className="logo-img">
+                    <Image
+                      src={logo.icon}
+                      alt={logo.name}
+                      width={56}
+                      height={56}
+                      className="object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className="logo-text">
+                    {logo.name.split('(')[0].trim()}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="marquee-group" aria-hidden="true">
+              {cryptoLogos.map((logo, index) => (
+                <div key={`b-${index}`} className="logo-card">
+                  <div className="logo-img">
+                    <Image
+                      src={logo.icon}
+                      alt={logo.name}
+                      width={56}
+                      height={56}
+                      className="object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <p className="logo-text">
+                    {logo.name.split('(')[0].trim()}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
+
+      <style jsx>{`
+        .marquee {
+          width: max-content;
+          animation: scroll 30s linear infinite;
+        }
+
+        .marquee:hover {
+          animation-play-state: paused;
+        }
+
+        .marquee-group {
+          display: flex;
+          align-items: center;
+        }
+
+        .logo-card {
+          min-width: 150px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0 24px;
+          transition: transform 0.3s ease;
+        }
+
+        .logo-card:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-img {
+          width: 56px;
+          height: 56px;
+        }
+
+        .logo-text {
+          font-size: 12px;
+          margin-top: 8px;
+          color: hsl(var(--muted-foreground));
+          text-align: center;
+        }
+
+        @keyframes scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
+        
+        @media (max-width: 640px) {
+          .logo-card {
+            min-width: 120px;
+            margin: 0 16px;
+          }
+          .marquee {
+            animation-duration: 25s;
+          }
+        }
+      `}</style>
     </section>
   );
 }
