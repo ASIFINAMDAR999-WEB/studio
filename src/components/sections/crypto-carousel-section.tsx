@@ -48,14 +48,15 @@ export function CryptoCarouselSection() {
           <CarouselContent className="-ml-2">
             {cryptoLogos.map((logo, index) => (
               <CarouselItem key={index} className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
-                <div className="p-1 h-20 flex items-center justify-center">
+                <div className="flex flex-col items-center justify-center gap-2 p-1 min-h-[6rem]">
                   <Image
                     src={logo.icon}
                     alt={`${logo.name} logo`}
                     width={140}
                     height={40}
-                    className="max-h-10 w-auto object-contain"
+                    className="h-10 w-auto object-contain"
                   />
+                  <p className="text-xs text-muted-foreground text-center h-8">{logo.name.split('(')[0].trim()}</p>
                 </div>
               </CarouselItem>
             ))}
