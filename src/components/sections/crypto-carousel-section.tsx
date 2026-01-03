@@ -28,8 +28,14 @@ export function CryptoCarouselSection() {
   )
 
   return (
-    <section id="crypto-carousel" className="py-16 md:py-20 bg-background" aria-labelledby="crypto-heading">
-      <div className="container px-4 sm:px-6">
+    <section id="crypto-carousel" className="py-16 md:py-20 bg-background relative overflow-hidden" aria-labelledby="crypto-heading">
+       <div 
+        className="absolute inset-0 z-0 opacity-50 dark:opacity-60"
+        style={{
+          background: `radial-gradient(circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 70%)`,
+        }}
+      />
+      <div className="container px-4 sm:px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">Cryptocurrencies We Accept</h2>
           <p className="mt-4 text-md text-muted-foreground">
