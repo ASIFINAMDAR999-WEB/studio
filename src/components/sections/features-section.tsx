@@ -1,4 +1,3 @@
-
 import { ShieldCheck, Zap, Coins, Headset, Globe, Infinity } from 'lucide-react';
 
 export function FeaturesSection() {

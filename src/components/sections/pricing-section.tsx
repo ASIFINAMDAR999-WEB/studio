@@ -1,4 +1,3 @@
-
 import { plans } from '@/lib/data';
 import { PlanCard } from '@/components/plan-card';
 import { Separator } from '@/components/ui/separator';
