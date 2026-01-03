@@ -31,8 +31,8 @@ export function CryptoCarouselSection() {
     <section id="crypto-carousel" className="py-16 md:py-20 bg-background" aria-labelledby="crypto-heading">
       <div className="container px-4 sm:px-6">
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <h2 id="crypto-heading" className="text-2xl md:text-3xl font-bold">Cryptocurrencies We Accept</h2>
-          <p className="mt-3 text-muted-foreground">
+          <h2 id="crypto-heading" className="text-3xl md:text-4xl font-bold font-headline">Cryptocurrencies We Accept</h2>
+          <p className="mt-4 text-md text-muted-foreground">
             We support a wide range of popular cryptocurrencies for fast, private, and secure payments.
           </p>
         </div>
@@ -50,7 +50,7 @@ export function CryptoCarouselSection() {
             >
               <CarouselContent>
                 {cryptoLogos.map((logo, index) => (
-                  <CarouselItem key={index} className="basis-1/4 sm:basis-1/5 md:basis-1/6 lg:basis-1/7">
+                  <CarouselItem key={index} className="basis-1/5 sm:basis-1/6 md:basis-1/7 lg:basis-1/8">
                     <div className="p-1">
                       <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-lg transition-all duration-300">
                           <Image
