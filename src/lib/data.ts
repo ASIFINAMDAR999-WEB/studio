@@ -31,6 +31,7 @@ export const plans: Plan[] = [
       'Leverage Premium SIP Trunk Access (inbound & outbound)',
     ],
     cta: 'Choose Plan',
+    bonus: 'New Client Offer: Get 7 extra days of service absolutely FREE!',
     isHot: true,
   },
   {
@@ -44,6 +45,7 @@ export const plans: Plan[] = [
       'Full Access to Website, Web Application & Telegram Bot',
     ],
     cta: 'Choose Plan',
+    bonus: 'New Client Offer: Get 7 extra days of service absolutely FREE!',
   },
   {
     name: 'Diamond Plan',
@@ -238,3 +240,6 @@ export const cryptoDetails: Record<string, CryptoDetail> = {
   usdc_erc20: { displayName: 'USDC', networkName: 'USDC ERC-20 (Ethereum Network)', address: '0x0638403Fd9b50192A6B0e74348906e03aEa0b86E', apiId: 'usd-coin', symbol: 'USDC', precision: 6, qrCode: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0698%20(3).jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDY5OCAoMykuanBlZyIsImlhdCI6MTc2NzA4ODczMSwiZXhwIjoyMDgyNDQ4NzMxfQ.dz3SO853ccbKyhuRPhNE8gehbH3y6osHN1XBT55rNNU' },
   usdc_trc20: { displayName: 'USDC', networkName: 'USDC TRC-20 (Tron Network)', address: 'TEHksg8BM3W2tzVWMSXv4HuWxRu9Sgy3kj', apiId: 'usd-coin', symbol: 'USDC', precision: 6, qrCode: 'https://bkbjdhvwwqqujhwjeaga.supabase.co/storage/v1/object/sign/My/IMG_0700%20(2).jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9hN2M1NGZkOS1iMjg3LTRiMGMtOTBkZS0wZDQ3Yjk2YjkzYmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNeS9JTUdfMDcwMCAoMikuanBlZyIsImlhdCI6MTc2NzA4ODYyMSwiZXhwIjoyMDgyNDQ4NjIxfQ.Hnup80z5ByY4DvmpS_KdoZ1AqJGSMuQ4CEdAIspXQ_M' },
 };
+
+
+    
