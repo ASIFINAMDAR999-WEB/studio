@@ -60,14 +60,14 @@ export function SmsSpoofScreen({ planName }: SmsSpoofScreenProps) {
             <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                <Label htmlFor="from-number">From Number</Label>
+                <Label htmlFor="from-number">From (Sender ID)</Label>
                 <Input
                     id="from-number"
-                    placeholder="Sender's number"
+                    placeholder="Number or text"
                     value={fromNumber}
                     onChange={(e) => setFromNumber(e.target.value)}
                     disabled={isLoading}
-                    type="tel"
+                    type="text"
                 />
                 </div>
                 <div className="space-y-2">
