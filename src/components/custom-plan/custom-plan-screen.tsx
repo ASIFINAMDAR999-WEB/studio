@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -81,13 +80,13 @@ export function CustomPlanScreen() {
 
       const data = await response.json();
 
-      if (response.ok && data.success && data.custom && data.planName) {
+      if (response.ok && data.success && data.custom) {
         localStorage.setItem('customPlanUnlocked', 'true');
         toast({
             title: 'Success!',
-            description: 'Custom plan unlocked. Redirecting to payment...',
+            description: 'Custom plan unlocked! Redirecting to our plans...',
         });
-        router.push(`/payment/select?plan=${encodeURIComponent(data.planName)}`);
+        router.push('/#pricing');
       } else {
         setError(data.error || 'Invalid custom code. Please try again.');
         setIsShaking(true);
