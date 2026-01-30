@@ -81,13 +81,13 @@ export function CustomPlanScreen() {
 
       const data = await response.json();
 
-      if (response.ok && data.success && data.custom) {
+      if (response.ok && data.success && data.custom && data.planName) {
         localStorage.setItem('customPlanUnlocked', 'true');
         toast({
             title: 'Success!',
-            description: 'The custom plan has been unlocked. Redirecting...',
+            description: 'Custom plan unlocked. Redirecting to payment...',
         });
-        router.push('/#pricing');
+        router.push(`/payment/select?plan=${encodeURIComponent(data.planName)}`);
       } else {
         setError(data.error || 'Invalid custom code. Please try again.');
         setIsShaking(true);
