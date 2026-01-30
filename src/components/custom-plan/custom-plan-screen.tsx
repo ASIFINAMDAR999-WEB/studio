@@ -4,7 +4,7 @@
 import { useState, useRef, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Eye, EyeOff, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useTheme } from 'next-themes';
@@ -53,7 +53,12 @@ export function CustomPlanScreen() {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1, 
+      transition: { type: 'spring', stiffness: 100, damping: 20 } 
+    },
     shaking: {
       x: [-10, 10, -10, 10, 0],
       transition: { duration: 0.5 },
@@ -112,11 +117,17 @@ export function CustomPlanScreen() {
       role="region"
       aria-labelledby="custom-code-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10 transform-gpu">
+      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10 transform-gpu transition-all duration-500 ease-out hover:shadow-glow hover:border-primary/30">
         <div className="p-8 md:p-12">
-          <h2 id="custom-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
-            Enter Custom Code
-          </h2>
+           <div className="text-center">
+             <h2 id="custom-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-2 flex items-center justify-center gap-3">
+                <Gift className="h-8 w-8 text-primary" />
+                Unlock Custom Plan
+            </h2>
+            <p className="text-muted-foreground text-center mb-8 max-w-sm mx-auto">
+                Have a special code from our team? Enter it here to reveal exclusive plans and offers.
+            </p>
+           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
