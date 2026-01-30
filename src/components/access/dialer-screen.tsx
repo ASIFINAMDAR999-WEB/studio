@@ -4,7 +4,7 @@
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, PenSquare, PhoneForwarded } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, PenSquare, PhoneForwarded, Mails } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +21,7 @@ import { EmailSpoofScreen } from './email-spoof-screen';
 import { SmsSpoofScreen } from './sms-spoof-screen';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
+import { BulkSpoofScreen } from './bulk-spoof-screen';
 
 
 type CallStatus = 'idle' | 'calling' | 'connected' | 'ended' | 'no-answer';
@@ -54,7 +55,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [showFeaturesModal, setShowFeaturesModal] = useState(false);
   const [showSipModal, setShowSipModal] = useState(false);
   const [showCallerIdModal, setShowCallerIdModal] = useState(false);
-  const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'email', 'sms'
+  const [activeTab, setActiveTab] = useState('dialer'); // 'dialer', 'email', 'sms', 'bulk'
   const [selectedVoice, setSelectedVoice] = useState('Disabled');
   const [callerId, setCallerId] = useState('');
   const [tempCallerId, setTempCallerId] = useState('');
@@ -517,6 +518,12 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                 <SmsSpoofScreen planName={planName} />
             </motion.div>
         );
+      case 'bulk':
+        return (
+            <motion.div key="bulk-spoof-view" role="tabpanel" id="bulk-spoof-panel" aria-labelledby="bulk-spoof-tab" variants={itemVariants} initial="hidden" animate="visible" exit="exit" className="flex-grow flex flex-col">
+                <BulkSpoofScreen planName={planName} />
+            </motion.div>
+        );
       default:
         return null;
     }
@@ -583,6 +590,20 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                         >
                           <MessageSquare className="h-4 w-4"/>
                           SMS
+                        </button>
+                        <button 
+                          role="tab"
+                          aria-selected={activeTab === 'bulk'}
+                          id="bulk-spoof-tab"
+                          aria-controls="bulk-spoof-panel"
+                          onClick={() => setActiveTab('bulk')}
+                          className={cn(
+                            "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
+                            activeTab === 'bulk' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+                          )}
+                        >
+                          <Mails className="h-4 w-4"/>
+                          Bulk
                         </button>
                     </div>
                      <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
