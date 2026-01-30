@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -6,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Send, Loader2, Award, Paperclip, Mail, MessageSquare } from 'lucide-react';
+import { Send, Loader2, Award, Paperclip, Mail, MessageSquare, Upload, List } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -19,6 +20,7 @@ function BulkEmailForm({ planName }: { planName: string }) {
     const [fromName, setFromName] = useState('');
     const [fromEmail, setFromEmail] = useState('');
     const [recipients, setRecipients] = useState('');
+    const [recipientFile, setRecipientFile] = useState<File | null>(null);
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [attachment, setAttachment] = useState<File | null>(null);
@@ -33,6 +35,24 @@ function BulkEmailForm({ planName }: { planName: string }) {
         }
     };
 
+    const handleRecipientFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+          setRecipientFile(e.target.files[0]);
+          setRecipients(''); // Clear manual entry
+        } else {
+          setRecipientFile(null);
+        }
+    };
+    
+    const handleRecipientsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setRecipients(e.target.value);
+        if (recipientFile) {
+            setRecipientFile(null);
+            const fileInput = document.getElementById('recipient-file-email') as HTMLInputElement;
+            if(fileInput) fileInput.value = '';
+        }
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
@@ -42,36 +62,40 @@ function BulkEmailForm({ planName }: { planName: string }) {
         formData.append('fromEmail', fromEmail);
         formData.append('subject', subject);
         formData.append('message', message);
-        // Here you would also handle recipients for the backend
-        // For example: formData.append('recipients', recipients);
+        
         if (attachment) {
             formData.append('attachment', attachment);
         }
 
-        // Simulate sending to multiple recipients.
-        // In a real app, the backend would handle the loop.
-        const recipientList = recipients.split('\n').filter(r => r.trim() !== '');
+        let recipientCount = 0;
+        if(recipientFile) {
+            // In a real app, you would parse the file here.
+            // We'll simulate it based on file presence.
+            recipientCount = 1000; // Fake number
+        } else {
+            recipientCount = recipients.split('\n').filter(r => r.trim() !== '').length;
+        }
 
-        // For UI simulation, we just show a pending state and then success.
         try {
-            // Fake delay
             await new Promise(resolve => setTimeout(resolve, 2000));
             
             toast({
                 title: "Bulk Job Submitted",
-                description: `Your email is being sent to ${recipientList.length} recipients.`,
+                description: `Your email is being sent to ${recipientCount} recipients.`,
             });
             // Clear the form on success
             setFromName('');
             setFromEmail('');
             setRecipients('');
+            setRecipientFile(null);
             setSubject('');
             setMessage('');
             setAttachment(null);
             const fileInput = document.getElementById('bulk-attachment') as HTMLInputElement;
-            if (fileInput) {
-                fileInput.value = '';
-            }
+            if (fileInput) fileInput.value = '';
+            const recipientFileInput = document.getElementById('recipient-file-email') as HTMLInputElement;
+            if (recipientFileInput) recipientFileInput.value = '';
+
         } catch (error: any) {
             toast({
                 title: "Error",
@@ -83,7 +107,7 @@ function BulkEmailForm({ planName }: { planName: string }) {
         }
     };
 
-    const isFormInvalid = !fromName || !fromEmail || !recipients || !subject || !message;
+    const isFormInvalid = !fromName || !fromEmail || (!recipients && !recipientFile) || !subject || !message;
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
@@ -97,9 +121,21 @@ function BulkEmailForm({ planName }: { planName: string }) {
                     <Input id="bulk-from-email" type="text" placeholder="e.g., news@example.com" value={fromEmail} onChange={(e) => setFromEmail(e.target.value)} disabled={isLoading} required />
                 </div>
             </div>
-            <div className="space-y-2">
-                <Label htmlFor="bulk-email-recipients">Recipients</Label>
-                <Textarea id="bulk-email-recipients" placeholder="One email address per line" className="min-h-[100px]" value={recipients} onChange={(e) => setRecipients(e.target.value)} disabled={isLoading} required />
+             <div className="space-y-2">
+                <Label>Recipients</Label>
+                <Tabs defaultValue="manual" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="manual"><List className="w-4 h-4 mr-2"/>Manual Entry</TabsTrigger>
+                        <TabsTrigger value="upload"><Upload className="w-4 h-4 mr-2"/>Upload File</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="manual" className="pt-2">
+                         <Textarea id="bulk-email-recipients" placeholder="One email address per line" className="min-h-[100px]" value={recipients} onChange={handleRecipientsChange} disabled={isLoading} />
+                    </TabsContent>
+                    <TabsContent value="upload" className="pt-2">
+                        <Input id="recipient-file-email" type="file" onChange={handleRecipientFileChange} accept=".csv,.xlsx,.xls,.txt" disabled={isLoading} />
+                        <p className="text-xs text-muted-foreground mt-2">Upload a .csv, .xlsx, or .txt file with one email per row.</p>
+                    </TabsContent>
+                </Tabs>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="bulk-subject">Subject</Label>
@@ -126,28 +162,58 @@ function BulkEmailForm({ planName }: { planName: string }) {
 function BulkSmsForm({ planName }: { planName: string }) {
     const [fromNumber, setFromNumber] = useState('');
     const [recipients, setRecipients] = useState('');
+    const [recipientFile, setRecipientFile] = useState<File | null>(null);
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
 
+    const handleRecipientFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+          setRecipientFile(e.target.files[0]);
+          setRecipients(''); // Clear manual entry
+        } else {
+          setRecipientFile(null);
+        }
+    };
+    
+    const handleRecipientsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setRecipients(e.target.value);
+        if (recipientFile) {
+            setRecipientFile(null);
+            const fileInput = document.getElementById('recipient-file-sms') as HTMLInputElement;
+            if(fileInput) fileInput.value = '';
+        }
+    }
+
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        const recipientList = recipients.split('\n').filter(r => r.trim() !== '');
+        
+        let recipientCount = 0;
+        if(recipientFile) {
+            recipientCount = 1000; // Fake number
+        } else {
+            recipientCount = recipients.split('\n').filter(r => r.trim() !== '').length;
+        }
+
         // Simulate API call
         setTimeout(() => {
           setIsLoading(false);
           toast({
             title: "Success",
-            description: `Your bulk SMS job for ${recipientList.length} recipients has been submitted.`,
+            description: `Your bulk SMS job for ${recipientCount} recipients has been submitted.`,
           });
           setFromNumber('');
           setRecipients('');
+          setRecipientFile(null);
           setMessage('');
+          const recipientFileInput = document.getElementById('recipient-file-sms') as HTMLInputElement;
+          if (recipientFileInput) recipientFileInput.value = '';
         }, 2000);
     };
 
-    const isFormInvalid = !fromNumber || !recipients || !message;
+    const isFormInvalid = !fromNumber || (!recipients && !recipientFile) || !message;
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
@@ -156,8 +222,20 @@ function BulkSmsForm({ planName }: { planName: string }) {
                 <Input id="bulk-from-number" placeholder="Number or text (e.g. 'PROMO')" value={fromNumber} onChange={(e) => setFromNumber(e.target.value)} disabled={isLoading} type="text" required/>
             </div>
             <div className="space-y-2">
-                <Label htmlFor="bulk-sms-recipients">Recipients</Label>
-                <Textarea id="bulk-sms-recipients" placeholder="One phone number per line" className="min-h-[100px]" value={recipients} onChange={(e) => setRecipients(e.target.value)} disabled={isLoading} required />
+                <Label>Recipients</Label>
+                 <Tabs defaultValue="manual" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="manual"><List className="w-4 h-4 mr-2"/>Manual Entry</TabsTrigger>
+                        <TabsTrigger value="upload"><Upload className="w-4 h-4 mr-2"/>Upload File</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="manual" className="pt-2">
+                        <Textarea id="bulk-sms-recipients" placeholder="One phone number per line" className="min-h-[100px]" value={recipients} onChange={handleRecipientsChange} disabled={isLoading} />
+                    </TabsContent>
+                    <TabsContent value="upload" className="pt-2">
+                        <Input id="recipient-file-sms" type="file" onChange={handleRecipientFileChange} accept=".csv,.xlsx,.xls,.txt" disabled={isLoading} />
+                         <p className="text-xs text-muted-foreground mt-2">Upload a .csv, .xlsx, or .txt file with one phone number per row.</p>
+                    </TabsContent>
+                </Tabs>
             </div>
             <div className="space-y-2">
                 <Label htmlFor="bulk-sms-message">Message</Label>
