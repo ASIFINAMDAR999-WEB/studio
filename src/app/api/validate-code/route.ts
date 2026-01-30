@@ -10,6 +10,7 @@ const VALID_CODES: Record<string, string> = {
   'gold:2222': 'Gold Plan',
   'diamond:2222': 'Diamond Plan',
   'platinumpro:3333': 'Platinum Pro Plan',
+  'custom:90': 'Custom Platinum Plan (15 Days)',
 };
 
 async function verifyRecaptcha(token: string): Promise<{ success: boolean; 'error-codes'?: string[] }> {
@@ -64,6 +65,9 @@ export async function POST(request: Request) {
     const planName = VALID_CODES[code];
 
     if (planName) {
+       if (code === 'custom:90') {
+          return NextResponse.json({ success: true, custom: true, message: 'Custom plan unlocked!' });
+      }
       return NextResponse.json({ success: true, planName });
     } else {
       return NextResponse.json({ success: false, error: 'Invalid access code.' }, { status: 401 });

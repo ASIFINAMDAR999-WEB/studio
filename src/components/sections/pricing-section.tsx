@@ -1,9 +1,25 @@
+
+'use client';
+
 import { plans } from '@/lib/data';
 import { PlanCard } from '@/components/plan-card';
 import { Separator } from '@/components/ui/separator';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 export function PricingSection() {
-  const subscriptionPlans = plans.filter(p => !p.priceOptions);
+  const [showCustomPlan, setShowCustomPlan] = useState(false);
+
+  useEffect(() => {
+    // This code runs only on the client, after the component mounts.
+    const customPlanUnlocked = localStorage.getItem('customPlanUnlocked') === 'true';
+    if (customPlanUnlocked) {
+      setShowCustomPlan(true);
+    }
+  }, []);
+
+  const subscriptionPlans = plans.filter(p => !p.priceOptions && !p.isCustom);
+  const customPlan = plans.find(p => p.isCustom);
   const topUpPlan = plans.find(p => p.priceOptions);
 
   return (
@@ -23,6 +39,17 @@ export function PricingSection() {
                 <PlanCard plan={plan} />
             </div>
           ))}
+          {showCustomPlan && customPlan && (
+            <motion.div 
+              key={customPlan.name} 
+              className="animate-in fade-in-up"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+                <PlanCard plan={customPlan} />
+            </motion.div>
+          )}
         </div>
 
         {/* Top-up Plan */}
