@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -104,7 +103,7 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
       role="region"
       aria-labelledby="reseller-access-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10 transform-gpu">
+      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-primary/30 transform-gpu transition-all duration-500 ease-out shadow-glow">
         <div className="p-8 md:p-12">
           <h2 id="reseller-access-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-6">
             Reseller Access
