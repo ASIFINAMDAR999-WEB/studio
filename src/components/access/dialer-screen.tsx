@@ -22,6 +22,7 @@ import { SmsSpoofScreen } from './sms-spoof-screen';
 import { useToast } from '@/hooks/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { BulkSpoofScreen } from './bulk-spoof-screen';
+import { Separator } from '@/components/ui/separator';
 
 
 type CallStatus = 'idle' | 'calling' | 'connected' | 'ended' | 'no-answer';
@@ -68,6 +69,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const [forwardingNumber, setForwardingNumber] = useState('');
   const [isTempCallForwardingEnabled, setIsTempCallForwardingEnabled] = useState(false);
   const [tempForwardingNumber, setTempForwardingNumber] = useState('');
+
+  // Bulk Sending State
+  const [isBulkSendingEnabled, setIsBulkSendingEnabled] = useState(false);
+  const [isTempBulkSendingEnabled, setIsTempBulkSendingEnabled] = useState(false);
 
 
   // In-call state
@@ -125,6 +130,10 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       setForwardingNumber(savedForwardingNumber);
       setIsTempCallForwardingEnabled(savedForwardingEnabled);
       setTempForwardingNumber(savedForwardingNumber);
+      
+      const savedBulkSendingEnabled = localStorage.getItem('bulkSendingEnabled') === 'true';
+      setIsBulkSendingEnabled(savedBulkSendingEnabled);
+      setIsTempBulkSendingEnabled(savedBulkSendingEnabled);
 
     } catch (error) {
       console.error("Failed to access localStorage", error);
@@ -144,10 +153,18 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
       } else {
         localStorage.removeItem('forwardingNumber');
       }
+      localStorage.setItem('bulkSendingEnabled', String(isBulkSendingEnabled));
     } catch (error) {
        console.error("Failed to save to localStorage:", error);
     }
-  }, [callerId, isCallForwardingEnabled, forwardingNumber]);
+  }, [callerId, isCallForwardingEnabled, forwardingNumber, isBulkSendingEnabled]);
+  
+    // Effect to handle disabling active bulk tab
+    useEffect(() => {
+        if (!isBulkSendingEnabled && activeTab === 'bulk') {
+        setActiveTab('dialer');
+        }
+    }, [isBulkSendingEnabled, activeTab]);
 
 
   // Effect for the call timer
@@ -346,12 +363,14 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
   const handleSaveFeatures = () => {
     setIsCallForwardingEnabled(isTempCallForwardingEnabled);
     setForwardingNumber(isTempCallForwardingEnabled ? tempForwardingNumber : '');
+    setIsBulkSendingEnabled(isTempBulkSendingEnabled);
     setShowFeaturesModal(false);
   };
   
   const handleOpenFeaturesModal = () => {
     setIsTempCallForwardingEnabled(isCallForwardingEnabled);
     setTempForwardingNumber(forwardingNumber);
+    setIsTempBulkSendingEnabled(isBulkSendingEnabled);
     setShowFeaturesModal(true);
   };
 
@@ -591,20 +610,22 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                           <MessageSquare className="h-4 w-4"/>
                           SMS
                         </button>
-                        <button 
-                          role="tab"
-                          aria-selected={activeTab === 'bulk'}
-                          id="bulk-spoof-tab"
-                          aria-controls="bulk-spoof-panel"
-                          onClick={() => setActiveTab('bulk')}
-                          className={cn(
-                            "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
-                            activeTab === 'bulk' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
-                          )}
-                        >
-                          <Mails className="h-4 w-4"/>
-                          Bulk
-                        </button>
+                        {isBulkSendingEnabled && (
+                            <button 
+                            role="tab"
+                            aria-selected={activeTab === 'bulk'}
+                            id="bulk-spoof-tab"
+                            aria-controls="bulk-spoof-panel"
+                            onClick={() => setActiveTab('bulk')}
+                            className={cn(
+                                "py-1.5 px-3 rounded-md text-sm font-semibold flex items-center gap-2 flex-1 justify-center transition-colors",
+                                activeTab === 'bulk' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'
+                            )}
+                            >
+                            <Mails className="h-4 w-4"/>
+                            Bulk
+                            </button>
+                        )}
                     </div>
                      <button onClick={() => setShowSipModal(true)} aria-label="Show SIP credentials" className="p-2 bg-muted rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors">
                       <Contact className="h-5 w-5" />
@@ -862,6 +883,25 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label htmlFor="bulkSendingToggle" className="text-sm font-medium text-foreground">
+                    Bulk Messaging
+                  </Label>
+                  <p className='text-xs text-muted-foreground'>Enable bulk email and SMS sending.</p>
+                </div>
+                <Switch
+                  id="bulkSendingToggle"
+                  checked={isTempBulkSendingEnabled}
+                  onCheckedChange={setIsTempBulkSendingEnabled}
+                  className="data-[state=checked]:bg-green-500"
+                />
+              </div>
             </div>
 
             <motion.div whileTap={{ scale: 0.97 }}>
