@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -117,18 +116,12 @@ export function CustomPlanScreen() {
       role="region"
       aria-labelledby="custom-code-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border transform-gpu transition-all duration-500 ease-out shadow-glow border-primary/30">
+      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border-2 transform-gpu transition-all duration-500 ease-out shadow-glow border-primary/40">
         <div className="p-8 md:p-12">
-           <div className="text-center">
-             <h2 id="custom-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-2 flex items-center justify-center gap-3">
+            <h2 id="custom-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8 flex items-center justify-center gap-3">
                 <Gift className="h-8 w-8 text-primary" />
                 Unlock Custom Plan
             </h2>
-            <p className="text-muted-foreground text-center mb-8 max-w-sm mx-auto">
-                Have a special code from our team? Enter it here to reveal exclusive plans and offers.
-            </p>
-           </div>
-
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
                <label htmlFor="custom-code" className="sr-only">Custom Code</label>

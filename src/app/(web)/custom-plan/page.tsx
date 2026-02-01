@@ -25,10 +25,13 @@ export default function CustomPlanPage() {
             />
             <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_10%,transparent_80%)] -z-10"></div>
             
-            <div className="relative z-10 w-full flex items-center justify-center">
+            <div className="relative z-10 w-full flex flex-col items-center justify-center">
                 <AnimatePresence mode="wait">
                   <CustomPlanScreen key="custom-plan-screen" />
                 </AnimatePresence>
+                <p className="text-muted-foreground text-center mt-8 max-w-sm mx-auto">
+                    Have a special code from our team? Enter it here to reveal exclusive plans and offers.
+                </p>
             </div>
         </motion.div>
       </main>
