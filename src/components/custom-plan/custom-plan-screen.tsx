@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -116,7 +117,7 @@ export function CustomPlanScreen() {
       role="region"
       aria-labelledby="custom-code-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-white/10 transform-gpu transition-all duration-500 ease-out hover:shadow-glow hover:border-primary/30">
+      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border transform-gpu transition-all duration-500 ease-out shadow-glow border-primary/30">
         <div className="p-8 md:p-12">
            <div className="text-center">
              <h2 id="custom-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-2 flex items-center justify-center gap-3">
