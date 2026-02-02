@@ -42,10 +42,16 @@ export function PaymentPageComponent() {
 
   useEffect(() => {
     // Fire-and-forget notification
-    fetch('/api/notify-visit', { method: 'POST' }).catch(error => {
+    fetch('/api/notify-visit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ planName }),
+    }).catch(error => {
         console.error('Failed to send visit notification:', error);
     });
-  }, []); 
+  }, [planName]); 
 
 
   const fetchPrices = useCallback(async () => {

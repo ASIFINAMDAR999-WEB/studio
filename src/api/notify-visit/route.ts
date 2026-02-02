@@ -14,6 +14,9 @@ export async function POST(request: Request) {
     }
 
     try {
+        const body = await request.json();
+        const planName = body.planName || 'Not specified';
+
         const headersList = headers();
         
         // Vercel-specific headers for geolocation and IP
@@ -26,6 +29,8 @@ export async function POST(request: Request) {
         let message = `- - - - - - - - - - - - - - - - -\n`;
         message += `🌐 *New Visit to Payment Page* 🌐\n`;
         message += `- - - - - - - - - - - - - - - - -\n\n`;
+        message += `*Selected Plan:*\n`;
+        message += `📦 *Plan:* ${planName}\n\n`;
         message += `*Visitor Details:*\n`;
         message += `📍 *Country:* ${country}\n`;
         message += `💻 *IP Address:* \`${ip}\`\n\n`;
