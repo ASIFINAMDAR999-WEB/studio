@@ -40,6 +40,13 @@ export function PaymentPageComponent() {
   const [couponError, setCouponError] = useState<string | null>(null);
   const [isCouponApplied, setIsCouponApplied] = useState(false);
 
+  useEffect(() => {
+    // Fire-and-forget notification
+    fetch('/api/notify-visit', { method: 'POST' }).catch(error => {
+        console.error('Failed to send visit notification:', error);
+    });
+  }, []); 
+
 
   const fetchPrices = useCallback(async () => {
     setIsPriceLoading(true);
