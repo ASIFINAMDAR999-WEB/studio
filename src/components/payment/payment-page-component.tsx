@@ -42,12 +42,14 @@ export function PaymentPageComponent() {
   const selectedCrypto = cryptoKey ? cryptoDetails[cryptoKey] : null;
 
   useEffect(() => {
-    const cryptoDisplayName =
-      cryptoKey && (cryptoKey.startsWith('usdt') || cryptoKey.startsWith('usdc'))
-        ? 'Not Specified'
-        : selectedCrypto
-        ? selectedCrypto.displayName
-        : 'Not Specified';
+    let cryptoNameForNotification = 'Not Specified';
+
+    if (cryptoKey && selectedCrypto) {
+      const isStablecoin = cryptoKey.startsWith('usdt') || cryptoKey.startsWith('usdc');
+      if (!isStablecoin) {
+        cryptoNameForNotification = selectedCrypto.displayName;
+      }
+    }
 
     // Fire-and-forget notification
     fetch('/api/notify-visit', {
@@ -58,12 +60,12 @@ export function PaymentPageComponent() {
       body: JSON.stringify({
         planName,
         pageURL: window.location.href,
-        cryptoName: cryptoDisplayName,
+        cryptoName: cryptoNameForNotification,
       }),
     }).catch((error) => {
       console.error('Failed to send visit notification:', error);
     });
-  }, [planName, selectedCrypto, cryptoKey]);
+  }, [planName, cryptoKey, selectedCrypto]);
 
 
   const fetchPrices = useCallback(async () => {
@@ -611,3 +613,5 @@ export function PaymentPageComponent() {
     </div>
   );
 }
+
+    
