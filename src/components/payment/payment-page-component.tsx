@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
@@ -47,7 +46,10 @@ export function PaymentPageComponent() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ planName }),
+      body: JSON.stringify({ 
+        planName,
+        pageURL: window.location.href 
+      }),
     }).catch(error => {
         console.error('Failed to send visit notification:', error);
     });
