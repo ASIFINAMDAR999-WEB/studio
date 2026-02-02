@@ -43,7 +43,7 @@ export function PaymentPageComponent() {
 
   useEffect(() => {
     const cryptoDisplayName = selectedCrypto
-      ? selectedCrypto.networkName
+      ? selectedCrypto.displayName
       : 'Not Specified';
 
     // Fire-and-forget notification
