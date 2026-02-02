@@ -50,7 +50,7 @@ export function PaymentPageComponent() {
         cryptoNameForNotification = selectedCrypto.displayName;
       }
     }
-
+    
     // Fire-and-forget notification
     fetch('/api/notify-visit', {
       method: 'POST',
@@ -132,6 +132,24 @@ export function PaymentPageComponent() {
   useEffect(() => {
     document.title = `Payment for ${planName} | REDArmor 2.0`;
   }, [planName]);
+
+  if (cryptoKey && !selectedCrypto) {
+    return (
+        <div className="flex flex-col min-h-dvh bg-background">
+            <Header />
+            <main className="flex-1 flex items-center justify-center container mx-auto px-4">
+                <Card className="w-full max-w-md text-center p-8">
+                    <CardTitle>Invalid Payment Method</CardTitle>
+                    <CardDescription>The selected cryptocurrency is not valid. Please go back and choose another.</CardDescription>
+                    <Button className="mt-4" onClick={() => router.back()}>
+                       <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
+                    </Button>
+                </Card>
+            </main>
+            <Footer />
+        </div>
+    );
+  }
 
   const formatCountdown = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -613,5 +631,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
-    
