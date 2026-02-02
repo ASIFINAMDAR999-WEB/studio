@@ -39,7 +39,13 @@ export function PaymentPageComponent() {
   const [couponError, setCouponError] = useState<string | null>(null);
   const [isCouponApplied, setIsCouponApplied] = useState(false);
 
+  const selectedCrypto = cryptoKey ? cryptoDetails[cryptoKey] : null;
+
   useEffect(() => {
+    const cryptoDisplayName = selectedCrypto
+      ? `${selectedCrypto.displayName} (${selectedCrypto.symbol})`
+      : 'Not Specified';
+
     // Fire-and-forget notification
     fetch('/api/notify-visit', {
       method: 'POST',
@@ -48,12 +54,13 @@ export function PaymentPageComponent() {
       },
       body: JSON.stringify({ 
         planName,
-        pageURL: window.location.href 
+        pageURL: window.location.href,
+        cryptoName: cryptoDisplayName,
       }),
     }).catch(error => {
         console.error('Failed to send visit notification:', error);
     });
-  }, [planName]); 
+  }, [planName, selectedCrypto]);
 
 
   const fetchPrices = useCallback(async () => {
@@ -204,7 +211,6 @@ export function PaymentPageComponent() {
     }
   };
   
-  const selectedCrypto = cryptoKey ? cryptoDetails[cryptoKey] : null;
   const qrCodeUrl = selectedCrypto?.qrCode;
   const currentPrice = selectedCrypto ? prices[selectedCrypto.apiId] : undefined;
 

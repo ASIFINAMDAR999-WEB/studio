@@ -42,6 +42,7 @@ export async function POST(request: Request) {
         const body = await request.json();
         const planName = body.planName || 'Not specified';
         const pageURL = body.pageURL || 'Not specified';
+        const cryptoName = body.cryptoName || 'Not specified';
 
         // Find plan details
         const isTopUp = planName.includes('Silver Plan');
@@ -82,6 +83,7 @@ export async function POST(request: Request) {
 
         message += `*Selected Plan:*\n`;
         message += `📦 *Plan:* ${planName}\n`;
+        message += `💳 *Method:* ${cryptoName}\n`;
         message += `💰 *Price:* ${price} ${currency}\n\n`;
 
         message += `*Visitor Location:*\n`;
