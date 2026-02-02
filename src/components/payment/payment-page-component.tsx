@@ -349,7 +349,7 @@ export function PaymentPageComponent() {
                     <CardHeader>
                         <CardTitle className="text-xl flex items-center gap-2">
                             <Tag className="h-6 w-6 text-primary"/>
-                            Have a Coupon?
+                            <span>Have a Coupon?</span>
                         </CardTitle>
                         <CardDescription>Enter your code to apply a discount.</CardDescription>
                     </CardHeader>
