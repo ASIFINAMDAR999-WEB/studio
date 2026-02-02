@@ -14,6 +14,9 @@ export async function POST(request: Request) {
     }
 
     try {
+        const body = await request.json();
+        const planName = body.planName || 'Not specified';
+
         const headersList = headers();
         
         // Vercel-specific headers for geolocation and IP
@@ -23,11 +26,19 @@ export async function POST(request: Request) {
 
         const timeOfVisit = new Date().toLocaleString('en-US', { timeZone: 'UTC' });
 
-        let message = `🔔 *New Payment Page Visit* 🔔\n\n`;
-        message += `*Country:* ${country}\n`;
-        message += `*IP Address:* \`${ip}\`\n`;
-        message += `*Device/Browser:* \`${userAgent}\`\n`;
-        message += `*Time (UTC):* ${timeOfVisit}`;
+        let message = `- - - - - - - - - - - - - - - - -\n`;
+        message += `🌐 *New Visit to Payment Page* 🌐\n`;
+        message += `- - - - - - - - - - - - - - - - -\n\n`;
+        message += `*Selected Plan:*\n`;
+        message += `📦 *Plan:* ${planName}\n\n`;
+        message += `*Visitor Details:*\n`;
+        message += `📍 *Country:* ${country}\n`;
+        message += `💻 *IP Address:* \`${ip}\`\n\n`;
+        message += `*Device Information:*\n`;
+        message += `📱 *User Agent:* \`${userAgent}\`\n\n`;
+        message += `*Visit Time:*\n`;
+        message += `⏰ *Time (UTC):* ${timeOfVisit}\n`;
+        message += `- - - - - - - - - - - - - - - - -`;
 
         const telegramApiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
@@ -40,6 +51,14 @@ export async function POST(request: Request) {
                 chat_id: TELEGRAM_CHAT_ID,
                 text: message,
                 parse_mode: 'Markdown',
+                reply_markup: {
+                    inline_keyboard: [
+                        [
+                            { text: 'Reseller Panel', url: 'https://www.callspoofing.shop/reseller' },
+                            { text: 'Contact Support', url: 'https://t.me/CSG555' }
+                        ]
+                    ]
+                }
             }),
         });
 
