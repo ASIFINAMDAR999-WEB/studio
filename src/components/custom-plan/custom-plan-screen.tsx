@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -6,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Eye, EyeOff, Gift } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useTheme } from 'next-themes';
 import { useToast } from '@/hooks/use-toast';

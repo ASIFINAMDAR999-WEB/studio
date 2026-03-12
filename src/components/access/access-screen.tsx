@@ -1,10 +1,10 @@
-
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Eye, EyeOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useTheme } from 'next-themes';
 
@@ -77,7 +77,7 @@ export function AccessScreen({ onSuccess }: { onSuccess: (planName: string) => v
       initial="hidden"
       exit={{ opacity: 0, y: -50 }}
     >
-      <div className="relative rounded-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-primary/40 transform-gpu transition-all shadow-glow">
+      <div className="relative rounded-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border-2 border-primary/40 transform-gpu transition-all shadow-glow">
         <div className="p-8 md:p-12">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">Enter Access Code</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
