@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -8,7 +9,6 @@ import { cn } from '@/lib/utils';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useTheme } from 'next-themes';
 import { useToast } from '@/hooks/use-toast';
-
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -30,65 +30,38 @@ export function CustomPlanScreen() {
   }, []);
 
   if (!RECAPTCHA_SITE_KEY) {
-    if (process.env.NODE_ENV === 'production') {
-        return (
-            <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold text-destructive">Feature Unavailable</h2>
-                <p className="mt-2 text-muted-foreground">
-                    This portal is temporarily unavailable. Please try again later.
-                </p>
-            </div>
-        );
-    }
     return (
         <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold text-destructive">reCAPTCHA Not Configured</h2>
-            <p className="mt-2 text-muted-foreground">
-                Please add your reCAPTCHA v2 Site Key to your environment variables as <code>NEXT_PUBLIC_RECAPTCHA_SITE_KEY</code>.
-            </p>
+            <h2 className="text-xl font-bold text-destructive">Service Unavailable</h2>
+            <p className="mt-2 text-muted-foreground">The custom plan portal is currently down.</p>
         </div>
     );
   }
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1, 
-      transition: { type: 'spring', stiffness: 100, damping: 20 } 
-    },
-    shaking: {
-      x: [-10, 10, -10, 10, 0],
-      transition: { duration: 0.5 },
-    }
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 100 } },
+    shaking: { x: [-10, 10, -10, 10, 0], transition: { duration: 0.5 } }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (code.length < 5 || isLoading || !recaptchaToken) return;
-
     setIsLoading(true);
     setError(null);
-
     try {
       const response = await fetch('/api/validate-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code, recaptchaToken }),
       });
-
       const data = await response.json();
-
       if (response.ok && data.success && data.custom) {
         localStorage.setItem('customPlanUnlocked', 'true');
-        toast({
-            title: 'Success!',
-            description: 'Custom plan unlocked! Redirecting to our plans...',
-        });
+        toast({ title: 'Success!', description: 'Custom plan unlocked!' });
         router.push('/#pricing');
       } else {
-        setError(data.error || 'Invalid custom code. Please try again.');
+        setError(data.error || 'Invalid code.');
         setIsShaking(true);
         setTimeout(() => setIsShaking(false), 500);
         setCode('');
@@ -96,15 +69,11 @@ export function CustomPlanScreen() {
         setRecaptchaToken(null);
       }
     } catch (err) {
-      setError('Failed to connect to the server. Please try again later.');
+      setError('Connection error.');
     } finally {
       setIsLoading(false);
     }
   };
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  }
 
   return (
     <motion.div
@@ -113,101 +82,37 @@ export function CustomPlanScreen() {
       animate={isShaking ? "shaking" : "visible"}
       initial="hidden"
       exit={{ opacity: 0, y: -50 }}
-      role="region"
-      aria-labelledby="custom-code-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border-2 transform-gpu transition-all duration-500 ease-out shadow-glow border-primary/40">
+      <div className="relative rounded-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border-2 border-primary/40 transform-gpu transition-all shadow-glow">
         <div className="p-8 md:p-12">
-            <h2 id="custom-code-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-8 flex items-center justify-center gap-3">
-                <Gift className="h-8 w-8 text-primary" />
-                Unlock Custom Plan
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center justify-center gap-3">
+                <Gift className="h-8 w-8 text-primary" /> Unlock Plan
             </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
-               <label htmlFor="custom-code" className="sr-only">Custom Code</label>
               <input
                 ref={inputRef}
                 type={isPasswordVisible ? 'text' : 'password'}
-                id="custom-code"
                 value={code}
-                onChange={(e) => {
-                  setCode(e.target.value);
-                  if (error) setError(null);
-                }}
-                disabled={isLoading}
+                onChange={(e) => setCode(e.target.value)}
                 className={cn(
-                  'block w-full px-4 pr-12 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all duration-300',
-                  'focus:outline-none focus:ring-4 focus:ring-primary/20',
-                  error
-                    ? 'border-destructive focus:border-destructive'
-                    : 'border-muted-foreground/30 focus:border-primary'
+                  'block w-full px-4 pr-12 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all',
+                  error ? 'border-destructive' : 'border-muted-foreground/30 focus:border-primary'
                 )}
-                placeholder="Enter your custom code"
-                aria-label="Custom code input"
-                aria-invalid={!!error}
-                aria-describedby={error ? "error-message" : undefined}
+                placeholder="Custom Code"
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={isPasswordVisible ? 'Hide code' : 'Show code'}
-              >
+              <button type="button" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="absolute inset-y-0 right-0 pr-4 text-muted-foreground">
                 {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
-
             <div className="flex justify-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={(token) => setRecaptchaToken(token)}
-                onExpired={() => setRecaptchaToken(null)}
-                theme={theme === 'dark' ? 'dark' : 'light'}
-              />
+              <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} theme={theme === 'dark' ? 'dark' : 'light'} />
             </div>
-
-            <motion.button
-              type="submit"
-              disabled={code.length < 5 || isLoading || !recaptchaToken}
-              className={cn(
-                'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative group/button transform-gpu',
-                'bg-gradient-to-r from-primary to-accent',
-                'disabled:opacity-50 disabled:cursor-not-allowed',
-                'hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1',
-                'focus:outline-none focus:ring-4 focus:ring-primary/50'
-              )}
-              whileTap={{ scale: 0.98 }}
-              aria-live="polite"
-            >
-              <span className="absolute inset-0 bg-black/10 opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></span>
-              <span className="relative">
-                 {isLoading ? (
-                    <div className="flex items-center justify-center">
-                    <Loader2 className="mr-2 h-6 w-6 animate-spin" />
-                    <span>Validating...</span>
-                    </div>
-                ) : (
-                    'Unlock Plan'
-                )}
-              </span>
-            </motion.button>
+            <Button type="submit" disabled={code.length < 5 || isLoading || !recaptchaToken} className="w-full py-6 text-lg bg-gradient-to-r from-primary to-accent">
+              {isLoading ? <Loader2 className="animate-spin h-6 w-6" /> : 'Unlock Now'}
+            </Button>
           </form>
-
-          <AnimatePresence>
-            {error && (
-              <motion.p
-                id="error-message"
-                role="alert"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-destructive text-center mt-4 font-medium"
-              >
-                {error}
-              </motion.p>
-            )}
-          </AnimatePresence>
+          <AnimatePresence>{error && <motion.p className="text-destructive text-center mt-4">{error}</motion.p>}</AnimatePresence>
         </div>
       </div>
     </motion.div>

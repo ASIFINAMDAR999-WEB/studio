@@ -1,3 +1,4 @@
+
 'use client';
 
 import { AnimatePresence } from 'framer-motion';
@@ -23,15 +24,20 @@ export default function CustomPlanPage() {
                 background: `radial-gradient(circle at 50% 30%, hsl(var(--primary) / 0.1), transparent 70%)`,
                 }}
             />
-            <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_10%,transparent_80%)] -z-10"></div>
+            <div className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"></div>
             
             <div className="relative z-10 w-full flex flex-col items-center justify-center">
                 <AnimatePresence mode="wait">
                   <CustomPlanScreen key="custom-plan-screen" />
                 </AnimatePresence>
-                <p className="text-muted-foreground text-center mt-8 max-w-sm mx-auto">
+                <motion.p 
+                  className="text-muted-foreground text-center mt-8 max-w-sm mx-auto"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
                     Have a special code from our team? Enter it here to reveal exclusive plans and offers.
-                </p>
+                </motion.p>
             </div>
         </motion.div>
       </main>

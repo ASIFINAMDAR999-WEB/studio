@@ -48,201 +48,89 @@ export function SelectCryptoComponent() {
   const [openAccordion, setOpenAccordion] = useState('');
   
   useEffect(() => {
-    if (planName) {
-      document.title = `Select Payment for ${planName} | REDArmor 2.0`;
-    }
+    if (planName) document.title = `Select Payment Method | REDArmor 2.0`;
   }, [planName]);
 
   if (!planName) {
     return (
         <div className="flex flex-col min-h-dvh bg-background">
-            <Header />
-            <main className="flex-1 flex items-center justify-center container mx-auto px-4">
-                <Card className="w-full max-w-md text-center p-8">
-                    <CardTitle>No Plan Selected</CardTitle>
-                    <CardDescription>Please select a plan first.</CardDescription>
-                    <Button asChild className="mt-4">
-                        <Link href="/#pricing">View Plans</Link>
-                    </Button>
-                </Card>
-            </main>
-            <Footer />
+            <Header /><main className="flex-1 flex items-center justify-center container mx-auto px-4"><Card className="w-full max-w-md text-center p-8"><CardTitle>No Plan Selected</CardTitle><Button asChild className="mt-4"><Link href="/#pricing">View Plans</Link></Button></Card></main><Footer />
         </div>
     );
   }
 
   const handleCryptoSelect = (cryptoId: string) => {
-    if (cryptoId === 'usdt') {
-      setOpenAccordion(openAccordion === 'usdt-item' ? '' : 'usdt-item');
-    } else if (cryptoId === 'usdc') {
-        setOpenAccordion(openAccordion === 'usdc-item' ? '' : 'usdc-item');
-    } else if (cryptoId === 'sol') {
-        setOpenAccordion(openAccordion === 'sol-item' ? '' : 'sol-item');
+    if (['usdt', 'usdc', 'sol'].includes(cryptoId)) {
+      setOpenAccordion(openAccordion === `${cryptoId}-item` ? '' : `${cryptoId}-item`);
     } else {
       router.push(`/payment?plan=${encodeURIComponent(planName)}&crypto=${cryptoId}`);
     }
   };
   
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.07,
-      },
-    },
-  };
-  
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-      },
-    },
-  };
-
-  const ListItem = ({ children, onClick, className = '' }: { children: React.ReactNode; onClick?: () => void; className?: string }) => (
-    <div
-      onClick={onClick}
-      className={`group relative rounded-lg border bg-background/50 p-4 overflow-hidden transition-all duration-300 ease-in-out hover:shadow-glow hover:-translate-y-1.5 hover:border-primary/50 cursor-pointer ring-1 ring-transparent hover:ring-primary/30 transform-gpu ${className}`}
-    >
-      <div className="absolute -inset-px rounded-lg bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg" />
-      <div className="relative flex items-center justify-between">
-        {children}
-      </div>
-    </div>
-  );
-  
-  const subListContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.1,
-      },
-    },
-  };
-  
-  const subListItemVariants = {
-    hidden: { x: -15, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { type: 'spring', stiffness: 120 } },
-  };
-
   return (
     <div className="flex flex-col min-h-dvh bg-background">
       <Header />
-
-      <main className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 sm:px-6 py-8 md:py-16">
+      <main className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 py-16">
         <div className="max-w-2xl w-full">
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-            >
-              <div 
-                className="absolute inset-0 bg-grid-pattern-small opacity-20 dark:opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_80%)] -z-10"
-              />
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <Card className="shadow-2xl bg-card/80 backdrop-blur-sm border-primary/20">
-                <CardHeader className="text-center p-6 md:p-8">
-                  <CardTitle className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-                    Select Payment Method
-                  </CardTitle>
-                  <CardDescription className="mt-2 text-lg text-muted-foreground">
-                    You are purchasing the <span className="font-bold text-primary">{planName}</span> plan.
-                  </CardDescription>
+                <CardHeader className="text-center">
+                  <CardTitle className="text-3xl font-bold">Select Payment Method</CardTitle>
+                  <CardDescription>Purchasing: <span className="font-bold text-primary">{planName}</span></CardDescription>
                 </CardHeader>
                 <CardContent className="p-4 md:p-8 pt-0">
-                  <motion.div 
-                    className="grid grid-cols-1 gap-4"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                  >
+                  <div className="grid grid-cols-1 gap-4">
                     {cryptoOptions.map((crypto) => {
-                       if (crypto.id === 'usdt' || crypto.id === 'usdc' || crypto.id === 'sol') {
-                           const accordionId = `${crypto.id}-item`;
+                       if (['usdt', 'usdc', 'sol'].includes(crypto.id)) {
                            const networks = crypto.id === 'usdt' ? usdtNetworks : crypto.id === 'usdc' ? usdcNetworks : solNetworks;
                            return (
-                               <motion.div key={crypto.id} variants={itemVariants}>
-                                 <Accordion type="single" collapsible value={openAccordion} onValueChange={setOpenAccordion}>
-                                     <AccordionItem value={accordionId} className="border-0">
-                                        <ListItem onClick={() => handleCryptoSelect(crypto.id)}>
-                                            <AccordionTrigger className="w-full p-0 hover:no-underline">
-                                              <div className="flex items-center justify-between w-full">
-                                                  <div className="flex items-center gap-4">
-                                                      <Image src={crypto.icon} alt={`${crypto.name} logo`} width={40} height={40} />
-                                                      <span className="text-lg font-medium text-foreground">{crypto.name}</span>
-                                                  </div>
-                                                  <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary data-[state=open]:rotate-90" />
+                               <Accordion key={crypto.id} type="single" collapsible value={openAccordion} onValueChange={setOpenAccordion}>
+                                   <AccordionItem value={`${crypto.id}-item`} className="border-0">
+                                      <div onClick={() => handleCryptoSelect(crypto.id)} className="group relative rounded-lg border bg-background/50 p-4 hover:shadow-glow cursor-pointer transition-all">
+                                          <div className="flex items-center justify-between">
+                                              <div className="flex items-center gap-4">
+                                                  <Image src={crypto.icon} alt={crypto.name} width={40} height={40} />
+                                                  <span className="text-lg font-medium">{crypto.name}</span>
                                               </div>
-                                            </AccordionTrigger>
-                                        </ListItem>
-                                        <AnimatePresence>
-                                          {openAccordion === accordionId && (
-                                            <AccordionContent asChild>
-                                              <motion.div
-                                                initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: 'auto' }}
-                                                exit={{ opacity: 0, height: 0 }}
-                                                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                                                className="pt-2 pl-2 pr-2 overflow-hidden"
-                                              >
-                                                <motion.div 
-                                                  className="grid grid-cols-1 gap-1 pl-4 border-l-2 border-primary/20"
-                                                  variants={subListContainerVariants}
-                                                  initial="hidden"
-                                                  animate="visible"
-                                                >
-                                                    {networks.map((network) => (
-                                                        <motion.div 
-                                                          key={network.id}
-                                                          variants={subListItemVariants}
-                                                        >
-                                                            <Link href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${network.id}`} passHref>
-                                                                <div className="group flex items-center justify-between p-3 rounded-lg hover:bg-muted cursor-pointer transition-colors">
-                                                                    <span className="text-md font-medium text-foreground group-hover:text-primary">{network.name}</span>
-                                                                    <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
-                                                                </div>
-                                                            </Link>
-                                                        </motion.div>
-                                                    ))}
-                                                </motion.div>
-                                              </motion.div>
-                                            </AccordionContent>
-                                          )}
-                                        </AnimatePresence>
-                                     </AccordionItem>
-                                 </Accordion>
-                               </motion.div>
+                                              <ChevronRight className={cn("h-6 w-6 transition-transform duration-300", openAccordion === `${crypto.id}-item` && "rotate-90")} />
+                                          </div>
+                                      </div>
+                                      <AccordionContent>
+                                          <div className="grid grid-cols-1 gap-1 pl-4 mt-2 border-l-2 border-primary/20">
+                                              {networks.map((network) => (
+                                                  <Link key={network.id} href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${network.id}`}>
+                                                      <div className="group flex items-center justify-between p-3 rounded-lg hover:bg-muted transition-colors">
+                                                          <span className="font-medium group-hover:text-primary">{network.name}</span>
+                                                          <ChevronRight className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                      </div>
+                                                  </Link>
+                                              ))}
+                                          </div>
+                                      </AccordionContent>
+                                   </AccordionItem>
+                               </Accordion>
                            )
                        }
                        return (
-                          <motion.div key={crypto.id} variants={itemVariants}>
-                            <Link href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${crypto.id}`} passHref>
-                                <ListItem>
-                                    <div className="flex items-center gap-4">
-                                        <Image src={crypto.icon} alt={`${crypto.name} logo`} width={40} height={40} />
-                                        <span className="text-lg font-medium text-foreground">{crypto.name}</span>
-                                    </div>
-                                    <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
-                                </ListItem>
-                            </Link>
-                          </motion.div>
+                          <Link key={crypto.id} href={`/payment?plan=${encodeURIComponent(planName)}&crypto=${crypto.id}`}>
+                              <div className="group relative rounded-lg border bg-background/50 p-4 hover:shadow-glow cursor-pointer transition-all">
+                                  <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-4">
+                                          <Image src={crypto.icon} alt={crypto.name} width={40} height={40} />
+                                          <span className="text-lg font-medium">{crypto.name}</span>
+                                      </div>
+                                      <ChevronRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                                  </div>
+                              </div>
+                          </Link>
                        )
                     })}
-                  </motion.div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
         </div>
       </main>
-
       <Footer />
     </div>
   );

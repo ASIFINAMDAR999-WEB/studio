@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       boxShadow: {
-        glow: '0 0 25px 3px hsl(var(--primary) / 0.6)',
+        glow: '0 0 35px 5px hsl(var(--primary) / 0.7)',
       },
       textShadow: {
         glow: '0 0 8px hsl(var(--primary) / 0.5), 0 0 20px hsl(var(--accent) / 0.5)',

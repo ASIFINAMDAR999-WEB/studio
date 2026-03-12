@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -25,22 +26,10 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
   }, []);
 
   if (!RECAPTCHA_SITE_KEY) {
-    if (process.env.NODE_ENV === 'production') {
-        return (
-            <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold text-destructive">Login Unavailable</h2>
-                <p className="mt-2 text-muted-foreground">
-                    The reseller portal is temporarily unavailable. Please try again later.
-                </p>
-            </div>
-        );
-    }
     return (
         <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold text-destructive">reCAPTCHA Not Configured</h2>
-            <p className="mt-2 text-muted-foreground">
-                Please add your reCAPTCHA v2 Site Key to your environment variables as <code>NEXT_PUBLIC_RECAPTCHA_SITE_KEY</code>.
-            </p>
+            <h2 className="text-xl font-bold text-destructive">Access Denied</h2>
+            <p className="mt-2 text-muted-foreground">The reseller portal is temporarily offline.</p>
         </div>
     );
   }
@@ -48,34 +37,25 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
   const cardVariants = {
     hidden: { opacity: 0, y: 50, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
-    shaking: {
-      x: [-10, 10, -10, 10, 0],
-      transition: { duration: 0.5 },
-    }
+    shaking: { x: [-10, 10, -10, 10, 0], transition: { duration: 0.5 } }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (code.length < 5 || isLoading || !recaptchaToken) return;
-
     setIsLoading(true);
     setError(null);
-
     try {
       const response = await fetch('/api/validate-reseller-code', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code, recaptchaToken }),
       });
-
       const data = await response.json();
-
       if (response.ok && data.success) {
         onSuccess();
       } else {
-        setError(data.error || 'Invalid code. Please try again.');
+        setError(data.error || 'Invalid reseller code.');
         setIsShaking(true);
         setTimeout(() => setIsShaking(false), 500);
         setCode('');
@@ -83,15 +63,11 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
         setRecaptchaToken(null);
       }
     } catch (err) {
-      setError('Failed to connect to the server. Please try again later.');
+      setError('Connection failed.');
     } finally {
       setIsLoading(false);
     }
   };
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  }
 
   return (
     <motion.div
@@ -100,111 +76,41 @@ export function ResellerLoginScreen({ onSuccess }: { onSuccess: () => void }) {
       animate={isShaking ? "shaking" : "visible"}
       initial="hidden"
       exit={{ opacity: 0, y: -50 }}
-      role="region"
-      aria-labelledby="reseller-access-heading"
     >
-      <div className="relative rounded-2xl shadow-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-primary/30 transform-gpu transition-all duration-500 ease-out shadow-glow">
+      <div className="relative rounded-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border border-primary/40 transform-gpu transition-all shadow-glow">
         <div className="p-8 md:p-12">
-          <h2 id="reseller-access-heading" className="text-2xl md:text-3xl font-bold text-center text-foreground mb-6">
-            Reseller Access
-          </h2>
-
-           <div className="bg-primary/10 border-l-4 border-primary text-primary-foreground p-4 rounded-md mb-6" role="alert">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">Reseller Access</h2>
+           <div className="bg-primary/10 border-l-4 border-primary p-4 rounded-md mb-6">
                 <div className="flex">
                     <Info className="h-5 w-5 mr-3 flex-shrink-0 text-primary" />
-                    <div>
-                        <p className="font-bold text-foreground">Under Development</p>
-                        <p className="text-sm text-muted-foreground">The reseller portal is launching soon. Stay tuned!</p>
-                    </div>
+                    <div><p className="font-bold">Under Development</p><p className="text-sm">Launching soon. Stay tuned!</p></div>
                 </div>
             </div>
-
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="relative">
-               <label htmlFor="reseller-access-code" className="sr-only">Reseller Access Code</label>
               <input
                 ref={inputRef}
                 type={isPasswordVisible ? 'text' : 'password'}
-                id="reseller-access-code"
                 value={code}
-                onChange={(e) => {
-                  setCode(e.target.value);
-                  if (error) setError(null);
-                }}
-                disabled={isLoading}
+                onChange={(e) => setCode(e.target.value)}
                 className={cn(
-                  'block w-full px-4 pr-12 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all duration-300',
-                  'focus:outline-none focus:ring-4 focus:ring-primary/20',
-                  error
-                    ? 'border-destructive focus:border-destructive'
-                    : 'border-muted-foreground/30 focus:border-primary'
+                  'block w-full px-4 pr-12 py-3 text-lg bg-background/50 rounded-lg border-2 transition-all',
+                  error ? 'border-destructive' : 'border-muted-foreground/30 focus:border-primary'
                 )}
-                placeholder="Enter reseller code"
-                aria-label="Reseller access code input"
-                aria-invalid={!!error}
-                aria-describedby={error ? "error-message" : undefined}
+                placeholder="Reseller Code"
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={isPasswordVisible ? 'Hide code' : 'Show code'}
-              >
+              <button type="button" onClick={() => setIsPasswordVisible(!isPasswordVisible)} className="absolute inset-y-0 right-0 pr-4 text-muted-foreground">
                 {isPasswordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
-
             <div className="flex justify-center">
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={(token) => setRecaptchaToken(token)}
-                onExpired={() => setRecaptchaToken(null)}
-                theme={theme === 'dark' ? 'dark' : 'light'}
-              />
+              <ReCAPTCHA ref={recaptchaRef} sitekey={RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} theme={theme === 'dark' ? 'dark' : 'light'} />
             </div>
-
-            <motion.button
-              type="submit"
-              disabled={code.length < 5 || isLoading || !recaptchaToken}
-              className={cn(
-                'w-full text-lg font-bold py-4 px-6 rounded-lg text-white transition-all duration-300 overflow-hidden relative group/button transform-gpu',
-                'bg-gradient-to-r from-primary to-accent',
-                'disabled:opacity-50 disabled:cursor-not-allowed',
-                'hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1',
-                'focus:outline-none focus:ring-4 focus:ring-primary/50'
-              )}
-              whileTap={{ scale: 0.98 }}
-              aria-live="polite"
-            >
-              <span className="absolute inset-0 bg-black/10 opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></span>
-              <span className="relative">
-                 {isLoading ? (
-                    <div className="flex items-center justify-center">
-                    <Loader2 className="mr-2 h-6 w-6 animate-spin" />
-                    <span>Validating...</span>
-                    </div>
-                ) : (
-                    'Continue'
-                )}
-              </span>
-            </motion.button>
+            <Button type="submit" disabled={code.length < 5 || isLoading || !recaptchaToken} className="w-full py-6 text-lg bg-gradient-to-r from-primary to-accent">
+              {isLoading ? <Loader2 className="animate-spin h-6 w-6" /> : 'Continue'}
+            </Button>
           </form>
-
-          <AnimatePresence>
-            {error && (
-              <motion.p
-                id="error-message"
-                role="alert"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-destructive text-center mt-4 font-medium"
-              >
-                {error}
-              </motion.p>
-            )}
-          </AnimatePresence>
+          <AnimatePresence>{error && <motion.p className="text-destructive text-center mt-4">{error}</motion.p>}</AnimatePresence>
         </div>
       </div>
     </motion.div>
