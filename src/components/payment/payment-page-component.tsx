@@ -1,11 +1,10 @@
-
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, PenSquare, Gift, Copy, RefreshCw, Tag, X, Clock, KeySquare, Bot } from 'lucide-react';
+import { Check, Clipboard, Wallet, AlertTriangle, Send, ShieldCheck, ArrowLeft, SquarePen, Gift, Copy, RefreshCw, Tag, X, Clock, KeySquare, Bot } from 'lucide-react';
 import { plans, cryptoDetails } from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
 import { Header } from '@/components/layout/header';
@@ -240,7 +239,7 @@ export function PaymentPageComponent() {
 
   const instructions = [
     { icon: <Wallet className="h-5 w-5 text-primary" />, text: <>Send the <span className="font-bold text-foreground">EXACT amount</span> to the address provided.</> },
-    { icon: <PenSquare className="h-5 w-5 text-primary" />, text: "After payment, send the transaction screenshot or payment details to the admin." },
+    { icon: <SquarePen className="h-5 w-5 text-primary" />, text: "After payment, send the transaction screenshot or payment details to the admin." },
     { icon: <Send className="h-5 w-5 text-primary" />, text: <>Contact the admin on Telegram: <a href="https://t.me/CSG555" target="_blank" rel="noopener noreferrer" className="font-bold text-foreground hover:underline">@CSG555</a></> },
     { icon: <KeySquare className="h-5 w-5 text-primary" />, text: "The admin will set up your account and provide you with an access code." },
     { icon: <Bot className="h-5 w-5 text-primary" />, text: "Your Telegram bot access will be activated by the admin." },
@@ -624,5 +623,3 @@ export function PaymentPageComponent() {
     </div>
   );
 }
-
-    

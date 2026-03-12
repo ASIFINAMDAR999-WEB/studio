@@ -1,9 +1,8 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, PenSquare, PhoneForwarded, Mails } from 'lucide-react';
+import { Phone, Settings, ChevronDown, X, Clock, History, Mic, MicOff, Volume2, Grid2x2, PhoneOff, Award, ContactRound, Mail, MessageSquare, Contact, Check, Copy, Eye, EyeOff, SquarePen, PhoneForwarded, Mails } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,8 +28,6 @@ type CallStatus = 'idle' | 'calling' | 'connected' | 'ended' | 'no-answer';
 interface DialerScreenProps {
   planName: string;
 }
-
-const dtmfSounds: { [key: string]: HTMLAudioElement } = {};
 
 const triggerHapticFeedback = (pattern: number | number[] = 5) => {
   if (typeof window !== 'undefined' && window.navigator && 'vibrate' in window.navigator) {
@@ -346,9 +343,6 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
     exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
   };
   
-  const sipModalContainerVariants = { visible: { transition: { staggerChildren: 0.1 } } };
-  const sipModalItemVariants = { hidden: { y: 10, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 100 } } };
-
   const InCallButton = ({ children, onClick, text, active, 'aria-label': ariaLabel }: { children: React.ReactNode, onClick?: () => void, text: string, active?: boolean, 'aria-label'?: string }) => (
     <div className="flex flex-col items-center gap-2">
       <motion.button
@@ -490,7 +484,7 @@ export const DialerScreen: React.FC<DialerScreenProps> = ({ planName }) => {
                     <span className="text-muted-foreground">Caller ID:</span>
                     <span className="text-foreground font-semibold">{callerId || "Not set"}</span>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 group" onClick={handleOpenCallerIdModal}><PenSquare className="h-4 w-4 text-muted-foreground group-hover:text-primary" /></Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 group" onClick={handleOpenCallerIdModal}><SquarePen className="h-4 w-4 text-muted-foreground group-hover:text-primary" /></Button>
                 </div>
                 {isCallForwardingEnabled && forwardingNumber && (
                     <div className="flex justify-between items-center text-sm pt-3 border-t">
