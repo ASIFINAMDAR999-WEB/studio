@@ -20,6 +20,7 @@ export function PricingSection() {
     if (silverUnlocked) setShowSilver(true);
   }, []);
 
+  // Filter out plans that should only be visible via custom codes
   const subscriptionPlans = plans.filter(p => !p.priceOptions && !p.isCustom);
   const customPlan = plans.find(p => p.isCustom);
   const topUpPlan = plans.find(p => p.priceOptions);
@@ -34,7 +35,7 @@ export function PricingSection() {
            </p>
         </div>
         
-        {/* Subscription Plans */}
+        {/* Main Subscription Plans */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-start justify-center">
           {subscriptionPlans.map((plan, i) => (
             <div key={plan.name} className="animate-in fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
@@ -42,7 +43,7 @@ export function PricingSection() {
             </div>
           ))}
           
-          {/* Conditional Platinum 15 Days Plan */}
+          {/* Conditional Platinum 15 Days Plan - Hidden until code is entered */}
           {showPlatinum15 && customPlan && (
             <motion.div 
               key={customPlan.name} 
@@ -56,7 +57,7 @@ export function PricingSection() {
           )}
         </div>
 
-        {/* Conditional Silver Plan (Top-up) */}
+        {/* Conditional Silver Plan (Top-up) - Hidden until code is entered */}
         {showSilver && topUpPlan && (
           <>
             <div className="my-16 animate-in fade-in-up" style={{animationDelay: '600ms'}}>

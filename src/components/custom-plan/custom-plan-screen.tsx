@@ -32,7 +32,7 @@ export function CustomPlanScreen() {
 
   if (!RECAPTCHA_SITE_KEY) {
     return (
-        <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg">
+        <div className="w-full max-w-md p-8 text-center bg-card rounded-lg shadow-lg border border-destructive/20 shadow-destructive/10">
             <h2 className="text-xl font-bold text-destructive">Service Unavailable</h2>
             <p className="mt-2 text-muted-foreground">The custom plan portal is currently down.</p>
         </div>
