@@ -52,8 +52,8 @@ export function PricingSection() {
           )}
         </div>
 
-        {/* Top-up Plan */}
-        {topUpPlan && (
+        {/* Top-up Plan (Silver Plan) - Hidden by default, appears with custom code */}
+        {showCustomPlan && topUpPlan && (
           <>
             <div className="my-16 animate-in fade-in-up" style={{animationDelay: '600ms'}}>
               <Separator />
