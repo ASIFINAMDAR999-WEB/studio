@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -57,8 +58,17 @@ export function CustomPlanScreen() {
       });
       const data = await response.json();
       if (response.ok && data.success && data.custom) {
-        localStorage.setItem('customPlanUnlocked', 'true');
-        toast({ title: 'Success!', description: 'Custom plan unlocked!' });
+        // Handle specific unlocks
+        if (data.unlockType === 'all') {
+            localStorage.setItem('platinum15Unlocked', 'true');
+            localStorage.setItem('silverUnlocked', 'true');
+        } else if (data.unlockType === 'platinum15') {
+            localStorage.setItem('platinum15Unlocked', 'true');
+        } else if (data.unlockType === 'silver') {
+            localStorage.setItem('silverUnlocked', 'true');
+        }
+        
+        toast({ title: 'Success!', description: 'Exclusive plans unlocked!' });
         router.push('/#pricing');
       } else {
         setError(data.error || 'Invalid code.');
@@ -83,7 +93,7 @@ export function CustomPlanScreen() {
       initial="hidden"
       exit={{ opacity: 0, y: -50 }}
     >
-      <div className="relative rounded-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border-2 border-primary/40 transform-gpu transition-all shadow-glow">
+      <div className="relative rounded-2xl bg-card/60 dark:bg-card/40 backdrop-blur-xl border-2 border-primary/40 shadow-glow transform-gpu transition-all">
         <div className="p-8 md:p-12">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 flex items-center justify-center gap-3">
                 <Gift className="h-8 w-8 text-primary" /> Unlock Plan

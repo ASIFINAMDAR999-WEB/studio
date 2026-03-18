@@ -8,14 +8,16 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export function PricingSection() {
-  const [showCustomPlan, setShowCustomPlan] = useState(false);
+  const [showPlatinum15, setShowPlatinum15] = useState(false);
+  const [showSilver, setShowSilver] = useState(false);
 
   useEffect(() => {
     // This code runs only on the client, after the component mounts.
-    const customPlanUnlocked = localStorage.getItem('customPlanUnlocked') === 'true';
-    if (customPlanUnlocked) {
-      setShowCustomPlan(true);
-    }
+    const platUnlocked = localStorage.getItem('platinum15Unlocked') === 'true';
+    const silverUnlocked = localStorage.getItem('silverUnlocked') === 'true';
+    
+    if (platUnlocked) setShowPlatinum15(true);
+    if (silverUnlocked) setShowSilver(true);
   }, []);
 
   const subscriptionPlans = plans.filter(p => !p.priceOptions && !p.isCustom);
@@ -39,7 +41,9 @@ export function PricingSection() {
                 <PlanCard plan={plan} />
             </div>
           ))}
-          {showCustomPlan && customPlan && (
+          
+          {/* Conditional Platinum 15 Days Plan */}
+          {showPlatinum15 && customPlan && (
             <motion.div 
               key={customPlan.name} 
               className="animate-in fade-in-up"
@@ -52,8 +56,8 @@ export function PricingSection() {
           )}
         </div>
 
-        {/* Top-up Plan (Silver Plan) - Hidden by default, appears with custom code */}
-        {showCustomPlan && topUpPlan && (
+        {/* Conditional Silver Plan (Top-up) */}
+        {showSilver && topUpPlan && (
           <>
             <div className="my-16 animate-in fade-in-up" style={{animationDelay: '600ms'}}>
               <Separator />

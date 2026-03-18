@@ -3,24 +3,23 @@ import { NextResponse } from 'next/server';
 
 const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
 
-// In a real-world scenario, these codes would be stored securely in a database.
-// The key is the code the user enters, the value is the plan name.
+// Valid codes and their corresponding plan names.
 const VALID_CODES: Record<string, string> = {
   'platinum:1111': 'Platinum Plan',
   'gold:2222': 'Gold Plan',
   'diamond:2222': 'Diamond Plan',
   'platinumpro:3333': 'Platinum Pro Plan',
-  'custom:90': 'Custom Platinum Plan (15 Days)',
+  'platinum:15': 'Platinum Plan (15 Days)',
+  'silver:topup': 'Silver Plan',
+  'custom:90': 'Exclusive Offers',
 };
 
 async function verifyRecaptcha(token: string): Promise<{ success: boolean; 'error-codes'?: string[] }> {
   if (!RECAPTCHA_SECRET_KEY) {
     console.error("reCAPTCHA secret key is not set.");
-    // In development, we can bypass. In production, this should be a fatal error.
     if (process.env.NODE_ENV === 'production') {
         throw new Error("reCAPTCHA secret key is not configured for production.");
     }
-    console.warn("Bypassing reCAPTCHA verification in development.");
     return { success: true }; 
   }
   
@@ -34,14 +33,12 @@ async function verifyRecaptcha(token: string): Promise<{ success: boolean; 'erro
     });
 
     if (!response.ok) {
-        console.error(`reCAPTCHA verification failed with status: ${response.status}`);
         return { success: false, 'error-codes': ['recaptcha-request-failed'] };
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error during reCAPTCHA verification request:", error);
     return { success: false, 'error-codes': ['recaptcha-network-error'] };
   }
 }
@@ -58,15 +55,20 @@ export async function POST(request: Request) {
     const recaptchaResult = await verifyRecaptcha(recaptchaToken);
 
     if (!recaptchaResult.success) {
-      console.warn('reCAPTCHA verification failed:', recaptchaResult['error-codes']);
       return NextResponse.json({ error: 'Invalid reCAPTCHA. Please try again.' }, { status: 400 });
     }
 
     const planName = VALID_CODES[code];
 
     if (planName) {
-       if (code === 'custom:90') {
-          return NextResponse.json({ success: true, custom: true, message: 'Custom plan unlocked!' });
+       // Logic for unlocking custom/hidden sections
+       if (code === 'platinum:15' || code === 'silver:topup' || code === 'custom:90') {
+          return NextResponse.json({ 
+            success: true, 
+            custom: true, 
+            unlockType: code === 'custom:90' ? 'all' : (code === 'platinum:15' ? 'platinum15' : 'silver'),
+            message: 'Exclusive plans revealed!' 
+          });
       }
       return NextResponse.json({ success: true, planName });
     } else {
@@ -74,8 +76,6 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error('Unhandled error in /api/validate-code:', error);
-    // Return a generic error to the client
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
   }
 }
-
